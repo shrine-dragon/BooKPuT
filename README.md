@@ -168,6 +168,18 @@ rbenvのバージョン → 1.1.2
 # テーブル設計
 
 ## users テーブル
+|         Column         |   Type  |          Options          |
+|------------------------|---------|---------------------------|
+|        nickname        |  string |       null: false         |
+|        birth_day       |   date  |       null: false         |
+|        gender_id       | integer |       null: false         |
+|          email         |  string | null: false, unique: true |
+|   encrypted_password   |  string |       null: false         |
+
+### Association
+
+- has_many :books
+- has_many :comments
 
 ### Association
 
