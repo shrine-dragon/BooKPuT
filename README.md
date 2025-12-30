@@ -210,3 +210,27 @@ rbenvのバージョン → 1.1.2
 
 - belongs_to :user
 - belongs_to :book
+
+## highRatingsテーブル
+
+| Column |    Type    |            Options             |
+|--------|------------|--------------------------------|
+|  user  | references | null: false, foreign_key: true |
+|  book  | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :user
+- belongs_to :book
+
+## favoritesテーブル
+
+| Column |    Type    |            Options             |
+|--------|------------|--------------------------------|
+|  user  | references | null: false, foreign_key: true |
+|  book  | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :user
+- belongs_to :book
