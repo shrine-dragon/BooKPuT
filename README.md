@@ -178,8 +178,8 @@ rbenvのバージョン → 1.1.2
 
 ### Association
 
-- has_many :books
-- has_many :comments
+has_many :books
+has_many :comments
 
 ### Association
 
