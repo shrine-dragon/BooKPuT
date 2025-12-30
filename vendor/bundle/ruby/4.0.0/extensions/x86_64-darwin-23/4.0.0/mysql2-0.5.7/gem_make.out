@@ -1,0 +1,73 @@
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/mysql2-0.5.7/ext/mysql2
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/bin/ruby extconf.rb --with-mysql-config\=/usr/local/opt/mysql@5.6/bin/mysql_config --with-ldflags\=-L/usr/local/opt/openssl/lib --with-cppflags\=-I/usr/local/opt/openssl/include
+checking for rb_absint_size()... yes
+checking for rb_absint_singlebit_p()... yes
+checking for rb_gc_mark_movable()... yes
+checking for rb_wait_for_single_fd()... yes
+checking for rb_enc_interned_str() in ruby.h... yes
+-----
+Using --with-openssl-dir=/usr/local/opt/openssl@3
+-----
+/usr/local/bin/brew
+-----
+Using mysql_config at /usr/local/opt/mysql@5.6/bin/mysql_config
+-----
+checking for mysql.h... yes
+checking for errmsg.h... yes
+checking for SSL_MODE_DISABLED in mysql.h... no
+checking for MYSQL_OPT_SSL_VERIFY_SERVER_CERT in mysql.h... yes
+checking for MYSQL_OPT_SSL_ENFORCE in mysql.h... no
+checking for MYSQL.net.vio in mysql.h... yes
+checking for MYSQL.net.pvio in mysql.h... no
+checking for MYSQL_DEFAULT_AUTH in mysql.h... yes
+checking for MYSQL_ENABLE_CLEARTEXT_PLUGIN in mysql.h... yes
+checking for SERVER_QUERY_NO_GOOD_INDEX_USED in mysql.h... yes
+checking for SERVER_QUERY_NO_INDEX_USED in mysql.h... yes
+checking for SERVER_QUERY_WAS_SLOW in mysql.h... yes
+checking for MYSQL_OPTION_MULTI_STATEMENTS_ON in mysql.h... yes
+checking for MYSQL_OPTION_MULTI_STATEMENTS_OFF in mysql.h... yes
+checking for MYSQL_OPT_GET_SERVER_PUBLIC_KEY in mysql.h... no
+checking for my_bool in mysql.h... yes
+checking for mysql_ssl_set() in mysql.h... yes
+-----
+Setting rpath to /usr/local/opt/mysql@5.6/lib
+-----
+creating Makefile
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/mysql2-0.5.7/ext/mysql2
+make -j5 DESTDIR\= sitearchdir\=./.gem.20251230-90033-l5q6wu sitelibdir\=./.gem.20251230-90033-l5q6wu clean
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/mysql2-0.5.7/ext/mysql2
+make -j5 DESTDIR\= sitearchdir\=./.gem.20251230-90033-l5q6wu sitelibdir\=./.gem.20251230-90033-l5q6wu
+compiling client.c
+compiling infile.c
+compiling mysql2_ext.c
+compiling result.c
+compiling statement.c
+result.c:389:12: warning: case value not in enumerated type 'enum enum_field_types' [-Wswitch]
+      case MYSQL_TYPE_VECTOR:       // vector
+           ^
+result.c:31:27: note: expanded from macro 'MYSQL_TYPE_VECTOR'
+#define MYSQL_TYPE_VECTOR 242
+                          ^
+result.c:386:12: warning: case value not in enumerated type 'enum enum_field_types' [-Wswitch]
+      case MYSQL_TYPE_JSON:         // json
+           ^
+result.c:35:25: note: expanded from macro 'MYSQL_TYPE_JSON'
+#define MYSQL_TYPE_JSON 245
+                        ^
+result.c:308:35: warning: implicit conversion loses integer precision: 'unsigned long' to 'int' [-Wshorten-64-to-32]
+        precision = field->length - (field->decimals > 0 ? 2 : 1);
+                  ~ ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+3 warnings generated.
+linking shared-object mysql2/mysql2.bundle
+ld: warning: directory not found for option '-L/usr/local/opt/zstd/lib'
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libssl.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libcrypto.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/mysql2-0.5.7/ext/mysql2
+make -j5 DESTDIR\= sitearchdir\=./.gem.20251230-90033-l5q6wu sitelibdir\=./.gem.20251230-90033-l5q6wu install
+/usr/bin/install -c -m 0755 mysql2.bundle ./.gem.20251230-90033-l5q6wu/mysql2
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/mysql2-0.5.7/ext/mysql2
+make DESTDIR\= sitearchdir\=./.gem.20251230-90033-l5q6wu sitelibdir\=./.gem.20251230-90033-l5q6wu clean

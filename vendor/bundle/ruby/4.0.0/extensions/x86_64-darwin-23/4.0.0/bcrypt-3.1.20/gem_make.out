@@ -1,0 +1,33 @@
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/bcrypt-3.1.20/ext/mri
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/bcrypt-3.1.20/ext/mri
+make -j5 DESTDIR\= sitearchdir\=./.gem.20251230-90033-oavgvi sitelibdir\=./.gem.20251230-90033-oavgvi clean
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/bcrypt-3.1.20/ext/mri
+make -j5 DESTDIR\= sitearchdir\=./.gem.20251230-90033-oavgvi sitelibdir\=./.gem.20251230-90033-oavgvi
+compiling bcrypt_ext.c
+compiling crypt_blowfish.c
+clang  -D__SKIP_GNU -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -c -o x86.o x86.S
+compiling crypt_gensalt.c
+compiling wrapper.c
+wrapper.c:182:60: warning: declaration of 'struct crypt_data' will not be visible outside of this function [-Wvisibility]
+char *crypt_r(const char *key, const char *setting, struct crypt_data *data)
+                                                           ^
+1 warning generated.
+bcrypt_ext.c:41:38: warning: implicit conversion loses integer precision: 'long' to 'int' [-Wshorten-64-to-32]
+    args.size   = NIL_P(input) ? 0 : RSTRING_LEN(input);
+                ~                    ^~~~~~~~~~~~~~~~~~
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rstring.h:46:27: note: expanded from macro 'RSTRING_LEN'
+#define RSTRING_LEN       RSTRING_LEN
+                          ^
+1 warning generated.
+linking shared-object bcrypt_ext.bundle
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/bcrypt-3.1.20/ext/mri
+make -j5 DESTDIR\= sitearchdir\=./.gem.20251230-90033-oavgvi sitelibdir\=./.gem.20251230-90033-oavgvi install
+/usr/bin/install -c -m 0755 bcrypt_ext.bundle ./.gem.20251230-90033-oavgvi
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/bcrypt-3.1.20/ext/mri
+make DESTDIR\= sitearchdir\=./.gem.20251230-90033-oavgvi sitelibdir\=./.gem.20251230-90033-oavgvi clean

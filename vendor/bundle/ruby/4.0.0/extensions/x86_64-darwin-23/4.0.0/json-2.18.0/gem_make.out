@@ -1,0 +1,25 @@
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/json-2.18.0/ext/json/ext/parser
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/bin/ruby extconf.rb
+checking for rb_enc_interned_str() in ruby/encoding.h... yes
+checking for rb_str_to_interned_str() in ruby.h... yes
+checking for rb_hash_new_capa() in ruby.h... yes
+checking for rb_hash_bulk_insert() in ruby.h... yes
+checking for whether -std=c99 is accepted as CFLAGS... yes
+checking for x86intrin.h... yes
+checking for cpuid.h... yes
+creating Makefile
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/json-2.18.0/ext/json/ext/parser
+make -j5 DESTDIR\= sitearchdir\=./.gem.20251230-90033-gkg6ok sitelibdir\=./.gem.20251230-90033-gkg6ok clean
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/json-2.18.0/ext/json/ext/parser
+make -j5 DESTDIR\= sitearchdir\=./.gem.20251230-90033-gkg6ok sitelibdir\=./.gem.20251230-90033-gkg6ok
+compiling parser.c
+linking shared-object json/ext/parser.bundle
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/json-2.18.0/ext/json/ext/parser
+make -j5 DESTDIR\= sitearchdir\=./.gem.20251230-90033-gkg6ok sitelibdir\=./.gem.20251230-90033-gkg6ok install
+/usr/bin/install -c -m 0755 parser.bundle ./.gem.20251230-90033-gkg6ok/json/ext
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/json-2.18.0/ext/json/ext/parser
+make DESTDIR\= sitearchdir\=./.gem.20251230-90033-gkg6ok sitelibdir\=./.gem.20251230-90033-gkg6ok clean
