@@ -181,3 +181,32 @@ rbenvのバージョン → 1.1.2
 
 - has_many :books
 - has_many :comments
+
+## booksテーブル
+
+|       Column       |    Type    |            Options             |
+|--------------------|------------|--------------------------------|
+|        title       |   string   |          null: false           |
+|     category_id    |   integer  |          null: false           |
+|       content      |    text    |          null: false           |
+|        user        | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :user
+- has_many   :comments
+- has_many :highRatings
+- has_many :favorites
+
+## commentsテーブル
+
+| Column |    Type    |            Options             |
+|--------|------------|--------------------------------|
+|  text  |    text    |          null: false           |
+|  user  | references | null: false, foreign_key: true |
+|  book  | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :user
+- belongs_to :book
