@@ -185,4 +185,4 @@ rbenvのバージョン → 1.1.2
 
 ## favoritesテーブル（お気に入り）
 
-### Associationaws_secret_access_key = ABcDe1F2hIjkl3nop45sTUv6XYz7aBcDEFghIJKL
+### Association
