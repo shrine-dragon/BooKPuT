@@ -1,0 +1,18 @@
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/racc-1.8.1/ext/racc/cparse
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/racc-1.8.1/ext/racc/cparse
+make -j5 DESTDIR\= sitearchdir\=./.gem.20251230-80994-u12ihs sitelibdir\=./.gem.20251230-80994-u12ihs clean
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/racc-1.8.1/ext/racc/cparse
+make -j5 DESTDIR\= sitearchdir\=./.gem.20251230-80994-u12ihs sitelibdir\=./.gem.20251230-80994-u12ihs
+compiling cparse.c
+linking shared-object racc/cparse.bundle
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/racc-1.8.1/ext/racc/cparse
+make -j5 DESTDIR\= sitearchdir\=./.gem.20251230-80994-u12ihs sitelibdir\=./.gem.20251230-80994-u12ihs install
+/usr/bin/install -c -m 0755 cparse.bundle ./.gem.20251230-80994-u12ihs/racc
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20251230-80994-u12ihs sitelibdir\=./.gem.20251230-80994-u12ihs clean

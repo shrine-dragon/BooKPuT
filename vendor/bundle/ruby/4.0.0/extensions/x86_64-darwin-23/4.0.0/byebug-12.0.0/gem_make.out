@@ -1,0 +1,1779 @@
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/byebug-12.0.0/ext/byebug
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/byebug-12.0.0/ext/byebug
+make -j5 DESTDIR\= sitearchdir\=./.gem.20251230-80994-7lddtj sitelibdir\=./.gem.20251230-80994-7lddtj clean
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/byebug-12.0.0/ext/byebug
+make -j5 DESTDIR\= sitearchdir\=./.gem.20251230-80994-7lddtj sitelibdir\=./.gem.20251230-80994-7lddtj
+compiling breakpoint.c
+compiling byebug.c
+compiling context.c
+compiling locker.c
+compiling threads.c
+breakpoint.c:35:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  Data_Get_Struct(self, breakpoint_t, breakpoint);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:127:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: byebug.c:266:3: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+breakpoint.c:50:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  Data_Get_Struct(self, breakpoint_t, breakpoint);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:128:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  EVENT_SETUP;
+  ^
+byebug.c:150:3: note: expanded from macro 'EVENT_SETUP'
+  Data_Get_Struct(context, debug_context_t, dc);                 \
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:127:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: byebug.c:307:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  EVENT_SETUP;
+  ^
+byebug.c:150:3: note: expanded from macro 'EVENT_SETUP'
+expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+  Data_Get_Struct(context, debug_context_t, dc);                 \breakpoint.c:66:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  Data_Get_Struct(self, breakpoint_t, breakpoint);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35:
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+ note: expanded from macro 'RUBY_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note:     ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))expanded from macro 'RBIMPL_MACRO_SELECT'
+                                 ^
+
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:129:1: note: expanded from here
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+noterb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+: #define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+(skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## ybreakpoint.c:82:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+
+  Data_Get_Struct(self, breakpoint_t, breakpoint);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'                                  ^
+
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+<scratch space>:#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+128#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+:#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+1<scratch space>:130:1: note: expanded from here
+:rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+ #define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+noteRBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+:     ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+expanded from here# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: notebreakpoint.c:99:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+:   Data_Get_Struct(self, breakpoint_t, breakpoint);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+expanded from macro 'rb_data_object_get_1'    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:131:1: note: expanded from here
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+rb_data_object_get_1/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:
+^1
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h::368:31: note: expanded from macro 'rb_data_object_get_1'
+ note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+#define rb_data_object_get_1  rb_data_object_get_warningRBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:
+47                              ^:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+byebug.c:340:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  EVENT_SETUP;
+  ^
+byebug.c:150:3: note: expanded from macro 'EVENT_SETUP'
+  Data_Get_Struct(context, debug_context_t, dc);                 \
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:129:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+breakpoint.c:130:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  Data_Get_Struct(self, breakpoint_t, breakpoint);
+byebug.c:391:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  EVENT_SETUP;
+  ^
+byebug.c:150:3: note: expanded from macro 'EVENT_SETUP'
+  ^
+  Data_Get_Struct(context, debug_context_t, dc);                 \
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+278#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>::130:1: note: expanded from here
+34rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+: #define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+note    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+: expanded from macro 'Data_Get_Struct'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+                                                    ^
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:132:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+byebug.c:410:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  EVENT_SETUP;
+  ^
+byebug.c:150:3: note: expanded from macro 'EVENT_SETUP'
+breakpoint.c:162:  Data_Get_Struct(context, debug_context_t, dc);                 \
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  Data_Get_Struct(self, breakpoint_t, breakpoint);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))34
+                                 ^:
+ note: /Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31expanded from macro 'Data_Get_Struct'
+: note: expanded from macro 'rb_data_object_get'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+                              ^#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:133:1: note: expanded from here
+rb_data_object_get_1
+
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+note#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note:: expanded from macro 'RBIMPL_MACRO_SELECT'317
+:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>RBIMPL_ATTRSET_UNTYPED_DATA_FUNC():131:1: note: expanded from here
+rb_data_object_get_1
+
+^
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31:/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h :note47: :expanded from macro 'rb_data_object_get_1'5: note: 
+expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))#define rb_data_object_get_1  rb_data_object_get_warning
+
+    ^                              ^
+
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53:/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h :note: 317expanded from macro 'RBIMPL_ATTR_DEPRECATED':
+1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5
+                                                    ^
+: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+breakpoint.c:178:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  Data_Get_Struct(self, breakpoint_t, breakpoint);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:134:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+byebug.c# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg)):
+420                                                    ^:
+3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  EVENT_SETUP;
+  ^
+byebug.c:150:3: note: expanded from macro 'EVENT_SETUP'
+  Data_Get_Struct(context, debug_context_t, dc);                 \
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31:breakpoint.c:194: note: expanded from macro 'rb_data_object_get'
+3:#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
+ /Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.hwarning:: 49:'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]35
+: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y  Data_Get_Struct(self, breakpoint_t, breakpoint);
+
+                                  ^  ^
+<scratch space>:132
+:1: note: expanded from here
+rb_data_object_get_1
+^/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:
+278:/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:34: note: expanded from macro 'Data_Get_Struct'
+368    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+:31#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: : note: expanded from macro 'rb_data_object_get_1'
+note: #define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+expanded from macro 'RUBY_MACRO_SELECT'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:
+5#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+:                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+ #define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:135:1: note: expanded from here
+noterb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+: #define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53:breakpoint.c:210: note3: warning: : 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  Data_Get_Struct(self, breakpoint_t, breakpoint);
+expanded from macro 'RBIMPL_ATTR_DEPRECATED'  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:byebug.c:436:3: warning49:: 35: note'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  EVENT_SETUP;
+:   ^
+byebug.c:150:3: note: expanded from macro 'EVENT_SETUP'
+expanded from macro 'RBIMPL_MACRO_SELECT'
+  Data_Get_Struct(context, debug_context_t, dc);                 \
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+                                  ^#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:
+133<scratch space>:136:1: :1: note: expanded from here
+noterb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+: #define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+expanded from hereRBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h
+:rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31:47:5: note:  note: expanded from macro 'rb_data_object_get_1'
+expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5:    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53:  note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+note    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+36:# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+breakpoint.c:226byebug.c:445::5: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+3    Data_Get_Struct(pm_context, debug_context_t, new_dc);
+    ^: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+
+  Data_Get_Struct(self, breakpoint_t, breakpoint);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+278#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+:#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:137:1: 34:note: expanded from here note
+: rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.hexpanded from macro 'Data_Get_Struct'
+:368:31: note: expanded from macro 'rb_data_object_get_1'    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:134:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h#define rb_data_object_get_1  rb_data_object_get_warning
+:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+                              ^RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5
+:/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+:     RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+'rb_data_object_get_warning' has been explicitly marked deprecated here# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))breakpoint.c:244:3: warning
+    ^: 
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+:   Data_Get_Struct(self, breakpoint_t, breakpoint);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+34:# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+ note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:138:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+breakpoint.c:260:10: warning: 'rb_data_object_wrap_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  return Data_Wrap_Struct(klass, mark_breakpoint, xfree, breakpoint);
+         ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:202:5: note: expanded from macro 'Data_Wrap_Struct'
+    rb_data_object_wrap(                          \
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:366:31: notebyebug.c:571:3: warning: expanded from macro 'rb_data_object_wrap': 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+
+  Data_Get_Struct(threads, threads_table_t, t_tbl);
+  ^
+#define rb_data_object_wrap   RUBY_MACRO_SELECT(rb_data_object_wrap_2, RUBY_UNTYPED_DATA_WARNING)/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h
+:                              ^278
+:34: /Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.hnote:: 50expanded from macro 'Data_Get_Struct':
+35: note: expanded from macro 'RUBY_MACRO_SELECT'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h
+:                                  ^370
+:31: note: /Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.hexpanded from macro 'rb_data_object_get':
+49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^<scratch space>
+:139:/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:1: note: expanded from here35: note: 
+expanded from macro 'RUBY_MACRO_SELECT'
+rb_data_object_wrap_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:364:31: note: expanded from macro 'rb_data_object_wrap_1'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)#define rb_data_object_wrap_1 rb_data_object_wrap_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:280:1: note: 'rb_data_object_wrap_warning' has been explicitly marked deprecated here
+
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h                                  ^
+:/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:137:1: note: expanded from here
+47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'rb_data_object_get_1
+^
+
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: 
+noteRBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+:     RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+:53# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+:                                                    ^
+ note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+breakpoint.c:268:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  Data_Get_Struct(self, breakpoint_t, breakpoint);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278byebug.c:577::5:34 :warning : note: expanded from macro 'Data_Get_Struct'
+'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^    Data_Get_Struct(context, debug_context_t, dc);
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: 278:34: note: expanded from macro 'Data_Get_Struct'
+note:     ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50::35: note: expanded from macro 'RUBY_MACRO_SELECT'
+35#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:138:1: note: :expanded from here
+ rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+note#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+: expanded from macro 'RUBY_MACRO_SELECT'
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:140:53: 1: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+note: # define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+expanded from here
+                                                    ^rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368
+:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^byebug.c
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+:# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+686:5: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+    Data_Get_Struct(context, debug_context_t, dc);
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:139:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+breakpoint.c:363:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  Data_Get_Struct(rb_breakpoint, breakpoint_t, breakpoint);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:byebug.c:740:3: warning: 278'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]:34: note: expanded from macro 'Data_Get_Struct'
+
+  Data_Get_Struct(context, debug_context_t, dc);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+:278:34: note: expanded from macro 'Data_Get_Struct'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))50
+:                                 ^35
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get':
+ note#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+:                               ^
+expanded from macro 'RUBY_MACRO_SELECT'
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+50#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:141:1: note: expanded from here:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+
+rb_data_object_get_1
+^
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:140:1: note: expanded from here
+:rb_data_object_get_1
+^
+368:/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h31: note: expanded from macro 'rb_data_object_get_1'
+:#define rb_data_object_get_1  rb_data_object_get_warning
+368                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED':
+31: note: expanded from macro 'rb_data_object_get_1'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+breakpoint.c:400:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  Data_Get_Struct(rb_breakpoint, breakpoint_t, breakpoint);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:142:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+breakpoint.c:417:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  Data_Get_Struct(rb_breakpoint, breakpoint_t, breakpoint);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:143:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+breakpoint.c:440:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  Data_Get_Struct(rb_breakpoint, breakpoint_t, breakpoint);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:144:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+context.c:30:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  Data_Get_Struct(self, debug_context_t, context);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:127:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+context.c:75:10: warning: 'rb_data_object_wrap_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  return Data_Wrap_Struct(cContext, context_mark, 0, context);
+         ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:202:5: note: expanded from macro 'Data_Wrap_Struct'
+    rb_data_object_wrap(                          \
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:366:31: note: expanded from macro 'rb_data_object_wrap'
+#define rb_data_object_wrap   RUBY_MACRO_SELECT(rb_data_object_wrap_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:128:1: note: expanded from here
+rb_data_object_wrap_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:364:31: note: expanded from macro 'rb_data_object_wrap_1'
+#define rb_data_object_wrap_1 rb_data_object_wrap_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:280:1: note: 'rb_data_object_wrap_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+context.c:88:10: warning: 'rb_data_object_wrap_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  return Data_Wrap_Struct(cContext, context_mark, 0, new_context);
+         ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:202:5: note: expanded from macro 'Data_Wrap_Struct'
+    rb_data_object_wrap(                          \
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:366:31: note: expanded from macro 'rb_data_object_wrap'
+#define rb_data_object_wrap   RUBY_MACRO_SELECT(rb_data_object_wrap_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:129:1: note: expanded from here
+rb_data_object_wrap_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:364:31: note: expanded from macro 'rb_data_object_wrap_1'
+#define rb_data_object_wrap_1 rb_data_object_wrap_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:280:1: note: 'rb_data_object_wrap_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+context.c:226:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  FRAME_SETUP;
+  ^
+context.c:211:3: note: expanded from macro 'FRAME_SETUP'
+  Data_Get_Struct(self, debug_context_t, context); \
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:130:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+context.c:240:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  FRAME_SETUP;
+  ^
+context.c:211:3: note: expanded from macro 'FRAME_SETUP'
+  Data_Get_Struct(self, debug_context_t, context); \
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:131:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+context.c:256:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  FRAME_SETUP;
+  ^
+context.c:211:3: note: expanded from macro 'FRAME_SETUP'
+  Data_Get_Struct(self, debug_context_t, context); \
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:132:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+context.c:279:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  FRAME_SETUP;
+  ^
+context.c:211:3: note: expanded from macro 'FRAME_SETUP'
+  Data_Get_Struct(self, debug_context_t, context); \
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:133:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+context.c:297:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  FRAME_SETUP;
+  ^
+context.c:211:3: note: expanded from macro 'FRAME_SETUP'
+  Data_Get_Struct(self, debug_context_t, context); \
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:134:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+context.c:313:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  FRAME_SETUP;
+  ^
+context.c:211:3: note: expanded from macro 'FRAME_SETUP'
+  Data_Get_Struct(self, debug_context_t, context); \
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:135:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+context.c:330:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  Data_Get_Struct(self, debug_context_t, context);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:136:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+context.c:345:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  Data_Get_Struct(self, debug_context_t, context);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:137:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+context.c:369:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  Data_Get_Struct(self, debug_context_t, context);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:138:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+context.c:380:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  Data_Get_Struct(self, debug_context_t, context);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:139:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+context.c:417:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  Data_Get_Struct(self, debug_context_t, context);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:140:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+context.c:460:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  Data_Get_Struct(self, debug_context_t, context);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:141:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+context.c:490:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  Data_Get_Struct(self, debug_context_t, context);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:142:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+context.c:520:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  Data_Get_Struct(self, debug_context_t, context);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: threads.c:56:10: warning: 'rb_data_object_wrap_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  return Data_Wrap_Struct(cThreadsTable, t_tbl_mark, t_tbl_free, t_tbl);
+         ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:202:5: note: expanded from macro 'Data_Wrap_Struct'
+    rb_data_object_wrap(                          \
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:366:31: note: expanded from macro 'rb_data_object_wrap'
+#define rb_data_object_wrap   RUBY_MACRO_SELECT(rb_data_object_wrap_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:127:1: note: expanded from here
+rb_data_object_wrap_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:364:31: note: expanded from macro 'rb_data_object_wrap_1'
+#define rb_data_object_wrap_1 rb_data_object_wrap_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:280:1: note: 'rb_data_object_wrap_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:143:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+context.c:547:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  Data_Get_Struct(self, debug_context_t, context);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:144:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+context.c:569:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  Data_Get_Struct(self, debug_context_t, context);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34threads.c:105:3: warning: note: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  Data_Get_Struct(threads, threads_table_t, t_tbl);: 
+  ^
+expanded from macro 'Data_Get_Struct'
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31:    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj))) 
+note                                 ^: 
+expanded from macro 'rb_data_object_get'
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+:#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y) 
+note                                  ^: 
+expanded from macro 'RUBY_MACRO_SELECT'
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+#define RBIMPL_MACRO_SELECT(x, y) x ## y                                  ^
+
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35<scratch space>:: 128note:: 1expanded from macro 'RBIMPL_MACRO_SELECT':
+ note: expanded from here
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:<scratch space>368::14531::1 :note : noteexpanded from macro 'rb_data_object_get_1': 
+expanded from here
+rb_data_object_get_1
+^
+#define rb_data_object_get_1  rb_data_object_get_warning
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^                              ^
+
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h::317317::11::  notenote: : 'rb_data_object_get_warning' has been explicitly marked deprecated here'rb_data_object_get_warning' has been explicitly marked deprecated here
+
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+
+^^
+
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData")):
+    ^47
+:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg)):
+36                                                    ^:
+53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+threads.c:117:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  Data_Get_Struct(threads, threads_table_t, t_tbl);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: notecontext.c: :expanded from macro 'Data_Get_Struct'585
+:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:  Data_Get_Struct(self, debug_context_t, context);370
+:  ^31
+: note: expanded from macro 'rb_data_object_get'
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING):
+50                              ^:
+35: /Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.hnote:: 50expanded from macro 'RUBY_MACRO_SELECT':
+35: note: expanded from macro 'RUBY_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h
+:                                  ^49
+:35:/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h :note49: :expanded from macro 'RBIMPL_MACRO_SELECT'35
+: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:129:1<scratch space>:: 146note:: 1expanded from here:
+ note: expanded from here
+rb_data_object_get_1
+^
+rb_data_object_get_1
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h^:
+368:31/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:: 368note:: 31expanded from macro 'rb_data_object_get_1':
+ note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+context.c:600:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  Data_Get_Struct(self, debug_context_t, context);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:147:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+context.c:615:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  Data_Get_Struct(self, debug_context_t, context);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:148:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+context.c:630:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  Data_Get_Struct(self, debug_context_t, context);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:149:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+threads.c:189:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  Data_Get_Struct(context, debug_context_t, dc);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:130:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+threads.c:216:3: warning: 'rb_data_object_get_warning' is deprecated: by TypedData [-Wdeprecated-declarations]
+  Data_Get_Struct(context, debug_context_t, dc);
+  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:278:34: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = RBIMPL_CAST((type*)rb_data_object_get(obj)))
+                                 ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:370:31: note: expanded from macro 'rb_data_object_get'
+#define rb_data_object_get    RUBY_MACRO_SELECT(rb_data_object_get_2, RUBY_UNTYPED_DATA_WARNING)
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:50:35: note: expanded from macro 'RUBY_MACRO_SELECT'
+#define RUBY_MACRO_SELECT(x, y)   RBIMPL_MACRO_SELECT(x, y)
+                                  ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:49:35: note: expanded from macro 'RBIMPL_MACRO_SELECT'
+#define RBIMPL_MACRO_SELECT(x, y) x ## y
+                                  ^
+<scratch space>:131:1: note: expanded from here
+rb_data_object_get_1
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:368:31: note: expanded from macro 'rb_data_object_get_1'
+#define rb_data_object_get_1  rb_data_object_get_warning
+                              ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:317:1: note: 'rb_data_object_get_warning' has been explicitly marked deprecated here
+RBIMPL_ATTRSET_UNTYPED_DATA_FUNC()
+^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/core/rdata.h:47:5: note: expanded from macro 'RBIMPL_ATTRSET_UNTYPED_DATA_FUNC'
+    RBIMPL_ATTR_DEPRECATED(("by TypedData"))
+    ^
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/include/ruby-4.0.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+5 warnings generated.
+18 warnings generated.
+12 warnings generated.
+23 warnings generated.
+linking shared-object byebug/byebug.bundle
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/byebug-12.0.0/ext/byebug
+make -j5 DESTDIR\= sitearchdir\=./.gem.20251230-80994-7lddtj sitelibdir\=./.gem.20251230-80994-7lddtj install
+/usr/bin/install -c -m 0755 byebug.bundle ./.gem.20251230-80994-7lddtj/byebug
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/byebug-12.0.0/ext/byebug
+make DESTDIR\= sitearchdir\=./.gem.20251230-80994-7lddtj sitelibdir\=./.gem.20251230-80994-7lddtj clean

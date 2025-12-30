@@ -1,0 +1,18 @@
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/websocket-driver-0.8.0/ext/websocket-driver
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/websocket-driver-0.8.0/ext/websocket-driver
+make -j5 DESTDIR\= sitearchdir\=./.gem.20251230-80994-qewgap sitelibdir\=./.gem.20251230-80994-qewgap clean
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/websocket-driver-0.8.0/ext/websocket-driver
+make -j5 DESTDIR\= sitearchdir\=./.gem.20251230-80994-qewgap sitelibdir\=./.gem.20251230-80994-qewgap
+compiling websocket_mask.c
+linking shared-object websocket_mask.bundle
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/websocket-driver-0.8.0/ext/websocket-driver
+make -j5 DESTDIR\= sitearchdir\=./.gem.20251230-80994-qewgap sitelibdir\=./.gem.20251230-80994-qewgap install
+/usr/bin/install -c -m 0755 websocket_mask.bundle ./.gem.20251230-80994-qewgap
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/websocket-driver-0.8.0/ext/websocket-driver
+make DESTDIR\= sitearchdir\=./.gem.20251230-80994-qewgap sitelibdir\=./.gem.20251230-80994-qewgap clean

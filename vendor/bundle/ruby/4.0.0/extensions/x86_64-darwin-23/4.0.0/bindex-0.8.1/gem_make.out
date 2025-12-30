@@ -1,0 +1,18 @@
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/bindex-0.8.1/ext/skiptrace
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/bindex-0.8.1/ext/skiptrace
+make -j5 DESTDIR\= sitearchdir\=./.gem.20251230-80994-oc5fvg sitelibdir\=./.gem.20251230-80994-oc5fvg clean
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/bindex-0.8.1/ext/skiptrace
+make -j5 DESTDIR\= sitearchdir\=./.gem.20251230-80994-oc5fvg sitelibdir\=./.gem.20251230-80994-oc5fvg
+compiling cruby.c
+linking shared-object skiptrace/internal/cruby.bundle
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/bindex-0.8.1/ext/skiptrace
+make -j5 DESTDIR\= sitearchdir\=./.gem.20251230-80994-oc5fvg sitelibdir\=./.gem.20251230-80994-oc5fvg install
+/usr/bin/install -c -m 0755 cruby.bundle ./.gem.20251230-80994-oc5fvg/skiptrace/internal
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20251230-80994-oc5fvg sitelibdir\=./.gem.20251230-80994-oc5fvg clean

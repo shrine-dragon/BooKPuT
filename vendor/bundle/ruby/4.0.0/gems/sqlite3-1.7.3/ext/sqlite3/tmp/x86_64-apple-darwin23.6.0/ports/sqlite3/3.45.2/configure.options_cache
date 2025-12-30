@@ -1,0 +1,1 @@
+["--host=x86_64-apple-darwin23.6.0", "--enable-static", "--disable-shared", "--enable-shared=no", "--enable-static=yes", "--enable-fts5", "CC=clang", "CFLAGS=-fPIC -O2 -fvisibility=hidden -DSQLITE_DEFAULT_WAL_SYNCHRONOUS=1", "--prefix=/Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/sqlite3-1.7.3/ports/x86_64-apple-darwin23.6.0/sqlite3/3.45.2"]

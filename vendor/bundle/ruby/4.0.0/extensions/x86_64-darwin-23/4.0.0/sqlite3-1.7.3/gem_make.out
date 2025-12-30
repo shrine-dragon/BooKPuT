@@ -1,0 +1,47 @@
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/sqlite3-1.7.3/ext/sqlite3
+/Users/shrine-dragon3839/.rbenv/versions/4.0.0/bin/ruby extconf.rb
+Building sqlite3-ruby using packaged sqlite3.
+Extracting sqlite-autoconf-3450200.tar.gz into tmp/x86_64-apple-darwin23.6.0/ports/sqlite3/3.45.2... OK
+Running 'configure' for sqlite3 3.45.2... OK
+Running 'compile' for sqlite3 3.45.2... OK
+Running 'install' for sqlite3 3.45.2... OK
+Activating sqlite3 3.45.2 (from /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/sqlite3-1.7.3/ports/x86_64-apple-darwin23.6.0/sqlite3/3.45.2)...
+checking for pkg-config for /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/sqlite3-1.7.3/ports/x86_64-apple-darwin23.6.0/sqlite3/3.45.2/lib/pkgconfig/sqlite3.pc... ["-I/Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/sqlite3-1.7.3/ports/x86_64-apple-darwin23.6.0/sqlite3/3.45.2/include ", "", "-lsqlite3"]
+checking for whether -L/Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/sqlite3-1.7.3/ports/x86_64-apple-darwin23.6.0/sqlite3/3.45.2/lib is accepted as LDFLAGS... yes
+checking for whether -lsqlite3 is accepted as LDFLAGS... yes
+checking for whether -lz is accepted as LDFLAGS... yes
+checking for whether -fvisibility=hidden is accepted as CFLAGS... yes
+checking for sqlite3.h... yes
+checking for sqlite3_libversion_number() in -lsqlite3... yes
+checking for rb_proc_arity()... yes
+checking for rb_integer_pack()... yes
+checking for sqlite3_initialize()... yes
+checking for sqlite3_backup_init()... yes
+checking for sqlite3_column_database_name()... no
+checking for sqlite3_enable_load_extension()... yes
+checking for sqlite3_load_extension()... yes
+checking for sqlite3_open_v2()... yes
+checking for sqlite3_prepare_v2()... yes
+checking for sqlite3_int64 in sqlite3.h... yes
+checking for sqlite3_uint64 in sqlite3.h... yes
+creating Makefile
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/sqlite3-1.7.3/ext/sqlite3
+make -j5 DESTDIR\= sitearchdir\=./.gem.20251230-80994-8birgr sitelibdir\=./.gem.20251230-80994-8birgr clean
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/sqlite3-1.7.3/ext/sqlite3
+make -j5 DESTDIR\= sitearchdir\=./.gem.20251230-80994-8birgr sitelibdir\=./.gem.20251230-80994-8birgr
+compiling aggregator.c
+compiling backup.c
+compiling database.c
+compiling exception.c
+compiling sqlite3.c
+compiling statement.c
+linking shared-object sqlite3/sqlite3_native.bundle
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/sqlite3-1.7.3/ext/sqlite3
+make -j5 DESTDIR\= sitearchdir\=./.gem.20251230-80994-8birgr sitelibdir\=./.gem.20251230-80994-8birgr install
+/usr/bin/install -c -m 0755 sqlite3_native.bundle ./.gem.20251230-80994-8birgr/sqlite3
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/4.0.0/gems/sqlite3-1.7.3/ext/sqlite3
+make DESTDIR\= sitearchdir\=./.gem.20251230-80994-8birgr sitelibdir\=./.gem.20251230-80994-8birgr clean
