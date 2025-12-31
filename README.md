@@ -165,7 +165,7 @@ rbenvのバージョン → 1.1.2
 
 # ER図
 
-https://gyazo.com/4726de44e9a69f4b2af20f3c2f54ca8f
+https://gyazo.com/9c0dd7ccf15340a627e80d2172d4055b
 
 # テーブル設計
 
@@ -183,6 +183,8 @@ https://gyazo.com/4726de44e9a69f4b2af20f3c2f54ca8f
 
 - has_many :books
 - has_many :comments
+- has_many :highRatings
+- has_many :favorites
 
 ## booksテーブル
 
