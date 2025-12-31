@@ -165,6 +165,8 @@ rbenvのバージョン → 1.1.2
 
 # ER図
 
+https://gyazo.com/4726de44e9a69f4b2af20f3c2f54ca8f
+
 # テーブル設計
 
 ## users テーブル
