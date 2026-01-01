@@ -1,0 +1,745 @@
+have_func: checking for rb_absint_size()... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -o conftest -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe conftest.c  -L. -L/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib -L/usr/local/opt/openssl/lib     -lruby.3.2  -lpthread  "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return !!argv[argc];
+6: }
+/* end */
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -o conftest -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe conftest.c  -L. -L/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib -L/usr/local/opt/openssl/lib     -lruby.3.2  -lpthread  "
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_absint_size; return !p; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_absint_singlebit_p()... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -o conftest -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe conftest.c  -L. -L/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib -L/usr/local/opt/openssl/lib     -lruby.3.2  -lpthread  "
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_absint_singlebit_p; return !p; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_gc_mark_movable()... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -o conftest -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe conftest.c  -L. -L/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib -L/usr/local/opt/openssl/lib     -lruby.3.2  -lpthread  "
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_gc_mark_movable; return !p; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_wait_for_single_fd()... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -o conftest -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe conftest.c  -L. -L/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib -L/usr/local/opt/openssl/lib     -lruby.3.2  -lpthread  "
+conftest.c:14:57: error: use of undeclared identifier 'rb_wait_for_single_fd'
+int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_wait_for_single_fd; return !p; }
+                                                        ^
+1 error generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_wait_for_single_fd; return !p; }
+/* end */
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -o conftest -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe conftest.c  -L. -L/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib -L/usr/local/opt/openssl/lib     -lruby.3.2  -lpthread  "
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: extern void rb_wait_for_single_fd();
+15: int t(void) { rb_wait_for_single_fd(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_enc_interned_str() in ruby.h... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -o conftest -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe conftest.c  -L. -L/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib -L/usr/local/opt/openssl/lib     -lruby.3.2  -lpthread  "
+conftest.c:16:57: error: use of undeclared identifier 'rb_enc_interned_str'
+int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_enc_interned_str; return !p; }
+                                                        ^
+1 error generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <ruby.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     int (* volatile tp)(void)=(int (*)(void))&t;
+11:     printf("%d", (*tp)());
+12:   }
+13: 
+14:   return !!argv[argc];
+15: }
+16: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_enc_interned_str; return !p; }
+/* end */
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -o conftest -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe conftest.c  -L. -L/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib -L/usr/local/opt/openssl/lib     -lruby.3.2  -lpthread  "
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <ruby.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     int (* volatile tp)(void)=(int (*)(void))&t;
+11:     printf("%d", (*tp)());
+12:   }
+13: 
+14:   return !!argv[argc];
+15: }
+16: extern void rb_enc_interned_str();
+17: int t(void) { rb_enc_interned_str(); return 0; }
+/* end */
+
+--------------------
+
+have_header: checking for mysql.h... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <mysql.h>
+/* end */
+
+--------------------
+
+have_header: checking for errmsg.h... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <errmsg.h>
+/* end */
+
+--------------------
+
+have_const: checking for SSL_MODE_DISABLED in mysql.h... -------------------- no
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe   -c conftest.c"
+conftest.c:7:34: error: use of undeclared identifier 'SSL_MODE_DISABLED'
+conftest_type conftestval = (int)SSL_MODE_DISABLED;
+                                 ^
+1 error generated.
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <mysql.h>
+4: 
+5: /*top*/
+6: typedef int conftest_type;
+7: conftest_type conftestval = (int)SSL_MODE_DISABLED;
+/* end */
+
+--------------------
+
+have_const: checking for MYSQL_OPT_SSL_VERIFY_SERVER_CERT in mysql.h... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <mysql.h>
+4: 
+5: /*top*/
+6: typedef int conftest_type;
+7: conftest_type conftestval = (int)MYSQL_OPT_SSL_VERIFY_SERVER_CERT;
+/* end */
+
+--------------------
+
+have_const: checking for MYSQL_OPT_SSL_ENFORCE in mysql.h... -------------------- no
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe   -c conftest.c"
+conftest.c:7:34: error: use of undeclared identifier 'MYSQL_OPT_SSL_ENFORCE'
+conftest_type conftestval = (int)MYSQL_OPT_SSL_ENFORCE;
+                                 ^
+1 error generated.
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <mysql.h>
+4: 
+5: /*top*/
+6: typedef int conftest_type;
+7: conftest_type conftestval = (int)MYSQL_OPT_SSL_ENFORCE;
+/* end */
+
+--------------------
+
+have_struct_member: checking for MYSQL.net.vio in mysql.h... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe   -c conftest.c"
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <mysql.h>
+ 4: 
+ 5: /*top*/
+ 6: int s = (char *)&((MYSQL*)0)->net.vio - (char *)0;
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   return !!argv[argc];
+10: }
+/* end */
+
+--------------------
+
+have_struct_member: checking for MYSQL.net.pvio in mysql.h... -------------------- no
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe   -c conftest.c"
+conftest.c:6:35: error: no member named 'pvio' in 'struct st_net'; did you mean 'vio'?
+int s = (char *)&((MYSQL*)0)->net.pvio - (char *)0;
+                                  ^~~~
+                                  vio
+/usr/local/opt/mysql@5.6/include/mysql/mysql_com.h:331:8: note: 'vio' declared here
+  Vio *vio;
+       ^
+1 error generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <mysql.h>
+ 4: 
+ 5: /*top*/
+ 6: int s = (char *)&((MYSQL*)0)->net.pvio - (char *)0;
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   return !!argv[argc];
+10: }
+/* end */
+
+--------------------
+
+have_const: checking for MYSQL_DEFAULT_AUTH in mysql.h... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <mysql.h>
+4: 
+5: /*top*/
+6: typedef int conftest_type;
+7: conftest_type conftestval = (int)MYSQL_DEFAULT_AUTH;
+/* end */
+
+--------------------
+
+have_const: checking for MYSQL_ENABLE_CLEARTEXT_PLUGIN in mysql.h... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <mysql.h>
+4: 
+5: /*top*/
+6: typedef int conftest_type;
+7: conftest_type conftestval = (int)MYSQL_ENABLE_CLEARTEXT_PLUGIN;
+/* end */
+
+--------------------
+
+have_const: checking for SERVER_QUERY_NO_GOOD_INDEX_USED in mysql.h... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <mysql.h>
+4: 
+5: /*top*/
+6: typedef int conftest_type;
+7: conftest_type conftestval = (int)SERVER_QUERY_NO_GOOD_INDEX_USED;
+/* end */
+
+--------------------
+
+have_const: checking for SERVER_QUERY_NO_INDEX_USED in mysql.h... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <mysql.h>
+4: 
+5: /*top*/
+6: typedef int conftest_type;
+7: conftest_type conftestval = (int)SERVER_QUERY_NO_INDEX_USED;
+/* end */
+
+--------------------
+
+have_const: checking for SERVER_QUERY_WAS_SLOW in mysql.h... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <mysql.h>
+4: 
+5: /*top*/
+6: typedef int conftest_type;
+7: conftest_type conftestval = (int)SERVER_QUERY_WAS_SLOW;
+/* end */
+
+--------------------
+
+have_const: checking for MYSQL_OPTION_MULTI_STATEMENTS_ON in mysql.h... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <mysql.h>
+4: 
+5: /*top*/
+6: typedef int conftest_type;
+7: conftest_type conftestval = (int)MYSQL_OPTION_MULTI_STATEMENTS_ON;
+/* end */
+
+--------------------
+
+have_const: checking for MYSQL_OPTION_MULTI_STATEMENTS_OFF in mysql.h... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <mysql.h>
+4: 
+5: /*top*/
+6: typedef int conftest_type;
+7: conftest_type conftestval = (int)MYSQL_OPTION_MULTI_STATEMENTS_OFF;
+/* end */
+
+--------------------
+
+have_const: checking for MYSQL_OPT_GET_SERVER_PUBLIC_KEY in mysql.h... -------------------- no
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe   -c conftest.c"
+conftest.c:7:34: error: use of undeclared identifier 'MYSQL_OPT_GET_SERVER_PUBLIC_KEY'
+conftest_type conftestval = (int)MYSQL_OPT_GET_SERVER_PUBLIC_KEY;
+                                 ^
+1 error generated.
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <mysql.h>
+4: 
+5: /*top*/
+6: typedef int conftest_type;
+7: conftest_type conftestval = (int)MYSQL_OPT_GET_SERVER_PUBLIC_KEY;
+/* end */
+
+--------------------
+
+have_type: checking for my_bool in mysql.h... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <mysql.h>
+4: 
+5: /*top*/
+6: typedef my_bool conftest_type;
+7: int conftestval[sizeof(conftest_type)?1:-1];
+/* end */
+
+--------------------
+
+have_func: checking for mysql_ssl_set() in mysql.h... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -o conftest -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe conftest.c  -L. -L/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib -L/usr/local/opt/openssl@3/lib -L/usr/local/opt/zstd/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/openssl@3/lib    -L/usr/local/opt/mysql@5.6/lib  -lmysqlclient  -lssl -lcrypto  -lruby.3.2 -L/usr/local/opt/mysql@5.6/lib  -lmysqlclient  -lssl -lcrypto  -lpthread  "
+ld: warning: directory not found for option '-L/usr/local/opt/zstd/lib'
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libssl.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libcrypto.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <mysql.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     int (* volatile tp)(void)=(int (*)(void))&t;
+11:     printf("%d", (*tp)());
+12:   }
+13: 
+14:   return !!argv[argc];
+15: }
+16: int t(void) { void ((*volatile p)()); p = (void ((*)()))mysql_ssl_set; return !p; }
+/* end */
+
+--------------------
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -o conftest -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe conftest.c  -L. -L/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib -L/usr/local/opt/openssl@3/lib -L/usr/local/opt/zstd/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/openssl@3/lib    -L/usr/local/opt/mysql@5.6/lib  -lmysqlclient  -lssl -lcrypto  -lruby.3.2 -Werror -Weverything -lpthread  "
+error: include location '/usr/local/include' is unsafe for cross-compilation [-Werror,-Wpoison-system-directories]
+In file included from conftest.c:1:
+In file included from /Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby.h:38:
+In file included from /Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/ruby.h:15:
+In file included from /Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/internal/config.h:22:
+/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23/ruby/config.h:15:9: error: macro name is a reserved identifier [-Werror,-Wreserved-id-macro]
+#define _ALL_SOURCE 1
+        ^
+/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23/ruby/config.h:16:9: error: macro name is a reserved identifier [-Werror,-Wreserved-id-macro]
+#define _DARWIN_C_SOURCE 1
+        ^
+/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23/ruby/config.h:17:9: error: macro name is a reserved identifier [-Werror,-Wreserved-id-macro]
+#define _GNU_SOURCE 1
+        ^
+/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23/ruby/config.h:18:9: error: macro name is a reserved identifier [-Werror,-Wreserved-id-macro]
+#define _HPUX_ALT_XOPEN_SOCKET_API 1
+        ^
+/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23/ruby/config.h:19:9: error: macro name is a reserved identifier [-Werror,-Wreserved-id-macro]
+#define _NETBSD_SOURCE 1
+        ^
+/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23/ruby/config.h:20:9: error: macro name is a reserved identifier [-Werror,-Wreserved-id-macro]
+#define _OPENBSD_SOURCE 1
+        ^
+/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23/ruby/config.h:21:9: error: macro name is a reserved identifier [-Werror,-Wreserved-id-macro]
+#define _POSIX_PTHREAD_SEMANTICS 1
+        ^
+/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23/ruby/config.h:22:9: error: macro name is a reserved identifier [-Werror,-Wreserved-id-macro]
+#define __STDC_WANT_IEC_60559_ATTRIBS_EXT__ 1
+        ^
+/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23/ruby/config.h:23:9: error: macro name is a reserved identifier [-Werror,-Wreserved-id-macro]
+#define __STDC_WANT_IEC_60559_BFP_EXT__ 1
+        ^
+/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23/ruby/config.h:24:9: error: macro name is a reserved identifier [-Werror,-Wreserved-id-macro]
+#define __STDC_WANT_IEC_60559_DFP_EXT__ 1
+        ^
+/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23/ruby/config.h:25:9: error: macro name is a reserved identifier [-Werror,-Wreserved-id-macro]
+#define __STDC_WANT_IEC_60559_FUNCS_EXT__ 1
+        ^
+/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23/ruby/config.h:26:9: error: macro name is a reserved identifier [-Werror,-Wreserved-id-macro]
+#define __STDC_WANT_IEC_60559_TYPES_EXT__ 1
+        ^
+/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23/ruby/config.h:27:9: error: macro name is a reserved identifier [-Werror,-Wreserved-id-macro]
+#define __STDC_WANT_LIB_EXT2__ 1
+        ^
+/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23/ruby/config.h:28:9: error: macro name is a reserved identifier [-Werror,-Wreserved-id-macro]
+#define __STDC_WANT_MATH_SPEC_FUNCS__ 1
+        ^
+/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23/ruby/config.h:29:9: error: macro name is a reserved identifier [-Werror,-Wreserved-id-macro]
+#define _TANDEM_SOURCE 1
+        ^
+/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23/ruby/config.h:30:9: error: macro name is a reserved identifier [-Werror,-Wreserved-id-macro]
+#define __EXTENSIONS__ 1
+        ^
+/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23/ruby/config.h:35:9: error: macro name is a reserved identifier [-Werror,-Wreserved-id-macro]
+#define _REENTRANT 1
+        ^
+/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23/ruby/config.h:36:9: error: macro name is a reserved identifier [-Werror,-Wreserved-id-macro]
+#define _THREAD_SAFE 1
+        ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+20 errors generated.
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -o conftest -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe conftest.c  -L. -L/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib -L/usr/local/opt/openssl@3/lib -L/usr/local/opt/zstd/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/openssl@3/lib    -L/usr/local/opt/mysql@5.6/lib  -lmysqlclient  -lssl -lcrypto  -lruby.3.2 -Werror -Wno-compound-token-split-by-macro -lpthread  "
+error: unknown warning option '-Wno-compound-token-split-by-macro' [-Werror,-Wunknown-warning-option]
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -o conftest -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe conftest.c  -L. -L/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib -L/usr/local/opt/openssl@3/lib -L/usr/local/opt/zstd/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/openssl@3/lib    -L/usr/local/opt/mysql@5.6/lib  -lmysqlclient  -lssl -lcrypto  -lruby.3.2 -Werror -Wno-bad-function-cast -lpthread  "
+ld: warning: directory not found for option '-L/usr/local/opt/zstd/lib'
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libssl.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libcrypto.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -o conftest -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe conftest.c  -L. -L/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib -L/usr/local/opt/openssl@3/lib -L/usr/local/opt/zstd/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/openssl@3/lib    -L/usr/local/opt/mysql@5.6/lib  -lmysqlclient  -lssl -lcrypto  -lruby.3.2 -Werror -Wno-conditional-uninitialized -lpthread  "
+ld: warning: directory not found for option '-L/usr/local/opt/zstd/lib'
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libssl.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libcrypto.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -o conftest -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe conftest.c  -L. -L/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib -L/usr/local/opt/openssl@3/lib -L/usr/local/opt/zstd/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/openssl@3/lib    -L/usr/local/opt/mysql@5.6/lib  -lmysqlclient  -lssl -lcrypto  -lruby.3.2 -Werror -Wno-covered-switch-default -lpthread  "
+ld: warning: directory not found for option '-L/usr/local/opt/zstd/lib'
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libssl.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libcrypto.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -o conftest -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe conftest.c  -L. -L/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib -L/usr/local/opt/openssl@3/lib -L/usr/local/opt/zstd/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/openssl@3/lib    -L/usr/local/opt/mysql@5.6/lib  -lmysqlclient  -lssl -lcrypto  -lruby.3.2 -Werror -Wno-declaration-after-statement -lpthread  "
+ld: warning: directory not found for option '-L/usr/local/opt/zstd/lib'
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libssl.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libcrypto.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -o conftest -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe conftest.c  -L. -L/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib -L/usr/local/opt/openssl@3/lib -L/usr/local/opt/zstd/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/openssl@3/lib    -L/usr/local/opt/mysql@5.6/lib  -lmysqlclient  -lssl -lcrypto  -lruby.3.2 -Werror -Wno-disabled-macro-expansion -lpthread  "
+ld: warning: directory not found for option '-L/usr/local/opt/zstd/lib'
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libssl.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libcrypto.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -o conftest -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe conftest.c  -L. -L/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib -L/usr/local/opt/openssl@3/lib -L/usr/local/opt/zstd/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/openssl@3/lib    -L/usr/local/opt/mysql@5.6/lib  -lmysqlclient  -lssl -lcrypto  -lruby.3.2 -Werror -Wno-documentation-unknown-command -lpthread  "
+ld: warning: directory not found for option '-L/usr/local/opt/zstd/lib'
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libssl.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libcrypto.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -o conftest -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe conftest.c  -L. -L/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib -L/usr/local/opt/openssl@3/lib -L/usr/local/opt/zstd/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/openssl@3/lib    -L/usr/local/opt/mysql@5.6/lib  -lmysqlclient  -lssl -lcrypto  -lruby.3.2 -Werror -Wno-missing-field-initializers -lpthread  "
+ld: warning: directory not found for option '-L/usr/local/opt/zstd/lib'
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libssl.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libcrypto.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -o conftest -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe conftest.c  -L. -L/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib -L/usr/local/opt/openssl@3/lib -L/usr/local/opt/zstd/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/openssl@3/lib    -L/usr/local/opt/mysql@5.6/lib  -lmysqlclient  -lssl -lcrypto  -lruby.3.2 -Werror -Wno-missing-variable-declarations -lpthread  "
+ld: warning: directory not found for option '-L/usr/local/opt/zstd/lib'
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libssl.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libcrypto.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -o conftest -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe conftest.c  -L. -L/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib -L/usr/local/opt/openssl@3/lib -L/usr/local/opt/zstd/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/openssl@3/lib    -L/usr/local/opt/mysql@5.6/lib  -lmysqlclient  -lssl -lcrypto  -lruby.3.2 -Werror -Wno-padded -lpthread  "
+ld: warning: directory not found for option '-L/usr/local/opt/zstd/lib'
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libssl.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libcrypto.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -o conftest -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe conftest.c  -L. -L/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib -L/usr/local/opt/openssl@3/lib -L/usr/local/opt/zstd/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/openssl@3/lib    -L/usr/local/opt/mysql@5.6/lib  -lmysqlclient  -lssl -lcrypto  -lruby.3.2 -Werror -Wno-reserved-id-macro -lpthread  "
+ld: warning: directory not found for option '-L/usr/local/opt/zstd/lib'
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libssl.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libcrypto.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -o conftest -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe conftest.c  -L. -L/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib -L/usr/local/opt/openssl@3/lib -L/usr/local/opt/zstd/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/openssl@3/lib    -L/usr/local/opt/mysql@5.6/lib  -lmysqlclient  -lssl -lcrypto  -lruby.3.2 -Werror -Wno-sign-conversion -lpthread  "
+ld: warning: directory not found for option '-L/usr/local/opt/zstd/lib'
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libssl.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libcrypto.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -o conftest -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe conftest.c  -L. -L/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib -L/usr/local/opt/openssl@3/lib -L/usr/local/opt/zstd/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/openssl@3/lib    -L/usr/local/opt/mysql@5.6/lib  -lmysqlclient  -lssl -lcrypto  -lruby.3.2 -Werror -Wno-static-in-inline -lpthread  "
+ld: warning: directory not found for option '-L/usr/local/opt/zstd/lib'
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libssl.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libcrypto.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -o conftest -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe conftest.c  -L. -L/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib -L/usr/local/opt/openssl@3/lib -L/usr/local/opt/zstd/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/openssl@3/lib    -L/usr/local/opt/mysql@5.6/lib  -lmysqlclient  -lssl -lcrypto  -lruby.3.2 -Werror -Wno-switch-enum -lpthread  "
+ld: warning: directory not found for option '-L/usr/local/opt/zstd/lib'
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libssl.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libcrypto.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -o conftest -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe conftest.c  -L. -L/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib -L/usr/local/opt/openssl@3/lib -L/usr/local/opt/zstd/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/openssl@3/lib    -L/usr/local/opt/mysql@5.6/lib  -lmysqlclient  -lssl -lcrypto  -lruby.3.2 -Werror -Wno-undef -lpthread  "
+ld: warning: directory not found for option '-L/usr/local/opt/zstd/lib'
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libssl.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libcrypto.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -o conftest -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe conftest.c  -L. -L/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib -L/usr/local/opt/openssl@3/lib -L/usr/local/opt/zstd/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/openssl@3/lib    -L/usr/local/opt/mysql@5.6/lib  -lmysqlclient  -lssl -lcrypto  -lruby.3.2 -Werror -Wno-unreachable-code -lpthread  "
+ld: warning: directory not found for option '-L/usr/local/opt/zstd/lib'
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libssl.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libcrypto.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -o conftest -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe conftest.c  -L. -L/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib -L/usr/local/opt/openssl@3/lib -L/usr/local/opt/zstd/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/openssl@3/lib    -L/usr/local/opt/mysql@5.6/lib  -lmysqlclient  -lssl -lcrypto  -lruby.3.2 -Werror -Wno-used-but-marked-unused -lpthread  "
+ld: warning: directory not found for option '-L/usr/local/opt/zstd/lib'
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libssl.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libcrypto.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+DYLD_LIBRARY_PATH=.:/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib "clang -o conftest -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/x86_64-darwin23 -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0/ruby/backward -I/Users/shrine-dragon3839/.rbenv/versions/3.2.9/include/ruby-3.2.0 -I. -I/usr/local/opt/mysql@5.6/include/mysql -I/usr/local/opt/openssl@3/include -I/usr/local/opt/openssl/include -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wundef  -fno-common -pipe -Wno-bad-function-cast -Wno-conditional-uninitialized -Wno-covered-switch-default -Wno-declaration-after-statement -Wno-disabled-macro-expansion -Wno-documentation-unknown-command -Wno-missing-field-initializers -Wno-missing-variable-declarations -Wno-padded -Wno-reserved-id-macro -Wno-sign-conversion -Wno-static-in-inline -Wno-switch-enum -Wno-undef -Wno-unreachable-code -Wno-used-but-marked-unused conftest.c  -L. -L/Users/shrine-dragon3839/.rbenv/versions/3.2.9/lib -L/usr/local/opt/openssl@3/lib -L/usr/local/opt/zstd/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/openssl@3/lib    -L/usr/local/opt/mysql@5.6/lib  -lmysqlclient  -lssl -lcrypto  -lruby.3.2  -Wl,-rpath,/usr/local/opt/mysql@5.6/lib -lpthread  "
+ld: warning: directory not found for option '-L/usr/local/opt/zstd/lib'
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libssl.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+ld: warning: dylib (/usr/local/opt/openssl@3/lib/libcrypto.dylib) was built for newer macOS version (14.0) than being linked (11.0)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+

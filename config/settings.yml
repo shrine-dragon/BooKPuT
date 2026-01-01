@@ -1,0 +1,8 @@
+default:
+  adapter: postgresql
+  pool: 5
+
+development:
+  adapter: postgresql # 直接書く
+  pool: 5             # 直接書く
+  database: myapp_dev
