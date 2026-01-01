@@ -92,6 +92,7 @@ module Aws
     #   JSON.parse(data)
     #   => {"accountId"=>"012345678912", ... }
     #
+    
     # @example Fetching and parsing directory listings
     #
     #   listing = ec2_metadata.get('/latest/meta-data')
