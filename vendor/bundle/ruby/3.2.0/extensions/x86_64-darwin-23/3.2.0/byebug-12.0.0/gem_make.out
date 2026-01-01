@@ -1,0 +1,22 @@
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/3.2.0/gems/byebug-12.0.0/ext/byebug
+/Users/shrine-dragon3839/.rbenv/versions/3.2.9/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/3.2.0/gems/byebug-12.0.0/ext/byebug
+make DESTDIR\= sitearchdir\=./.gem.20260101-87736-uh6zs7 sitelibdir\=./.gem.20260101-87736-uh6zs7 clean
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/3.2.0/gems/byebug-12.0.0/ext/byebug
+make DESTDIR\= sitearchdir\=./.gem.20260101-87736-uh6zs7 sitelibdir\=./.gem.20260101-87736-uh6zs7
+compiling breakpoint.c
+compiling byebug.c
+compiling context.c
+compiling locker.c
+compiling threads.c
+linking shared-object byebug/byebug.bundle
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/3.2.0/gems/byebug-12.0.0/ext/byebug
+make DESTDIR\= sitearchdir\=./.gem.20260101-87736-uh6zs7 sitelibdir\=./.gem.20260101-87736-uh6zs7 install
+/usr/bin/install -c -m 0755 byebug.bundle ./.gem.20260101-87736-uh6zs7/byebug
+
+current directory: /Users/shrine-dragon3839/BooKPuT/vendor/bundle/ruby/3.2.0/gems/byebug-12.0.0/ext/byebug
+make DESTDIR\= sitearchdir\=./.gem.20260101-87736-uh6zs7 sitelibdir\=./.gem.20260101-87736-uh6zs7 clean
