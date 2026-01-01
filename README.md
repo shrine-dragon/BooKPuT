@@ -62,8 +62,11 @@ JavaScript, jQuery
 MySQL
 
 ## インフラ
+AWS
 
 ## Webサーバ（本番環境）
+
+Heroku
 
 ## ソース管理
 Github, GitHubDesktop
