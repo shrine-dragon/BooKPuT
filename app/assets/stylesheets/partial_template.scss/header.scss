@@ -1,0 +1,50 @@
+* {
+  box-sizing: border-box;
+}
+
+.header-logo{
+  float: left;
+  padding-top: 15px;
+}
+
+.bookput-logo{
+  height: 60px;
+  width: 250px;
+}
+
+.header-list{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding-top: 30px;
+}
+
+.search-bar{
+  width: 500px;
+  margin: 0 10px;
+}
+
+.search-btn{
+  width: 50px;
+  cursor: pointer;
+  color: #999;
+  border: none;
+}
+
+.header-btns li{
+  float: left;
+}
+
+.log-in-btn{
+  margin-right: 110px;
+}
+
+.sign-up-btn{
+  margin-right: 60px;
+}
+
+.log-in-btn, .sign-up-btn {
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
