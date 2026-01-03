@@ -37,14 +37,20 @@
 
 .log-in-btn{
   margin-right: 110px;
+  background-color: orange;
 }
 
 .sign-up-btn{
   margin-right: 60px;
+  background-color: cyan;
 }
 
 .log-in-btn, .sign-up-btn {
+  padding: 7px;
   cursor: pointer;
-  border: none;
-  outline: none;
+  border-radius: 5px;
+}
+
+.log-in-btn:hover, .sign-up-btn:hover{
+  opacity: 0.5;
 }
