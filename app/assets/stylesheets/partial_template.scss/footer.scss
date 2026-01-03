@@ -1,0 +1,23 @@
+.footer-upper-list{
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.footer-upper-list li{
+  cursor: pointer;
+}
+
+.footer-upper-list li:hover{
+  text-decoration: underline;
+}
+
+.footer-lower{
+  text-align: center;
+}
+
+.bookput-footer-logo{
+  height: 40px;
+  width: 180px;
+  margin: 20px 0 15px 0;
+}
