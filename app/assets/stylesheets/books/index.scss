@@ -1,3 +1,40 @@
+.post-list-wrapper {
+  margin: 100px 100px 70px;
+}
+
+.post-list-heading h2{
+  text-align: center;
+  margin: 50px 0 30px 0;
+  padding-top: 30px;
+  font-weight: bold;
+  font-size: 20px;
+ }
+
+ .post-images{
+  display: flex;
+  cursor: pointer;
+ }
+
+.irasutoya-image {
+  height: 250px;
+  width: 200px;
+  margin-right: 20px;
+  border: 1px solid black;
+}
+
+.fa-angle-left, .fa-angle-right{
+  font-size: 30px;
+  margin-top: 100px;
+}
+
+.fa-angle-left{
+  margin-right: 30px;
+}
+
+.fa-angle-right{
+  margin-left: 30px;
+}
+
 .faq{
   background-color: #f5f5f5;
 }
