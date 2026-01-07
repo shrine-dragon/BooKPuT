@@ -15,10 +15,14 @@
 .header-wrapper{
   max-width: 1500px;
   padding-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
 }
 
 .header-logo{
-  float: left;
+  display: flex;
   padding-top: 15px;
   margin-left: 20px;
 }
@@ -26,47 +30,78 @@
 .bookput-header-logo{
   height: 60px;
   width: 250px;
+  object-fit: contain; /* 画像の比率を保つ */
 }
 
 .header-list{
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  padding-top: 30px;
 }
 
-.search-bar{
+.search{
+  display: flex;
+  align-items: center;
+  margin-right: 120px;
+}
+
+.search-bar {
   width: 500px;
-  margin: 0 10px;
+  height: 35px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px; /* 左側だけ丸める */
 }
 
-.search-btn{
-  width: 50px;
+.search-bar:focus {
+  outline: none;             /* デフォルトの青い枠線を消す */
+  border-color: orange;    /* ログインボタンと同じオレンジにする */
+  box-shadow: 0 0 5px rgba(255, 165, 0, 0.3);
+}
+
+.search-btn {
+  width: 60px;
+  height: 35px;
   cursor: pointer;
-  color: #999;
-  border: none;
+  background-color: #eee;
+  color: #666;
+  border: 1px solid #ccc;
+  border-left: none; /* 検索バーとの境目を消す */
+  border-radius: 0 4px 4px 0; /* 右側だけ丸める */
 }
 
-.header-btns li{
-  float: left;
+.header-btns {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
 }
 
-.log-in-btn{
-  margin-right: 110px;
+.log-in-btn {
   background-color: orange;
+  margin-right: 20px;
 }
 
-.sign-up-btn{
-  margin-right: 60px;
+.sign-up-btn {
   background-color: cyan;
+  margin-right: 20px;
 }
 
 .log-in-btn, .sign-up-btn {
-  padding: 7px;
+  padding: 8px 15px;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;  /* 改行を防ぐ */
 }
 
-.log-in-btn:hover, .sign-up-btn:hover{
-  opacity: 0.5;
+.log-in-btn-text, .sign-up-btn-text {
+  font-weight: bold;
+  color: #333;
+}
+
+.log-in-btn:hover, .sign-up-btn:hover {
+  opacity: 0.7;
 }
