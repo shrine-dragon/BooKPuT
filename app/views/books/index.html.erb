@@ -67,11 +67,51 @@
       </div>
     </div>
   </div>
+
   <div class='app-description'>
-    <%= image_tag("アプリの説明文&画像.png", class: "app-description-image") %>
+    <div class="app-description-wrapper">
+      <h2>本を読むと共に、発信する時代へ！</h2>
+      <p>読書とSNSを融合させた近代的なアプリ</p>
+      <p>たった20文字で本の内容をアウトプット可</p>
+      <p>老若男女、どなたでも楽しめます。</p>
+      <p class="app-download-text">アプリ版のダウンロードはこちら</p>
+      <div class="store-btns">
+        <%= link_to root_path do %>
+          <%= image_tag("google-play-badge.png", class: "store-btn", alt: "Google Playで手に入れよう") %>
+        <% end %>
+        <%= link_to root_path do %>
+          <%= image_tag("apple-store-badge.png", class: "store-btn", alt: "App Storeからダウンロード") %>
+        <% end %>
+      </div>
+    </div>
   </div>
-  <div class='app-character'>
+
+  <div class='app-feature'>
+    <div class="app-feature-wrapper">
+      <div class="feature-heading">
+        <h2>アプリの特徴</h2>
+      </div>
+      <div class="feature-contents">
+        <%= image_tag '' %>
+        <h2 class="feature-sentence">
+
+        </h2>
+      </div>
+      <div class="feature-contents">
+        <%= image_tag '' %>
+        <h2 class="feature-sentence">
+
+        </h2>
+      </div>
+      <div class="feature-contents">
+        <%= image_tag '' %>
+        <h2 class="feature-sentence">
+
+        </h2>
+      </div>
+    </div>
   </div>
+
   <div class="faq">
     <div class='faq-wrapper'>
       <div class="faq-heading">
