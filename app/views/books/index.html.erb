@@ -60,6 +60,11 @@
           <span class="dot"></span>
         </div>
       </div>
+      <div class="new-post-btn">
+        <%= link_to(root_path, class: "new-post-btn") do %>
+          <span class="new-post-btn-text">新規投稿</span>
+        <% end %>
+      </div>
     </div>
   </div>
   <div class='app-description'>
@@ -113,5 +118,9 @@
     </div>
   </div>
 </main>
+
+<%= link_to(root_path, class: "post-btn") do %>
+  <span class="post-btn-text">投稿する</span>
+<% end %>
 
 <%= render 'partial_template/footer' %>

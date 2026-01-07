@@ -2,9 +2,9 @@
   background-color: yellow;
 }
 
-.post-list-wrapper {
+.post-list-wrapper{
   overflow: visible;
-  padding: 0 60px;
+  padding: 0 60px 30px;
   
 }
 
@@ -16,14 +16,14 @@
   overflow: visible;
 }
 
-.post-images-viewport {
+.post-images-viewport{
   width: 100%;
   overflow: hidden; /* 画像だけここで切り取る */
 }
 
 .post-list-heading h2{
   text-align: center;
-  margin: 50px 0 30px 0;
+  margin: 50px 0 30px;
   padding-top: 30px;
   font-weight: bold;
   font-size: 20px;
@@ -52,7 +52,7 @@
 }
 
 .fa-solid.prev-arrow,
-.fa-solid.next-arrow {
+.fa-solid.next-arrow{
   position: absolute;
   top: 50%;
   // 要素を矢印自体のサイズの半分だけ、垂直方向に動かす
@@ -64,15 +64,15 @@
   color: #333;
 }
 
-.prev-arrow {
+.prev-arrow{
   left: -60px;
 }
 
-.next-arrow {
+.next-arrow{
   right: -60px;
 }
 
-.dots-container {
+.dots-container{
   position: absolute;
   bottom: 10px;
   left: 50%;
@@ -81,7 +81,7 @@
   align-items: center;
 }
 
-.dot {
+.dot{
   width: 10px;
   height: 10px;
   margin: 0 5px 10px;
@@ -91,10 +91,27 @@
   cursor: pointer;
 }
 
-.dot.active {
+.dot.active{
   width: 24px;
   background-color: #fff;
   border-radius: 10px;
+}
+
+.new-post-btn{
+  width: 190px;
+  background: #F93;
+  text-align: center;
+  padding: 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.new-post-btn-text{
+  color: black;
+  font-size: 15px;
+  margin-bottom: 10px;
 }
 
 .faq{
@@ -135,4 +152,23 @@
 .answer {
   padding-top: 10px;
   display: none;
+}
+
+.post-btn {
+  width: 190px;
+  background: #F93;
+  text-align: center;
+  bottom: 30px;
+  right: 30px;
+  position: fixed;
+  z-index: 20;
+  padding: 15px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.post-btn-text {
+  color: black;
+  font-size: 18px;
+  margin-bottom: 5px;
 }
