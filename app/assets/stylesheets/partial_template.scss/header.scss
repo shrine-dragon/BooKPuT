@@ -2,6 +2,21 @@
   box-sizing: border-box;
 }
 
+.header{
+  background-color: #fffafa;
+  position: fixed;
+  top: 0;           /* 画面の最上部に張り付くように指定 */
+  left: 0;          /* 左端から開始 */
+  width: 100%;      /* ★重要：これがないと横幅が縮んで崩れる */
+  z-index: 100;     /* スライドの矢印(20)などより高い数字に設定 */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 浮いている感じを出す */
+}
+
+.header-wrapper{
+  max-width: 1500px;
+  padding-bottom: 30px;
+}
+
 .header-logo{
   float: left;
   padding-top: 15px;
