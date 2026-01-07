@@ -1,5 +1,24 @@
+.post-list{
+  background-color: yellow;
+}
+
 .post-list-wrapper {
-  margin: 100px 100px 70px;
+  overflow: visible;
+  padding: 0 60px;
+  
+}
+
+.post-images-container{
+  position: relative;
+  padding-bottom: 50px;
+  width: 720px;
+  margin: 0 auto;
+  overflow: visible;
+}
+
+.post-images-viewport {
+  width: 100%;
+  overflow: hidden; /* 画像だけここで切り取る */
 }
 
 .post-list-heading h2{
@@ -8,31 +27,74 @@
   padding-top: 30px;
   font-weight: bold;
   font-size: 20px;
- }
+}
 
- .post-images{
+.post-images{
   display: flex;
-  cursor: pointer;
- }
+  // 画像を見切れてしまった画像を隠して、スライドできるようにする
+  padding: 0;
+  margin: 0;
+  transition: transform 0.4s ease-out;
+}
 
-.irasutoya-image {
+.post-image{
+  cursor: pointer;
+  flex-shrink: 0;    /* 画像が圧縮されないようにする */
+  width: 200px;
+  margin-right: 40px;
+}
+
+.irasutoya-image{
   height: 250px;
   width: 200px;
-  margin-right: 20px;
   border: 1px solid black;
+  flex-shrink: 0; /* 画像が潰れないように固定 */
 }
 
-.fa-angle-left, .fa-angle-right{
-  font-size: 30px;
-  margin-top: 100px;
+.fa-solid.prev-arrow,
+.fa-solid.next-arrow {
+  position: absolute;
+  top: 50%;
+  // 要素を矢印自体のサイズの半分だけ、垂直方向に動かす
+  // 垂直中央揃えの黄金比
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 10;
+  font-size: 40px;
+  color: #333;
 }
 
-.fa-angle-left{
-  margin-right: 30px;
+.prev-arrow {
+  left: -60px;
 }
 
-.fa-angle-right{
-  margin-left: 30px;
+.next-arrow {
+  right: -60px;
+}
+
+.dots-container {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%); /* 左右中央揃え */
+  display: flex;
+  align-items: center;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  margin: 0 5px 10px;
+  background-color: #bbb;
+  border-radius: 50%;
+  transition: all 0.3s ease; /* 変化を滑らかにする */
+  cursor: pointer;
+}
+
+.dot.active {
+  width: 24px;
+  background-color: #fff;
+  border-radius: 10px;
 }
 
 .faq{
