@@ -106,10 +106,15 @@ main {
   background: #F93;
   text-align: center;
   padding: 15px;
-  border-radius: 5px;
+  border-radius: 8px;
   text-decoration: none;
   margin: 0 auto;
   cursor: pointer;
+  font-weight: bold;
+}
+
+.new-post-btn:hover{
+  opacity: 0.7;
 }
 
 .new-post-btn-text{
@@ -167,8 +172,13 @@ main {
   position: fixed;
   z-index: 20;
   padding: 15px;
-  border-radius: 5px;
+  border-radius: 8px;
   text-decoration: none;
+  font-weight: bold;
+}
+
+.post-btn:hover{
+  opacity: 0.7;
 }
 
 .post-btn-text {
