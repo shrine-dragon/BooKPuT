@@ -15,13 +15,15 @@ main {
 .post-images-container{
   position: relative;
   padding-bottom: 50px;
-  width: 720px;
+  width: 680px;
   margin: 0 auto;
   overflow: visible;
 }
 
 .post-images-viewport{
-  width: 100%;
+  width: 680px; /* ★修正: (200px * 3) + (40px * 2) = 680px */
+  /* 3枚目の右側の余白(40px)をカットすることで、右端がピッタリ揃います */
+  margin: 0 auto;
   overflow: hidden; /* 画像だけここで切り取る */
 }
 
@@ -38,14 +40,14 @@ main {
   // 画像を見切れてしまった画像を隠して、スライドできるようにする
   padding: 0;
   margin: 0;
-  transition: transform 0.4s ease-out;
+  width: max-content; /* 中身に合わせて幅を広げる */
 }
 
 .post-image{
   cursor: pointer;
-  flex-shrink: 0;    /* 画像が圧縮されないようにする */
+  flex-shrink: 0; /* 画像が圧縮されないようにする */
   width: 200px;
-  margin-right: 40px;
+  margin-right: 40px; /* すべてに40pxつける */
 }
 
 .irasutoya-image{
@@ -77,27 +79,26 @@ main {
 }
 
 .dots-container{
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%); /* 左右中央揃え */
   display: flex;
+  justify-content: center;
   align-items: center;
+  gap: 10px; /* ドット間の距離 */
+  margin-top: 25px;
 }
 
 .dot{
   width: 10px;
   height: 10px;
-  margin: 0 5px 10px;
-  background-color: #bbb;
   border-radius: 50%;
-  transition: all 0.3s ease; /* 変化を滑らかにする */
   cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.2);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* 形の変化を滑らかに */
+  will-change: width, background-color; /* ブラウザにアニメーションを予告して滑らかに */
 }
 
 .dot.active{
-  width: 24px;
-  background-color: #fff;
+  width: 30px;
+  background-color: orange;
   border-radius: 10px;
 }
 
