@@ -7,58 +7,23 @@
         <h2>投稿一覧</h2>
       </div>
       <div class="post-images-container">
-        <i class="fa-solid fa-angle-left prev-arrow"></i>
-
-        <div class="post-images-viewport">
-          <ul class="post-images">
-            <%# ダミー画像 %>
-            <li class="post-image dummy">
-              <%= image_tag("Enel.png", class: "irasutoya-image") %>
-            </li>
-            <li class="post-image dummy">
-              <%= image_tag("Enel.png", class: "irasutoya-image") %>
-            </li>
-            <li class="post-image dummy">
-              <%= image_tag("Enel.png", class: "irasutoya-image") %>
-            </li>
-
-            <%# 本物画像 %>
-            <li class="post-image">
-              <%= image_tag("Gecko-moria.png", class: "irasutoya-image") %>
-            </li>
-            <li class="post-image">
-              <%= image_tag("Crocodile.png", class: "irasutoya-image") %>
-            </li>
-            <li class="post-image">
-              <%= image_tag("Lucci.png", class: "irasutoya-image") %>
-            </li>
-            <li class="post-image">
-              <%= image_tag("Jinbe.png", class: "irasutoya-image") %>
-            </li>
-            <li class="post-image">
-              <%= image_tag("Enel.png", class: "irasutoya-image") %>
-            </li>
-            <%# ダミー画像 %>
-            <li class="post-image-dummy">
-              <%= image_tag("Enel.png", class: "irasutoya-image") %>
-            </li>
-            <li class="post-image-dummy">
-              <%= image_tag("Enel.png", class: "irasutoya-image") %>
-            </li>
-            <li class="post-image-dummy">
-              <%= image_tag("Enel.png", class: "irasutoya-image") %>
-            </li>
-          </ul>
-        </div>
-
-        <i class="fa-solid fa-angle-right next-arrow"></i>
-        <div class="dots-container">
-          <span class="dot active"></span>
-          <span class="dot"></span>
-          <span class="dot"></span>
-          <span class="dot"></span>
-          <span class="dot"></span>
-        </div>
+        <ul class="post-images slick-slider">
+          <li class="post-image">
+            <%= image_tag("Gecko-moria.png", class: "irasutoya-image") %>
+          </li>
+          <li class="post-image">
+            <%= image_tag("Crocodile.png", class: "irasutoya-image") %>
+          </li>
+          <li class="post-image">
+            <%= image_tag("Lucci.png", class: "irasutoya-image") %>
+          </li>
+          <li class="post-image">
+            <%= image_tag("Jinbe.png", class: "irasutoya-image") %>
+          </li>
+          <li class="post-image">
+            <%= image_tag("Enel.png", class: "irasutoya-image") %>
+          </li>
+        </ul>
       </div>
       <div class="new-post-btn">
         <%= link_to(root_path, class: "new-post-btn") do %>

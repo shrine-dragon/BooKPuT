@@ -7,24 +7,73 @@ main {
 }
 
 .post-list-wrapper{
-  overflow: visible;
+  overflow: visible !important;
   padding: 0 60px 30px;
   
 }
 
 .post-images-container{
-  position: relative;
-  padding-bottom: 50px;
-  width: 680px;
+  width: 720px;
   margin: 0 auto;
-  overflow: visible;
+  position: relative;
+
+  .slick-dots {
+    position: relative !important; /* absoluteを解除 */
+    bottom: auto !important;      /* Slickの規定位置をリセット */
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    
+    margin: 25px 0 !important;
+
+    li {
+      margin: 0 8px !important; /* ドット同士の間隔 */
+      width: auto !important;   /* Slickが勝手に決める幅をリセット */
+      height: auto !important;
+
+      button {
+        /* ★ 通常時のドットを大きく、かつ「正円」にする */
+        width: 13px !important;
+        height: 13px !important;
+        background: rgba(0, 0, 0, 0.2) !important;
+        border-radius: 50% !important;
+        border: none !important;
+        padding: 0 !important;
+        font-size: 0 !important; /* 数字を消す */
+        display: block !important;
+        transition: all 0.3s ease;
+
+        &:before {
+          display: none !important; /* Slick標準のドット（・）を完全に消す */
+        }
+      }
+
+      /* ★ アクティブ時のオレンジの棒 */
+      &.slick-active {
+        button {
+          width: 40px !important;   /* 横に長く */
+          height: 14px !important;  /* 通常時と高さを合わせる */
+          background: orange !important;
+          border-radius: 10px !important;
+        }
+      }
+    }
+  }
 }
 
-.post-images-viewport{
-  width: 680px; /* ★修正: (200px * 3) + (40px * 2) = 680px */
-  /* 3枚目の右側の余白(40px)をカットすることで、右端がピッタリ揃います */
-  margin: 0 auto;
-  overflow: hidden; /* 画像だけここで切り取る */
+.slick-prev {
+  left: -40px !important;
+}
+
+.slick-next {
+  right: -40px !important;
+}
+
+.slick-prev:before, .slick-next:before {
+  color: #333 !important; /* 黒系の色を指定 */
+  font-size: 30px;        /* 大きさを調整 */
 }
 
 .post-list-heading h2{
@@ -35,19 +84,15 @@ main {
   font-size: 20px;
 }
 
-.post-images{
-  display: flex;
-  // 画像を見切れてしまった画像を隠して、スライドできるようにする
+.post-images.slick-slider{
+  display: block;
   padding: 0;
   margin: 0;
-  width: max-content; /* 中身に合わせて幅を広げる */
 }
 
 .post-image{
-  cursor: pointer;
-  flex-shrink: 0; /* 画像が圧縮されないようにする */
-  width: 200px;
-  margin-right: 40px; /* すべてに40pxつける */
+  outline: none;
+  padding: 0 10px;
 }
 
 .irasutoya-image{
@@ -55,51 +100,6 @@ main {
   width: 200px;
   border: 1px solid black;
   flex-shrink: 0; /* 画像が潰れないように固定 */
-}
-
-.fa-solid.prev-arrow,
-.fa-solid.next-arrow{
-  position: absolute;
-  top: 50%;
-  // 要素を矢印自体のサイズの半分だけ、垂直方向に動かす
-  // 垂直中央揃えの黄金比
-  transform: translateY(-50%);
-  cursor: pointer;
-  z-index: 10;
-  font-size: 40px;
-  color: #333;
-}
-
-.prev-arrow{
-  left: -60px;
-}
-
-.next-arrow{
-  right: -60px;
-}
-
-.dots-container{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px; /* ドット間の距離 */
-  margin-top: 25px;
-}
-
-.dot{
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.2);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* 形の変化を滑らかに */
-  will-change: width, background-color; /* ブラウザにアニメーションを予告して滑らかに */
-}
-
-.dot.active{
-  width: 30px;
-  background-color: orange;
-  border-radius: 10px;
 }
 
 .new-post-btn{
