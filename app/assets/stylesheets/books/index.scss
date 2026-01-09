@@ -3,13 +3,17 @@ main {
 }
 
 .post-list{
-  background-color: yellow;
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)), 
+    asset-url("bookshelves.png");
+  background-size: cover;
+  background-position: center; /* 中央に合わせると綺麗です */
+  background-repeat: no-repeat;
 }
 
 .post-list-wrapper{
   overflow: visible !important;
   padding: 0 60px 30px;
-  
 }
 
 .post-images-container{
@@ -98,7 +102,7 @@ main {
 .irasutoya-image{
   height: 250px;
   width: 200px;
-  border: 1px solid black;
+  border: 2px solid orange;
   flex-shrink: 0; /* 画像が潰れないように固定 */
 }
 
@@ -181,11 +185,29 @@ main {
 .app-feature{
   height: 600px;
   width: 100%;
-  aspect-ratio: 16 / 9; /* 画像の縦横比を保つ */
-  background-image: asset-url("bookshelves.png");
-  background-size: cover;
-  background-position: center; /* 中央に合わせると綺麗です */
-  background-repeat: no-repeat;
+  background-color: linen;
+}
+
+.app-feature-wrapper{
+  overflow: visible !important;
+  padding: 0 60px 30px;
+}
+
+.app-feature-heading h2{
+  text-align: center;
+  padding-top: 30px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.app-feature-container{
+  width: 720px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.app-feature-sentence{
+
 }
 
 .faq{
@@ -193,13 +215,12 @@ main {
 }
 
 .faq-wrapper{
-  margin: 100px 100px 70px;
+  margin: 0 100px;
   padding-bottom: 20px;
 }
 
 .faq-heading h2{
   text-align: center;
-  margin: 100px 0 30px 0;
   padding-top: 30px;
   font-weight: bold;
   font-size: 20px;
@@ -250,4 +271,75 @@ main {
   color: black;
   font-size: 18px;
   margin-bottom: 5px;
+}
+
+.swiper-outer-container {
+  position: relative; /* 矢印の基準点にする */
+  width: 80%;         /* スライダー自体の幅 */
+  margin: 0 auto 30px;
+  display: flex;
+  align-items: center;
+}
+
+.swiper {
+  width: 100%;
+  height: 300px;
+}
+
+.swiper-wrapper {
+  /* wrapperのサイズを調整 */
+  width: 100%;
+  height: 300px;
+  margin: 0 50px !important;
+}
+
+.swiper-wrapper {
+  /* wrapperのサイズを調整 */
+  width: 100%;
+  height: 300px;
+}
+
+.swiper-slide {
+  /* スライドのサイズを調整、中身のテキスト配置調整、背景色 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.one {
+  background-color: red;
+}
+
+.two {
+  background-color: blue;
+}
+
+.three {
+  background-color: yellow;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #000 !important; /* 黒色 */
+  width: 50px !important;  /* クリックエリアを広げる */
+  height: 50px !important;
+  z-index: 10;
+}
+
+.swiper-button-prev {
+  left: -60px !important;
+}
+.swiper-button-next {
+  right: -60px !important;
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  font-size: 40px !important; /* ここでサイズ調整 */
+  font-weight: bold;
 }
