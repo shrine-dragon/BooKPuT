@@ -32,9 +32,5 @@ $(document).on('turbolinks:load', function() {
       el: ".pagination",
       clickable: true,
     },
-    navigation: {
-      nextEl: ".next-btn", // ここを HTML のクラス名と一致させる
-      prevEl: ".prev-btn", // ここを HTML のクラス名と一致させる
-    },
   });
 });

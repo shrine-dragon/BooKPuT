@@ -85,7 +85,7 @@ main {
   margin: 50px 0 30px;
   padding-top: 30px;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 25px;
 }
 
 .post-images.slick-slider{
@@ -208,24 +208,27 @@ main {
   text-align: center;
   padding-top: 30px;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 25px;
 }
 
 .app-feature-container{
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   text-align: center;
+  width: 100%;
 }
 
 .feature-image{
+  display: block;
   width: 100%;       /* 親要素の幅いっぱいに */
   max-width: 700px;  /* ただし最大700pxまで */
   height: 400px;
   object-fit: cover; /* 画像を枠にフィットさせる */
   border: 1px solid black;
   margin-bottom: 30px; /* 画像と文字の間の余白 */
+  margin-top: 25px;
+  flex-shrink: 0;
 }
 
 .app-feature-sentence{
@@ -233,44 +236,6 @@ main {
   text-align: left;
   font-size: 30px;
   font-weight: bold;
-}
-
-.prev-btn,
-.next-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%); /* 中央寄せの黄金比 */
-  cursor: pointer;
-  z-index: 100;
-  width: 50px;  /* クリックエリアの確保 */
-  /* 文字としての prev/next を完全に消す */
-  font-size: 0 !important;
-  color: transparent !important;
-  
-  /* 背景画像で矢印を表現（CodePenのスタイルに合わせる） */
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  
-  /* Swiper標準の矢印アイコンを表示させるための設定 */
-  &::after {
-    display: none !important;
-  }
-}
-
-.prev-btn {
-  left: -80px;
-  /* Swiper公式のSVGアイコンを直接埋め込む（一番確実です） */
-  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 27 44'%3E%3Cpath d='M0 22L22 0l2.1 2.1L4.2 22l19.9 19.9L22 44 0 22z' fill='%23000000'/%3E%3C/svg%3E");
-}
-
-.next-btn {
-  right: -80px;
-  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 27 44'%3E%3Cpath d='M27 22L5 44l-2.1-2.1L22.8 22 2.9 2.1 5 0l22 22z' fill='%23000000'/%3E%3C/svg%3E");
-}
-
-.prev-btn, .next-btn {
-  font-size: 0 !important; 
 }
 
 .pagination {
@@ -284,6 +249,7 @@ main {
 
 .faq{
   background-color: #f5f5f5;
+  margin-bottom: 60px;
 }
 
 .faq-wrapper{
@@ -295,7 +261,7 @@ main {
   text-align: center;
   padding-top: 30px;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 25px;
  }
 
 .question-and-answer{
