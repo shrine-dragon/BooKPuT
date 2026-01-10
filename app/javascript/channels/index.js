@@ -14,24 +14,27 @@ $(document).on('turbolinks:load', function() {
     }
   });
 
-  if (window.mySwiper) {
-    window.mySwiper.destroy();
+  if (window.mySwiperFeature) {
+    window.mySwiperFeature.destroy();
   }
 
-  window.mySwiper = new Swiper(".swiper", {
+  window.mySwiperFeature = new Swiper(".app-feature-wrapper", {
     loop: true,
     slidesPerView: 1,
+    autoHeight: true,
+    centeredSlides: true, // 中央寄せ
+    spaceBetween: 0, // スライド間の隙間
     autoplay: {
-      delay: 3000,
+      delay: 4000,
       disableOnInteraction: false,
     },
     pagination: {
-      el: ".swiper-pagination",
+      el: ".pagination",
       clickable: true,
     },
     navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
+      nextEl: ".next-btn", // ここを HTML のクラス名と一致させる
+      prevEl: ".prev-btn", // ここを HTML のクラス名と一致させる
     },
   });
 });

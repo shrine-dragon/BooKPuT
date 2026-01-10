@@ -52,28 +52,39 @@
   </div>
 
   <div class='app-feature'>
-    <div class="app-feature-wrapper">
+    <div class="app-feature-outer">
       <div class="app-feature-heading">
         <h2>アプリの特徴</h2>
       </div>
-      <div class="app-feature-container">
-        <%= image_tag '' %>
-        <h2 class="app-feature-sentence">
+      <div class="prev-btn"></div>
 
-        </h2>
-      </div>
-      <div class="app-feature-container">
-        <%= image_tag '' %>
-        <h2 class="app-feature-sentence">
+      <div class="app-feature-wrapper swiper">
+        <div class="app-feature-contents swiper-wrapper">
+          <div class="app-feature-container swiper-slide">
+            <%= image_tag("bookshelves.png", class: "feature-image") %>
+            <h2 class="app-feature-sentence">
+              読んだ本の内容や感想を<br>20〜140文字以内で投稿できます
+            </h2>
+          </div>
 
-        </h2>
-      </div>
-      <div class="app-feature-container">
-        <%= image_tag '' %>
-        <h2 class="app-feature-sentence">
+          <div class="app-feature-container swiper-slide">
+            <%= image_tag("bookshelves.png", class: "feature-image") %>
+            <h2 class="app-feature-sentence">
+              新規登録はわずか3ステップで完了<br>SNS認証も可
+            </h2>
+          </div>
 
-        </h2>
+          <div class="app-feature-container swiper-slide">
+            <%= image_tag("bookshelves.png", class: "feature-image") %>
+            <h2 class="app-feature-sentence">
+              印象に残った投稿に<br>コメント・高評価もつけられます
+            </h2>
+          </div>
+        </div>
+        <div class="pagination"></div>
       </div>
+
+      <div class="next-btn"></div>
     </div>
   </div>
 
@@ -122,28 +133,6 @@
         </li>
       </ul>
     </div>
-  </div>
-
-
-
-
-
-
-
-
-  <div class="swiper-outer-container">
-    <div class="swiper-button-prev"></div>
-
-    <div class="swiper">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide one">Slide 1</div>
-        <div class="swiper-slide two">Slide 2</div>
-        <div class="swiper-slide three">Slide 3</div>
-      </div>
-      <div class="swiper-pagination"></div>
-    </div>
-
-    <div class="swiper-button-next"></div>
   </div>
 </main>
 
