@@ -2,10 +2,6 @@ main {
   padding-top: 10px;
 }
 
-.post-list{
-  background-color: burlywood;
-}
-
 .post-list-wrapper{
   overflow: visible !important;
   padding: 0 60px 30px;
@@ -102,8 +98,13 @@ main {
 .irasutoya-image{
   height: 250px;
   width: 200px;
-  border: 2px solid orange;
   flex-shrink: 0; /* 画像が潰れないように固定 */
+  border: 10px solid;
+  border-image: linear-gradient(to right bottom,#e0d9b6,#b4983a) 1 / 10px;
+  outline: 3px outset #efe9cc;
+  padding: 15px;
+  background: #FFF;
+  box-shadow: 1px 3px 10px #999;
 }
 
 .new-post-btn{
@@ -229,6 +230,8 @@ main {
   margin-bottom: 30px; /* 画像と文字の間の余白 */
   margin-top: 25px;
   flex-shrink: 0;
+  border: 5px solid #FFF;
+  box-shadow: 0 0 5px #999;
 }
 
 .app-feature-sentence{
