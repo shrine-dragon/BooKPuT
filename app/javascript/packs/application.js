@@ -10,4 +10,5 @@ require("channels")
 
 // ここで index.js (または channels フォルダ等) を読み込む
 // パスを channels/index に合わせる
-import "../channels/index" // index.jsの場所に合わせたパスを指定してください
+import "../channels/index" // index.jsの場所に合わせたパスを指定
+import "../channels/header"

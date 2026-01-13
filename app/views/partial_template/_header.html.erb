@@ -12,16 +12,42 @@
       </div>
       <ul class="header-btns">
         <li class="log-in-btn">
-          <%= link_to(root_path) do %>
+          <%= link_to "#", class: "log-in-show-btn" do %>
             <span class="log-in-btn-text">ログイン</span>
-          <% end  %>
+          <% end %>
         </li>
         <li class="sign-up-btn">
-          <%= link_to(root_path) do %>
+          <%= link_to "#", class: "sign-up-show-btn" do %>
             <span class="sign-up-btn-text">新規登録</span>
           <% end %>
         </li>
       </ul>
+    </div>
+  </div>
+</div>
+
+<div id="modal-overlay"></div>
+
+<div class="sign-up-modal">
+  <div class="sign-up-modal-wrapper">
+    <div class="modal-btn-container">
+      <%= link_to(root_path, class: "modal-btn") do %>
+        <i class="fa-regular fa-envelope"></i>メールアドレスでアカウント作成
+      <% end %>
+      <div class="two-columns-layout">
+        <%= link_to(root_path, class: "modal-btn") do %>
+          <i class="fa-brands fa-google"></i>Google
+        <% end %>
+        <%= link_to(root_path, class: "modal-btn") do %>
+          <i class="fa-brands fa-x-twitter"></i>X(Twitter)
+        <% end %>
+        <%= link_to(root_path, class: "modal-btn") do %>
+          <i class="fa-brands fa-facebook"></i>Facebook
+        <% end %>
+        <%= link_to(root_path, class: "modal-btn") do %>
+          <i class="fa-brands fa-line"></i>LINE
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

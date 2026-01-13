@@ -1,30 +1,6 @@
 <%= render 'partial_template/header' %>
 
 <main>
-  <div class="sign-up-modal">
-    <div class="sign-up-modal-wrapper">
-      <div class="modal-btn-container">
-        <%= link_to(root_path, class: "modal-btn") do %>
-          <i class="fa-regular fa-envelope"></i>メールアドレスでアカウント作成
-        <% end %>
-        <div class="two-columns-layout">
-          <%= link_to(root_path, class: "modal-btn") do %>
-            <i class="fa-brands fa-google"></i>Google
-          <% end %>
-          <%= link_to(root_path, class: "modal-btn") do %>
-            <i class="fa-brands fa-x-twitter"></i>X(Twitter)
-          <% end %>
-          <%= link_to(root_path, class: "modal-btn") do %>
-            <i class="fa-brands fa-facebook"></i>Facebook
-          <% end %>
-          <%= link_to(root_path, class: "modal-btn") do %>
-            <i class="fa-brands fa-line"></i>LINE
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <div class='post-list'>
     <div class="post-list-wrapper">
       <div class="post-list-heading">

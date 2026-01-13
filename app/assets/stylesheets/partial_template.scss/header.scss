@@ -4,11 +4,12 @@
 
 .header{
   background-color: #fffafa;
+  position: relative;
   position: fixed;
   top: 0;           /* 画面の最上部に張り付くように指定 */
   left: 0;          /* 左端から開始 */
   width: 100%;      /* ★重要：これがないと横幅が縮んで崩れる */
-  z-index: 100;     /* スライドの矢印(20)などより高い数字に設定 */
+  z-index: 1001;     /* スライドの矢印(20)などより高い数字に設定 */
   box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 浮いている感じを出す */
 }
 
@@ -100,3 +101,84 @@
 .log-in-btn:hover, .sign-up-btn:hover {
   background-color: whitesmoke;
 }
+
+#modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.sign-up-modal{
+  height: 220px;
+  width: 420px;
+  background-color: whitesmoke;
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+  display: none;
+  position: absolute;
+  position: fixed;
+  top: 64px;
+  right: 40px;
+  z-index: 1000;
+
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* 浮いている感じを出す影 */
+}
+
+.sign-up-modal-wrapper{
+  width: 80%;
+}
+
+.modal-btn-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px; /* これだけで小要素の間に隙間ができる */
+}
+
+.modal-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 360px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: white;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+  }
+}
+
+.two-columns-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr; // 均等に2分割
+  gap: 10px;
+  width: 100%;
+  max-width: 360px;
+}
+
+.fa-google { color: deepskyblue; }
+.fa-line { color: #06C755; }
+.fa-x-twitter { color: #000000; }
+.fa-facebook { color: #1877F2; }
+.fa-envelope { color: #666666; }
