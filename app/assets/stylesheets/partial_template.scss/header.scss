@@ -1,0 +1,249 @@
+* {
+  box-sizing: border-box;
+}
+
+.header{
+  background-color: #fffafa;
+  position: relative;
+  position: fixed;
+  top: 0;           /* 画面の最上部に張り付くように指定 */
+  left: 0;          /* 左端から開始 */
+  width: 100%;      /* ★重要：これがないと横幅が縮んで崩れる */
+  z-index: 1001;     /* スライドの矢印(20)などより高い数字に設定 */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 浮いている感じを出す */
+}
+
+.header-wrapper{
+  max-width: 1500px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 20px;
+}
+
+.header-logo{
+  display: flex;
+  padding-top: 5px;
+  margin-left: 10px;
+}
+
+.bookput-header-logo{
+  height: 50px;
+  width: 250px;
+  object-fit: contain; /* 画像の比率を保つ */
+}
+
+.header-list{
+  display: flex;
+  align-items: center;
+}
+
+.search{
+  display: flex;
+  align-items: center;
+  margin-right: 120px;
+}
+
+.search-bar {
+  width: 500px;
+  height: 35px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px; /* 左側だけ丸める */
+}
+
+.search-bar:focus {
+  outline: none;             /* デフォルトの青い枠線を消す */
+  border-color: orange;    /* ログインボタンと同じオレンジにする */
+  box-shadow: 0 0 5px rgba(255, 165, 0, 0.3);
+}
+
+.search-btn {
+  width: 60px;
+  height: 35px;
+  cursor: pointer;
+  background-color: #eee;
+  color: #666;
+  border: 1px solid #ccc;
+  border-left: none; /* 検索バーとの境目を消す */
+  border-radius: 0 4px 4px 0; /* 右側だけ丸める */
+}
+
+.header-btns {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  align-items: center;
+}
+
+.log-in-btn {
+  margin-right: 30px;
+}
+
+.sign-up-btn {
+  margin-right: 20px;
+}
+
+.log-in-btn, .sign-up-btn {
+  padding: 20px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;  /* 改行を防ぐ */
+}
+
+.log-in-btn-text, .sign-up-btn-text {
+  font-weight: bold;
+  color: #333;
+}
+
+.log-in-btn:hover, .sign-up-btn:hover {
+  background-color: whitesmoke;
+}
+
+#modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.modal{
+  background-color: whitesmoke;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  display: none;
+  position: absolute;
+  position: fixed;
+  top: 64px;
+  z-index: 1000;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* 浮いている感じを出す影 */
+}
+
+.modal-wrapper{
+  width: 80%;
+}
+
+.modal-btn-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px; /* これだけで小要素の間に隙間ができる */
+}
+
+.modal-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 360px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: white;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+  }
+}
+
+.two-columns-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr; // 均等に2分割
+  gap: 10px;
+  width: 100%;
+  max-width: 360px;
+  .modal-btn{
+    padding: 10px 5px;
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  i {
+    margin-right: 5px;  /* アイコンと文字の距離を詰める */
+    font-size: 1rem;
+  }
+}
+
+.fa-google { color: deepskyblue; }
+.fa-line { color: #06C755; }
+.fa-x-twitter { color: #000000; }
+.fa-facebook { color: #1877F2; }
+.fa-envelope { color: #666666; }
+
+.modal.log-in{
+  height: auto;
+  min-height: 450px;
+  padding: 25px 20px;
+  width: 420px;
+  right: 175px;
+}
+
+.log-in-form{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 360px;
+  margin-bottom: 15px;
+  label {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+    width: 100%;
+  }
+}
+
+.log-in-form-text{
+  margin-bottom: 5px;
+}
+
+.input-mail-address, .input-password{
+  width: 100%;
+  height: 45px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 5px 0 15px;
+}
+
+.log-in-submit-btn{
+  width: 100%;
+  height: 45px;
+  cursor: pointer;
+  border: none;
+  font-weight: bold;
+  font-size: 16px;
+  background-color: orange;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  &:hover{
+    opacity: 0.7;
+  }
+}
+
+.forget-password{
+  color: 	cornflowerblue;
+}
+
+.modal.sign-up{
+  height: 220px;
+  width: 420px;
+  right: 40px;
+}

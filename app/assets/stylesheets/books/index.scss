@@ -1,0 +1,364 @@
+.post-list-wrapper{
+  overflow: visible !important;
+  padding: 0 60px 30px;
+}
+
+.post-images-container{
+  width: 720px;
+  margin: 0 auto;
+  position: relative;
+
+  .slick-dots {
+    position: relative !important; /* absoluteを解除 */
+    bottom: auto !important;      /* Slickの規定位置をリセット */
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    
+    margin: 25px 0 !important;
+
+    li {
+      margin: 0 8px !important; /* ドット同士の間隔 */
+      width: auto !important;   /* Slickが勝手に決める幅をリセット */
+      height: auto !important;
+
+      button {
+        /* ★ 通常時のドットを大きく、かつ「正円」にする */
+        width: 13px !important;
+        height: 13px !important;
+        background: rgba(0, 0, 0, 0.2) !important;
+        border-radius: 50% !important;
+        border: none !important;
+        padding: 0 !important;
+        font-size: 0 !important; /* 数字を消す */
+        display: block !important;
+        transition: all 0.3s ease;
+
+        &:before {
+          display: none !important; /* Slick標準のドット（・）を完全に消す */
+        }
+      }
+
+      /* ★ アクティブ時のオレンジの棒 */
+      &.slick-active {
+        button {
+          width: 40px !important;   /* 横に長く */
+          height: 14px !important;  /* 通常時と高さを合わせる */
+          background: orange !important;
+          border-radius: 10px !important;
+        }
+      }
+    }
+  }
+}
+
+.slick-prev, .slick-next{
+  z-index: 10;
+  filter: drop-shadow(0px 0px 5px rgba(255, 255, 255, 0.5));
+}
+
+.slick-prev {
+  left: -40px !important;
+}
+
+.slick-next {
+  right: -40px !important;
+}
+
+.slick-prev:before, .slick-next:before {
+  color: #333 !important; /* 黒系の色を指定 */
+  font-size: 30px;        /* 大きさを調整 */
+}
+
+.post-list-heading h2{
+  text-align: center;
+  margin: 50px 0 30px;
+  padding-top: 30px;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.post-images.slick-slider{
+  display: block;
+  padding: 0;
+  margin: 0;
+}
+
+.post-image{
+  outline: none;
+  padding: 0 10px;
+}
+
+.irasutoya-image{
+  height: 250px;
+  width: 200px;
+  flex-shrink: 0; /* 画像が潰れないように固定 */
+  border: 10px solid;
+  border-image: linear-gradient(to right bottom,#e0d9b6,#b4983a) 1 / 10px;
+  outline: 3px outset #efe9cc;
+  padding: 15px;
+  background: #FFF;
+  box-shadow: 1px 3px 10px #999;
+}
+
+.new-post-btn{
+  width: 190px;
+  background: #F93;
+  text-align: center;
+  padding: 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  margin: 0 auto;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.new-post-btn:hover{
+  opacity: 0.7;
+}
+
+.new-post-btn-text{
+  color: black;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.app-description{
+  height: 550px;
+  width: 100%;
+  aspect-ratio: 16 / 9; /* 画像の縦横比を保つ */
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+    asset-url("app-description.png");
+  background-size: cover;
+  background-position: center; /* 中央に合わせると綺麗 */
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.app-description-wrapper{
+  max-width: 1280px;
+  color: white;
+  /* 文字にぼかした影をつける（右に2px、下に2px、ぼかし4px、黒の透明度0.8） */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  h2{
+    text-align: center;
+    font-weight: bold;
+    font-size: 60px;
+    margin-bottom: 25px;
+  }
+  p{
+    text-align: left;
+    font-size: 40px;
+    margin-bottom: 5px;
+    line-height: 1.8;
+  }
+  .app-download-text{
+    text-align: left;
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+}
+
+.store-btns{
+  display: flex;
+  gap: 15px;
+}
+
+.store-btn{
+  height: 50px;
+  width: 200px;
+}
+
+.store-btn:hover{
+  opacity: 0.7;
+}
+
+.app-feature {
+  min-height: 700px; /* 固定ではなく最小高さに */
+  height: auto;
+  width: 100%;
+  background-color: linen;
+  padding: 50px 0;
+  display: flex;
+  flex-direction: column; /* 縦に並べる */
+  align-items: center;
+}
+
+.app-feature-outer {
+  position: relative;
+  width: 800px;       /*矢印を外に出す分、widthをapp-featureよりも長くする必要がある */
+  margin: 0 auto;
+}
+
+.app-feature-wrapper {
+  width: 100%;
+  overflow: hidden; /* スライドを隠す */
+}
+
+.app-feature-heading h2{
+  text-align: center;
+  padding-top: 30px;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.app-feature-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.feature-image{
+  display: block;
+  width: 100%;       /* 親要素の幅いっぱいに */
+  max-width: 700px;  /* ただし最大700pxまで */
+  height: 400px;
+  object-fit: cover; /* 画像を枠にフィットさせる */
+  border: 1px solid black;
+  margin-bottom: 30px; /* 画像と文字の間の余白 */
+  margin-top: 25px;
+  flex-shrink: 0;
+  border: 5px solid #FFF;
+  box-shadow: 0 0 5px #999;
+}
+
+.app-feature-sentence{
+  display: block !important;
+  text-align: left;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.pagination {
+  text-align: center;
+  margin-top: 20px;
+  
+  .swiper-pagination-bullet-active {
+    background: #F93;
+  }
+}
+
+.faq{
+  background-color: #f5f5f5;
+  margin-bottom: 60px;
+}
+
+.faq-wrapper{
+  margin: 0 100px;
+  padding-bottom: 20px;
+}
+
+.faq-heading h2{
+  text-align: center;
+  padding-top: 30px;
+  font-weight: bold;
+  font-size: 25px;
+ }
+
+.question-and-answer{
+  padding-bottom: 10px;
+  margin: 0 0 40px 50px;
+  border-bottom:1px solid #ccc;
+  position:relative;
+  cursor:pointer;
+  text-align: left;
+  font-size: 18px;
+}
+
+.question-and-answer span{
+  position: absolute;
+  top:0;
+  right:5px;
+  color:#ccc;
+  font-size: 30px;
+}
+
+.answer {
+  padding-top: 10px;
+  display: none;
+}
+
+.post-btn {
+  width: 190px;
+  background: #F93;
+  text-align: center;
+  bottom: 30px;
+  right: 30px;
+  position: fixed;
+  z-index: 20;
+  padding: 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.post-btn:hover{
+  opacity: 0.7;
+}
+
+.post-btn-text {
+  color: black;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.swiper-outer-container {
+  position: relative; /* 矢印の基準点にする */
+  width: 80%;         /* スライダー自体の幅 */
+  margin: 0 auto 30px;
+  display: flex;
+  align-items: center;
+}
+
+.swiper {
+  width: 100%;
+  height: 300px;
+}
+
+.swiper-wrapper {
+  /* wrapperのサイズを調整 */
+  width: 100%;
+  height: 300px;
+  margin: 0 50px !important;
+}
+
+.swiper-slide {
+  /* スライドのサイズを調整、中身のテキスト配置調整、背景色 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #000 !important; /* 黒色 */
+  width: 50px !important;  /* クリックエリアを広げる */
+  height: 50px !important;
+  z-index: 10;
+}
+
+.swiper-button-prev {
+  left: -60px !important;
+}
+.swiper-button-next {
+  right: -60px !important;
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  font-size: 40px !important; /* ここでサイズ調整 */
+  font-weight: bold;
+}

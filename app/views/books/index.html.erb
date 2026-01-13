@@ -1,0 +1,139 @@
+<%= render 'partial_template/header' %>
+
+<main>
+  <div class='post-list'>
+    <div class="post-list-wrapper">
+      <div class="post-list-heading">
+        <h2>投稿一覧</h2>
+      </div>
+      <div class="post-images-container">
+        <ul class="post-images slick-slider">
+          <li class="post-image">
+            <%= image_tag("Gecko-moria.png", class: "irasutoya-image") %>
+          </li>
+          <li class="post-image">
+            <%= image_tag("Crocodile.png", class: "irasutoya-image") %>
+          </li>
+          <li class="post-image">
+            <%= image_tag("Lucci.png", class: "irasutoya-image") %>
+          </li>
+          <li class="post-image">
+            <%= image_tag("Jinbe.png", class: "irasutoya-image") %>
+          </li>
+          <li class="post-image">
+            <%= image_tag("Enel.png", class: "irasutoya-image") %>
+          </li>
+        </ul>
+      </div>
+      <div class="new-post-btn">
+        <%= link_to(root_path, class: "new-post-btn") do %>
+          <span class="new-post-btn-text">新規投稿</span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class='app-description'>
+    <div class="app-description-wrapper">
+      <h2>本を読むと共に、発信する時代へ！</h2>
+      <p>読書とSNSを融合させた近代的なアプリ</p>
+      <p>たった20文字で本の内容をアウトプット可</p>
+      <p>老若男女、どなたでも楽しめます。</p>
+      <p class="app-download-text">アプリ版のダウンロードはこちら</p>
+      <div class="store-btns">
+        <%= link_to root_path do %>
+          <%= image_tag("google-play-badge.png", class: "store-btn", alt: "Google Playで手に入れよう") %>
+        <% end %>
+        <%= link_to root_path do %>
+          <%= image_tag("apple-store-badge.png", class: "store-btn", alt: "App Storeからダウンロード") %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class='app-feature'>
+    <div class="app-feature-outer">
+      <div class="app-feature-heading">
+        <h2>アプリの特徴</h2>
+      </div>
+      <div class="app-feature-wrapper swiper">
+        <div class="app-feature-contents swiper-wrapper">
+          <div class="app-feature-container swiper-slide">
+            <%= image_tag("bookshelves.png", class: "feature-image") %>
+            <h2 class="app-feature-sentence">
+              読んだ本の内容や感想を<br>20〜140文字以内で投稿できます
+            </h2>
+          </div>
+
+          <div class="app-feature-container swiper-slide">
+            <%= image_tag("bookshelves.png", class: "feature-image") %>
+            <h2 class="app-feature-sentence">
+              新規登録はわずか3ステップで完了<br>SNS認証も可
+            </h2>
+          </div>
+
+          <div class="app-feature-container swiper-slide">
+            <%= image_tag("bookshelves.png", class: "feature-image") %>
+            <h2 class="app-feature-sentence">
+              印象に残った投稿に<br>コメント・高評価もつけられます
+            </h2>
+          </div>
+        </div>
+        <div class="pagination"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq">
+    <div class='faq-wrapper'>
+      <div class="faq-heading">
+        <h2>よくある質問</h2>
+      </div>
+      <ul class="faq-list">
+        <li class="question-and-answer">
+          <h3 class="question">
+            Q 費用はかかりますか？
+          </h3>
+          <span>+</span>
+          <div class="answer">
+            A 一切かかりません。無料でご利用いただけます。
+          </div>
+        </li>
+        <li class="question-and-answer">
+          <h3 class="question">
+            Q 新規登録をしなくても利用できますか？
+          </h3>
+          <span>+</span>
+          <div class="answer">
+            <p>A 未登録でもご利用可能なサービスは以下の通りです。</p>
+            <br>
+            <p>・投稿閲覧</p>
+            <p>・投稿検索</p>
+            <br>
+            <p>以下のサービスを利用したい場合は、新規登録とログインが必要です。</p>
+            <br>
+            <p>・新規投稿</p>
+            <p>・コメント投稿</p>
+            <p>・高評価</p>
+            <p>・お気に入り追加</p>
+          </div>
+        </li>
+        <li class="question-and-answer">
+          <h3 class="question">
+            Q 自分はよく読書する方ですが、レビューのように長文で感想を書ける自信がありません。
+          </h3>
+          <span>+</span>
+          <div class="answer">
+            A 無理に長文を書く必要はございません。最低20文字以上書けば投稿可能です。
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</main>
+
+<%= link_to(root_path, class: "post-btn") do %>
+  <span class="post-btn-text">投稿する</span>
+<% end %>
+
+<%= render 'partial_template/footer' %>
