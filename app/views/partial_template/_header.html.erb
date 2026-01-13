@@ -28,9 +28,40 @@
 
 <div id="modal-overlay"></div>
 
-<div class="sign-up-modal">
-  <div class="sign-up-modal-wrapper">
-    <div class="modal-btn-container">
+<div class="modal log-in">
+  <div class="modal-wrapper log-in">
+    <%= form_with url: "#", local: true do |f| %>
+      <div class="modal-btn-container log-in">
+        <div class="log-in-form">
+          <label class="log-in-form-text">メールアドレス</label>
+          <%= f.email_field :email, class: "input-mail-address", id: 'email' %>
+          <label class="log-in-form-text">パスワード</label>
+          <%= f.password_field :password, class: "input-password", id: 'password' %>
+          <%= f.submit "ログイン", class: "log-in-submit-btn" %>
+          <p><%= link_to 'パスワードをお忘れですか？', "#", class: "forget-password", id: "underline-text" %></p>
+        </div>
+      </div>
+      <div class="two-columns-layout">
+        <%= link_to(root_path, class: "modal-btn") do %>
+          <i class="fa-brands fa-google"></i>Googleで続ける
+        <% end %>
+        <%= link_to(root_path, class: "modal-btn") do %>
+          <i class="fa-brands fa-x-twitter"></i>X(Twitter)で続ける
+        <% end %>
+        <%= link_to(root_path, class: "modal-btn") do %>
+          <i class="fa-brands fa-facebook"></i>Facebookで続ける
+        <% end %>
+        <%= link_to(root_path, class: "modal-btn") do %>
+          <i class="fa-brands fa-line"></i>LINEで続ける
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="modal sign-up">
+  <div class="modal-wrapper sign-up">
+    <div class="modal-btn-container sign-up">
       <%= link_to(root_path, class: "modal-btn") do %>
         <i class="fa-regular fa-envelope"></i>メールアドレスでアカウント作成
       <% end %>
