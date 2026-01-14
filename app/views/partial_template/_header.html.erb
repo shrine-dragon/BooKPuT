@@ -30,7 +30,7 @@
 
 <div class="modal log-in">
   <div class="modal-wrapper log-in">
-    <%= form_with url: "#", local: true do |f| %>
+    <%= form_with model: @user, url: user_session_path, local: true do |f| %>
       <div class="modal-btn-container log-in">
         <div class="log-in-form">
           <label class="log-in-form-text">メールアドレス</label>
@@ -62,7 +62,7 @@
 <div class="modal sign-up">
   <div class="modal-wrapper sign-up">
     <div class="modal-btn-container sign-up">
-      <%= link_to(root_path, class: "modal-btn") do %>
+      <%= link_to(user_registration_path, class: "modal-btn") do %>
         <i class="fa-regular fa-envelope"></i>メールアドレスでアカウント作成
       <% end %>
       <div class="two-columns-layout">
