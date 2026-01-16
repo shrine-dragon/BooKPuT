@@ -1,1 +1,73 @@
-<h1>新規登録フォーム</h1>
+<%= render 'partial_template/second_header' %>
+
+<%= form_with model: @user, url: user_registration_path, class: 'sign-up-form', local: true do |f| %>
+  <div class="form-wrapper">
+    <h1 class="form-heading">
+      新規登録フォーム
+    </h1>
+    <div class="form-container">
+      <div class="form-contents">
+        <div class="form-text">
+          <label>ニックネーム(必須)</label>
+        </div>
+        <%= f.text_field :nickname, class:"input-text", id:"nickname", placeholder:"8文字以上16文字以下", maxlength:"16" %>
+      </div>
+
+      <div class="form-contents">
+        <div class="form-text">
+          <label>画像(任意)</label>
+        </div>
+        <%= f.file_field :image, class:"upload-image" %>
+      </div>
+
+      <div class="form-contents">
+        <div class="form-text">
+          <label>生年月日(必須)</label>
+        </div>
+        <div class="birth-date-wrapper">
+          <%= raw sprintf(
+                      f.date_select(
+                        :birth_day,
+                        class:'select-pull-down',
+                        id:"birth-date",
+                        use_month_numbers: true,
+                        prompt:'--',
+                        start_year: 1930,
+                        end_year: (Time.now.year - 5),
+                        date_separator: '%s'),
+                      "<p> 年 </p>", "<p> 月 </p>") + "<p> 日 </p>" %>
+        </div>
+      </div>
+
+      <div class="form-contents">
+        <div class="form-text">
+          <label>性別(必須)</label>
+        </div>
+        <div class="gender-wrapper">
+          <%= f.collection_select(:gender_id, Gender.all, :id, :name, {}, {class:"select-pull-down", id:"gender"}) %>
+        </div>
+      </div>
+
+      <div class="form-contents">
+        <div class="form-text">
+          <label>メールアドレス(必須)</label>
+        </div>
+        <%= f.email_field :email, class:"input-text", id:"email", placeholder:"例：bookput@gmail.com" %>
+      </div>
+
+      <div class="form-contents">
+        <div class="form-text">
+          <label>パスワード(必須)</label>
+        </div>
+        <%= f.password_field :password, class:"input-text", id:"nickname", placeholder:"半角英数字8文字以上20文字以下", maxlength:"20" %>
+      </div>
+      
+      <div class="sign-up-btn">
+        <%= f.submit "登録する", class: "sign-up-btn", id: 'blue-btn' %>
+      </div>
+    </div>
+  </div>
+
+<% end %>
+
+<%= render 'partial_template/second_footer' %>
