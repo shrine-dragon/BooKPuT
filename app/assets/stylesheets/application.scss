@@ -13,3 +13,26 @@
  *= require_tree .
  *= require_self
  */
+
+.flash-message {
+  width: 20%;
+  padding: 12px;
+  text-align: center;
+  font-weight: bold;
+  position: fixed;
+  top: 60px;
+  left: 80px;
+  z-index: 1000;
+}
+
+/* 成功時の色（シアン系） */
+.notice {
+  background-color: cyan;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* 少し浮かせて見やすくする */
+}
+
+/* 警告時の色（赤系） */
+.alert {
+  background-color: #f8d7da;
+  color: #721c24;
+}

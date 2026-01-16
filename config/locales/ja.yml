@@ -16,3 +16,6 @@ ja:
               confirmation: "とパスワードが一致しません"
             email:
               taken: "はすでに使用されています"
+  devise:
+    registrations:
+      signed_up: "登録が完了しました"

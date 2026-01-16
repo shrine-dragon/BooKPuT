@@ -10,3 +10,4 @@ require("channels")
 import "../channels/index" 
 import "../channels/header"
 import "../channels/preview"
+import "../channels/flash_messages"
