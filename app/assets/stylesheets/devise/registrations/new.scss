@@ -49,6 +49,20 @@
   display: flex;
 }
 
+.upload-image-list img {
+  width: 200px;
+  height: auto;
+  display: block;
+  margin-top: 10px;
+}
+
+.preview-img {
+  width: 150px;
+  height: auto;
+  margin-top: 10px;
+  border-radius: 4px;
+}
+
 .form-btn-container {
   width: 100%;
   display: flex;

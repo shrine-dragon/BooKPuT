@@ -19,6 +19,8 @@
           <label>画像(任意)</label>
         </div>
         <%= f.file_field :image, class:"upload-image" %>
+        <div class="upload-image-list">
+        </div>
       </div>
 
       <div class="form-contents">
@@ -74,6 +76,7 @@
         <%= f.password_field :password_confirmation, class:"input-text", placeholder:"同じパスワードを入力してください", minlength:"8", maxlength:"20" %>
         <%= render "partial_template/error_messages", model: @user, attribute: :password_confirmation %>
       </div>
+
       <div class="form-btn-container">
         <%= f.submit "登録する", class: "cyan-submit-btn" %>
       </div>
