@@ -10,7 +10,7 @@
         <div class="form-text">
           <label>ニックネーム(必須)</label>
         </div>
-        <%= f.text_field :nickname, class:"input-text", id:"nickname", placeholder:"8文字以上16文字以下", minlength:"8", maxlength:"16" %>
+        <%= f.text_field :nickname, class:"input-text", id:"nickname", placeholder:"4文字以上16文字以下", minlength:"4", maxlength:"16" %>
         <%= render "partial_template/error_messages", model: @user, attribute: :nickname %>
       </div>
 

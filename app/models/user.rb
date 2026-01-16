@@ -6,7 +6,7 @@ class User < ApplicationRecord
   belongs_to_active_hash :gender
 
   with_options presence: true do
-    validates :nickname, length: { minimum: 8, maximum: 16 }
+    validates :nickname, length: { minimum: 4, maximum: 16 }
     validates :birth_date
     validates :password, length: { minimum: 8, maximum: 20 },
                          format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i, message: 'は半角英数混合で入力してください' },
