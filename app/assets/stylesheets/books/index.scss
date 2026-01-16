@@ -285,25 +285,28 @@
   display: none;
 }
 
-.post-btn {
+.right-bottom-btn {
   width: 190px;
-  background: #F93;
   text-align: center;
   bottom: 30px;
   right: 30px;
   position: fixed;
-  z-index: 20;
+  z-index: 1002;
   padding: 15px;
   border-radius: 8px;
   text-decoration: none;
   font-weight: bold;
 }
 
-.post-btn:hover{
+.right-bottom-btn.post{
+  background-color: #F93;
+}
+
+.right-bottom-btn:hover{
   opacity: 0.7;
 }
 
-.post-btn-text {
+.right-bottom-btn-text {
   color: black;
   font-size: 18px;
   margin-bottom: 5px;
