@@ -1,8 +1,6 @@
 .sign-up-form{
   aspect-ratio: 16 / 9; /* 画像の縦横比を保つ */
-  background-image: 
-    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-    asset-url("bookshelves.png");
+  background-image: asset-url("bookshelves.png");
   background-size: cover;
   background-position: center; /* 中央に合わせると綺麗 */
   background-repeat: no-repeat;
