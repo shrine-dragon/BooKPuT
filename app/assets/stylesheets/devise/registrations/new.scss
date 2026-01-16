@@ -27,6 +27,10 @@
   margin: 0 auto;
 }
 
+.form-contents{
+  margin-bottom: 25px;
+}
+
 .form-text{
   label{
     font-size: 18px;
@@ -40,18 +44,18 @@
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  margin: 5px 0 25px;
+  margin-top: 5px;
 }
 
 .upload-image, .birth-date-wrapper, .gender-wrapper{
   display: flex;
-  margin: 5px 0 25px;
 }
 
 .form-btn-container {
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-top: 25px;
   padding-bottom: 25px;
 }
 
