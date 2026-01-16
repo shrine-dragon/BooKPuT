@@ -1,24 +1,30 @@
 .sign-up-form{
-  background-color: ghostwhite;
+  aspect-ratio: 16 / 9; /* 画像の縦横比を保つ */
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+    asset-url("bookshelves.png");
+  background-size: cover;
+  background-position: center; /* 中央に合わせると綺麗 */
+  background-repeat: no-repeat;
+  margin-bottom: 60px;
 }
 
 .form-wrapper{
-  width: 80%;
-  margin: 65px auto 0;
-  border: 1px solid red;
+  width: 55%;
+  margin: 60px auto;
+  background-color: ghostwhite;
 }
 
 .form-heading{
   text-align: center;
-  padding: 30px 0 25px;
+  padding: 30px 0 30px;
   font-weight: bold;
   font-size: 25px;
 }
 
 .form-container{
-  width: 60%;
+  width: 70%;
   margin: 0 auto;
-  border: 1px solid blue;
 }
 
 .form-text{
@@ -40,4 +46,28 @@
 .upload-image, .birth-date-wrapper, .gender-wrapper{
   display: flex;
   margin: 5px 0 25px;
+}
+
+.form-btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 25px;
+}
+
+.cyan-submit-btn {
+  width: 200px;
+  height: 60px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: cyan;
+  border: none;/* f.submit特有の枠線を消す */
+  outline: none;
+  /* 卵焼きのような楕円形にする設定 */
+  border-radius: 50px / 45px;
+
+  &:hover {
+    opacity: 0.7;
+  }
 }
