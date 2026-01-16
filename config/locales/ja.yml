@@ -14,3 +14,5 @@ ja:
           attributes:
             password_confirmation:
               confirmation: "とパスワードが一致しません"
+            email:
+              taken: "はすでに使用されています"
