@@ -28,17 +28,7 @@
           <label>生年月日(必須)</label>
         </div>
         <div class="birth-date-wrapper">
-          <%= raw sprintf(
-                      f.date_select(
-                        :birth_date,
-                        class:'select-pull-down',
-                        id:"birth-date",
-                        use_month_numbers: true,
-                        prompt:'--',
-                        start_year: 1930,
-                        end_year: (Time.now.year - 0),
-                        date_separator: '%s'),
-                      "<p> 年 </p>", "<p> 月 </p>") + "<p> 日 </p>" %>
+          <%= f.date_field :birth_date, class: 'input-birth-date', max: Date.today %>
         </div>
         <%= render "partial_template/error_messages", model: @user, attribute: :birth_date %>
       </div>

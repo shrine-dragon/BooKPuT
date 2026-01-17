@@ -31,7 +31,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: [:windows]
   gem 'rspec-rails'
   gem 'factory_bot_rails'
   gem 'faker'
@@ -56,7 +56,7 @@ group :test do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: [:windows, :jruby]
 gem 'devise'
 gem 'pry-rails'
 gem 'active_hash'
@@ -66,3 +66,12 @@ gem "aws-sdk-s3", require: false
 gem 'rails-i18n'
 gem 'kaminari'
 gem 'mutex_m'
+
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
+# omniauth認証はCSRF脆弱性が指摘されているため対策としてインストール
+gem 'omniauth-rails_csrf_protection'
+# 環境変数を管理するためインストール(vim ~/.zshrcで定義することも可能)
+gem 'dotenv-rails'
+gem 'dotenv-rails', groups: [:development, :test]
