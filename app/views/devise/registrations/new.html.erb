@@ -51,7 +51,7 @@
         <%= render "partial_template/error_messages", model: @user, attribute: :email %>
       </div>
 
-      <% if @sns_auth %>
+      <% if @sns_auth || session["devise.sns_auth"].present? %>
         <%# SNS認証時はパスワード入力を表示せず、自動生成された値を裏側で送る %>
         <%= f.hidden_field :password %>
         <%= f.hidden_field :password_confirmation %>
