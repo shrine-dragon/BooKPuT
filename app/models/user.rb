@@ -1,12 +1,14 @@
 class User < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: [:twitter, :facebook, :google_oauth2]
+         :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: [:twitter, :facebook, :google_oauth2, :line]
   has_one_attached :image
   belongs_to_active_hash :gender
   has_many :sns_credentials, dependent: :destroy # ユーザーが消えるときにSNS情報も自動で削除される
 
   def self.from_omniauth(auth)
+    puts "===== LINE AUTH DATA ====="
+    p auth.info
     # 1. SNS情報を元にSNS認証テーブルからデータを探す、なければ作る
     sns = SnsCredential.where(provider: auth.provider, uid: auth.uid).first_or_initialize
 
@@ -33,7 +35,7 @@ class User < ApplicationRecord
     end
 
     # コントローラーに { user: user, sns: sns } の形で返す
-    { user: user, sns: sns }
+    { user: user, sns: sns } 
   end
 
   with_options presence: true do

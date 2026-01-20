@@ -72,7 +72,7 @@
         <%= link_to(user_facebook_omniauth_authorize_path, class: "modal-btn", method: :post) do %>
           <i class="fa-brands fa-facebook"></i>Facebook
         <% end %>
-        <%= link_to(root_path, class: "modal-btn") do %>
+        <%= link_to(user_line_omniauth_authorize_path, class: "modal-btn", method: :post,data: { turbo: false }) do %>
           <i class="fa-brands fa-line"></i>LINE
         <% end %>
       </div>

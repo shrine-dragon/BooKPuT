@@ -1,4 +1,8 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  def google_oauth2
+    authorization
+  end
+  
   def twitter
     authorization
    end
@@ -7,7 +11,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     authorization
   end
 
-  def google_oauth2
+  def line
     authorization
   end
 

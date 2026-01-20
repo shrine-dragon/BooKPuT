@@ -70,8 +70,10 @@ gem 'mutex_m'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
+gem 'omniauth-line'
+gem 'line-bot-api'
+gem 'omniauth-rails_csrf_protection'
 # omniauth認証はCSRF脆弱性が指摘されているため対策としてインストール
 gem 'omniauth-rails_csrf_protection'
 # 環境変数を管理するためインストール(vim ~/.zshrcで定義することも可能)
-gem 'dotenv-rails'
 gem 'dotenv-rails', groups: [:development, :test]

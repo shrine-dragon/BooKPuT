@@ -10,9 +10,10 @@
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
   # アプリ側で環境変数を読み込む
+  config.omniauth :google_oauth2,ENV['GOOGLE_API_KEY'],ENV['GOOGLE_API_SECRET_KEY']
   config.omniauth :twitter,ENV['TWITTER_API_KEY'],ENV['TWITTER_API_SECRET_KEY']
   config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET'], scope: 'email', info_fields: 'email,name'
-  config.omniauth :google_oauth2,ENV['GOOGLE_API_KEY'],ENV['GOOGLE_API_SECRET_KEY']
+  config.omniauth :line, ENV['LINE_CHANNEL_ID'], ENV['LINE_CHANNEL_SECRET'], scope: 'profile openid email'
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.

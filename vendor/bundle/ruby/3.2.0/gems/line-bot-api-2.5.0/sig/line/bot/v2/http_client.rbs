@@ -1,0 +1,111 @@
+module Line
+  module Bot
+    module V2
+      class HttpClient
+        @base_url: String
+        @http_headers: Hash[Symbol, String]
+        @http_options: Hash[String | Symbol, untyped]
+
+        def initialize: (
+            base_url: String,
+            ?http_headers: Hash[String | Symbol, untyped],
+            ?http_options: Hash[String | Symbol, untyped]
+          ) -> void
+
+        def get: (
+            path: String,
+            ?query_params: Hash[Symbol, untyped]?,
+            ?headers: Hash[Symbol, untyped]?
+          ) -> Net::HTTPResponse
+
+        def post: (
+            path: String,
+            ?query_params: Hash[Symbol, untyped]?,
+            ?body_params: (File | Hash[untyped, untyped] | untyped)?,
+            ?headers: Hash[Symbol, untyped]?
+          ) -> Net::HTTPResponse
+
+        def put: (
+            path: String,
+            ?query_params: Hash[Symbol, untyped]?,
+            ?body_params: (File | Hash[untyped, untyped] | untyped)?,
+            ?headers: Hash[Symbol, untyped]?
+          ) -> Net::HTTPResponse
+
+        def delete: (
+            path: String,
+            ?query_params: Hash[Symbol, untyped]?,
+            ?headers: Hash[Symbol, untyped]?
+          ) -> Net::HTTPResponse
+
+        def post_form: (
+            path: String,
+            ?query_params: Hash[Symbol, untyped]?,
+            ?form_params: Hash[untyped, untyped]?,
+            ?headers: Hash[Symbol, untyped]?
+          ) -> Net::HTTPResponse
+
+        def post_form_multipart: (
+            path: String,
+            ?query_params: Hash[Symbol, untyped]?,
+            ?form_params: Hash[untyped, untyped]?,
+            ?headers: Hash[Symbol, untyped]?
+          ) -> Net::HTTPResponse
+
+        def put_form_multipart: (
+            path: String,
+            ?query_params: Hash[Symbol, untyped]?,
+            ?form_params: Hash[untyped, untyped]?,
+            ?headers: Hash[Symbol, untyped]?
+          ) -> Net::HTTPResponse
+
+        private
+
+        def build_request: (
+            http_class: untyped,
+            path: String,
+            query_params: Hash[Symbol, untyped]?,
+            headers: Hash[Symbol, untyped]?,
+            ?body_params: (File | Hash[untyped, untyped] | untyped)?
+          ) -> Net::HTTPRequest
+
+        def build_form_request: (
+            http_class: untyped,
+            path: String,
+            query_params: Hash[Symbol, untyped]?,
+            form_params: Hash[untyped, untyped]?,
+            headers: Hash[Symbol, untyped]?
+          ) -> Net::HTTPRequest
+
+        def build_multipart_request: (
+            http_class: untyped,
+            path: String,
+            query_params: Hash[Symbol, untyped]?,
+            form_params: Hash[untyped, untyped]?,
+            headers: Hash[Symbol, untyped]?
+          ) -> Net::HTTPRequest
+
+        def build_url: (
+            path: String,
+            query_params: Hash[Symbol, untyped]?
+          ) -> URI
+
+        def build_headers: (
+            ?headers: Hash[Symbol, untyped]?
+          ) -> Hash[Symbol, String]
+
+        def perform_request: (
+            request: Net::HTTPRequest
+          ) -> Net::HTTPResponse
+
+        def determine_content_type: (
+            file: File
+          ) -> String
+
+        def normalize_headers: (
+            headers: Hash[String | Symbol, untyped]?
+          ) -> Hash[Symbol, String]
+      end
+    end
+  end
+end
