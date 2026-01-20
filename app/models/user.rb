@@ -7,17 +7,37 @@ class User < ApplicationRecord
   has_many :sns_credentials
 
   def self.from_omniauth(auth)
-    sns = SnsCredential.where(provider: auth.provider, uid: auth.uid).first_or_create
-    # sns認証したことがあればアソシエーションで取得
-    # 無ければemailでユーザー検索して取得orビルド(保存はしない)
+    # 1. SNS情報を元にSNS認証テーブルからデータを探す、なければ作る
+    sns = SnsCredential.where(provider: auth.provider, uid: auth.uid).first_or_initialize
+
+    # 2. SNS情報のメールアドレスを元に、既にUserが存在するか確認する
+    # （もし過去にメールアドレスだけで登録していた場合、そのユーザーとSNSを紐付けるため）
     user = User.where(email: auth.info.email).first_or_initialize(
       nickname: auth.info.name,
-        email: auth.info.email
+      email: auth.info.email
     )
+
+    # 3. もし新規ユーザー（まだ保存されていない）なら、ランダムなパスワードを設定する
+    if user.persisted? == false
+      # SNS経由の場合はパスワードを手動で入れさせないため、自動生成する
+      password = Devise.friendly_token[0, 20] # 20桁のランダムな文字列
+      user.password = password
+      user.password_confirmation = password
+    end
+
+    # 4. Userが既にDBに保存されている（登録済み）場合、SNS情報と紐付ける
+    # persisted? = already_save
+    if user.persisted?
+      sns.user = user
+      sns.save
+    end
+
+    # コントローラーに { user: user, sns: sns } の形で返す
+    { user: user, sns: sns }
   end
 
   with_options presence: true do
-    validates :nickname, length: { minimum: 4, maximum: 16 }
+    validates :nickname, length: { minimum: 3, maximum: 16 }
     validates :birth_date
     validates :password, length: { minimum: 8, maximum: 20 },
                          format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i, message: 'は半角英数混合で入力してください' },

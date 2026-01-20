@@ -14,11 +14,16 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   private
 
   def authorization
-    @user = User.from_omniauth(request.env["omniauth.auth"])
+    sns_info = User.from_omniauth(request.env["omniauth.auth"])
+    @user = sns_info[:user]
 
-    if @user.persisted? #ユーザー情報が登録済みなので、新規登録ではなくログイン処理を行う
+    if @user.persisted?
       sign_in_and_redirect @user, event: :authentication
-    else #ユーザー情報が未登録なので、新規登録画面へ遷移する
+    else
+      # ここで「SNS認証経由である」という目印を立てる
+      @sns_auth = true
+      # SNSから取得した情報をsessionに保存（パスワード入力などを省くため）
+      session["devise.sns_auth"] = sns_info[:sns].slice(:provider, :uid)
       render template: 'devise/registrations/new'
     end
   end
