@@ -4,7 +4,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: [:twitter, :facebook, :google_oauth2]
   has_one_attached :image
   belongs_to_active_hash :gender
-  has_many :sns_credentials
+  has_many :sns_credentials, dependent: :destroy # ユーザーが消えるときにSNS情報も自動で削除される
 
   def self.from_omniauth(auth)
     # 1. SNS情報を元にSNS認証テーブルからデータを探す、なければ作る

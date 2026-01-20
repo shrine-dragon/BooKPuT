@@ -11,7 +11,7 @@
 Devise.setup do |config|
   # アプリ側で環境変数を読み込む
   config.omniauth :twitter,ENV['TWITTER_API_KEY'],ENV['TWITTER_API_SECRET_KEY']
-  config.omniauth :facebook,ENV['FACEBOOK_API_KEY'],ENV['FACEBOOK_API_SECRET_KEY']
+  config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET'], scope: 'email', info_fields: 'email,name'
   config.omniauth :google_oauth2,ENV['GOOGLE_API_KEY'],ENV['GOOGLE_API_SECRET_KEY']
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
