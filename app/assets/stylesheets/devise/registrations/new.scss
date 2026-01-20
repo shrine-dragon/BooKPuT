@@ -1,3 +1,9 @@
+/* ボタンの共通デザイン */
+$btn-bg: #f0f0f0;      /* 背景色（薄いグレー） */
+$btn-border: #ccc;    /* 境界線 */
+$btn-radius: 4px;     /* 角丸 */
+$btn-padding: 5px 15px;
+
 .sign-up-form{
   aspect-ratio: 16 / 9; /* 画像の縦横比を保つ */
   background-image: asset-url("bookshelves.png");
@@ -49,8 +55,28 @@
   display: flex;
 }
 
-.upload-image{
-  cursor: pointer;
+.upload-image.custom-file-btn {
+  &::file-selector-button {
+    background-color: $btn-bg;
+    border: 1px solid $btn-border;
+    border-radius: $btn-radius;
+    padding: $btn-padding;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+    margin-right: 10px; /* 右側の「選択されていません」との余白 */
+
+    &:hover {
+      background-color: #e0e0e0;
+    }
+  }
+}
+
+/* プレビュー画像とボタンを揃えるコンテナ */
+.upload-image-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* 左寄せ */
 }
 
 .upload-image-list img {
@@ -65,6 +91,23 @@
   height: auto;
   margin-top: 10px;
   border-radius: 4px;
+}
+
+.image-delete-btn {
+  display: block;        /* 画像の真下に配置 */
+  margin-top: 8px;       /* 画像との間の余白 */
+  background-color: $btn-bg;
+  border: 1px solid $btn-border;
+  border-radius: $btn-radius;
+  padding: $btn-padding;
+  cursor: pointer;
+  font-size: 14px;
+  width: fit-content;    /* 文字幅に合わせる */
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #e0e0e0;
+  }
 }
 
 .form-btn-container {
