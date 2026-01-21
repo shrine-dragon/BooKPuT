@@ -42,7 +42,10 @@ class User < ApplicationRecord
     validates :nickname, length: { minimum: 3, maximum: 16 }
     validates :birth_date
     validates :password, length: { minimum: 8, maximum: 20 },
-                         format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i, message: 'は半角英数混合で入力してください' },
+                         format: { 
+                           with: /\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]+\z/, 
+                           message: 'は英字の大文字・小文字・数字をすべて含めて入力してください' 
+                         },
                          allow_blank: true
     validates :password_confirmation
   end
