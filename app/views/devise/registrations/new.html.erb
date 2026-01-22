@@ -28,7 +28,7 @@
           <label>生年月日(必須)</label>
         </div>
         <div class="birth-date-wrapper">
-          <%= f.date_field :birth_date, class: 'input-birth-date', max: Date.today %>
+          <%= f.date_field :birth_date, class: 'input-birth-date', id:"birth_date", max: Date.today %>
         </div>
         <%= render "partial_template/error_messages", model: @user, attribute: :birth_date %>
       </div>
@@ -69,7 +69,7 @@
           <div class="form-text">
             <label>パスワード(確認用)</label>
           </div>
-          <%= f.password_field :password_confirmation, class:"input-text", placeholder:"同じパスワードを入力してください", minlength:"8", maxlength:"20" %>
+          <%= f.password_field :password_confirmation, class:"input-text", id:"password_confirmation", placeholder:"同じパスワードを入力してください", minlength:"8", maxlength:"20" %>
           <%= render "partial_template/error_messages", model: @user, attribute: :password_confirmation %>
         </div>
       <% end %>
