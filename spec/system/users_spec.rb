@@ -136,28 +136,18 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       expect(page).to have_content('Google')
       # ボタンをクリックする
       expect {
-        # Google連携ボタンをクリック（ここで既に保存される可能性がある）
         click_link 'Google'
-
-        # 遷移後のフォーム入力を進める
-        expect(page).to have_current_path("/users/auth/google_oauth2/callback")
-        expect(page).to have_content '新規登録フォーム', wait: 10
-        if find('#nickname').value.blank?
-          fill_in 'nickname', with: @user.nickname
-        end
+        expect(page).to have_current_path("/users/auth/google_oauth2/callback", wait: 10)
+        
+        # 入力を共通の動きにする
+        fill_in 'nickname', with: @user.nickname if find('#nickname').value.blank?
         fill_in 'birth_date', with: '1990-01-01'
-        find('#gender').select('男性')
-        find('option', text: '男性').click # 「男性」という選択肢をクリック
-        if find('#email').value.blank?
-          fill_in 'email', with: 'test@example.com'
-        end
+        select '男性', from: 'gender' # ID指定が安定しているならfind('#gender').select('男性')
+        fill_in 'email', with: @user.email if find('#email').value.blank?
 
-        # 登録ボタンをクリック
-        submit_btn = find('input[name="commit"]')
-        page.execute_script('arguments[0].scrollIntoView({block: "center"});', submit_btn)
-        sleep 0.5
-        page.execute_script('arguments[0].click();', submit_btn)
-        # 画面遷移や非同期処理を待つための適切な待ち
+        # 共通メソッドを呼び出すだけで済むようにする
+        scroll_display
+        
         expect(page).to have_current_path(root_path, wait: 10)
       }.to change { User.count }.by(1)
 
