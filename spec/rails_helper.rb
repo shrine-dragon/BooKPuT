@@ -68,3 +68,7 @@ RSpec.configure do |config|
     driven_by :selenium_chrome_headless
   end
 end
+
+# Omniauthのモック（偽物のデータ）を設定
+# 例：Googleからのレスポンスを偽装する
+OmniAuth.config.test_mode = true

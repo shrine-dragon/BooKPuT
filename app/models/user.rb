@@ -7,6 +7,11 @@ class User < ApplicationRecord
   has_many :sns_credentials, dependent: :destroy # ユーザーが消えるときにSNS情報も自動で削除される
 
   def self.from_omniauth(auth)
+    Rails.logger.debug "===== AUTH DATA ====="
+    Rails.logger.debug auth.info
+    
+    # LINEの場合、auth.info.email が空なら自動入力されません
+    user = User.where(email: auth.info.email).first_or_initialize if auth.info.email
     puts "===== LINE AUTH DATA ====="
     p auth.info
     # 1. SNS情報を元にSNS認証テーブルからデータを探す、なければ作る
