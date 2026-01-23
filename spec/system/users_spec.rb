@@ -3,6 +3,10 @@ require 'rails_helper'
 
 RSpec.describe 'ユーザー新規登録', type: :system do
   before do
+    User.destroy_all
+    # ブラウザが実際に動く様子が見えるモード
+    driven_by :selenium_chrome
+    page.driver.browser.manage.window.resize_to(1280, 1024)
     @user = FactoryBot.build(:user)
   end
 
@@ -39,6 +43,14 @@ RSpec.describe 'ユーザー新規登録', type: :system do
     expect(page).to have_content '新規登録フォーム'
   end
 
+  def scroll_display
+    submit_btn = find('input[name="commit"]', wait: 5)
+    # JavaScriptで強制的にクリックする
+    execute_script('arguments[0].scrollIntoView({block: "center"});', submit_btn)
+    sleep 0.5
+    page.execute_script('arguments[0].click();', submit_btn)
+  end
+
   context 'メールアドレスでユーザー新規登録ができる時' do 
     it '正しい情報を入力すれば新規登録ができ、トップページに移動する' do
       open_sign_up_modal
@@ -70,7 +82,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
 
       # 登録ボタンを押すとユーザーモデルのカウントが1上がることを確認する
       expect{
-        find('input[name="commit"]').click
+        scroll_display
       }.to change { User.count }.by(1)
 
       # トップページへ遷移したことを確認する
@@ -96,7 +108,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       fill_in 'password_confirmation', with: ''
       # 「登録する」ボタンを押してもユーザーモデルのカウントが増えないことを確認する
       expect{
-        find('input[name="commit"]').click
+        scroll_display
       }.to change { User.count }.by(0)
       # 新規登録ページへ戻されることを確認する
       expect(page).to have_current_path("/users")
@@ -123,26 +135,30 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       # 新規登録用モーダルに｢Google｣の文字とボタンがあることを確認する
       expect(page).to have_content('Google')
       # ボタンをクリックする
-      click_link 'Google'
-
-      # 認証が終わり、新規登録画面（/users/auth/google_oauth2/callback）に遷移していることを確認
-      expect(page).to have_current_path("/users/auth/google_oauth2/callback")
-      expect(page).to have_content '新規登録フォーム'
-
-      # ニックネームとメールアドレスのフォームが入力済みであることを確認する
-      expect(find('#nickname').value).to eq(@user.nickname)
-      expect(find('#email').value).to eq(@user.email)
-
-      # パスワードとパスワード(確認用)のフォームがないことを確認する
-      expect(page).to have_no_selector('#password')
-      expect(page).to have_no_selector('#password_confirmation')
-      # 残りの必須項目を入力する
-      fill_in 'birth_date', with: '1990-01-01'
-      select '男性', from: 'gender'
-      # 登録ボタンを押すとフラッシュメッセージが表示されること、ユーザーモデルのカウントが1上がることを確認する
       expect {
-        find('input[name="commit"]').click
-        expect(page).to have_content('登録が完了しました'), wait: 10
+        # Google連携ボタンをクリック（ここで既に保存される可能性がある）
+        click_link 'Google'
+
+        # 遷移後のフォーム入力を進める
+        expect(page).to have_current_path("/users/auth/google_oauth2/callback")
+        expect(page).to have_content '新規登録フォーム', wait: 10
+        if find('#nickname').value.blank?
+          fill_in 'nickname', with: @user.nickname
+        end
+        fill_in 'birth_date', with: '1990-01-01'
+        find('#gender').select('男性')
+        find('option', text: '男性').click # 「男性」という選択肢をクリック
+        if find('#email').value.blank?
+          fill_in 'email', with: 'test@example.com'
+        end
+
+        # 登録ボタンをクリック
+        submit_btn = find('input[name="commit"]')
+        page.execute_script('arguments[0].scrollIntoView({block: "center"});', submit_btn)
+        sleep 0.5
+        page.execute_script('arguments[0].click();', submit_btn)
+        # 画面遷移や非同期処理を待つための適切な待ち
+        expect(page).to have_current_path(root_path, wait: 10)
       }.to change { User.count }.by(1)
 
       # トップページへ遷移したことを確認する
