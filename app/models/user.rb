@@ -45,13 +45,26 @@ class User < ApplicationRecord
                          format: { 
                            with: /\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]+\z/, 
                            message: 'は英字の大文字・小文字・数字をすべて含めて入力してください' 
-                         },
+                         },unless: -> { password.blank? && (sns_auth_process || sns_credentials.any? || session_sns_auth_exists?) },
                          allow_blank: true
-    validates :password_confirmation
+  end
+  validates :password_confirmation, presence: true, unless: -> { password.blank? && sns_auth_process? }
+
+  attr_accessor :sns_auth_process
+
+  def sns_auth_process?
+    self.sns_auth_process || self.password.blank? && self.sns_credentials.present?
+  end
+
+  # ヘルパーメソッドを追加（もし必要なら）
+  def session_sns_auth_exists?
+    # ここはモデルなので session を直接触れませんが、
+    # sns_auth_process をコントローラーから確実に渡すようにします
+    self.sns_auth_process == true
   end
   
   validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i, message: 'は不正な形式です' }, allow_blank: true
-  validates :gender_id, numericality: { other_than: 0, message: 'を選択してください' }
+  validates :gender_id, numericality: { other_than: 0, message: 'を選択してください' }, unless: :sns_auth_process?
 
   validate :birth_date_cannot_be_in_the_future
 
