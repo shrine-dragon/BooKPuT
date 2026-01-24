@@ -77,3 +77,5 @@ gem 'omniauth-rails_csrf_protection'
 gem 'omniauth-rails_csrf_protection'
 # 環境変数を管理するためインストール(vim ~/.zshrcで定義することも可能)
 gem 'dotenv-rails', groups: [:development, :test]
+
+gem 'database_cleaner-active_record'
