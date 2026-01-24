@@ -46,7 +46,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
     submit_btn = find('input[name="commit"]', wait: 5)
     # JavaScriptで強制的にクリックする
     execute_script('arguments[0].scrollIntoView({block: "center"});', submit_btn)
-    sleep 0.5
+    sleep 2.0
     page.execute_script('arguments[0].click();', submit_btn)
   end
 
@@ -118,15 +118,14 @@ RSpec.describe 'ユーザー新規登録', type: :system do
 
   context 'SNSでユーザー新規登録ができる時' do
     it 'Google連携後に必要な情報を入力すれば登録でき、トップページに移動する' do
-      # 1. SNS認証用にパスワードを空にした状態のオブジェクトを作る
-      # これにより、モデルの password.blank? && sns_auth_process が true になり、
-      # バリデーションエラーを確実に回避できます。
+      # SNS認証用にパスワードを空にした状態のオブジェクトを作る
+      # バリデーションエラーを確実に回避可能
       @user = FactoryBot.build(:user, password: nil, password_confirmation: nil)
       
       auth_hash = OmniAuth::AuthHash.new({
         provider: 'google_oauth2',
-        uid: '123456',
-        info: { nickname: 'テストユーザー', email: 'test_google@example.com' }
+        uid: SecureRandom.uuid, # UIDも念のため被らないようにする
+        info: { nickname: @user.nickname, email: @user.email }
       })
       OmniAuth.config.mock_auth[:google_oauth2] = auth_hash
       
@@ -135,21 +134,18 @@ RSpec.describe 'ユーザー新規登録', type: :system do
 
       expect(page).to have_current_path("/users/auth/google_oauth2/callback", wait: 10)
 
-      # 2. 性別(gender_id)への入力。ActiveHashなので数値が入ることを確認。
-      # ビューの id="gender" に対して操作します。
-      select '男性', from: 'gender'
+      # 必須事項を入力または選択する
+      # ニックネームとメールが空なら補完
+      fill_in 'nickname', with: @user.nickname if find('#nickname').value.blank?
+      fill_in 'birth_date', with: @user.birth_date.strftime('%Y-%m-%d')
+      select @user.gender.name, from: 'gender'
+      fill_in 'email', with: random_email if find('#email').value.blank?
 
-      # 3. 生年月日
-      fill_in 'birth_date', with: '1990-01-01'
-
-      # 4. ニックネームとメールが空なら補完
-      fill_in 'nickname', with: 'テストユーザー' if find('#nickname').value.blank?
-      fill_in 'email', with: 'test_google@example.com' if find('#email').value.blank?
+      execute_script('document.getElementById("sns_auth_process").value = "true";') if has_selector?('#sns_auth_process', visible: false)
 
       scroll_display
-      # expect(page).to have_current_path(root_path, wait: 15)
-
-      # expect(User.count).to eq 1
+      expect(page).to have_current_path(root_path, wait: 15)
+      expect(User.count).to eq 1
     end
   end
 end

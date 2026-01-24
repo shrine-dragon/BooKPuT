@@ -18,6 +18,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   private
 
   def authorization
+    puts "--- コントローラー通過！ ---"
     sns_info = User.from_omniauth(request.env["omniauth.auth"])
     @user = sns_info[:user]
     @user.sns_auth_process = true
