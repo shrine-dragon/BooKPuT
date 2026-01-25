@@ -7,6 +7,12 @@ RSpec.describe 'ユーザー新規登録', type: :system do
     driven_by :selenium_chrome
     page.driver.browser.manage.window.resize_to(1280, 1024)
     @user = FactoryBot.build(:user)
+
+    OmniAuth.config.test_mode = true
+  end
+
+  after do
+    OmniAuth.config.test_mode = false
   end
 
   private
@@ -118,6 +124,8 @@ RSpec.describe 'ユーザー新規登録', type: :system do
 
   context 'SNSでユーザー新規登録ができる時' do
     it 'Google連携後に必要な情報を入力すれば登録でき、トップページに移動する' do
+      # モック(偽の)データを一度クリアする
+      OmniAuth.config.mock_auth[:google_oauth2] = nil
       # SNS認証用にパスワードを空にした状態のオブジェクトを作る
       # バリデーションエラーを確実に回避可能
       @user = FactoryBot.build(:user, password: nil, password_confirmation: nil)
@@ -133,6 +141,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       click_link 'Google'
 
       expect(page).to have_current_path("/users/auth/google_oauth2/callback", wait: 10)
+      expect(page).to have_content('新規登録フォーム', wait: 10)
 
       # 必須事項を入力または選択する
       # ニックネームとメールが空なら補完
@@ -146,6 +155,81 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       scroll_display
       expect(page).to have_current_path(root_path, wait: 15)
       expect(User.count).to eq 1
+
+      # トップページに「新規登録」テキストが表示されていないことを確認する
+      # expect(page).to have_no_content('新規登録') 未実装
+      # トップページにユーザー名が表示されていることを確認する
+      # expect(page).to have_content(@user.nickname) 未実装
+    end
+
+    it 'Facebook連携後に必要な情報を入力すれば登録でき、トップページに移動する' do
+      OmniAuth.config.mock_auth[:google_oauth2] = nil
+      
+      @user = FactoryBot.build(:user, password: nil, password_confirmation: nil)
+      
+      auth_hash = OmniAuth::AuthHash.new({
+        provider: 'facebook',
+        uid: SecureRandom.uuid,
+        info: { nickname: @user.nickname, email: @user.email }
+      })
+      OmniAuth.config.mock_auth[:facebook] = auth_hash
+      
+      open_sign_up_modal
+      click_link 'Facebook'
+
+      expect(page).to have_current_path("/users/auth/facebook/callback", wait: 10)
+
+      # 必須事項を入力または選択する
+      # ニックネームとメールが空なら補完
+      fill_in 'nickname', with: @user.nickname if find('#nickname').value.blank?
+      fill_in 'birth_date', with: @user.birth_date.strftime('%Y-%m-%d')
+      select @user.gender.name, from: 'gender'
+      fill_in 'email', with: random_email if find('#email').value.blank?
+
+      execute_script('document.getElementById("sns_auth_process").value = "true";') if has_selector?('#sns_auth_process', visible: false)
+
+      scroll_display
+      expect(page).to have_current_path(root_path, wait: 15)
+      expect(User.count).to eq 1
+      # トップページに「新規登録」テキストが表示されていないことを確認する
+      # expect(page).to have_no_content('新規登録') 未実装
+      # トップページにユーザー名が表示されていることを確認する
+      # expect(page).to have_content(@user.nickname) 未実装
+    end
+
+    it 'LINE連携後に必要な情報を入力すれば登録でき、トップページに移動する' do
+      OmniAuth.config.mock_auth[:google_oauth2] = nil
+
+      @user = FactoryBot.build(:user, password: nil, password_confirmation: nil)
+      
+      auth_hash = OmniAuth::AuthHash.new({
+        provider: 'line',
+        uid: SecureRandom.uuid,
+        info: { nickname: @user.nickname, email: @user.email }
+      })
+      OmniAuth.config.mock_auth[:line] = auth_hash
+      
+      open_sign_up_modal
+      click_link 'LINE'
+
+      expect(page).to have_current_path("/users/auth/line/callback", wait: 10)
+
+      expect(page).to have_content('新規登録フォーム', wait: 10)
+
+      fill_in 'nickname', with: @user.nickname if find('#nickname').value.blank?
+      fill_in 'birth_date', with: @user.birth_date.strftime('%Y-%m-%d')
+      select @user.gender.name, from: 'gender'
+      fill_in 'email', with: random_email if find('#email').value.blank?
+
+      execute_script('document.getElementById("sns_auth_process").value = "true";') if has_selector?('#sns_auth_process', visible: false)
+
+      scroll_display
+      expect(page).to have_current_path(root_path, wait: 15)
+      expect(User.count).to eq 1
+      # トップページに「新規登録」テキストが表示されていないことを確認する
+      # expect(page).to have_no_content('新規登録') 未実装
+      # トップページにユーザー名が表示されていることを確認する
+      # expect(page).to have_content(@user.nickname) 未実装
     end
   end
 end
