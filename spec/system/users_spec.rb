@@ -9,6 +9,10 @@ RSpec.describe 'ユーザー新規登録', type: :system do
     @user = FactoryBot.build(:user)
 
     OmniAuth.config.test_mode = true
+    # 失敗時に例外を投げず、callback用のURLにリダイレクトさせる設定
+    OmniAuth.config.on_failure = Proc.new { |env|
+      OmniAuth::FailureEndpoint.new(env).redirect_to_failure
+    }
   end
 
   after do
@@ -54,6 +58,29 @@ RSpec.describe 'ユーザー新規登録', type: :system do
     execute_script('arguments[0].scrollIntoView({block: "center"});', submit_btn)
     sleep 2.0
     page.execute_script('arguments[0].click();', submit_btn)
+  end
+
+  def input_info_and_sign_up(provider)
+    expect(page).to have_current_path("/users/auth/#{provider}/callback", wait: 10)
+    expect(page).to have_content('新規登録フォーム', wait: 10)
+
+    # 必須事項を入力または選択する
+    # ニックネームとメールが空なら補完
+    fill_in 'nickname', with: @user.nickname if find('#nickname').value.blank?
+    fill_in 'birth_date', with: @user.birth_date.strftime('%Y-%m-%d')
+    select @user.gender.name, from: 'gender'
+    fill_in 'email', with: random_email if find('#email').value.blank?
+
+    execute_script('document.getElementById("sns_auth_process").value = "true";') if has_selector?('#sns_auth_process', visible: false)
+
+    scroll_display
+    expect(page).to have_current_path(root_path, wait: 15)
+    expect(User.count).to eq 1
+
+    # トップページに「新規登録」テキストが表示されていないことを確認する
+    # expect(page).to have_no_content('新規登録') 未実装
+    # トップページにユーザー名が表示されていることを確認する
+    # expect(page).to have_content(@user.nickname) 未実装
   end
 
   context 'メールアドレスでユーザー新規登録ができる時' do 
@@ -140,31 +167,12 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       open_sign_up_modal
       click_link 'Google'
 
-      expect(page).to have_current_path("/users/auth/google_oauth2/callback", wait: 10)
-      expect(page).to have_content('新規登録フォーム', wait: 10)
-
-      # 必須事項を入力または選択する
-      # ニックネームとメールが空なら補完
-      fill_in 'nickname', with: @user.nickname if find('#nickname').value.blank?
-      fill_in 'birth_date', with: @user.birth_date.strftime('%Y-%m-%d')
-      select @user.gender.name, from: 'gender'
-      fill_in 'email', with: random_email if find('#email').value.blank?
-
-      execute_script('document.getElementById("sns_auth_process").value = "true";') if has_selector?('#sns_auth_process', visible: false)
-
-      scroll_display
-      expect(page).to have_current_path(root_path, wait: 15)
-      expect(User.count).to eq 1
-
-      # トップページに「新規登録」テキストが表示されていないことを確認する
-      # expect(page).to have_no_content('新規登録') 未実装
-      # トップページにユーザー名が表示されていることを確認する
-      # expect(page).to have_content(@user.nickname) 未実装
+      input_info_and_sign_up('google_oauth2')
     end
 
     it 'Facebook連携後に必要な情報を入力すれば登録でき、トップページに移動する' do
-      OmniAuth.config.mock_auth[:google_oauth2] = nil
-      
+      # モック(偽の)データを一度クリアする
+      OmniAuth.config.mock_auth[:facebook] = nil
       @user = FactoryBot.build(:user, password: nil, password_confirmation: nil)
       
       auth_hash = OmniAuth::AuthHash.new({
@@ -177,28 +185,12 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       open_sign_up_modal
       click_link 'Facebook'
 
-      expect(page).to have_current_path("/users/auth/facebook/callback", wait: 10)
-
-      # 必須事項を入力または選択する
-      # ニックネームとメールが空なら補完
-      fill_in 'nickname', with: @user.nickname if find('#nickname').value.blank?
-      fill_in 'birth_date', with: @user.birth_date.strftime('%Y-%m-%d')
-      select @user.gender.name, from: 'gender'
-      fill_in 'email', with: random_email if find('#email').value.blank?
-
-      execute_script('document.getElementById("sns_auth_process").value = "true";') if has_selector?('#sns_auth_process', visible: false)
-
-      scroll_display
-      expect(page).to have_current_path(root_path, wait: 15)
-      expect(User.count).to eq 1
-      # トップページに「新規登録」テキストが表示されていないことを確認する
-      # expect(page).to have_no_content('新規登録') 未実装
-      # トップページにユーザー名が表示されていることを確認する
-      # expect(page).to have_content(@user.nickname) 未実装
+      input_info_and_sign_up('facebook')
     end
 
     it 'LINE連携後に必要な情報を入力すれば登録でき、トップページに移動する' do
-      OmniAuth.config.mock_auth[:google_oauth2] = nil
+      # モック(偽の)データを一度クリアする
+      OmniAuth.config.mock_auth[:line] = nil
 
       @user = FactoryBot.build(:user, password: nil, password_confirmation: nil)
       
@@ -212,24 +204,40 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       open_sign_up_modal
       click_link 'LINE'
 
-      expect(page).to have_current_path("/users/auth/line/callback", wait: 10)
+      input_info_and_sign_up('line')
+    end
+  end
 
-      expect(page).to have_content('新規登録フォーム', wait: 10)
+  context 'SNSでユーザー新規登録ができない時' do
+    it 'Google連携をキャンセルすると、新規登録モーダルがあるページに戻る' do
+      # Google認証の失敗をシミュレート
+      OmniAuth.config.mock_auth[:google_oauth2] = :invalid_credentials
 
-      fill_in 'nickname', with: @user.nickname if find('#nickname').value.blank?
-      fill_in 'birth_date', with: @user.birth_date.strftime('%Y-%m-%d')
-      select @user.gender.name, from: 'gender'
-      fill_in 'email', with: random_email if find('#email').value.blank?
+      open_sign_up_modal
+      click_link 'Google'
 
-      execute_script('document.getElementById("sns_auth_process").value = "true";') if has_selector?('#sns_auth_process', visible: false)
+      # 認証失敗後、元のページ（または指定したリダイレクト先）に戻ることを確認する
+      expect(page).to have_current_path(root_path, wait: 10)
+      # 失敗メッセージやモーダルが残っているかなどを確認（アプリの実装に合わせて変更）
+      # expect(page).to have_content '認証に失敗しました' 
+    end
 
-      scroll_display
-      expect(page).to have_current_path(root_path, wait: 15)
-      expect(User.count).to eq 1
-      # トップページに「新規登録」テキストが表示されていないことを確認する
-      # expect(page).to have_no_content('新規登録') 未実装
-      # トップページにユーザー名が表示されていることを確認する
-      # expect(page).to have_content(@user.nickname) 未実装
+    it 'Facebook連携をキャンセルすると、新規登録モーダルがあるページに戻る' do
+      OmniAuth.config.mock_auth[:facebook] = :invalid_credentials
+
+      open_sign_up_modal
+      click_link 'Facebook'
+
+      expect(page).to have_current_path(root_path, wait: 10)
+    end
+
+    it 'LINE連携をキャンセルすると、新規登録モーダルがあるページに戻る' do
+      OmniAuth.config.mock_auth[:line] = :invalid_credentials
+
+      open_sign_up_modal
+      click_link 'LINE'
+
+      expect(page).to have_current_path(root_path, wait: 10)
     end
   end
 end
