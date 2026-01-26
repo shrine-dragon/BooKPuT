@@ -70,37 +70,34 @@
   border-radius: 0 4px 4px 0; /* 右側だけ丸める */
 }
 
-.header-btns {
+.header-hovers {
   display: flex;
   list-style: none;
   padding: 0;
   align-items: center;
 }
 
-.log-in-btn {
-  margin-right: 30px;
-}
-
-.sign-up-btn {
-  margin-right: 20px;
-}
-
-.log-in-btn, .sign-up-btn {
+.header-display {
   padding: 20px 20px;
+  margin-right: 30px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   white-space: nowrap;  /* 改行を防ぐ */
+  &:hover{
+    background-color: whitesmoke;
+  }
 }
 
-.log-in-btn-text, .sign-up-btn-text {
+#header-display-text {
   font-weight: bold;
   color: #333;
 }
 
-.log-in-btn:hover, .sign-up-btn:hover {
-  background-color: whitesmoke;
+.user-image{
+  width: 45px;
+  height: 45px;
 }
 
 #modal-overlay {
