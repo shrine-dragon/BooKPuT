@@ -31,6 +31,7 @@
   height: 50px;
   width: 250px;
   object-fit: contain; /* 画像の比率を保つ */
+  cursor: pointer;
 }
 
 .header-list{
@@ -240,6 +241,14 @@
 
 .forget-password{
   color: 	cornflowerblue;
+}
+
+.urge-sign-up{
+  margin-top: 15px;
+}
+
+.sign-up-here{
+  font-weight: bold;
 }
 
 .modal.sign-up{

@@ -31,9 +31,9 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'rspec-rails'
-  gem 'factory_bot_rails'
+  gem 'byebug', platforms: [:windows]
+  gem 'rspec-rails', '~> 3.8'
+  gem 'factory_bot_rails', '~> 5.0'
   gem 'faker'
 end
 
@@ -52,11 +52,11 @@ group :test do
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers', '=5.3.0'
+  # gem 'webdrivers', '=5.3.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: [:windows, :jruby]
 gem 'devise'
 gem 'pry-rails'
 gem 'active_hash'
@@ -66,3 +66,16 @@ gem "aws-sdk-s3", require: false
 gem 'rails-i18n'
 gem 'kaminari'
 gem 'mutex_m'
+
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-line'
+gem 'line-bot-api'
+gem 'omniauth-rails_csrf_protection'
+# omniauth認証はCSRF脆弱性が指摘されているため対策としてインストール
+gem 'omniauth-rails_csrf_protection'
+# 環境変数を管理するためインストール(vim ~/.zshrcで定義することも可能)
+gem 'dotenv-rails', groups: [:development, :test]
+
+gem 'database_cleaner-active_record'

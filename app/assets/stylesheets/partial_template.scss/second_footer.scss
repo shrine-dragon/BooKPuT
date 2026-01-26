@@ -1,0 +1,23 @@
+.footer.second {
+  position: fixed;
+  bottom: 0;         /* 画面の最下部に配置 */
+  left: 0;           /* 左端から開始 */
+  width: 100%;       /* ★重要：固定すると横幅が縮むため100%を指定 */
+  z-index: 1001;
+  background-color: white; /* 背景色がないと下のコンテンツが透けて見える */
+}
+
+.footer-list{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 60%;
+  margin: 10px auto;
+  font-weight: bold;
+}
+
+.log-in-btn.footer{
+  padding: 10px 20px;
+  border: 1px solid orange;
+  border-radius: 50% / 80%;
+}

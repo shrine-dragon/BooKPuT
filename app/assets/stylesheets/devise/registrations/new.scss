@@ -1,0 +1,136 @@
+/* ボタンの共通デザイン */
+$btn-bg: #f0f0f0;      /* 背景色（薄いグレー） */
+$btn-border: #ccc;    /* 境界線 */
+$btn-radius: 4px;     /* 角丸 */
+$btn-padding: 5px 15px;
+
+.sign-up-form{
+  aspect-ratio: 16 / 9; /* 画像の縦横比を保つ */
+  background-image: asset-url("bookshelves.png");
+  background-size: cover;
+  background-position: center; /* 中央に合わせると綺麗 */
+  background-repeat: no-repeat;
+  padding-bottom: 5px;
+}
+
+.form-wrapper{
+  width: 55%;
+  margin: 60px auto;
+  background-color: ghostwhite;
+}
+
+.form-heading{
+  text-align: center;
+  padding: 30px 0;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.form-container{
+  width: 70%;
+  margin: 0 auto;
+}
+
+.form-contents{
+  margin-bottom: 25px;
+}
+
+.form-text{
+  label{
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+
+.input-text{
+  width: 60%;
+  height: 45px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 5px;
+}
+
+.upload-image, .birth-date-wrapper, .gender-wrapper{
+  display: flex;
+}
+
+.upload-image.custom-file-btn {
+  &::file-selector-button {
+    background-color: $btn-bg;
+    border: 1px solid $btn-border;
+    border-radius: $btn-radius;
+    padding: $btn-padding;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+    margin-right: 10px; /* 右側の「選択されていません」との余白 */
+
+    &:hover {
+      background-color: #e0e0e0;
+    }
+  }
+}
+
+/* プレビュー画像とボタンを揃えるコンテナ */
+.upload-image-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* 左寄せ */
+}
+
+.upload-image-list img {
+  width: 200px;
+  height: auto;
+  display: block;
+  margin-top: 10px;
+}
+
+.preview-img {
+  width: 150px;
+  height: auto;
+  margin-top: 10px;
+  border-radius: 4px;
+}
+
+.image-delete-btn {
+  display: block;        /* 画像の真下に配置 */
+  margin-top: 8px;       /* 画像との間の余白 */
+  background-color: $btn-bg;
+  border: 1px solid $btn-border;
+  border-radius: $btn-radius;
+  padding: $btn-padding;
+  cursor: pointer;
+  font-size: 14px;
+  width: fit-content;    /* 文字幅に合わせる */
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #e0e0e0;
+  }
+}
+
+.form-btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+  padding-bottom: 25px;
+}
+
+.cyan-submit-btn {
+  width: 200px;
+  height: 60px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: cyan;
+  border: none;/* f.submit特有の枠線を消す */
+  outline: none;
+  /* 卵焼きのような楕円形にする設定 */
+  border-radius: 50px / 45px;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
