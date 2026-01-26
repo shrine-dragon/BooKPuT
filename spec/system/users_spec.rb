@@ -11,6 +11,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
     OmniAuth.config.test_mode = true
     # 失敗時に例外を投げず、callback用のURLにリダイレクトさせる設定
     OmniAuth.config.on_failure = Proc.new { |env|
+      env['devise.mapping'] = Devise.mappings[:user]
       OmniAuth::FailureEndpoint.new(env).redirect_to_failure
     }
   end
@@ -77,10 +78,19 @@ RSpec.describe 'ユーザー新規登録', type: :system do
     expect(page).to have_current_path(root_path, wait: 15)
     expect(User.count).to eq 1
 
+    #トップページにフラッシュメッセージが表示されていることを確認する
+    expect(page).to have_selector('.flash-message', text: '登録が完了しました')
+
     # トップページに「新規登録」テキストが表示されていないことを確認する
     # expect(page).to have_no_content('新規登録') 未実装
     # トップページにユーザー名が表示されていることを確認する
     # expect(page).to have_content(@user.nickname) 未実装
+  end
+
+  def return_to_top_page_and_show_flash_message
+    # 認証失敗後はトップページに遷移し、フラッシュメッセージが表示されることを確認する
+    expect(page).to have_current_path(root_path, wait: 10)
+    expect(page).to have_selector('.flash-message', text: '認証に失敗しました')
   end
 
   context 'メールアドレスでユーザー新規登録ができる時' do 
@@ -119,6 +129,9 @@ RSpec.describe 'ユーザー新規登録', type: :system do
 
       # トップページへ遷移したことを確認する
       expect(page).to have_current_path(root_path)
+      #トップページにフラッシュメッセージが表示されていることを確認する
+      expect(page).to have_selector('.flash-message', text: '登録が完了しました')
+
       # トップページに「新規登録」テキストが表示されていないことを確認する
       # expect(page).to have_no_content('新規登録') 未実装
       # トップページにユーザー名が表示されていることを確認する
@@ -216,10 +229,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       open_sign_up_modal
       click_link 'Google'
 
-      # 認証失敗後、元のページ（または指定したリダイレクト先）に戻ることを確認する
-      expect(page).to have_current_path(root_path, wait: 10)
-      # 失敗メッセージやモーダルが残っているかなどを確認（アプリの実装に合わせて変更）
-      # expect(page).to have_content '認証に失敗しました' 
+      return_to_top_page_and_show_flash_message
     end
 
     it 'Facebook連携をキャンセルすると、新規登録モーダルがあるページに戻る' do
@@ -228,7 +238,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       open_sign_up_modal
       click_link 'Facebook'
 
-      expect(page).to have_current_path(root_path, wait: 10)
+      return_to_top_page_and_show_flash_message
     end
 
     it 'LINE連携をキャンセルすると、新規登録モーダルがあるページに戻る' do
@@ -237,7 +247,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       open_sign_up_modal
       click_link 'LINE'
 
-      expect(page).to have_current_path(root_path, wait: 10)
+      return_to_top_page_and_show_flash_message
     end
   end
 end

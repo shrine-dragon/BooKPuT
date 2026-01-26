@@ -15,6 +15,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     authorization
   end
 
+  def failure
+    redirect_to root_path, alert: "認証に失敗しました"
+  end
+
   private
 
   def authorization
