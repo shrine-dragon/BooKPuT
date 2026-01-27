@@ -11,21 +11,24 @@
         <input type="submit" class="search-btn">
       </div>
       <ul class="header-hovers">
-        <% if user_signed_in? %>
-          <li class="user-nickname header-display" id="header-display-text"><%= current_user.nickname %></li>
-          <% if current_user.image.attached? %>
-            <li><%= image_tag current_user.image, class: 'user-image' %></li>
-          <% else%>
-            <li><%= image_tag "Lucci.png", class: 'user-image' %></li>
+        <li class="user-menu-hover header-display">
+          <% if user_signed_in? %>
+            <span class="user-nickname" id="header-display-text"><%= current_user.nickname %></span>
+            <% if current_user.image.attached? %>
+              <%= image_tag current_user.image, class: 'user-image' %>
+            <% else%>
+              <%= image_tag "no-image.png", class: 'user-image' %>
+            <% end %>
+            </li>
+          <% else %>
+            <li class="log-in-hover header-display">
+              <span class="log-in-hover-text" id="header-display-text">ログイン</span>
+            </li>
+            <li class="sign-up-hover header-display">
+              <span class="sign-up-hover-text" id="header-display-text">新規登録</span>
+            </li>
           <% end %>
-        <% else %>
-          <li class="log-in-hover header-display">
-            <span class="log-in-hover-text" id="header-display-text">ログイン</span>
-          </li>
-          <li class="sign-up-hover header-display">
-            <span class="sign-up-hover-text" id="header-display-text">新規登録</span>
-          </li>
-        <% end %>
+        </li>
       </ul>
     </div>
   </div>
