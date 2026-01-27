@@ -30,7 +30,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
     expect(page).to have_no_selector('.modal.sign-up', visible: true)
 
     # ページ内に「新規登録」の文字があることを確認する
-    signup_target = find('.sign-up-btn-text', text: '新規登録', visible: :all)
+    signup_target = find('.sign-up-hover-text', text: '新規登録', visible: :all)
 
     # 画面をスクロールさせる
     execute_script('arguments[0].scrollIntoView({block: "center"});', signup_target)
@@ -54,11 +54,15 @@ RSpec.describe 'ユーザー新規登録', type: :system do
   end
 
   def scroll_display
-    submit_btn = find('input[name="commit"]', wait: 5)
-    # JavaScriptで強制的にクリックする
+    # value="登録する" や name="commit" など、複数の条件で探す。waitをしっかりかける。
+    submit_btn = find('input[type="submit"], input[name="commit"]', wait: 10)
+    
+    # 要素が中心に来るようにスクロール
     execute_script('arguments[0].scrollIntoView({block: "center"});', submit_btn)
-    sleep 2.0
-    page.execute_script('arguments[0].click();', submit_btn)
+    sleep 0.5 # 2秒は長すぎるので、描画待ち程度に短縮
+    
+    # JSでクリック（オーバーレイ等に邪魔されないため）
+    execute_script('arguments[0].click();', submit_btn)
   end
 
   def input_info_and_sign_up(provider)
@@ -73,18 +77,24 @@ RSpec.describe 'ユーザー新規登録', type: :system do
     fill_in 'email', with: random_email if find('#email').value.blank?
 
     execute_script('document.getElementById("sns_auth_process").value = "true";') if has_selector?('#sns_auth_process', visible: false)
+  end
 
-    scroll_display
+  def return_to_top_page_and_change_display
+    # ボタンを探す前に、ページが正しく表示されていることを確認する（これがないとfindが空振りする）
+    expect(page).to have_selector('input[type="submit"]', wait: 10)
+
+    expect{
+      scroll_display
+    }.to change { User.count }.by(1)
     expect(page).to have_current_path(root_path, wait: 15)
-    expect(User.count).to eq 1
 
     #トップページにフラッシュメッセージが表示されていることを確認する
     expect(page).to have_selector('.flash-message', text: '登録が完了しました')
-
-    # トップページに「新規登録」テキストが表示されていないことを確認する
-    # expect(page).to have_no_content('新規登録') 未実装
+    #トップページに｢新規登録｣｢ログイン｣のhoverテキストが表示されていないことを確認する
+    expect(page).to have_no_selector('.sign-up-hover-text', text: '新規登録')
+    expect(page).to have_no_selector('.log-in-hover-text', text: 'ログイン')
     # トップページにユーザー名が表示されていることを確認する
-    # expect(page).to have_content(@user.nickname) 未実装
+    expect(page).to have_content(@user.nickname)
   end
 
   def return_to_top_page_and_show_flash_message
@@ -122,20 +132,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
         attach_file('user[image]', image_path)
       end
 
-      # 登録ボタンを押すとユーザーモデルのカウントが1上がることを確認する
-      expect{
-        scroll_display
-      }.to change { User.count }.by(1)
-
-      # トップページへ遷移したことを確認する
-      expect(page).to have_current_path(root_path)
-      #トップページにフラッシュメッセージが表示されていることを確認する
-      expect(page).to have_selector('.flash-message', text: '登録が完了しました')
-
-      # トップページに「新規登録」テキストが表示されていないことを確認する
-      # expect(page).to have_no_content('新規登録') 未実装
-      # トップページにユーザー名が表示されていることを確認する
-      # expect(page).to have_content(@user.nickname) 未実装
+      return_to_top_page_and_change_display
     end
   end
 
@@ -181,6 +178,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       click_link 'Google'
 
       input_info_and_sign_up('google_oauth2')
+      return_to_top_page_and_change_display
     end
 
     it 'Facebook連携後に必要な情報を入力すれば登録でき、トップページに移動する' do
