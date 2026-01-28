@@ -95,4 +95,18 @@ $(document).on(loadEvent, function() {
       }
     });
   });
+  // ログインに失敗しエラーメッセージがあれば、ログインモーダルを再表示する処理
+  if ($('.modal.log-in .error-message').length > 0) {
+    const $logInModal = $(".modal.log-in");
+    $("#modal-overlay").show();
+    // 現在のURL（パス）を取得
+    const currentPath = window.location.pathname;
+
+    if (currentPath === '/users/sign_up') {
+      $logInModal.addClass('is-center').css("display", "flex");
+    } else {
+      // ヘッダー用として表示（is-centerを付けない）
+      $logInModal.css("display", "flex");
+    }
+  }
 });

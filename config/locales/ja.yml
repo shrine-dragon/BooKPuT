@@ -20,6 +20,6 @@ ja:
     registrations:
       signed_up: "登録が完了しました"
     sessions:
-      signed_user: "ログインしました"
+      signed_in: "ログインしました"
       signed_out: "ログアウトしました"
       destroy: "ログアウトしました"
