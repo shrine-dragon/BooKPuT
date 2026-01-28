@@ -33,13 +33,19 @@ $btn-padding: 5px 15px;
 
 .form-contents{
   margin-bottom: 25px;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .form-text{
+  margin-bottom: 5px;
+  width: 60%;
+  text-align: left;
   label{
     font-size: 18px;
     font-weight: bold;
+    display: block;
   }
 }
 
@@ -49,7 +55,6 @@ $btn-padding: 5px 15px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  margin-top: 5px;
 }
 
 .upload-image.custom-file-btn {
@@ -67,6 +72,13 @@ $btn-padding: 5px 15px;
       background-color: #e0e0e0;
     }
   }
+}
+
+.birth-date-wrapper, 
+.gender-wrapper,
+.upload-image-list {
+  width: 60%;
+  text-align: left;
 }
 
 /* プレビュー画像とボタンを揃えるコンテナ */
