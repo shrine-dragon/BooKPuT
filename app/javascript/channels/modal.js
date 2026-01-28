@@ -51,8 +51,9 @@ $(document).on(loadEvent, function() {
     }
   });
   // 新規登録ページのモーダルの開閉処理(clickイベント)
-$('.log-in-btn.footer').on('click', function(e) {
+  $('.log-in-btn.footer').on('click', function(e) {
     e.preventDefault();
+    e.stopPropagation();
 
     const $modal = $(".modal.log-in");
     
@@ -71,6 +72,27 @@ $('.log-in-btn.footer').on('click', function(e) {
     $modal.fadeOut(200, function() {
         // 閉じた後は中央用クラスを外して、ヘッダー用に戻しておく
         $modal.removeClass('is-center');
+    });
+  });
+
+  // 背景（オーバーレイ）をクリックした時にモーダルを閉じる処理
+  $('#modal-overlay, .header, .footer.second').on('click', function(e) {
+    // モーダル本体や、その中身をクリックした時は閉じないようにする
+    if ($(e.target).closest('.modal').length > 0) {
+      return;
+    }
+
+    const $logInModal = $(".modal.log-in");
+    
+    // 背景と全てのモーダルをフェードアウト
+    $("#modal-overlay").fadeOut(200);
+    $(".modal.sign-up").fadeOut(200);
+    $(".modal.log-in-user").fadeOut(200);
+    
+    $logInModal.fadeOut(200, function() {
+      if ($logInModal.hasClass('is-center')) {
+        $logInModal.removeClass('is-center');
+      }
     });
   });
 });
