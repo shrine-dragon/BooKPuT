@@ -61,6 +61,7 @@ class User < ApplicationRecord
             message: 'は英字の大文字・小文字・数字をすべて含めて入力してください' 
           }, 
           # sns_auth_process が true の時は、このバリデーションをまるごとスキップ！
+          confirmation: true,
           unless: :sns_auth_process?
   validates :password_confirmation, presence: true, unless: :sns_auth_process?
 
