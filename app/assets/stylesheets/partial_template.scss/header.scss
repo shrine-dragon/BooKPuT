@@ -146,7 +146,6 @@
   position: absolute;
   position: fixed;
   top: 64px;
-  z-index: 1000;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* 浮いている感じを出す影 */
 }
 
@@ -213,7 +212,46 @@
 .fa-envelope { color: #666666; }
 
 .modal.sign-up{
-  height: 220px;
-  width: 420px;
+  height: auto;
+  width: 200px;
   right: 40px;
+}
+
+.modal.log-in-user{
+  height: auto;
+  min-height: 160px;
+  width: 180px;
+  right: 20px;
+  top: 70px; /* ★ヘッダーの height と合わせる */
+  background-color: whitesmoke;
+  z-index: 1003;
+}
+
+.log-in-user-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px; /* これだけで小要素の間に隙間ができる */
+}
+
+.my-page-btn, .log-out-btn{
+  border-radius: 8px;
+  padding: 12px 25px;
+  &:hover{
+    opacity: 0.7;
+  }
+}
+
+.my-page-btn{
+  background-color: deepskyblue;
+  border-radius: 8px;
+}
+
+.log-out-btn{
+  background-color: red;
+}
+
+.my-page-btn-text, .log-out-btn-text{
+  font-size: 16px;
+  font-weight: bold;
 }

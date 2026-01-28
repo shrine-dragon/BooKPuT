@@ -16,6 +16,11 @@ $(document).on(loadEvent, function() {
     $(".modal.sign-up").hide(); // 新規登録が開いていれば隠す
   });
 
+  $('.user-menu-hover').on('mouseover', function(){
+    $("#modal-overlay").stop(true, true).fadeIn(200);
+    $(".modal.log-in-user").stop(true, true).css("display", "flex").hide().fadeIn(200);
+  });
+
   $(document).on('mouseover', function(e) {
     const $logInModal = $(".modal.log-in");
   
@@ -24,12 +29,14 @@ $(document).on(loadEvent, function() {
 
     const isInsideSignUp = $(e.target).closest('.modal.sign-up, .sign-up-hover').length;
     const isInsideLogIn = $(e.target).closest('.modal.log-in, .log-in-hover').length;
+    const isInsideUserMenu = $(e.target).closest('.modal.log-in-user, .user-menu-hover').length;
 
     // どちらのエリアにもマウスが乗っていない場合のみ消す
-    if (!isInsideSignUp && !isInsideLogIn) {
+    if (!isInsideSignUp && !isInsideLogIn && !isInsideUserMenu) {
       $("#modal-overlay").fadeOut(200);
       $(".modal.sign-up").fadeOut(200);
       $logInModal.fadeOut(200);
+      $(".modal.log-in-user").fadeOut(200);
     }
   });
 
@@ -40,14 +47,13 @@ $(document).on(loadEvent, function() {
       $("#modal-overlay").fadeOut(200);
       $(".modal.sign-up").fadeOut(200);
       $(".modal.log-in").fadeOut(200);
+      $(".modal.log-in-user").fadeOut(200);
     }
   });
   // 新規登録ページのモーダルの開閉処理(clickイベント)
 $('.log-in-btn.footer').on('click', function(e) {
     e.preventDefault();
 
-    console.log('こんにちは');
-    
     const $modal = $(".modal.log-in");
     
     // 中央配置用のクラスを付与
