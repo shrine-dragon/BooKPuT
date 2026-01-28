@@ -4,6 +4,10 @@
   padding: 25px 20px;
   width: 420px;
   right: 155px;
+  position: fixed;
+  z-index: 1000;
+  display: none;
+  background-color: whitesmoke;
 }
 
 .log-in-form{
@@ -58,4 +62,35 @@
 
 .sign-up-here{
   font-weight: bold;
+}
+
+/* .is-center クラスを付与した時だけ中央に配置 */
+.modal.log-in.is-center {
+  display: flex !important;
+  flex-direction: column;
+  top: 50% !important;
+  left: 50% !important;
+  right: auto !important; /* ヘッダー用の右寄せをリセット */
+  transform: translate(-50%, -50%) !important;
+  position: fixed;
+  z-index: 2000; /* ヘッダーより上に表示 */
+  
+  /* 中央モーダルの時だけバツボタンを表示 */
+  .close-modal {
+    display: block;
+  }
+  /* 中央モーダルの時だけ「新規登録はこちら」を隠すならここで制御 */
+  .log-in-modal-footer {
+    display: none;
+  }
+}
+
+/* バツボタンの基本設定（通常は隠しておく） */
+.close-modal {
+  display: none;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+  font-size: 20px;
 }

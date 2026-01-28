@@ -8,6 +8,6 @@ require("channels")
 
 // プレビュー用のファイルを読み込む（パスに注意！）
 import "../channels/index" 
-import "../channels/header"
+import "../channels/modal"
 import "../channels/preview"
 import "../channels/flash_messages"

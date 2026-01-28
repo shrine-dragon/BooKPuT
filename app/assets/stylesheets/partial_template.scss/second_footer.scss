@@ -18,6 +18,10 @@
 
 .log-in-btn.footer{
   padding: 10px 20px;
-  border: 1px solid orange;
+  background-color: darkorange;
   border-radius: 50% / 80%;
+  cursor: pointer;
+  &:hover{
+    opacity: 0.7;
+  }
 }
