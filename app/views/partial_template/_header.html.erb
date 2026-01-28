@@ -65,14 +65,10 @@
   <div class="modal-wrapper log-in-user">
     <ul class="log-in-user-container">
       <li class="my-page-btn">
-        <%= link_to(root_path, class: "my-page-btn-text") do %>
-          マイページ
-        <% end %>
+        <%= link_to "マイページ", root_path, class: "my-page-btn-text" %>
       </li>
       <li class="log-out-btn">
-        <%= link_to(root_path, class: "log-out-btn-text") do %>
-          ログアウト
-        <% end %>
+        <%= link_to "ログアウト", destroy_user_session_path,class: "log-out-btn-text" %>
       </li>
     </ul>
   </div>

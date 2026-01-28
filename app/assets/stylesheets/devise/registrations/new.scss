@@ -33,6 +33,7 @@ $btn-padding: 5px 15px;
 
 .form-contents{
   margin-bottom: 25px;
+  text-align: center;
 }
 
 .form-text{
@@ -49,10 +50,6 @@ $btn-padding: 5px 15px;
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-top: 5px;
-}
-
-.upload-image, .birth-date-wrapper, .gender-wrapper{
-  display: flex;
 }
 
 .upload-image.custom-file-btn {

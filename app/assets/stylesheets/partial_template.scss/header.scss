@@ -212,9 +212,10 @@
 .fa-envelope { color: #666666; }
 
 .modal.sign-up{
-  height: auto;
-  width: 200px;
+  height: 220px;
+  width: 420px;
   right: 40px;
+  z-index: 1003;
 }
 
 .modal.log-in-user{
