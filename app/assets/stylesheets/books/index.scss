@@ -170,8 +170,8 @@
 }
 
 .store-btn{
-  height: 50px;
-  width: 200px;
+  height: 60px;
+  width: 180px;
 }
 
 .store-btn:hover{
@@ -179,13 +179,13 @@
 }
 
 .app-feature {
-  min-height: 700px; /* 固定ではなく最小高さに */
+  min-height: 700px;
   height: auto;
   width: 100%;
   background-color: linen;
   padding: 50px 0;
   display: flex;
-  flex-direction: column; /* 縦に並べる */
+  flex-direction: column;
   align-items: center;
 }
 
