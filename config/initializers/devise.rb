@@ -1,3 +1,5 @@
+OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE if Rails.env.development?
+
 # frozen_string_literal: true
 
 # Assuming you have not yet modified this file, each configuration option below
@@ -11,12 +13,11 @@
 Devise.setup do |config|
   # アプリ側で環境変数を読み込む
   config.omniauth :google_oauth2,ENV['GOOGLE_API_KEY'],ENV['GOOGLE_API_SECRET_KEY']
-  config.omniauth :twitter,ENV['TWITTER_API_KEY'],ENV['TWITTER_API_SECRET_KEY'],
-  # 本番環境では非推奨で、ローカル環境で開発を止まらせないための一般的な対処法
+  config.omniauth :twitter, ENV['TWITTER_API_KEY'], ENV['TWITTER_API_SECRET_KEY'],
   {
     client_options: {
       ssl: {
-        verify: false # 開発環境でのみ、証明書の検証をスキップする
+        verify: !Rails.env.development? # 開発環境(development)の時だけ false になる
       }
     }
   }

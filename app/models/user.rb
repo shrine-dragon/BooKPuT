@@ -11,20 +11,24 @@ class User < ApplicationRecord
     Rails.logger.debug auth.info
     
     # LINEの場合、auth.info.email が空なら自動入力されません
-    user = User.where(email: auth.info.email).first_or_initialize if auth.info.email
     puts "===== LINE AUTH DATA ====="
     p auth.info
     # 1. SNS情報を元にSNS認証テーブルからデータを探す、なければ作る
     sns = SnsCredential.where(provider: auth.provider, uid: auth.uid).first_or_initialize
 
-    # 2. SNS情報のメールアドレスを元に、既にUserが存在するか確認する
-    # （もし過去にメールアドレスだけで登録していた場合、そのユーザーとSNSを紐付けるため）
-    user = User.where(email: auth.info.email).first_or_initialize(
-      nickname: auth.info.name,
-      email: auth.info.email
-    )
+    # メールアドレスをキーにユーザーを特定
+    # emailがない場合に備え、空のUserオブジェクトを確実に生成する
+    email = auth.info.email
+    user = User.where(email: email).first_or_initialize if email
+    user ||= User.new # emailがnilの場合でもUserオブジェクトを生成
 
-    # 3. もし新規ユーザー（まだ保存されていない）なら、ランダムなパスワードを設定する
+    # ニックネームやメールをセット（既存ユーザーでも上書きしたくない場合は条件分岐）
+    user.nickname = auth.info.name if user.nickname.blank?
+    user.email = email if user.email.blank?
+
+    user.gender_id = 4 if user.gender_id.blank?
+    
+    # もし新規ユーザー（まだ保存されていない）なら、ランダムなパスワードを設定する
     if user.persisted? == false
       # SNS経由の場合はパスワードを手動で入れさせないため、自動生成する
       secure_password = "Password123" # これなら大文字・小文字・数字すべてクリア
@@ -32,7 +36,7 @@ class User < ApplicationRecord
       user.password_confirmation = secure_password
     end
 
-    # 4. Userが既にDBに保存されている（登録済み）場合、SNS情報と紐付ける
+    # Userが既にDBに保存されている（登録済み）場合、SNS情報と紐付ける
     # persisted? = already_save
     if user.persisted?
       sns.user = user
@@ -75,7 +79,7 @@ class User < ApplicationRecord
 
   validates :email, presence: true, uniqueness: true,
             format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i, message: 'は不正な形式です' }
-  validates :gender_id, numericality: { other_than: 0, message: 'を選択してください' }, unless: :sns_auth_process?
+  validates :gender_id, presence: true, numericality: { other_than: 0, message: 'を選択してください' }
 
   validate :birth_date_cannot_be_in_the_future
 
