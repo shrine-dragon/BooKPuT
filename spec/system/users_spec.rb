@@ -181,6 +181,27 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       return_to_top_page_and_change_display
     end
 
+    it 'X(Twitter)連携後に必要な情報を入力すれば登録でき、トップページに移動する' do
+      # モック(偽の)データを一度クリアする
+      OmniAuth.config.mock_auth[:twitter] = nil
+      # SNS認証用にパスワードを空にした状態のオブジェクトを作る
+      # バリデーションエラーを確実に回避可能
+      @user = FactoryBot.build(:user, password: nil, password_confirmation: nil)
+      
+      auth_hash = OmniAuth::AuthHash.new({
+        provider: 'twitter',
+        uid: SecureRandom.uuid, # UIDも念のため被らないようにする
+        info: { nickname: @user.nickname, email: @user.email }
+      })
+      OmniAuth.config.mock_auth[:twitter] = auth_hash
+      
+      open_sign_up_modal
+      click_link 'X(Twitter)'
+
+      input_info_and_sign_up('twitter')
+      return_to_top_page_and_change_display
+    end
+
     it 'Facebook連携後に必要な情報を入力すれば登録でき、トップページに移動する' do
       # モック(偽の)データを一度クリアする
       OmniAuth.config.mock_auth[:facebook] = nil
@@ -226,6 +247,15 @@ RSpec.describe 'ユーザー新規登録', type: :system do
 
       open_sign_up_modal
       click_link 'Google'
+
+      return_to_top_page_and_show_flash_message
+    end
+
+    it 'X(Twitter)連携をキャンセルすると、新規登録モーダルがあるページに戻る' do
+      OmniAuth.config.mock_auth[:twitter] = :invalid_credentials
+
+      open_sign_up_modal
+      click_link 'X(Twitter)'
 
       return_to_top_page_and_show_flash_message
     end
