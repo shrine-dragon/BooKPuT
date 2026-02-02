@@ -23,3 +23,10 @@ ja:
       signed_in: "ログインしました"
       signed_out: "ログアウトしました"
       destroy: "ログアウトしました"
+    omniauth_callbacks:
+      success: "%{kind} アカウントでログインしました。"
+    omniauth_providers:
+      google_oauth2: "Google"
+      twitter: "Twitter"
+      facebook: "Facebook"
+      line: "LINE"
