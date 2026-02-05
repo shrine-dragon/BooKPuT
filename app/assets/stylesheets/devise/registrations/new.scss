@@ -40,7 +40,7 @@ $btn-padding: 5px 15px;
 
 .form-text{
   margin-bottom: 5px;
-  width: 60%;
+  width: 70%;
   text-align: left;
   label{
     font-size: 18px;
@@ -50,7 +50,7 @@ $btn-padding: 5px 15px;
 }
 
 .input-text{
-  width: 60%;
+  width: 70%;
   height: 45px;
   padding: 10px;
   border: 1px solid #ccc;
@@ -58,6 +58,7 @@ $btn-padding: 5px 15px;
 }
 
 .upload-image.custom-file-btn {
+  width: 70%;
   &::file-selector-button {
     background-color: $btn-bg;
     border: 1px solid $btn-border;
@@ -74,14 +75,6 @@ $btn-padding: 5px 15px;
   }
 }
 
-.birth-date-wrapper, 
-.gender-wrapper,
-.upload-image-list {
-  width: 60%;
-  text-align: left;
-}
-
-/* プレビュー画像とボタンを揃えるコンテナ */
 .upload-image-list {
   display: flex;
   flex-direction: column;
@@ -103,8 +96,8 @@ $btn-padding: 5px 15px;
 }
 
 .image-delete-btn {
-  display: block;        /* 画像の真下に配置 */
-  margin-top: 8px;       /* 画像との間の余白 */
+  display: block; /* 画像の真下に配置 */
+  margin-top: 8px;
   background-color: $btn-bg;
   border: 1px solid $btn-border;
   border-radius: $btn-radius;
@@ -117,6 +110,13 @@ $btn-padding: 5px 15px;
   &:hover {
     background-color: #e0e0e0;
   }
+}
+
+.birth-date-wrapper, 
+.gender-wrapper,
+.upload-image-list {
+  width: 70%;
+  text-align: left;
 }
 
 .form-btn-container {
