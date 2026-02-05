@@ -18,7 +18,7 @@
           <label class="log-in-form-text">パスワード</label>
           <%= f.password_field :password, autocomplete: "current-password", class: "input-password", id: 'password' %>
           <%= f.submit "ログイン", class: "log-in-submit-btn" %>
-          <p><%= link_to 'パスワードをお忘れですか？', "#", class: "forget-password", id: "underline-text" %></p>
+          <p><%= link_to 'パスワードをお忘れですか？', new_user_password_path, class: "forget-password", id: "underline-text" %></p>
         </div>
       </div>
       <div class="two-columns-layout">

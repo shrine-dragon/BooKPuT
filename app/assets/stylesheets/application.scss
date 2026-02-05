@@ -14,6 +14,16 @@
  *= require_self
  */
 
+/* ヘッダーの高さが変わるたびにCSSを書き直すのを防ぐため、CSS変数を使用 */
+
+ :root {
+  --header-height: 70px;
+}
+
+ body {
+  padding-top: var(--header-height);
+}
+
 .flash-message {
   width: 20%;
   padding: 12px;
