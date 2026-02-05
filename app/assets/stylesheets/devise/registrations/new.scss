@@ -39,9 +39,18 @@ $btn-padding: 5px 15px;
   align-items: center;
 }
 
+.form-text,
+.input-text,
+.upload-image.custom-file-btn,
+.birth-date-wrapper,
+.gender-wrapper
+{
+  width: 70% !important;
+  text-align: left;
+}
+
 .form-text{
   margin-bottom: 5px;
-  width: 70%;
   text-align: left;
   label{
     font-size: 18px;
@@ -51,7 +60,6 @@ $btn-padding: 5px 15px;
 }
 
 .input-text{
-  width: 70%;
   height: 45px;
   padding: 10px;
   border: 1px solid #ccc;
@@ -60,7 +68,6 @@ $btn-padding: 5px 15px;
 }
 
 .upload-image.custom-file-btn {
-  width: 70%;
   &::file-selector-button {
     background-color: $btn-bg;
     border: 1px solid $btn-border;
@@ -112,13 +119,6 @@ $btn-padding: 5px 15px;
   &:hover {
     background-color: #e0e0e0;
   }
-}
-
-.birth-date-wrapper, 
-.gender-wrapper,
-.upload-image-list {
-  width: 70%;
-  text-align: left;
 }
 
 .form-btn-container {

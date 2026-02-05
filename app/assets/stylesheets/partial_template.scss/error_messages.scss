@@ -3,7 +3,21 @@
   font-size: 14px;
   line-height: 1.5;
   display: block;
-  margin: 5px auto 0;    /* 上に少し余白を作り、中央に配置 */
+  margin-bottom: 10px;
   text-align: left;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
   width: 70%;
+}
+
+.modal-wrapper.log-in{
+  .error-message{
+    width: 100% !important;
+  }
+}
+
+.reset-password {
+  .error-message {
+    width: 100% !important;
+  }
 }

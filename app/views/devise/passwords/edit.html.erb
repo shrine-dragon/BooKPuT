@@ -2,6 +2,8 @@
 
 <%= render layout: 'password_reset_layout', locals: { title: '新しいパスワードの設定' } do %>
   <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: 'reset-password' }) do |f| %>
+    <%= f.hidden_field :reset_password_token %>
+
     <div class="reset-password-text">
       <p>新しいパスワードを入力し、<br>｢変更する｣ボタンを押してください。</p>
     </div>
@@ -14,7 +16,7 @@
     <div class="form-text new-password">
       <label>新しいパスワード(確認用)</label>
     </div>
-    <%= f.password_field :password_confirmation, class:"input-text new-password", id:"password_confirmation", placeholder:"同じパスワードを入力してください", minlength:"8", maxlength:"20" %>
+    <%= f.password_field :password_confirmation, class:"input-text new-password", id:"password_confirmation", placeholder:"同じパスワードを入力", minlength:"8", maxlength:"20" %>
     <%= render "partial_template/error_messages", model: resource, attribute: :password_confirmation %>
 
     <div class="form-btn-container">

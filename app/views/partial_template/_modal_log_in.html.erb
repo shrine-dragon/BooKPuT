@@ -2,10 +2,9 @@
   <div class="close-modal"><i class="fa-solid fa-xmark"></i></div>
 
   <div class="modal-wrapper log-in">
-    <%# ログイン失敗時のメッセージを表示 %>
     <% if flash[:alert] %>
       <div class="error-message-container">
-        <p class="error-message" style="color: red; text-align: center; margin-bottom: 15px;">
+        <p class="error-message" style="color: red; text-align: left; margin-bottom: 15px;">
           <%= flash[:alert] %>
         </p>
       </div>

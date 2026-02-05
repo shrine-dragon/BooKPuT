@@ -72,8 +72,6 @@ class User < ApplicationRecord
   attr_accessor :sns_auth_process
 
   def sns_auth_process?
-    # self.sns_credentials.present? だけでもSNS経由と判定できるはずですが、
-    # テストコードからの sns_auth_process も確実に拾います
     self.sns_auth_process.to_s == "true" || self.sns_credentials.any? || self.sns_credentials.present?
   end
 
