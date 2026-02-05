@@ -103,22 +103,24 @@
   box-shadow: 1px 3px 10px #999;
 }
 
-.new-post-btn{
-  width: 190px;
-  background: #F93;
+.btn-on-center{
   text-align: center;
   padding: 15px;
   border-radius: 8px;
   margin: 0 auto;
   cursor: pointer;
   font-weight: bold;
+  &:hover{
+    opacity: 0.7;
+  }
 }
 
-.new-post-btn:hover{
-  opacity: 0.7;
+.new-post{
+  width: 190px;
+  background: #F93;
 }
 
-.new-post-btn-text{
+.btn-text{
   color: black;
   font-size: 15px;
   margin-bottom: 10px;

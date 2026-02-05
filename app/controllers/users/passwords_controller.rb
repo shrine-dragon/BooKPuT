@@ -1,4 +1,5 @@
 class Users::PasswordsController < Devise::PasswordsController
+  skip_before_action :require_no_authentication, only: [:updated]
 
   def create
     self.resource = resource_class.send_reset_password_instructions(resource_params)
@@ -15,21 +16,23 @@ class Users::PasswordsController < Devise::PasswordsController
     super
   end
 
+  def updated
+    flash.clear
+  end
+
   def update
     self.resource = resource_class.reset_password_by_token(reset_password_params)
     yield resource if block_given?
 
     if resource.errors.empty?
       resource.unlock_access! if unlockable?(resource)
+
       if Devise.sign_in_after_reset_password
-        flash_message = resource.active_for_authentication? ? :updated : :updated_not_active
-        set_flash_message!(:notice, flash_message)
-        resource.after_database_authentication
-        sign_in(resource_name, resource)
-      else
-        set_flash_message!(:notice, :updated_not_active)
+        # bypass: true セッションを維持したまま認証情報を更新可能
+        sign_in(resource_name, resource, bypass: true)
       end
-      respond_with resource, location: after_resetting_password_path_for(resource)
+      flash.clear
+      redirect_to updated_path and return
     else
       set_minimum_password_length
       render :edit
@@ -48,6 +51,6 @@ class Users::PasswordsController < Devise::PasswordsController
   end
 
   def after_resetting_password_path_for(resource)
-    root_path
+    updated_path
   end
 end
