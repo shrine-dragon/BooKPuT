@@ -55,7 +55,7 @@
 }
 
 .slick-prev, .slick-next{
-  z-index: 10;
+  z-index: 10; /* 最小の設定 */
   filter: drop-shadow(0px 0px 5px rgba(255, 255, 255, 0.5));
 }
 
@@ -291,7 +291,7 @@
   text-align: center;
   right: 30px;
   position: fixed;
-  z-index: 1002;
+  z-index: 1001 /* headerより1多い設定 */;
   border-radius: 8px;
   text-decoration: none;
   font-weight: bold;
@@ -350,7 +350,7 @@
   color: #000 !important; /* 黒色 */
   width: 50px !important;  /* クリックエリアを広げる */
   height: 50px !important;
-  z-index: 10;
+  z-index: 10; /* 最小の設定 */
 }
 
 .swiper-button-prev {

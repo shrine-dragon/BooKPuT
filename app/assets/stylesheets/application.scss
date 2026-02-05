@@ -24,6 +24,13 @@
   padding-top: var(--header-height);
 }
 
+.passwords {
+  // パスワード関連のページが動いている時のみ、フラッシュメッセージを削除する
+  .flash-message {
+    display: none;
+  }
+}
+
 .flash-message {
   width: 20%;
   padding: 12px;
@@ -32,7 +39,7 @@
   position: fixed;
   top: 80px;
   left: 80px;
-  z-index: 1000;
+  z-index: 1000; /* 特にかぶっていないため、ヘッダーと同じ設定 */
 }
 
 /* 成功時の色（シアン系） */

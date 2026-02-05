@@ -9,7 +9,7 @@
   top: 0;           /* 画面の最上部に張り付くように指定 */
   left: 0;          /* 左端から開始 */
   width: 100%;      /* ★重要：これがないと横幅が縮んで崩れる */
-  z-index: 1001;     /* スライドの矢印(20)などより高い数字に設定 */
+  z-index: 1000;     /* スライドの矢印(20)などより高い数字に設定 */
   box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 浮いている感じを出す */
 }
 
@@ -215,7 +215,7 @@
   height: 220px;
   width: 420px;
   right: 40px;
-  z-index: 1003;
+  z-index: 1002 /* 投稿するボタンより1多い設定 */;
 }
 
 .modal.log-in-user{
@@ -225,7 +225,7 @@
   right: 20px;
   top: 70px; /* ★ヘッダーの height と合わせる */
   background-color: whitesmoke;
-  z-index: 1003;
+  z-index: 1002 ; /* 投稿するボタンより1多い設定 */
 }
 
 .log-in-user-container{
