@@ -64,5 +64,10 @@ Rails.application.configure do
   config.active_storage.variant_processor = :mini_magick
 
   # ngrokのアクセスを許可
-   config.hosts.clear
+  config.hosts.clear
+
+  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.perform_deliveries = true
+  # あなたのアプリのURL（開発環境用）
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 end
