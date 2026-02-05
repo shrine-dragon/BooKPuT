@@ -9,7 +9,7 @@
     <div class="form-text">
       <label>メールアドレス(必須)</label>
     </div>
-    <%= f.email_field :email, class:"input-text", id:"email", placeholder:"例：bookput@gmail.com" %>
+    <%= f.email_field :email, class:"input-text email", id:"email", placeholder:"例：bookput@gmail.com" %>
     <%= render "partial_template/error_messages", model: resource, attribute: :email %>
     <div class="form-btn-container">
       <%= f.submit "送信する", class: "cyan-submit-btn" %>

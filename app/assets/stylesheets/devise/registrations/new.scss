@@ -33,6 +33,7 @@ $btn-padding: 5px 15px;
 
 .form-contents{
   margin-bottom: 25px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -55,6 +56,7 @@ $btn-padding: 5px 15px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  box-sizing: border-box;
 }
 
 .upload-image.custom-file-btn {
