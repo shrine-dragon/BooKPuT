@@ -1,27 +1,22 @@
 <%= render 'partial_template/second_header' %>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: 'reset-password' }) do |f| %>
-  <div class="form-wrapper reset-password">
-    <h1 class="form-heading reset-password">
-      パスワード再設定
-    </h1>
-    <div class="form-container">
-      <div class="form-contents">
-        <div class="reset-password-text">
-          <p>登録済みのメールアドレスを入力してください。</p>
-          <p>パスワード再設定用のメールを送信します。</p>
-        </div>
-        <div class="form-text">
-          <label>メールアドレス(必須)</label>
-        </div>
-        <%= f.email_field :email, class:"input-text", id:"email", placeholder:"例：bookput@gmail.com" %>
-        <%= render "partial_template/error_messages", model: resource, attribute: :email %>
-      </div>
-      <div class="form-btn-container">
-        <%= f.submit "送信する", class: "cyan-submit-btn" %>
-      </div>
+<%= render layout: 'password_reset_layout', locals: { title: 'パスワード再設定' } do %>
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: 'reset-password' }) do |f| %>
+    <div class="reset-password-text">
+      <p>登録済みのメールアドレスを入力してください。</p>
+      <p>パスワード再設定用のメールを送信します。</p>
     </div>
-  </div>
+    <div class="form-text">
+      <label>メールアドレス(必須)</label>
+    </div>
+    <%= f.email_field :email, class:"input-text", id:"email", placeholder:"例：bookput@gmail.com" %>
+    <%= render "partial_template/error_messages", model: resource, attribute: :email %>
+    <div class="form-btn-container">
+      <%= f.submit "送信する", class: "cyan-submit-btn" %>
+    </div>
+  <% end %>
 <% end %>
+
+<%= render 'partial_template/return_btn' %>
 
 <%= render 'partial_template/footer' %>

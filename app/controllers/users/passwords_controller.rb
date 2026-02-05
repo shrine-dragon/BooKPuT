@@ -1,13 +1,19 @@
-# frozen_string_literal: true
-
 class Users::PasswordsController < Devise::PasswordsController
-  protected
 
-  def email_submitted
+  def create
+    self.resource = resource_class.send_reset_password_instructions(resource_params)
+    
+    if resource.errors.empty?
+      flash[:notice] = nil
+      redirect_to email_submitted_path
+    else
+      render :new
+    end
   end
 
+  protected
+
   def after_sending_reset_password_instructions_path_for(resource_name)
-    flash[:notice] = nil
     email_submitted_path
   end
 end
