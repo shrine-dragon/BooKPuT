@@ -225,40 +225,113 @@ RSpec.describe 'ログイン', type: :system do
       create_log_in_mock_data(:google_oauth2)
       open_log_in_modal
       # トップページに遷移し、成功用のフラッシュメッセージが表示されていることを確認する
-      return_to_top_page_and_change_display(0, "Google アカウントでログインしました。", "#google-login")
+      return_to_top_page_and_change_display(0, "Google アカウントでログインしました。", "#google-log-in")
     end
 
     it 'X(Twitter)認証が成功すればログインでき、トップページに遷移する' do
       create_log_in_mock_data(:twitter)
       open_log_in_modal
       # トップページに遷移し、成功用のフラッシュメッセージが表示されていることを確認する
-      return_to_top_page_and_change_display(0, "X アカウントでログインしました。", "#twitter-login")
+      return_to_top_page_and_change_display(0, "X アカウントでログインしました。", "#twitter-log-in")
     end
 
     it 'Facebook認証が成功すればログインでき、トップページに遷移する' do
       create_log_in_mock_data(:facebook)
       open_log_in_modal
       # トップページに遷移し、成功用のフラッシュメッセージが表示されていることを確認する
-      return_to_top_page_and_change_display(0, "Facebook アカウントでログインしました。", "#facebook-login")
+      return_to_top_page_and_change_display(0, "Facebook アカウントでログインしました。", "#facebook-log-in")
     end
 
     it 'LINE認証が成功すればログインでき、トップページに遷移する' do
       create_log_in_mock_data(:line)
       open_log_in_modal
       # トップページに遷移し、成功用のフラッシュメッセージが表示されていることを確認する
-      return_to_top_page_and_change_display(0, "LINE アカウントでログインしました。", "#line-login")
+      return_to_top_page_and_change_display(0, "LINE アカウントでログインしました。", "#line-log-in")
     end
   end
 
   context 'SNSでログインができない時' do
+    it 'Google認証をキャンセルするとログインできず、トップページに戻る' do
+      OmniAuth.config.mock_auth[:google_oauth2] = :invalid_credentials
+
+      open_log_in_modal
     
+      scroll_display("#google-log-in")
+
+      return_to_top_page_and_show_flash_message
+    end
+
+    it 'X(twitter)認証をキャンセルするとログインできず、トップページに戻る' do
+      OmniAuth.config.mock_auth[:twitter] = :invalid_credentials
+
+      open_log_in_modal
+    
+      scroll_display("#twitter-log-in")
+
+      return_to_top_page_and_show_flash_message
+    end
+
+    it 'Facebook認証をキャンセルするとログインできず、トップページに戻る' do
+      OmniAuth.config.mock_auth[:facebook] = :invalid_credentials
+
+      open_log_in_modal
+    
+      scroll_display("#facebook-log-in")
+
+      return_to_top_page_and_show_flash_message
+    end
+
+    it 'LINE認証をキャンセルするとログインできず、トップページに戻る' do
+      OmniAuth.config.mock_auth[:line] = :invalid_credentials
+
+      open_log_in_modal
+    
+      scroll_display("#line-log-in")
+
+      return_to_top_page_and_show_flash_message
+    end
   end
 
   context 'パスワードの変更ができる時' do
-    
+    it '未ログインの状態でパスワード再設定ページへ遷移し、正しい情報を入力すればパスワードを変更できる' do
+      open_log_in_modal
+      scroll_display(".forget-password")
+
+      #パスワード再設定ページに遷移していることを確認する
+      expect(page).to have_current_path("/users/password/new")
+      # 登録済みのメールアドレスを入力し、送信ボタンを押す
+      fill_in 'email', with:  @user.email
+      click_on('送信する')
+
+      #メール送信完了ページに遷移していることを確認する
+      expect(page).to have_current_path("/passwords/email_submitted")
+
+      # メール送信によってDBに保存された「生のトークン」を直接取得する
+      raw_token, hashed_token = Devise.token_generator.generate(User, :reset_password_token)
+      @user.update(reset_password_token: hashed_token, reset_password_sent_at: Time.now.utc)
+      # トークンを使って編集ページへ直接行く
+      visit edit_user_password_path(reset_password_token: raw_token)
+      
+      # 新しいパスワードを入力して更新する
+      fill_in 'password', with: 'NewPassword1234'
+      fill_in 'password_confirmation', with: 'NewPassword1234'
+      click_on '変更する'
+
+      # パスワード変更完了ページに遷移していることを確認する
+      expect(page).to have_current_path("/passwords/updated")
+      expect(page).to have_content("パスワードの変更が完了しました。")
+
+      # トップページへ戻り、ログインできている（＝ニックネームがある）ことを確認する
+      click_on 'トップページへ戻る'
+      expect(page).to have_current_path(root_path)
+      expect(page).to have_content(@user.nickname)
+    end
   end
 
   context 'パスワードの変更ができない時' do
     
   end
+end
+
+RSpec.describe 'ログアウト', type: :system do
 end

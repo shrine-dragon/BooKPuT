@@ -72,7 +72,7 @@ class User < ApplicationRecord
   attr_accessor :sns_auth_process
 
   def sns_auth_process?
-    self.sns_auth_process.to_s == "true" || self.sns_credentials.any? || self.sns_credentials.present?
+    self.sns_auth_process.to_s == "true"
   end
 
   validates :email, presence: true, uniqueness: true,
