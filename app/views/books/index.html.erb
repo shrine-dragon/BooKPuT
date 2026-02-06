@@ -42,10 +42,10 @@
       <p class="app-download-text">アプリ版のダウンロードはこちら</p>
       <div class="store-btns">
         <%= link_to root_path do %>
-          <%= image_tag("google-play-badge.png", class: "store-btn", alt: "Google Playで手に入れよう") %>
+          <%= image_tag("google-play-badge.png", class: "store-btn hovers", alt: "Google Playで手に入れよう") %>
         <% end %>
         <%= link_to root_path do %>
-          <%= image_tag("apple-store-badge.png", class: "store-btn", alt: "App Storeからダウンロード") %>
+          <%= image_tag("apple-store-badge.png", class: "store-btn hovers", alt: "App Storeからダウンロード") %>
         <% end %>
       </div>
     </div>
@@ -132,7 +132,7 @@
   </div>
 </main>
 
-<%= link_to(root_path, class: "right-bottom-btn post") do %>
+<%= link_to(root_path, class: "right-bottom-btn post hovers") do %>
   <span class="right-bottom-btn-text post">投稿する</span>
 <% end %>
 

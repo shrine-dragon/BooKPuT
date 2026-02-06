@@ -77,10 +77,6 @@ $btn-padding: 5px 15px;
     font-size: 14px;
     transition: background-color 0.2s;
     margin-right: 10px; /* 右側の「選択されていません」との余白 */
-
-    &:hover {
-      background-color: #e0e0e0;
-    }
   }
 }
 
@@ -115,10 +111,6 @@ $btn-padding: 5px 15px;
   font-size: 14px;
   width: fit-content;    /* 文字幅に合わせる */
   transition: background-color 0.2s;
-
-  &:hover {
-    background-color: #e0e0e0;
-  }
 }
 
 .form-btn-container {
@@ -140,8 +132,4 @@ $btn-padding: 5px 15px;
   outline: none;
   /* 卵焼きのような楕円形にする設定 */
   border-radius: 50px / 45px;
-
-  &:hover {
-    opacity: 0.7;
-  }
 }

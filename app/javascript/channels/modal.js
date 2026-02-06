@@ -4,19 +4,19 @@ const loadEvent = (typeof Turbo !== 'undefined') ? 'turbo:load' : 'turbolinks:lo
 
 $(document).on(loadEvent, function() {
   // トップページのモーダルの開閉処理(hoverイベント)
-  $('.sign-up-hover').on('mouseover', function(){
+  $('.sign-up-menu').on('mouseover', function(){
     $("#modal-overlay").stop(true, true).fadeIn(200); // 背景を暗くする
     $(".modal.sign-up").stop(true, true).css("display", "flex").hide().fadeIn(200);
     $(".modal.log-in").hide(); // ログインが開いていれば隠す
   });
 
-  $('.log-in-hover').on('mouseover', function(){
+  $('.log-in-menu').on('mouseover', function(){
     $("#modal-overlay").stop(true, true).fadeIn(200);
     $(".modal.log-in").stop(true, true).css("display", "flex").hide().fadeIn(200);
     $(".modal.sign-up").hide(); // 新規登録が開いていれば隠す
   });
 
-  $('.user-menu-hover').on('mouseover', function(){
+  $('.user-menu').on('mouseover', function(){
     $("#modal-overlay").stop(true, true).fadeIn(200);
     $(".modal.log-in-user").stop(true, true).css("display", "flex").hide().fadeIn(200);
   });
@@ -27,9 +27,9 @@ $(document).on(loadEvent, function() {
     // ★追加：中央表示モード(.is-center)の時は、マウス移動で消さないようにする
     if ($logInModal.hasClass('is-center')) return;
 
-    const isInsideSignUp = $(e.target).closest('.modal.sign-up, .sign-up-hover').length;
-    const isInsideLogIn = $(e.target).closest('.modal.log-in, .log-in-hover').length;
-    const isInsideUserMenu = $(e.target).closest('.modal.log-in-user, .user-menu-hover').length;
+    const isInsideSignUp = $(e.target).closest('.modal.sign-up, .sign-up-menu').length;
+    const isInsideLogIn = $(e.target).closest('.modal.log-in, .log-in-menu').length;
+    const isInsideUserMenu = $(e.target).closest('.modal.log-in-user, .user-menu').length;
 
     // どちらのエリアにもマウスが乗っていない場合のみ消す
     if (!isInsideSignUp && !isInsideLogIn && !isInsideUserMenu) {
