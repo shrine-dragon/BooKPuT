@@ -3,104 +3,7 @@ require 'rails_helper'
 
 RSpec.describe 'ユーザー新規登録', type: :system do
   before do
-    # ブラウザが実際に動く様子が見えるモード
-    driven_by :selenium_chrome
-    page.driver.browser.manage.window.resize_to(1280, 1024)
     @user = FactoryBot.build(:user)
-
-    OmniAuth.config.test_mode = true
-    # 失敗時に例外を投げず、callback用のURLにリダイレクトさせる設定
-    OmniAuth.config.on_failure = Proc.new { |env|
-      env['devise.mapping'] = Devise.mappings[:user]
-      OmniAuth::FailureEndpoint.new(env).redirect_to_failure
-    }
-  end
-
-  after do
-    OmniAuth.config.test_mode = false
-  end
-
-  private
-
-  def open_sign_up_modal
-    # トップページに遷移する
-    visit root_path
-
-    # 初期状態ではモーダルが表示されていないことを確認する
-    expect(page).to have_no_selector('.modal.sign-up', visible: true)
-
-    # ページ内に「新規登録」の文字があることを確認する
-    signup_target = find('.sign-up-menu-text', text: '新規登録', visible: :all)
-
-    # 画面をスクロールさせる
-    execute_script('arguments[0].scrollIntoView({block: "center"});', signup_target)
-    # 0.5秒待機する
-    sleep 0.5
-    # menuの代わりにモーダルを表示状態(block)にするJSを実行
-    execute_script('document.querySelector(".modal.sign-up").style.display = "block";')
-    # モーダルが表示されたことを確認する
-    expect(page).to have_selector('.modal.sign-up', visible: true)
-  end
-
-  def access_sign_up_page
-    # 新規登録用モーダルに｢メールアドレスでアカウント作成｣のボタンがあることを確認する
-    expect(page).to have_content('メールアドレスでアカウント作成')
-    # ボタンをクリックする
-    click_link 'メールアドレスでアカウント作成'
-
-    # 新規登録ページに遷移したことを確認する
-    expect(page).to have_current_path(new_user_registration_path)
-    expect(page).to have_content '新規登録フォーム'
-  end
-
-  def scroll_display
-    # value="登録する" や name="commit" など、複数の条件で探す。waitをしっかりかける。
-    submit_btn = find('input[type="submit"], input[name="commit"]', wait: 10)
-    
-    # 要素が中心に来るようにスクロール
-    execute_script('arguments[0].scrollIntoView({block: "center"});', submit_btn)
-    sleep 0.5 # 2秒は長すぎるので、描画待ち程度に短縮
-    
-    # JSでクリック（オーバーレイ等に邪魔されないため）
-    execute_script('arguments[0].click();', submit_btn)
-  end
-
-  def input_info_and_sign_up(provider)
-    expect(page).to have_current_path("/users/auth/#{provider}/callback", wait: 10)
-    expect(page).to have_content('新規登録フォーム', wait: 10)
-
-    # 必須事項を入力または選択する
-    # ニックネームとメールが空なら補完
-    fill_in 'nickname', with: @user.nickname if find('#nickname').value.blank?
-    fill_in 'birth_date', with: @user.birth_date.strftime('%Y-%m-%d')
-    select @user.gender.name, from: 'gender'
-    fill_in 'email', with: random_email if find('#email').value.blank?
-
-    execute_script('document.getElementById("sns_auth_process").value = "true";') if has_selector?('#sns_auth_process', visible: false)
-  end
-
-  def return_to_top_page_and_change_display
-    # ボタンを探す前に、ページが正しく表示されていることを確認する（これがないとfindが空振りする）
-    expect(page).to have_selector('input[type="submit"]', wait: 10)
-
-    expect{
-      scroll_display
-    }.to change { User.count }.by(1)
-    expect(page).to have_current_path(root_path, wait: 15)
-
-    #トップページにフラッシュメッセージが表示されていることを確認する
-    expect(page).to have_selector('.flash-message', text: '登録が完了しました')
-    #トップページに｢新規登録｣｢ログイン｣のmenuテキストが表示されていないことを確認する
-    expect(page).to have_no_selector('.sign-up-menu-text', text: '新規登録')
-    expect(page).to have_no_selector('.log-in-menu-text', text: 'ログイン')
-    # トップページにユーザー名が表示されていることを確認する
-    expect(page).to have_content(@user.nickname)
-  end
-
-  def return_to_top_page_and_show_flash_message
-    # 認証失敗後はトップページに遷移し、フラッシュメッセージが表示されることを確認する
-    expect(page).to have_current_path(root_path, wait: 10)
-    expect(page).to have_selector('.flash-message', text: '認証に失敗しました')
   end
 
   context 'メールアドレスでユーザー新規登録ができる時' do 
@@ -132,7 +35,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
         attach_file('user[image]', image_path)
       end
 
-      return_to_top_page_and_change_display
+      return_to_top_page_and_change_display(1, "登録が完了しました", ".cyan-submit-btn")
     end
   end
 
@@ -150,7 +53,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       fill_in 'password_confirmation', with: ''
       # 「登録する」ボタンを押してもユーザーモデルのカウントが増えないことを確認する
       expect{
-        scroll_display
+        scroll_display(".cyan-submit-btn")
       }.to change { User.count }.by(0)
       # 新規登録ページへ戻されることを確認する
       expect(page).to have_current_path("/users")
@@ -178,7 +81,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       click_link 'Google'
 
       input_info_and_sign_up('google_oauth2')
-      return_to_top_page_and_change_display
+      return_to_top_page_and_change_display(1, "登録が完了しました", ".cyan-submit-btn")
     end
 
     it 'X(Twitter)連携後に必要な情報を入力すれば登録でき、トップページに移動する' do
@@ -199,7 +102,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       click_link 'X(Twitter)'
 
       input_info_and_sign_up('twitter')
-      return_to_top_page_and_change_display
+      return_to_top_page_and_change_display(1, "登録が完了しました", ".cyan-submit-btn")
     end
 
     it 'Facebook連携後に必要な情報を入力すれば登録でき、トップページに移動する' do
@@ -218,6 +121,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       click_link 'Facebook'
 
       input_info_and_sign_up('facebook')
+      return_to_top_page_and_change_display(1, "登録が完了しました", ".cyan-submit-btn")
     end
 
     it 'LINE連携後に必要な情報を入力すれば登録でき、トップページに移動する' do
@@ -237,6 +141,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       click_link 'LINE'
 
       input_info_and_sign_up('line')
+      return_to_top_page_and_change_display(1, "登録が完了しました", ".cyan-submit-btn")
     end
   end
 
@@ -277,5 +182,83 @@ RSpec.describe 'ユーザー新規登録', type: :system do
 
       return_to_top_page_and_show_flash_message
     end
+  end
+end
+
+RSpec.describe 'ログイン', type: :system do
+  before do
+    @user = FactoryBot.create(:user)
+  end
+
+  context 'メールアドレスでログインができる時' do
+    it '正しい情報を入力すればログインでき、トップページに移動する' do
+      open_log_in_modal
+      # 必須事項を入力する
+      fill_in 'email',      with: @user.email
+      fill_in 'password',   with: @user.password
+
+      return_to_top_page_and_change_display(0, "ログインしました", ".log-in-submit-btn")
+    end
+  end
+
+  context 'メールアドレスでログインができない時' do
+    it '必須項目が空欄のままボタンを押してもログインできない' do
+      open_log_in_modal
+      # 必須事項を空欄にする
+      fill_in 'email',      with: ''
+      fill_in 'password',   with: ''
+      click_btn_and_no_change
+    end
+
+    it '入力情報が登録情報と異なる状態でボタンを押してもログインできず、エラーメッセージが表示される' do
+      open_log_in_modal
+      # 異なる情報を入力する
+      fill_in 'email',    with: "wrong_#{@user.email}"
+      fill_in 'password', with: "wrong_password"
+      click_btn_and_no_change
+      expect(page).to have_content('メールアドレスまたはパスワードが違います。')
+    end
+  end
+
+  context 'SNSでログインができる時' do
+    it 'Google認証が成功すればログインでき、トップページに遷移する' do
+      create_log_in_mock_data(:google_oauth2)
+      open_log_in_modal
+      # トップページに遷移し、成功用のフラッシュメッセージが表示されていることを確認する
+      return_to_top_page_and_change_display(0, "Google アカウントでログインしました。", "#google-login")
+    end
+
+    it 'X(Twitter)認証が成功すればログインでき、トップページに遷移する' do
+      create_log_in_mock_data(:twitter)
+      open_log_in_modal
+      # トップページに遷移し、成功用のフラッシュメッセージが表示されていることを確認する
+      return_to_top_page_and_change_display(0, "X アカウントでログインしました。", "#twitter-login")
+    end
+
+    it 'Facebook認証が成功すればログインでき、トップページに遷移する' do
+      create_log_in_mock_data(:facebook)
+      open_log_in_modal
+      # トップページに遷移し、成功用のフラッシュメッセージが表示されていることを確認する
+      return_to_top_page_and_change_display(0, "Facebook アカウントでログインしました。", "#facebook-login")
+    end
+
+    it 'LINE認証が成功すればログインでき、トップページに遷移する' do
+      create_log_in_mock_data(:line)
+      open_log_in_modal
+      # トップページに遷移し、成功用のフラッシュメッセージが表示されていることを確認する
+      return_to_top_page_and_change_display(0, "LINE アカウントでログインしました。", "#line-login")
+    end
+  end
+
+  context 'SNSでログインができない時' do
+    
+  end
+
+  context 'パスワードの変更ができる時' do
+    
+  end
+
+  context 'パスワードの変更ができない時' do
+    
   end
 end
