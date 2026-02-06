@@ -3,11 +3,9 @@
 
   <div class="modal-wrapper log-in">
     <% if flash[:alert] %>
-      <div class="error-message-container">
-        <p class="error-message" style="color: red; text-align: left; margin-bottom: 15px;">
-          <%= flash[:alert] %>
-        </p>
-      </div>
+      <p class="error-message is-full-with">
+        <%= flash[:alert] %>
+      </p>
     <% end %>
     <%= form_with scope: :user, url: user_session_path, local: true do |f| %>
       <div class="modal-btn-container log-in">

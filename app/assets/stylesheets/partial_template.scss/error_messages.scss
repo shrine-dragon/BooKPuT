@@ -10,10 +10,9 @@
   width: 70%;
 }
 
-.modal-wrapper.log-in{
-  .error-message{
-    width: 100% !important;
-  }
+.error-message.is-full-with{
+  width: 100% !important;
+  margin-bottom: 15px;
 }
 
 .reset-password {
