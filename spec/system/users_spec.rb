@@ -30,13 +30,13 @@ RSpec.describe 'ユーザー新規登録', type: :system do
     expect(page).to have_no_selector('.modal.sign-up', visible: true)
 
     # ページ内に「新規登録」の文字があることを確認する
-    signup_target = find('.sign-up-hover-text', text: '新規登録', visible: :all)
+    signup_target = find('.sign-up-menu-text', text: '新規登録', visible: :all)
 
     # 画面をスクロールさせる
     execute_script('arguments[0].scrollIntoView({block: "center"});', signup_target)
     # 0.5秒待機する
     sleep 0.5
-    # hoverの代わりにモーダルを表示状態(block)にするJSを実行
+    # menuの代わりにモーダルを表示状態(block)にするJSを実行
     execute_script('document.querySelector(".modal.sign-up").style.display = "block";')
     # モーダルが表示されたことを確認する
     expect(page).to have_selector('.modal.sign-up', visible: true)
@@ -90,9 +90,9 @@ RSpec.describe 'ユーザー新規登録', type: :system do
 
     #トップページにフラッシュメッセージが表示されていることを確認する
     expect(page).to have_selector('.flash-message', text: '登録が完了しました')
-    #トップページに｢新規登録｣｢ログイン｣のhoverテキストが表示されていないことを確認する
-    expect(page).to have_no_selector('.sign-up-hover-text', text: '新規登録')
-    expect(page).to have_no_selector('.log-in-hover-text', text: 'ログイン')
+    #トップページに｢新規登録｣｢ログイン｣のmenuテキストが表示されていないことを確認する
+    expect(page).to have_no_selector('.sign-up-menu-text', text: '新規登録')
+    expect(page).to have_no_selector('.log-in-menu-text', text: 'ログイン')
     # トップページにユーザー名が表示されていることを確認する
     expect(page).to have_content(@user.nickname)
   end
