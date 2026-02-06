@@ -12,8 +12,13 @@
         <div class="log-in-form">
           <label class="log-in-form-text">メールアドレス</label>
           <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input-mail-address", id: 'email' %>
-          <label class="log-in-form-text">パスワード</label>
-          <%= f.password_field :password, autocomplete: "current-password", class: "input-password", id: 'password' %>
+
+          <div class="log-in-password">
+            <label class="log-in-form-text">パスワード</label>
+            <%= f.password_field :password, autocomplete: "current-password", class: "input-password", id: 'password' %>
+            <i class="fa-regular fa-eye-slash toggle-password"></i>
+          </div>
+
           <%= f.submit "ログイン", class: "log-in-submit-btn hovers" %>
           <p><%= link_to 'パスワードをお忘れですか？', new_user_password_path, class: "forget-password", id: "underline-text" %></p>
         </div>

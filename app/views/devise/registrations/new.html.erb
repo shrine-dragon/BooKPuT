@@ -57,19 +57,24 @@
         
       <% unless @sns_auth || session["devise.sns_auth"].present? %>
         <%# 通常の新規登録（メールアドレス）の時だけ表示する %>
-        <div class="form-contents">
+        <div class="form-contents register-password">
           <div class="form-text">
             <label>パスワード(必須)</label>
           </div>
           <%= f.password_field :password, class:"input-text", id:"password", placeholder:"半角英数字8〜20文字以内", minlength:"8", maxlength:"20" %>
+          <i class="fa-regular fa-eye-slash toggle-password"></i>
+
           <%= render "partial_template/error_messages", model: @user, attribute: :password %>
         </div>
 
-        <div class="form-contents">
+        <div class="form-contents register-password">
           <div class="form-text">
             <label>パスワード(確認用)</label>
           </div>
+
           <%= f.password_field :password_confirmation, class:"input-text", id:"password_confirmation", placeholder:"同じパスワードを入力してください", minlength:"8", maxlength:"20" %>
+          <i class="fa-regular fa-eye-slash toggle-password"></i>
+
           <%= render "partial_template/error_messages", model: @user, attribute: :password_confirmation %>
         </div>
       <% end %>

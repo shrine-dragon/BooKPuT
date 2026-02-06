@@ -31,6 +31,40 @@
   }
 }
 
+.toggle-password{
+  position: absolute;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #666;
+}
+
+.register-password{
+  position: relative;
+  
+  .toggle-password{
+    left: 78%;
+    top: 70%;
+  }
+}
+
+.log-in-password{
+  position: relative;
+
+  .toggle-password{
+    left: 90%;
+    top: 57%;
+  }
+}
+
+.edit-password{
+  position: relative;
+
+  .toggle-password{
+    left: 90%;
+    top: 23px;
+  }
+}
+
 .flash-message {
   width: 20%;
   padding: 12px;
