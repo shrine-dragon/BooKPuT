@@ -153,7 +153,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       open_sign_up_modal
       click_link 'Google'
 
-      return_to_top_page_and_show_flash_message
+      return_to_top_page_and_show_flash_message('認証に失敗しました')
     end
 
     it 'X(Twitter)連携をキャンセルすると、新規登録モーダルがあるページに戻る' do
@@ -162,7 +162,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       open_sign_up_modal
       click_link 'X(Twitter)'
 
-      return_to_top_page_and_show_flash_message
+      return_to_top_page_and_show_flash_message('認証に失敗しました')
     end
 
     it 'Facebook連携をキャンセルすると、新規登録モーダルがあるページに戻る' do
@@ -171,7 +171,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       open_sign_up_modal
       click_link 'Facebook'
 
-      return_to_top_page_and_show_flash_message
+      return_to_top_page_and_show_flash_message('認証に失敗しました')
     end
 
     it 'LINE連携をキャンセルすると、新規登録モーダルがあるページに戻る' do
@@ -180,7 +180,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       open_sign_up_modal
       click_link 'LINE'
 
-      return_to_top_page_and_show_flash_message
+      return_to_top_page_and_show_flash_message('認証に失敗しました')
     end
   end
 end
@@ -258,7 +258,7 @@ RSpec.describe 'ログイン', type: :system do
     
       scroll_display("#google-log-in")
 
-      return_to_top_page_and_show_flash_message
+      return_to_top_page_and_show_flash_message('認証に失敗しました')
     end
 
     it 'X(twitter)認証をキャンセルするとログインできず、トップページに戻る' do
@@ -268,7 +268,7 @@ RSpec.describe 'ログイン', type: :system do
     
       scroll_display("#twitter-log-in")
 
-      return_to_top_page_and_show_flash_message
+      return_to_top_page_and_show_flash_message('認証に失敗しました')
     end
 
     it 'Facebook認証をキャンセルするとログインできず、トップページに戻る' do
@@ -278,7 +278,7 @@ RSpec.describe 'ログイン', type: :system do
     
       scroll_display("#facebook-log-in")
 
-      return_to_top_page_and_show_flash_message
+      return_to_top_page_and_show_flash_message('認証に失敗しました')
     end
 
     it 'LINE認証をキャンセルするとログインできず、トップページに戻る' do
@@ -288,7 +288,7 @@ RSpec.describe 'ログイン', type: :system do
     
       scroll_display("#line-log-in")
 
-      return_to_top_page_and_show_flash_message
+      return_to_top_page_and_show_flash_message('認証に失敗しました')
     end
   end
 
@@ -298,9 +298,14 @@ RSpec.describe 'ログイン', type: :system do
       scroll_display(".forget-password")
 
       #パスワード再設定ページに遷移していることを確認する
-      expect(page).to have_current_path("/users/password/new")
-      # 登録済みのメールアドレスを入力し、送信ボタンを押す
+      expect(page).to have_current_path("/users/password/new", wait: 5)
+      # フィールドが出るまで最大5秒待つ
+      expect(page).to have_field('email', wait: 5)
+
+      # 登録済みのメールアドレスを入力する
       fill_in 'email', with:  @user.email
+      # 入力されたメールアドレスが正しいか、送信前にチェックを入れる
+      expect(page).to have_field('email', with: @user.email)
       click_on('送信する')
 
       #メール送信完了ページに遷移していることを確認する
@@ -311,10 +316,22 @@ RSpec.describe 'ログイン', type: :system do
       @user.update(reset_password_token: hashed_token, reset_password_sent_at: Time.now.utc)
       # トークンを使って編集ページへ直接行く
       visit edit_user_password_path(reset_password_token: raw_token)
+
+      # フィールドが出るまで最大5秒待つ
+      expect(page).to have_field('password', wait: 5)
+      expect(page).to have_field('password_confirmation', wait: 5)
       
-      # 新しいパスワードを入力して更新する
-      fill_in 'password', with: 'NewPassword1234'
-      fill_in 'password_confirmation', with: 'NewPassword1234'
+      # 新しいパスワードを入力する
+      new_pw = 'NewPassword1234'
+
+      fill_in 'password', with: new_pw
+      fill_in 'password_confirmation', with: new_pw
+
+      # 入力されたパスワードが正しいか、送信前にチェックを入れる
+      expect(page).to have_field('password', with: new_pw)
+      expect(page).to have_field('password_confirmation', with: new_pw)
+
+      # パスワードを変更する
       click_on '変更する'
 
       # パスワード変更完了ページに遷移していることを確認する
@@ -329,9 +346,67 @@ RSpec.describe 'ログイン', type: :system do
   end
 
   context 'パスワードの変更ができない時' do
-    
+    it 'ログインユーザーはログインモーダル経由でパスワード再設定ページへ遷移して、パスワードを変更できない' do
+      
+    end
+
+    it 'メールアドレスを空欄にするとエラーメッセージが表示され、パスワードを変更できない' do
+      
+    end
+
+    it '未登録のメールアドレスを入力するとメール送信完了ページへ遷移せず、パスワードも変更できない' do
+      
+    end
+
+    it '無効な入力内容（例：パスワード不一致）ではエラーメッセージが表示され、パスワードを変更できない' do
+      
+    end
   end
 end
 
 RSpec.describe 'ログアウト', type: :system do
+  before do
+    @user = FactoryBot.create(:user)
+  end
+
+  context 'ログアウトができる時' do
+    it 'ログインユーザーはモーダルからログアウトでき、トップページの表示が変わる' do
+      # 最初からログイン状態にし、トップページに遷移する
+      login_as(@user)
+      visit root_path
+
+      # 初期状態ではモーダルが表示されていないことを確認する
+      expect(page).to have_no_selector('.modal.log-in-user', visible: true)
+
+      # ページ内にログインユーザーのニックネームが表示されていることを確認する
+      login_user_target = find('.user-nickname', text: @user.nickname, visible: :all)
+
+      # 画面をスクロールさせる
+      execute_script('arguments[0].scrollIntoView({block: "center"});', login_user_target)
+      # 0.5秒待機する
+      sleep 0.5
+      # menuの代わりにモーダルを表示状態(block)にするJSを実行
+      execute_script('document.querySelector(".modal.log-in-user").style.display = "block";')
+      # モーダルが表示されたことを確認する
+      expect(page).to have_selector('.modal.log-in-user', visible: true)
+
+      # ｢ログアウト｣ボタンをクリックし、トップページにフラッシュメッセージが表示されていることを確認する
+      click_on('ログアウト')
+      return_to_top_page_and_show_flash_message('ログアウトしました')
+
+      # トップページにユーザーのニックネームが表示されていないことを確認する
+      expect(page).to have_no_content(@user.nickname)
+    end
+  end
+
+  context 'ログアウトができない時' do
+    it '未ログインユーザーはログアウトできず、トップページの表示も変わらない' do
+      # トップページに｢ログイン｣｢新規登録｣の文字があり、未ログインの状態であることを確認する
+      visit root_path
+      expect(page).to have_content('ログイン')
+      expect(page).to have_content('新規登録')
+      # トップページにユーザーのニックネームが表示されていないことを確認する
+      expect(page).to have_no_content(@user.nickname)
+    end
+  end
 end

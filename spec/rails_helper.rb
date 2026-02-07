@@ -30,6 +30,14 @@ Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
 RSpec.configure do |config|
   # 2. System spec で定義した Module を使う設定
   config.include UserSupport, type: :system
+  config.include Warden::Test::Helpers
+  
+  config.after(:each) do
+    # 各テストが終わるたびにログイン状態を完全にリセットする
+    Warden.test_reset!
+    # 送信されたメールも空にする
+    ActionMailer::Base.deliveries.clear
+  end
 end
 
 # Checks for pending migrations and applies them before tests are run.

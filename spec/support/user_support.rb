@@ -19,6 +19,7 @@ module UserSupport
 
     after do
       OmniAuth.config.test_mode = false
+      Warden.test_reset!
     end
   end
 
@@ -65,6 +66,7 @@ module UserSupport
 
     execute_script('arguments[0].scrollIntoView({block: "center"});', element)
     sleep 0.5
+    # 強制的にクリック
     execute_script('arguments[0].click();', element)
   end
 
@@ -99,10 +101,10 @@ module UserSupport
     expect(page).to have_content(@user.nickname)
   end
 
-  def return_to_top_page_and_show_flash_message
-    # 認証失敗後はトップページに遷移し、フラッシュメッセージが表示されることを確認する
+  def return_to_top_page_and_show_flash_message(flash_message_text)
+    # トップページに遷移し、フラッシュメッセージが表示されることを確認する
     expect(page).to have_current_path(root_path, wait: 10)
-    expect(page).to have_selector('.flash-message', text: '認証に失敗しました')
+    expect(page).to have_selector('.flash-message', text: flash_message_text)
   end
 
   def open_log_in_modal
