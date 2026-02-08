@@ -1,4 +1,11 @@
 .input-text.new-password, .form-text.new-password{
-  width: 100% !important;
   margin-bottom: 10px;
+}
+
+.input-text.new-password{
+  width: 100%;
+}
+
+.form-text.new-password{
+  width: 375px;
 }

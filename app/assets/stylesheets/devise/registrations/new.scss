@@ -40,13 +40,16 @@ $btn-padding: 5px 15px;
 }
 
 .form-text,
-.input-text,
 .upload-image.custom-file-btn,
 .birth-date-wrapper,
 .gender-wrapper
 {
-  width: 70% !important;
+  width: 70%;
   text-align: left;
+}
+
+.input-text{
+  width: 70%;
 }
 
 .form-text{
