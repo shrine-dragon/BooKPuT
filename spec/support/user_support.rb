@@ -92,8 +92,28 @@ module UserSupport
     }.to change { User.count }.by(user_number)
     expect(page).to have_current_path(root_path, wait: 15)
 
-    #トップページにフラッシュメッセージが表示されていることを確認する
     expect(page).to have_selector('.flash-message', text: flash_message_text)
+    #トップページに｢新規登録｣｢ログイン｣のmenuテキストが表示されていないことを確認する
+    expect(page).to have_no_selector('.sign-up-menu-text', text: '新規登録')
+    expect(page).to have_no_selector('.log-in-menu-text', text: 'ログイン')
+    # トップページにユーザー名が表示されていることを確認する
+    expect(page).to have_content(@user.nickname)
+  end
+
+  def submit_and_expect_success(selector, count_change,     flash_message)
+    expect {
+      scroll_display(selector)
+    }.to change { User.count }.by(count_change)
+    
+    verify_top_page_after_login(flash_message)
+  end
+
+  def verify_top_page_after_login(flash_message)
+    expect(page).to have_current_path(root_path, wait: 15)
+
+    #トップページにフラッシュメッセージが表示されていることを確認する
+    expect(page).to have_selector('.flash-message', text: flash_message)
+    
     #トップページに｢新規登録｣｢ログイン｣のmenuテキストが表示されていないことを確認する
     expect(page).to have_no_selector('.sign-up-menu-text', text: '新規登録')
     expect(page).to have_no_selector('.log-in-menu-text', text: 'ログイン')
@@ -146,5 +166,13 @@ module UserSupport
         email: @user.email
       }
     })
+  end
+
+  def get_token_and_access_edit_password_page
+    # メール送信によってDBに保存された「生のトークン」を直接取得する
+    raw_token, hashed_token = Devise.token_generator.generate(User, :reset_password_token)
+    @user.update(reset_password_token: hashed_token, reset_password_sent_at: Time.now.utc)
+    # トークンを使って編集ページへ直接行く
+    visit edit_user_password_path(reset_password_token: raw_token)
   end
 end

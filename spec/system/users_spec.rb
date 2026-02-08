@@ -35,7 +35,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
         attach_file('user[image]', image_path)
       end
 
-      return_to_top_page_and_change_display(1, "登録が完了しました", ".cyan-submit-btn")
+      submit_and_expect_success(".cyan-submit-btn", 1, "登録が完了しました")
     end
   end
 
@@ -81,7 +81,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       click_link 'Google'
 
       input_info_and_sign_up('google_oauth2')
-      return_to_top_page_and_change_display(1, "登録が完了しました", ".cyan-submit-btn")
+      submit_and_expect_success(".cyan-submit-btn", 1, "登録が完了しました")
     end
 
     it 'X(Twitter)連携後に必要な情報を入力すれば登録でき、トップページに移動する' do
@@ -102,7 +102,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       click_link 'X(Twitter)'
 
       input_info_and_sign_up('twitter')
-      return_to_top_page_and_change_display(1, "登録が完了しました", ".cyan-submit-btn")
+      submit_and_expect_success(".cyan-submit-btn", 1, "登録が完了しました")
     end
 
     it 'Facebook連携後に必要な情報を入力すれば登録でき、トップページに移動する' do
@@ -121,7 +121,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       click_link 'Facebook'
 
       input_info_and_sign_up('facebook')
-      return_to_top_page_and_change_display(1, "登録が完了しました", ".cyan-submit-btn")
+      submit_and_expect_success(".cyan-submit-btn", 1, "登録が完了しました")
     end
 
     it 'LINE連携後に必要な情報を入力すれば登録でき、トップページに移動する' do
@@ -141,7 +141,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       click_link 'LINE'
 
       input_info_and_sign_up('line')
-      return_to_top_page_and_change_display(1, "登録が完了しました", ".cyan-submit-btn")
+      submit_and_expect_success(".cyan-submit-btn", 1, "登録が完了しました")
     end
   end
 
@@ -197,7 +197,7 @@ RSpec.describe 'ログイン', type: :system do
       fill_in 'email',      with: @user.email
       fill_in 'password',   with: @user.password
 
-      return_to_top_page_and_change_display(0, "ログインしました", ".log-in-submit-btn")
+      submit_and_expect_success(".log-in-submit-btn", 0, "ログインしました")
     end
   end
 
@@ -225,28 +225,28 @@ RSpec.describe 'ログイン', type: :system do
       create_log_in_mock_data(:google_oauth2)
       open_log_in_modal
       # トップページに遷移し、成功用のフラッシュメッセージが表示されていることを確認する
-      return_to_top_page_and_change_display(0, "Google アカウントでログインしました。", "#google-log-in")
+      submit_and_expect_success("#google-log-in", 0, "Google アカウントでログインしました。")
     end
 
     it 'X(Twitter)認証が成功すればログインでき、トップページに遷移する' do
       create_log_in_mock_data(:twitter)
       open_log_in_modal
       # トップページに遷移し、成功用のフラッシュメッセージが表示されていることを確認する
-      return_to_top_page_and_change_display(0, "X アカウントでログインしました。", "#twitter-log-in")
+      submit_and_expect_success("#twitter-log-in", 0, "X アカウントでログインしました。")
     end
 
     it 'Facebook認証が成功すればログインでき、トップページに遷移する' do
       create_log_in_mock_data(:facebook)
       open_log_in_modal
       # トップページに遷移し、成功用のフラッシュメッセージが表示されていることを確認する
-      return_to_top_page_and_change_display(0, "Facebook アカウントでログインしました。", "#facebook-log-in")
+      submit_and_expect_success("#facebook-log-in", 0, "Facebook アカウントでログインしました。")
     end
 
     it 'LINE認証が成功すればログインでき、トップページに遷移する' do
       create_log_in_mock_data(:line)
       open_log_in_modal
       # トップページに遷移し、成功用のフラッシュメッセージが表示されていることを確認する
-      return_to_top_page_and_change_display(0, "LINE アカウントでログインしました。", "#line-log-in")
+      submit_and_expect_success("#line-log-in", 0, "LINE アカウントでログインしました。")
     end
   end
 
@@ -289,77 +289,6 @@ RSpec.describe 'ログイン', type: :system do
       scroll_display("#line-log-in")
 
       return_to_top_page_and_show_flash_message('認証に失敗しました')
-    end
-  end
-
-  context 'パスワードの変更ができる時' do
-    it '未ログインの状態でパスワード再設定ページへ遷移し、正しい情報を入力すればパスワードを変更できる' do
-      open_log_in_modal
-      scroll_display(".forget-password")
-
-      #パスワード再設定ページに遷移していることを確認する
-      expect(page).to have_current_path("/users/password/new", wait: 5)
-      # フィールドが出るまで最大5秒待つ
-      expect(page).to have_field('email', wait: 5)
-
-      # 登録済みのメールアドレスを入力する
-      fill_in 'email', with:  @user.email
-      # 入力されたメールアドレスが正しいか、送信前にチェックを入れる
-      expect(page).to have_field('email', with: @user.email)
-      click_on('送信する')
-
-      #メール送信完了ページに遷移していることを確認する
-      expect(page).to have_current_path("/passwords/email_submitted")
-
-      # メール送信によってDBに保存された「生のトークン」を直接取得する
-      raw_token, hashed_token = Devise.token_generator.generate(User, :reset_password_token)
-      @user.update(reset_password_token: hashed_token, reset_password_sent_at: Time.now.utc)
-      # トークンを使って編集ページへ直接行く
-      visit edit_user_password_path(reset_password_token: raw_token)
-
-      # フィールドが出るまで最大5秒待つ
-      expect(page).to have_field('password', wait: 5)
-      expect(page).to have_field('password_confirmation', wait: 5)
-      
-      # 新しいパスワードを入力する
-      new_pw = 'NewPassword1234'
-
-      fill_in 'password', with: new_pw
-      fill_in 'password_confirmation', with: new_pw
-
-      # 入力されたパスワードが正しいか、送信前にチェックを入れる
-      expect(page).to have_field('password', with: new_pw)
-      expect(page).to have_field('password_confirmation', with: new_pw)
-
-      # パスワードを変更する
-      click_on '変更する'
-
-      # パスワード変更完了ページに遷移していることを確認する
-      expect(page).to have_current_path("/passwords/updated")
-      expect(page).to have_content("パスワードの変更が完了しました。")
-
-      # トップページへ戻り、ログインできている（＝ニックネームがある）ことを確認する
-      click_on 'トップページへ戻る'
-      expect(page).to have_current_path(root_path)
-      expect(page).to have_content(@user.nickname)
-    end
-  end
-
-  context 'パスワードの変更ができない時' do
-    it 'ログインユーザーはログインモーダル経由でパスワード再設定ページへ遷移して、パスワードを変更できない' do
-      
-    end
-
-    it 'メールアドレスを空欄にするとエラーメッセージが表示され、パスワードを変更できない' do
-      
-    end
-
-    it '未登録のメールアドレスを入力するとメール送信完了ページへ遷移せず、パスワードも変更できない' do
-      
-    end
-
-    it '無効な入力内容（例：パスワード不一致）ではエラーメッセージが表示され、パスワードを変更できない' do
-      
     end
   end
 end
@@ -407,6 +336,122 @@ RSpec.describe 'ログアウト', type: :system do
       expect(page).to have_content('新規登録')
       # トップページにユーザーのニックネームが表示されていないことを確認する
       expect(page).to have_no_content(@user.nickname)
+    end
+  end
+end
+
+RSpec.describe 'パスワード変更', type: :system do
+  before do
+    @user = FactoryBot.create(:user)
+  end
+
+  context 'パスワードの変更ができる時' do
+    it '未ログインの状態でパスワード再設定ページへ遷移し、正しい情報を入力すればパスワードを変更できる' do
+      open_log_in_modal
+      scroll_display(".forget-password")
+
+      #パスワード再設定ページに遷移していることを確認する
+      expect(page).to have_current_path("/users/password/new", wait: 5)
+      # フィールドが出るまで最大5秒待つ
+      expect(page).to have_field('email', wait: 5)
+
+      # 登録済みのメールアドレスを入力する
+      fill_in 'email', with:  @user.email
+      # 入力されたメールアドレスが正しいか、送信前にチェックを入れる
+      expect(page).to have_field('email', with: @user.email)
+      click_on('送信する')
+
+      #メール送信完了ページに遷移していることを確認する
+      expect(page).to have_current_path("/passwords/email_submitted")
+
+      get_token_and_access_edit_password_page
+
+      # フィールドが出るまで最大5秒待つ
+      expect(page).to have_field('password', wait: 5)
+      expect(page).to have_field('password_confirmation', wait: 5)
+      
+      # 新しいパスワードを入力する
+      new_pw = 'NewPassword1234'
+
+      fill_in 'password', with: new_pw
+      fill_in 'password_confirmation', with: new_pw
+
+      # 入力されたパスワードが正しいか、送信前にチェックを入れる
+      expect(page).to have_field('password', with: new_pw)
+      expect(page).to have_field('password_confirmation', with: new_pw)
+
+      # パスワードを変更する
+      click_on '変更する'
+
+      # パスワード変更完了ページに遷移していることを確認する
+      expect(page).to have_current_path("/passwords/updated")
+      expect(page).to have_content("パスワードの変更が完了しました。")
+
+      # トップページへ戻り、ログインできている（＝ニックネームがある）ことを確認する
+      click_on 'トップページへ戻る'
+      expect(page).to have_current_path(root_path)
+      expect(page).to have_content(@user.nickname)
+    end
+  end
+
+  context 'パスワードの変更ができない時' do
+    it 'ログインユーザーはログインモーダル経由でパスワード再設定ページへ遷移して、パスワードを変更できない' do
+      login_as(@user)
+      visit root_path
+      # トップページにユーザーのニックネームが存在し、ログイン状態であることを確認する
+      expect(page).to have_content(@user.nickname)
+      # トップページに｢ログイン｣の文字がないことを確認する
+      expect(page).to have_no_content('ログイン')
+    end
+
+    it 'メールアドレスを空欄にするとエラーメッセージが表示され、パスワードを変更できない' do
+      # パスワード再設定のためのメールアドレス入力ページへ遷移する
+      visit new_user_password_path
+
+      # メールアドレスを空欄にして｢送信する｣ボタンを押す
+      fill_in 'email', with: ''
+      click_on('送信する')
+      # メール送信完了ページへ遷移せず、エラーメッセージが表示されていることを確認する
+      expect(page).to have_current_path("/users/password", wait: 10)
+      expect(page).to have_selector(".error-message", text: 'メールアドレスを入力してください')
+    end
+
+    it '未登録のメールアドレスを入力するとパスワード再設定用のメールは届かず、パスワードも変更できない' do
+      # パスワード再設定のためのメールアドレス入力ページへ遷移する
+      visit new_user_password_path
+
+      # 未登録のメールアドレスを入力にして｢送信する｣ボタンを押すが、パスワード再設定用のメールが届いていないことを確認する
+      fill_in 'email', with: 'non-registered@example.com'
+      expect {
+        click_on('送信する')
+      }.to change { ActionMailer::Base.deliveries.size }.by(0)
+
+      # メール送信完了ページへ遷移する
+      expect(page).to have_current_path(email_submitted_path)
+    end
+
+    it '無効な入力内容（例：パスワード不一致）ではエラーメッセージが表示され、パスワードを変更できない' do
+      get_token_and_access_edit_password_page
+
+      # フィールドが出るまで最大5秒待つ
+      expect(page).to have_field('password', wait: 5)
+      expect(page).to have_field('password_confirmation', wait: 5)
+
+      # パスワードと確認用パスワードをわざと違うものにする
+      new_pw = 'NewPassword1234'
+      fill_in 'password', with: new_pw
+      fill_in 'password_confirmation', with: new_pw + '5'
+
+      # 入力されたパスワードが正しいか、送信前にチェックを入れる
+      expect(page).to have_field('password', with: new_pw)
+      expect(page).to have_field('password_confirmation', with: new_pw + '5')
+
+      # ｢変更する｣ボタンを押す
+      click_on '変更する'
+
+      # パスワード変更完了ページへ遷移せず、エラーメッセージが表示されていることを確認する
+      expect(page).to have_current_path("/users/password", wait: 10)
+      expect(page).to have_selector(".error-message", text: 'パスワード（確認用）とパスワードが一致しません')
     end
   end
 end
