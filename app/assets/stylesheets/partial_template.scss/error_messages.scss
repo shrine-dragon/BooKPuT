@@ -1,5 +1,22 @@
 .error-message {
   color: #ff0000;
   font-size: 14px;
-  margin-top: 5px;
+  line-height: 1.5;
+  display: block;
+  margin-bottom: 10px;
+  text-align: left;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  width: 70%;
+}
+
+.error-message.is-full-with{
+  width: 100% !important;
+  margin-bottom: 15px;
+}
+
+.reset-password {
+  .error-message {
+    width: 375px !important;
+  }
 }

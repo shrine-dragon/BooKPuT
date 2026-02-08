@@ -45,6 +45,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'rubocop', require: false
+  gem 'letter_opener'
 end
 
 group :test do
@@ -79,3 +80,5 @@ gem 'omniauth-rails_csrf_protection'
 gem 'dotenv-rails', groups: [:development, :test]
 
 gem 'database_cleaner-active_record'
+
+gem 'letter_opener_web'

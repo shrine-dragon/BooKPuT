@@ -14,6 +14,57 @@
  *= require_self
  */
 
+/* ヘッダーの高さが変わるたびにCSSを書き直すのを防ぐため、CSS変数を使用 */
+
+ :root {
+  --header-height: 70px;
+}
+
+ body {
+  padding-top: var(--header-height);
+}
+
+.passwords {
+  // パスワード関連のページが動いている時のみ、フラッシュメッセージを削除する
+  .flash-message {
+    display: none;
+  }
+}
+
+.toggle-password{
+  position: absolute;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #666;
+}
+
+.register-password{
+  position: relative;
+  
+  .toggle-password{
+    left: 78%;
+    top: 55px;
+  }
+}
+
+.log-in-password{
+  position: relative;
+
+  .toggle-password{
+    left: 90%;
+    top: 57%;
+  }
+}
+
+.edit-password{
+  position: relative;
+
+  .toggle-password{
+    left: 90%;
+    top: 23px;
+  }
+}
+
 .flash-message {
   width: 20%;
   padding: 12px;
@@ -22,7 +73,7 @@
   position: fixed;
   top: 80px;
   left: 80px;
-  z-index: 1000;
+  z-index: 1000; /* 特にかぶっていないため、ヘッダーと同じ設定 */
 }
 
 /* 成功時の色（シアン系） */

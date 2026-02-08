@@ -55,7 +55,7 @@
 }
 
 .slick-prev, .slick-next{
-  z-index: 10;
+  z-index: 10; /* 最小の設定 */
   filter: drop-shadow(0px 0px 5px rgba(255, 255, 255, 0.5));
 }
 
@@ -74,7 +74,7 @@
 
 .post-list-heading h2{
   text-align: center;
-  margin: 50px 0 30px;
+  margin-bottom: 30px;
   padding-top: 30px;
   font-weight: bold;
   font-size: 25px;
@@ -103,25 +103,9 @@
   box-shadow: 1px 3px 10px #999;
 }
 
-.new-post-btn{
+.new-post{
   width: 190px;
   background: #F93;
-  text-align: center;
-  padding: 15px;
-  border-radius: 8px;
-  margin: 0 auto;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.new-post-btn:hover{
-  opacity: 0.7;
-}
-
-.new-post-btn-text{
-  color: black;
-  font-size: 15px;
-  margin-bottom: 10px;
 }
 
 .app-description{
@@ -172,10 +156,6 @@
 .store-btn{
   height: 60px;
   width: 180px;
-}
-
-.store-btn:hover{
-  opacity: 0.7;
 }
 
 .app-feature {
@@ -291,7 +271,7 @@
   text-align: center;
   right: 30px;
   position: fixed;
-  z-index: 1002;
+  z-index: 1001 /* headerより1多い設定 */;
   border-radius: 8px;
   text-decoration: none;
   font-weight: bold;
@@ -301,10 +281,6 @@
   background-color: #F93;
   padding: 15px;
   bottom: 30px;
-}
-
-.right-bottom-btn:hover{
-  opacity: 0.7;
 }
 
 .right-bottom-btn-text {
@@ -350,7 +326,7 @@
   color: #000 !important; /* 黒色 */
   width: 50px !important;  /* クリックエリアを広げる */
   height: 50px !important;
-  z-index: 10;
+  z-index: 10; /* 最小の設定 */
 }
 
 .swiper-button-prev {

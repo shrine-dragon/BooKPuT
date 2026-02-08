@@ -5,7 +5,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   
   def twitter
     authorization
-   end
+  end
 
   def facebook
     authorization
@@ -35,6 +35,14 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       # SNSから取得した情報をsessionに保存（パスワード入力などを省くため）
       session["devise.sns_auth"] = sns_info[:sns].slice(:provider, :uid)
       render template: 'devise/registrations/new'
+    end
+
+    if @user.persisted?
+      kind_name = I18n.t("devise.omniauth_providers.#{action_name}", default: action_name.capitalize)
+      set_flash_message(:notice, :success, kind: kind_name) if is_navigational_format?
+    else
+      # 失敗時などは既存の処理
+      session["devise.#{action_name}_data"] = request.env["omniauth.auth"].except(:extra)
     end
   end
 end

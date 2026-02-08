@@ -1,0 +1,20 @@
+.reset-password-caution{
+  color: red;
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.email-not-submitted{
+  margin-top: 10px;
+}
+
+.email-not-submitted-case{
+  margin: 10px 0 20px;
+  list-style: disc;
+  list-style-position: inside;
+  padding-left: 0.5em;
+  li{
+    font-weight: bold;
+  }
+}

@@ -1,3 +1,5 @@
+OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE if Rails.env.development?
+
 # frozen_string_literal: true
 
 # Assuming you have not yet modified this file, each configuration option below
@@ -11,12 +13,11 @@
 Devise.setup do |config|
   # アプリ側で環境変数を読み込む
   config.omniauth :google_oauth2,ENV['GOOGLE_API_KEY'],ENV['GOOGLE_API_SECRET_KEY']
-  config.omniauth :twitter,ENV['TWITTER_API_KEY'],ENV['TWITTER_API_SECRET_KEY'],
-  # 本番環境では非推奨で、ローカル環境で開発を止まらせないための一般的な対処法
+  config.omniauth :twitter, ENV['TWITTER_API_KEY'], ENV['TWITTER_API_SECRET_KEY'],
   {
     client_options: {
       ssl: {
-        verify: false # 開発環境でのみ、証明書の検証をスキップする
+        verify: !Rails.env.development? # 開発環境(development)の時だけ false になる
       }
     }
   }
@@ -109,7 +110,7 @@ Devise.setup do |config|
   # It will change confirmation, password recovery and other workflows
   # to behave the same regardless if the e-mail provided was right or wrong.
   # Does not affect registerable.
-  # config.paranoid = true
+  config.paranoid = true
 
   # By default Devise will store the user in session. You can skip storage for
   # particular strategies by setting this option.
@@ -285,7 +286,7 @@ Devise.setup do |config|
   # config.navigational_formats = ['*/*', :html, :turbo_stream]
 
   # The default HTTP method used to sign out a resource. Default is :delete.
-  config.sign_out_via = :delete
+  config.sign_out_via = :get
 
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting

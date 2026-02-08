@@ -15,7 +15,7 @@ $btn-padding: 5px 15px;
 
 .form-wrapper{
   width: 55%;
-  margin: 60px auto;
+  margin: 0 auto 55px;
   background-color: ghostwhite;
 }
 
@@ -33,26 +33,41 @@ $btn-padding: 5px 15px;
 
 .form-contents{
   margin-bottom: 25px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-text,
+.upload-image.custom-file-btn,
+.birth-date-wrapper,
+.gender-wrapper
+{
+  width: 70%;
+  text-align: left;
+}
+
+.input-text{
+  width: 70%;
 }
 
 .form-text{
+  margin-bottom: 5px;
+  text-align: left;
   label{
     font-size: 18px;
     font-weight: bold;
+    display: block;
   }
 }
 
 .input-text{
-  width: 60%;
   height: 45px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  margin-top: 5px;
-}
-
-.upload-image, .birth-date-wrapper, .gender-wrapper{
-  display: flex;
+  box-sizing: border-box;
 }
 
 .upload-image.custom-file-btn {
@@ -65,14 +80,9 @@ $btn-padding: 5px 15px;
     font-size: 14px;
     transition: background-color 0.2s;
     margin-right: 10px; /* 右側の「選択されていません」との余白 */
-
-    &:hover {
-      background-color: #e0e0e0;
-    }
   }
 }
 
-/* プレビュー画像とボタンを揃えるコンテナ */
 .upload-image-list {
   display: flex;
   flex-direction: column;
@@ -94,8 +104,8 @@ $btn-padding: 5px 15px;
 }
 
 .image-delete-btn {
-  display: block;        /* 画像の真下に配置 */
-  margin-top: 8px;       /* 画像との間の余白 */
+  display: block; /* 画像の真下に配置 */
+  margin-top: 8px;
   background-color: $btn-bg;
   border: 1px solid $btn-border;
   border-radius: $btn-radius;
@@ -104,10 +114,6 @@ $btn-padding: 5px 15px;
   font-size: 14px;
   width: fit-content;    /* 文字幅に合わせる */
   transition: background-color 0.2s;
-
-  &:hover {
-    background-color: #e0e0e0;
-  }
 }
 
 .form-btn-container {
@@ -129,8 +135,4 @@ $btn-padding: 5px 15px;
   outline: none;
   /* 卵焼きのような楕円形にする設定 */
   border-radius: 50px / 45px;
-
-  &:hover {
-    opacity: 0.7;
-  }
 }

@@ -1,25 +1,43 @@
-<h2>Change your password</h2>
+<%= render 'partial_template/second_header' %>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-  <%= f.hidden_field :reset_password_token %>
+<%= render layout: 'password_reset_layout', locals: { title: '新しいパスワードの設定' } do %>
+  <%# トークンエラー %>
+  <%= render "partial_template/error_messages", model: resource, attribute: :reset_password_token %>
 
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
-    <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
-  </div>
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: 'reset-password' }) do |f| %>
+    <%= f.hidden_field :reset_password_token %>
 
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+    <div class="reset-password-text">
+      <p>新しいパスワードを入力し、<br>｢変更する｣ボタンを押してください。</p>
+    </div>
+    <div class="form-text new-password">
+      <label>新しいパスワード(必須)</label>
+    </div>
 
-  <div class="actions">
-    <%= f.submit "Change my password" %>
-  </div>
+    <div class="edit-password">
+      <%= f.password_field :password, class:"input-text new-password", id:"password", placeholder:"半角英数字8〜20文字以内", minlength:"8", maxlength:"20" %>
+      <i class="fa-regular fa-eye-slash toggle-password"></i>
+    </div>
+
+    <%= render "partial_template/error_messages", model: resource, attribute: :password %>
+
+    <div class="form-text new-password">
+      <label>新しいパスワード(確認用)</label>
+    </div>
+
+    <div class="edit-password">
+      <%= f.password_field :password_confirmation, class:"input-text new-password", id:"password_confirmation", placeholder:"同じパスワードを入力", minlength:"8", maxlength:"20" %>
+      <i class="fa-regular fa-eye-slash toggle-password"></i>
+    </div>
+
+    <%= render "partial_template/error_messages", model: resource, attribute: :password_confirmation %>
+
+    <div class="form-btn-container">
+      <%= f.submit "変更する", class: "cyan-submit-btn hovers" %>
+    </div>
+  <% end %>
 <% end %>
 
-<%= render "devise/shared/links" %>
+<%= render 'partial_template/return_btn' %>
+
+<%= render 'partial_template/footer' %>
