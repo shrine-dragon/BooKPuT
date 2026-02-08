@@ -23,24 +23,60 @@ module UserSupport
     end
   end
 
-  def open_sign_up_modal
-    # トップページに遷移する
+  # def open_sign_up_modal
+  #   visit root_path
+
+  #   signup_target = find('.sign-up-menu-text', text: '新規登録', visible: :all)
+
+
+  #   execute_script('arguments[0].scrollIntoView({block: "center"});', signup_target)
+  #   # 0.5秒待機する
+  #   sleep 0.5
+
+  #   execute_script('document.querySelector(".modal.sign-up").style.display = "block";')
+
+  #   expect(page).to have_selector('.modal.sign-up', visible: true)
+  # end
+
+  # def open_log_in_modal
+  #   # トップページに遷移する
+  #   visit root_path
+
+  #   # 初期状態ではモーダルが表示されていないことを確認する
+  #   expect(page).to have_no_selector('.modal.log-in', visible: true)
+
+  #   # ページ内に「ログイン」の文字があることを確認する
+  #   login_target = find('.log-in-menu-text', text: 'ログイン', visible: :all)
+
+  #   # 画面をスクロールさせる
+  #   execute_script('arguments[0].scrollIntoView({block: "center"});', login_target)
+  #   # 0.5秒待機する
+  #   sleep 0.5
+  #   # menuの代わりにモーダルを表示状態(block)にするJSを実行
+  #   execute_script('document.querySelector(".modal.log-in").style.display = "block";')
+  #   # モーダルが表示されたことを確認する
+  #   expect(page).to have_selector('.modal.log-in', visible: true)
+  # end
+
+  def open_modal(selector_type, header_menu_text)
     visit root_path
 
     # 初期状態ではモーダルが表示されていないことを確認する
-    expect(page).to have_no_selector('.modal.sign-up', visible: true)
+    expect(page).to have_no_selector(".modal.#{selector_type}",  visible: true)
 
-    # ページ内に「新規登録」の文字があることを確認する
-    signup_target = find('.sign-up-menu-text', text: '新規登録', visible: :all)
+    # ページ内に｢新規登録｣または「ログイン」の文字があることを確認する
+    target = find(".#{selector_type}-menu-text", text: header_menu_text, visible: :all)
 
     # 画面をスクロールさせる
-    execute_script('arguments[0].scrollIntoView({block: "center"});', signup_target)
-    # 0.5秒待機する
+    execute_script('arguments[0].scrollIntoView({block: "center"});', target)
+
     sleep 0.5
-    # menuの代わりにモーダルを表示状態(block)にするJSを実行
-    execute_script('document.querySelector(".modal.sign-up").style.display = "block";')
+
+    # モーダルを表示状態(block)にするJSを実行
+    execute_script("document.querySelector('.modal.#{selector_type}').style.display = 'block';")
+
     # モーダルが表示されたことを確認する
-    expect(page).to have_selector('.modal.sign-up', visible: true)
+    expect(page).to have_selector(".modal.#{selector_type}", visible: true)
   end
 
   def access_sign_up_page
@@ -84,22 +120,6 @@ module UserSupport
     execute_script('document.getElementById("sns_auth_process").value = "true";') if has_selector?('#sns_auth_process', visible: false)
   end
 
-  def return_to_top_page_and_change_display(user_number, flash_message_text, selector)
-    expect(page).to have_selector(selector, wait: 10)
-
-    expect{
-      scroll_display(selector)
-    }.to change { User.count }.by(user_number)
-    expect(page).to have_current_path(root_path, wait: 15)
-
-    expect(page).to have_selector('.flash-message', text: flash_message_text)
-    #トップページに｢新規登録｣｢ログイン｣のmenuテキストが表示されていないことを確認する
-    expect(page).to have_no_selector('.sign-up-menu-text', text: '新規登録')
-    expect(page).to have_no_selector('.log-in-menu-text', text: 'ログイン')
-    # トップページにユーザー名が表示されていることを確認する
-    expect(page).to have_content(@user.nickname)
-  end
-
   def submit_and_expect_success(selector, count_change,     flash_message)
     expect {
       scroll_display(selector)
@@ -121,30 +141,10 @@ module UserSupport
     expect(page).to have_content(@user.nickname)
   end
 
-  def return_to_top_page_and_show_flash_message(flash_message_text)
+  def return_to_top_page_and_show_flash_message(flash_message)
     # トップページに遷移し、フラッシュメッセージが表示されることを確認する
     expect(page).to have_current_path(root_path, wait: 10)
-    expect(page).to have_selector('.flash-message', text: flash_message_text)
-  end
-
-  def open_log_in_modal
-    # トップページに遷移する
-    visit root_path
-
-    # 初期状態ではモーダルが表示されていないことを確認する
-    expect(page).to have_no_selector('.modal.log-in', visible: true)
-
-    # ページ内に「ログイン」の文字があることを確認する
-    login_target = find('.log-in-menu-text', text: 'ログイン', visible: :all)
-
-    # 画面をスクロールさせる
-    execute_script('arguments[0].scrollIntoView({block: "center"});', login_target)
-    # 0.5秒待機する
-    sleep 0.5
-    # menuの代わりにモーダルを表示状態(block)にするJSを実行
-    execute_script('document.querySelector(".modal.log-in").style.display = "block";')
-    # モーダルが表示されたことを確認する
-    expect(page).to have_selector('.modal.log-in', visible: true)
+    expect(page).to have_selector('.flash-message', text: flash_message)
   end
 
   def click_btn_and_no_change

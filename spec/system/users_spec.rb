@@ -8,7 +8,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
 
   context 'メールアドレスでユーザー新規登録ができる時' do 
     it '正しい情報を入力すれば新規登録ができ、トップページに移動する' do
-      open_sign_up_modal
+      open_modal(:'sign-up', '新規登録')
       access_sign_up_page
 
       # 必須事項を入力または選択する
@@ -41,7 +41,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
 
   context 'メールアドレスでユーザー新規登録ができない時' do
     it '必須項目が空欄だったり、誤った情報では登録できず、新規登録ページに遷移する' do
-      open_sign_up_modal
+      open_modal(:'sign-up', '新規登録')
       access_sign_up_page
 
       # 必須項目を空欄にする
@@ -77,7 +77,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       })
       OmniAuth.config.mock_auth[:google_oauth2] = auth_hash
       
-      open_sign_up_modal
+      open_modal(:'sign-up', '新規登録')
       click_link 'Google'
 
       input_info_and_sign_up('google_oauth2')
@@ -98,7 +98,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       })
       OmniAuth.config.mock_auth[:twitter] = auth_hash
       
-      open_sign_up_modal
+      open_modal(:'sign-up', '新規登録')
       click_link 'X(Twitter)'
 
       input_info_and_sign_up('twitter')
@@ -117,7 +117,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       })
       OmniAuth.config.mock_auth[:facebook] = auth_hash
       
-      open_sign_up_modal
+      open_modal(:'sign-up', '新規登録')
       click_link 'Facebook'
 
       input_info_and_sign_up('facebook')
@@ -137,7 +137,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       })
       OmniAuth.config.mock_auth[:line] = auth_hash
       
-      open_sign_up_modal
+      open_modal(:'sign-up', '新規登録')
       click_link 'LINE'
 
       input_info_and_sign_up('line')
@@ -150,7 +150,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       # Google認証の失敗をシミュレート
       OmniAuth.config.mock_auth[:google_oauth2] = :invalid_credentials
 
-      open_sign_up_modal
+      open_modal(:'sign-up', '新規登録')
       click_link 'Google'
 
       return_to_top_page_and_show_flash_message('認証に失敗しました')
@@ -159,7 +159,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
     it 'X(Twitter)連携をキャンセルすると、新規登録モーダルがあるページに戻る' do
       OmniAuth.config.mock_auth[:twitter] = :invalid_credentials
 
-      open_sign_up_modal
+      open_modal(:'sign-up', '新規登録')
       click_link 'X(Twitter)'
 
       return_to_top_page_and_show_flash_message('認証に失敗しました')
@@ -168,7 +168,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
     it 'Facebook連携をキャンセルすると、新規登録モーダルがあるページに戻る' do
       OmniAuth.config.mock_auth[:facebook] = :invalid_credentials
 
-      open_sign_up_modal
+      open_modal(:'sign-up', '新規登録')
       click_link 'Facebook'
 
       return_to_top_page_and_show_flash_message('認証に失敗しました')
@@ -177,7 +177,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
     it 'LINE連携をキャンセルすると、新規登録モーダルがあるページに戻る' do
       OmniAuth.config.mock_auth[:line] = :invalid_credentials
 
-      open_sign_up_modal
+      open_modal(:'sign-up', '新規登録')
       click_link 'LINE'
 
       return_to_top_page_and_show_flash_message('認証に失敗しました')
@@ -192,7 +192,7 @@ RSpec.describe 'ログイン', type: :system do
 
   context 'メールアドレスでログインができる時' do
     it '正しい情報を入力すればログインでき、トップページに移動する' do
-      open_log_in_modal
+      open_modal(:'log-in', 'ログイン')
       # 必須事項を入力する
       fill_in 'email',      with: @user.email
       fill_in 'password',   with: @user.password
@@ -203,7 +203,7 @@ RSpec.describe 'ログイン', type: :system do
 
   context 'メールアドレスでログインができない時' do
     it '必須項目が空欄のままボタンを押してもログインできない' do
-      open_log_in_modal
+      open_modal(:'log-in', 'ログイン')
       # 必須事項を空欄にする
       fill_in 'email',      with: ''
       fill_in 'password',   with: ''
@@ -211,7 +211,7 @@ RSpec.describe 'ログイン', type: :system do
     end
 
     it '入力情報が登録情報と異なる状態でボタンを押してもログインできず、エラーメッセージが表示される' do
-      open_log_in_modal
+      open_modal(:'log-in', 'ログイン')
       # 異なる情報を入力する
       fill_in 'email',    with: "wrong_#{@user.email}"
       fill_in 'password', with: "wrong_password"
@@ -223,28 +223,28 @@ RSpec.describe 'ログイン', type: :system do
   context 'SNSでログインができる時' do
     it 'Google認証が成功すればログインでき、トップページに遷移する' do
       create_log_in_mock_data(:google_oauth2)
-      open_log_in_modal
+      open_modal(:'log-in', 'ログイン')
       # トップページに遷移し、成功用のフラッシュメッセージが表示されていることを確認する
       submit_and_expect_success("#google-log-in", 0, "Google アカウントでログインしました。")
     end
 
     it 'X(Twitter)認証が成功すればログインでき、トップページに遷移する' do
       create_log_in_mock_data(:twitter)
-      open_log_in_modal
+      open_modal(:'log-in', 'ログイン')
       # トップページに遷移し、成功用のフラッシュメッセージが表示されていることを確認する
       submit_and_expect_success("#twitter-log-in", 0, "X アカウントでログインしました。")
     end
 
     it 'Facebook認証が成功すればログインでき、トップページに遷移する' do
       create_log_in_mock_data(:facebook)
-      open_log_in_modal
+      open_modal(:'log-in', 'ログイン')
       # トップページに遷移し、成功用のフラッシュメッセージが表示されていることを確認する
       submit_and_expect_success("#facebook-log-in", 0, "Facebook アカウントでログインしました。")
     end
 
     it 'LINE認証が成功すればログインでき、トップページに遷移する' do
       create_log_in_mock_data(:line)
-      open_log_in_modal
+      open_modal(:'log-in', 'ログイン')
       # トップページに遷移し、成功用のフラッシュメッセージが表示されていることを確認する
       submit_and_expect_success("#line-log-in", 0, "LINE アカウントでログインしました。")
     end
@@ -254,7 +254,7 @@ RSpec.describe 'ログイン', type: :system do
     it 'Google認証をキャンセルするとログインできず、トップページに戻る' do
       OmniAuth.config.mock_auth[:google_oauth2] = :invalid_credentials
 
-      open_log_in_modal
+      open_modal(:'log-in', 'ログイン')
     
       scroll_display("#google-log-in")
 
@@ -264,7 +264,7 @@ RSpec.describe 'ログイン', type: :system do
     it 'X(twitter)認証をキャンセルするとログインできず、トップページに戻る' do
       OmniAuth.config.mock_auth[:twitter] = :invalid_credentials
 
-      open_log_in_modal
+      open_modal(:'log-in', 'ログイン')
     
       scroll_display("#twitter-log-in")
 
@@ -274,7 +274,7 @@ RSpec.describe 'ログイン', type: :system do
     it 'Facebook認証をキャンセルするとログインできず、トップページに戻る' do
       OmniAuth.config.mock_auth[:facebook] = :invalid_credentials
 
-      open_log_in_modal
+      open_modal(:'log-in', 'ログイン')
     
       scroll_display("#facebook-log-in")
 
@@ -284,7 +284,7 @@ RSpec.describe 'ログイン', type: :system do
     it 'LINE認証をキャンセルするとログインできず、トップページに戻る' do
       OmniAuth.config.mock_auth[:line] = :invalid_credentials
 
-      open_log_in_modal
+      open_modal(:'log-in', 'ログイン')
     
       scroll_display("#line-log-in")
 
@@ -347,7 +347,7 @@ RSpec.describe 'パスワード変更', type: :system do
 
   context 'パスワードの変更ができる時' do
     it '未ログインの状態でパスワード再設定ページへ遷移し、正しい情報を入力すればパスワードを変更できる' do
-      open_log_in_modal
+      open_modal(:'log-in', 'ログイン')
       scroll_display(".forget-password")
 
       #パスワード再設定ページに遷移していることを確認する
