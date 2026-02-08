@@ -23,41 +23,6 @@ module UserSupport
     end
   end
 
-  # def open_sign_up_modal
-  #   visit root_path
-
-  #   signup_target = find('.sign-up-menu-text', text: '新規登録', visible: :all)
-
-
-  #   execute_script('arguments[0].scrollIntoView({block: "center"});', signup_target)
-  #   # 0.5秒待機する
-  #   sleep 0.5
-
-  #   execute_script('document.querySelector(".modal.sign-up").style.display = "block";')
-
-  #   expect(page).to have_selector('.modal.sign-up', visible: true)
-  # end
-
-  # def open_log_in_modal
-  #   # トップページに遷移する
-  #   visit root_path
-
-  #   # 初期状態ではモーダルが表示されていないことを確認する
-  #   expect(page).to have_no_selector('.modal.log-in', visible: true)
-
-  #   # ページ内に「ログイン」の文字があることを確認する
-  #   login_target = find('.log-in-menu-text', text: 'ログイン', visible: :all)
-
-  #   # 画面をスクロールさせる
-  #   execute_script('arguments[0].scrollIntoView({block: "center"});', login_target)
-  #   # 0.5秒待機する
-  #   sleep 0.5
-  #   # menuの代わりにモーダルを表示状態(block)にするJSを実行
-  #   execute_script('document.querySelector(".modal.log-in").style.display = "block";')
-  #   # モーダルが表示されたことを確認する
-  #   expect(page).to have_selector('.modal.log-in', visible: true)
-  # end
-
   def open_modal(selector_type, header_menu_text)
     visit root_path
 

@@ -62,123 +62,47 @@ RSpec.describe 'ユーザー新規登録', type: :system do
     end
   end
 
-  context 'SNSでユーザー新規登録ができる時' do
-    it 'Google連携後に必要な情報を入力すれば登録でき、トップページに移動する' do
-      # モック(偽の)データを一度クリアする
-      OmniAuth.config.mock_auth[:google_oauth2] = nil
-      # SNS認証用にパスワードを空にした状態のオブジェクトを作る
-      # バリデーションエラーを確実に回避可能
+  ['Google', 'X(Twitter)', 'Facebook', 'LINE'].each do |sns|
+    it "#{sns}連携後に必要な情報を入力すれば登録でき、トップページに移動する" do
+      # 1. プロバイダー名をシンボルに変換（google_oauth2, twitter, facebook, line）
+      provider = case sns
+                when 'Google'     then :google_oauth2
+                when 'X(Twitter)' then :twitter
+                else sns.downcase.to_sym
+                end
+
+      # 2. 以前の it ブロックに書いていた共通処理
+      OmniAuth.config.mock_auth[provider] = nil
       @user = FactoryBot.build(:user, password: nil, password_confirmation: nil)
       
       auth_hash = OmniAuth::AuthHash.new({
-        provider: 'google_oauth2',
-        uid: SecureRandom.uuid, # UIDも念のため被らないようにする
-        info: { nickname: @user.nickname, email: @user.email }
-      })
-      OmniAuth.config.mock_auth[:google_oauth2] = auth_hash
-      
-      open_modal(:'sign-up', '新規登録')
-      click_link 'Google'
-
-      input_info_and_sign_up('google_oauth2')
-      submit_and_expect_success(".cyan-submit-btn", 1, "登録が完了しました")
-    end
-
-    it 'X(Twitter)連携後に必要な情報を入力すれば登録でき、トップページに移動する' do
-      # モック(偽の)データを一度クリアする
-      OmniAuth.config.mock_auth[:twitter] = nil
-      # SNS認証用にパスワードを空にした状態のオブジェクトを作る
-      # バリデーションエラーを確実に回避可能
-      @user = FactoryBot.build(:user, password: nil, password_confirmation: nil)
-      
-      auth_hash = OmniAuth::AuthHash.new({
-        provider: 'twitter',
-        uid: SecureRandom.uuid, # UIDも念のため被らないようにする
-        info: { nickname: @user.nickname, email: @user.email }
-      })
-      OmniAuth.config.mock_auth[:twitter] = auth_hash
-      
-      open_modal(:'sign-up', '新規登録')
-      click_link 'X(Twitter)'
-
-      input_info_and_sign_up('twitter')
-      submit_and_expect_success(".cyan-submit-btn", 1, "登録が完了しました")
-    end
-
-    it 'Facebook連携後に必要な情報を入力すれば登録でき、トップページに移動する' do
-      # モック(偽の)データを一度クリアする
-      OmniAuth.config.mock_auth[:facebook] = nil
-      @user = FactoryBot.build(:user, password: nil, password_confirmation: nil)
-      
-      auth_hash = OmniAuth::AuthHash.new({
-        provider: 'facebook',
+        provider: provider.to_s,
         uid: SecureRandom.uuid,
         info: { nickname: @user.nickname, email: @user.email }
       })
-      OmniAuth.config.mock_auth[:facebook] = auth_hash
+      OmniAuth.config.mock_auth[provider] = auth_hash
       
       open_modal(:'sign-up', '新規登録')
-      click_link 'Facebook'
+      click_link sns
 
-      input_info_and_sign_up('facebook')
-      submit_and_expect_success(".cyan-submit-btn", 1, "登録が完了しました")
-    end
-
-    it 'LINE連携後に必要な情報を入力すれば登録でき、トップページに移動する' do
-      # モック(偽の)データを一度クリアする
-      OmniAuth.config.mock_auth[:line] = nil
-
-      @user = FactoryBot.build(:user, password: nil, password_confirmation: nil)
-      
-      auth_hash = OmniAuth::AuthHash.new({
-        provider: 'line',
-        uid: SecureRandom.uuid,
-        info: { nickname: @user.nickname, email: @user.email }
-      })
-      OmniAuth.config.mock_auth[:line] = auth_hash
-      
-      open_modal(:'sign-up', '新規登録')
-      click_link 'LINE'
-
-      input_info_and_sign_up('line')
+      input_info_and_sign_up(provider.to_s)
       submit_and_expect_success(".cyan-submit-btn", 1, "登録が完了しました")
     end
   end
 
-  context 'SNSでユーザー新規登録ができない時' do
-    it 'Google連携をキャンセルすると、新規登録モーダルがあるページに戻る' do
-      # Google認証の失敗をシミュレート
-      OmniAuth.config.mock_auth[:google_oauth2] = :invalid_credentials
+  ['Google', 'X(Twitter)', 'Facebook', 'LINE'].each do |sns|
+    it "#{sns}連携をキャンセルすると新規登録モーダルがあるトップページに戻る" do
+      provider = case sns
+                when 'Google'     then :google_oauth2
+                when 'X(Twitter)' then :twitter
+                else sns.downcase.to_sym
+                end
+
+      # 認証の失敗をシミュレート
+      OmniAuth.config.mock_auth[provider] = :invalid_credentials
 
       open_modal(:'sign-up', '新規登録')
-      click_link 'Google'
-
-      return_to_top_page_and_show_flash_message('認証に失敗しました')
-    end
-
-    it 'X(Twitter)連携をキャンセルすると、新規登録モーダルがあるページに戻る' do
-      OmniAuth.config.mock_auth[:twitter] = :invalid_credentials
-
-      open_modal(:'sign-up', '新規登録')
-      click_link 'X(Twitter)'
-
-      return_to_top_page_and_show_flash_message('認証に失敗しました')
-    end
-
-    it 'Facebook連携をキャンセルすると、新規登録モーダルがあるページに戻る' do
-      OmniAuth.config.mock_auth[:facebook] = :invalid_credentials
-
-      open_modal(:'sign-up', '新規登録')
-      click_link 'Facebook'
-
-      return_to_top_page_and_show_flash_message('認証に失敗しました')
-    end
-
-    it 'LINE連携をキャンセルすると、新規登録モーダルがあるページに戻る' do
-      OmniAuth.config.mock_auth[:line] = :invalid_credentials
-
-      open_modal(:'sign-up', '新規登録')
-      click_link 'LINE'
+      click_link sns
 
       return_to_top_page_and_show_flash_message('認証に失敗しました')
     end
@@ -220,75 +144,34 @@ RSpec.describe 'ログイン', type: :system do
     end
   end
 
+  sns_login_data = {
+    'Google'     => { provider: :google_oauth2, selector: "#google-log-in",  message: "Google アカウントでログインしました。" },
+    'X(Twitter)' => { provider: :twitter,       selector: "#twitter-log-in", message: "X アカウントでログインしました。" },
+    'Facebook'   => { provider: :facebook,      selector: "#facebook-log-in",message: "Facebook アカウントでログインしました。" },
+    'LINE'       => { provider: :line,          selector: "#line-log-in",    message: "LINE アカウントでログインしました。" }
+  }
+
   context 'SNSでログインができる時' do
-    it 'Google認証が成功すればログインでき、トップページに遷移する' do
-      create_log_in_mock_data(:google_oauth2)
-      open_modal(:'log-in', 'ログイン')
-      # トップページに遷移し、成功用のフラッシュメッセージが表示されていることを確認する
-      submit_and_expect_success("#google-log-in", 0, "Google アカウントでログインしました。")
-    end
-
-    it 'X(Twitter)認証が成功すればログインでき、トップページに遷移する' do
-      create_log_in_mock_data(:twitter)
-      open_modal(:'log-in', 'ログイン')
-      # トップページに遷移し、成功用のフラッシュメッセージが表示されていることを確認する
-      submit_and_expect_success("#twitter-log-in", 0, "X アカウントでログインしました。")
-    end
-
-    it 'Facebook認証が成功すればログインでき、トップページに遷移する' do
-      create_log_in_mock_data(:facebook)
-      open_modal(:'log-in', 'ログイン')
-      # トップページに遷移し、成功用のフラッシュメッセージが表示されていることを確認する
-      submit_and_expect_success("#facebook-log-in", 0, "Facebook アカウントでログインしました。")
-    end
-
-    it 'LINE認証が成功すればログインでき、トップページに遷移する' do
-      create_log_in_mock_data(:line)
-      open_modal(:'log-in', 'ログイン')
-      # トップページに遷移し、成功用のフラッシュメッセージが表示されていることを確認する
-      submit_and_expect_success("#line-log-in", 0, "LINE アカウントでログインしました。")
+    sns_login_data.each do |sns_name, data| # eachで引数（名前とデータの中身）を受け取る
+      it "#{sns_name}認証が成功すればログインでき、トップページに遷移する" do
+        create_log_in_mock_data(data[:provider]) # 引数としてハッシュの値を渡す
+        open_modal(:'log-in', 'ログイン')
+        
+        submit_and_expect_success(data[:selector], 0, data[:message])
+      end
     end
   end
 
   context 'SNSでログインができない時' do
-    it 'Google認証をキャンセルするとログインできず、トップページに戻る' do
-      OmniAuth.config.mock_auth[:google_oauth2] = :invalid_credentials
+    sns_login_data.each do |sns_name, data|
+      it "#{sns_name}認証をキャンセルするとログインできず、トップページに戻る" do
+        OmniAuth.config.mock_auth[data[:provider]] = :invalid_credentials
 
-      open_modal(:'log-in', 'ログイン')
-    
-      scroll_display("#google-log-in")
+        open_modal(:'log-in', 'ログイン')
+        scroll_display(data[:selector])
 
-      return_to_top_page_and_show_flash_message('認証に失敗しました')
-    end
-
-    it 'X(twitter)認証をキャンセルするとログインできず、トップページに戻る' do
-      OmniAuth.config.mock_auth[:twitter] = :invalid_credentials
-
-      open_modal(:'log-in', 'ログイン')
-    
-      scroll_display("#twitter-log-in")
-
-      return_to_top_page_and_show_flash_message('認証に失敗しました')
-    end
-
-    it 'Facebook認証をキャンセルするとログインできず、トップページに戻る' do
-      OmniAuth.config.mock_auth[:facebook] = :invalid_credentials
-
-      open_modal(:'log-in', 'ログイン')
-    
-      scroll_display("#facebook-log-in")
-
-      return_to_top_page_and_show_flash_message('認証に失敗しました')
-    end
-
-    it 'LINE認証をキャンセルするとログインできず、トップページに戻る' do
-      OmniAuth.config.mock_auth[:line] = :invalid_credentials
-
-      open_modal(:'log-in', 'ログイン')
-    
-      scroll_display("#line-log-in")
-
-      return_to_top_page_and_show_flash_message('認証に失敗しました')
+        return_to_top_page_and_show_flash_message('認証に失敗しました')
+      end
     end
   end
 end
