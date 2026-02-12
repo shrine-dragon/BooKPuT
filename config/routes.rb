@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'static_pages/privacy_policy'
+  # deviseを用いたユーザー管理機能
   devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks',
     registrations: 'users/registrations',
@@ -14,9 +14,11 @@ Rails.application.routes.draw do
     get 'passwords/email_submitted', to: 'users/passwords#email_submitted', as: :email_submitted
     # パスワードの変更が完了した際の遷移先
     get 'passwords/updated', to: 'users/passwords#updated', as: :updated
-
   end
-  # get 'users/auth/failure', to: redirect('/')
+
   root to: "books#index"
+
   get 'privacy_policy', to: 'static_pages#privacy_policy'
+  
+  resources :users, only: [:show, :edit, :update, :destroy]
 end
