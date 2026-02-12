@@ -72,7 +72,7 @@
             <label>パスワード(確認用)</label>
           </div>
 
-          <%= f.password_field :password_confirmation, class:"input-text", id:"password_confirmation", placeholder:"同じパスワードを入力してください", minlength:"8", maxlength:"20" %>
+          <%= f.password_field :password_confirmation, class:"input-text", id:"password_confirmation", placeholder:"同じパスワードを入力", minlength:"8", maxlength:"20" %>
           <i class="fa-regular fa-eye-slash toggle-password"></i>
 
           <%= render "partial_template/error_messages", model: @user, attribute: :password_confirmation %>
