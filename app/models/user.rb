@@ -1,11 +1,44 @@
 class User < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
+  # アソシエーション  
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :omniauthable, omniauth_providers: [:twitter, :facebook, :google_oauth2, :line]
   has_one_attached :image
   belongs_to_active_hash :gender
   has_many :sns_credentials, dependent: :destroy # ユーザーが消えるときにSNS情報も自動で削除される
 
+  after_validation :report_errors, if: -> { errors.any? }
+
+  def report_errors
+    puts "--- ❌ バリデーションエラーが発生しました ❌ ---"
+    p errors.full_messages
+  end
+
+  # バリデーション
+  validates :password, presence: true, length: { minimum: 8, maximum: 20 },
+          format: { 
+            with: /\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]+\z/, 
+            message: 'は英字の大文字・小文字・数字をすべて含めて入力してください' 
+          }, 
+          # sns_auth_process が true の時は、このバリデーションをまるごとスキップ！
+          confirmation: true,
+          unless: :sns_auth_process?
+
+  validates :password_confirmation, presence: true, unless: :sns_auth_process?
+
+  validates :email, presence: true, uniqueness: true,
+            format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i, message: 'は不正な形式です' }
+
+  validates :gender_id, presence: true, numericality: { other_than: 0, message: 'を選択してください' }
+
+  validate :birth_date_cannot_be_in_the_future
+
+  with_options presence: true do
+    validates :nickname, length: { minimum: 3, maximum: 16 }
+    validates :birth_date
+  end
+
+  # SNS認証
   def self.from_omniauth(auth)
     Rails.logger.debug "===== AUTH DATA ====="
     Rails.logger.debug auth.info
@@ -47,45 +80,25 @@ class User < ApplicationRecord
     { user: user, sns: sns } 
   end
 
-  after_validation :report_errors, if: -> { errors.any? }
-
-  def report_errors
-    puts "--- ❌ バリデーションエラーが発生しました ❌ ---"
-    p errors.full_messages
-  end
-
-  with_options presence: true do
-    validates :nickname, length: { minimum: 3, maximum: 16 }
-    validates :birth_date
-  end
-
-  validates :password, presence: true, length: { minimum: 8, maximum: 20 },
-          format: { 
-            with: /\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]+\z/, 
-            message: 'は英字の大文字・小文字・数字をすべて含めて入力してください' 
-          }, 
-          # sns_auth_process が true の時は、このバリデーションをまるごとスキップ！
-          confirmation: true,
-          unless: :sns_auth_process?
-  validates :password_confirmation, presence: true, unless: :sns_auth_process?
-
   attr_accessor :sns_auth_process
 
   def sns_auth_process?
     self.sns_auth_process.to_s == "true"
   end
 
-  validates :email, presence: true, uniqueness: true,
-            format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i, message: 'は不正な形式です' }
-  validates :gender_id, presence: true, numericality: { other_than: 0, message: 'を選択してください' }
-
-  validate :birth_date_cannot_be_in_the_future
-
   # ヘルパーメソッドを追加（もし必要なら）
   def session_sns_auth_exists?
     # ここはモデルなので session を直接触れませんが、
     # sns_auth_process をコントローラーから確実に渡すようにします
     self.sns_auth_process == true
+  end
+
+  # メールアドレスを伏せ字にする
+  def masked_email
+    # 例: test1234@example.com -> t*******@example.com
+    first_char = email[0]
+    domain = email.split('@').last
+    "#{first_char}********@#{domain}"
   end
 
   private

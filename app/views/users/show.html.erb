@@ -1,2 +1,55 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<%= render 'partial_template/second_header' %>
+
+<div class="my-page">
+  <div class="my-page-wrapper">
+    <h1 class="my-page-heading">マイページ</h1>
+    <div class="my-page-container">
+      <div class="my-page-contents">
+        <h1 class="contents-heading">
+          プロフィール
+        </h1>
+      </div>
+
+      <div class="my-page-contents">
+        <h1 class="contents-heading">
+          ログイン情報
+        </h1>
+        <p class="log-in-item">メールアドレス</p>
+        <p class="log-in-info"><%= @user.masked_email %></p>
+        <p class="log-in-item">パスワード</p>
+        <p class="log-in-info">********</p>
+      </div>
+
+      <div class="my-page-contents">
+        <h1 class="contents-heading">
+          マイ投稿
+        </h1>
+        <div class="empty-message">
+          <p>投稿はありません</p>
+        </div>
+      </div>
+
+      <div class="my-page-contents">
+        <h1 class="contents-heading">
+          高評価リスト
+        </h1>
+        <div class="empty-message">
+          <p>高評価した投稿はありません</p>
+        </div>
+      </div>
+
+      <div class="my-page-contents">
+        <h1 class="contents-heading">
+          お気に入りリスト
+        </h1>
+        <div class="empty-message">
+          <p>お気に入りに追加した投稿はありません</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render 'partial_template/return_btn' %>
+
+<%= render 'partial_template/footer' %>

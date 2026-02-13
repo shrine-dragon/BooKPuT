@@ -1,0 +1,57 @@
+.my-page{
+  width: 100%;
+}
+
+.my-page-wrapper{
+  width: 80%;
+  margin: 0 auto;
+}
+
+.my-page-heading{
+  font-size: 25px;
+  font-weight: bold;
+  margin: 30px 0;
+}
+
+.my-page-container{
+  width: 100%;
+}
+
+.my-page-contents{
+  width: 100%;
+  padding: 10px 0 10px 10px;
+  margin-bottom: 20px;
+  background-color: ghostwhite;
+}
+
+.contents-heading{
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.log-in-item{
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.log-in-info{
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.empty-message{
+  /* Flexboxを有効にする */
+  display: flex;
+  /* 上下左右中央揃え */
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  p{
+    color: #888;
+    font-size: 1.1rem;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+  }
+}

@@ -33,7 +33,6 @@ class UsersController < ApplicationController
   end
 
   def ensure_correct_user
-      redirect_to root_path if current_user != @user
-    end
+    redirect_to root_path if current_user != @user
   end
 end
