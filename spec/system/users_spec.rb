@@ -37,7 +37,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
         attach_file('user[image]', image_path)
       end
 
-      submit_and_expect_success('.cyan-submit-btn', 1, '登録が完了しました')
+      submit_and_expect_success('.orange-submit-btn', 1, '登録が完了しました')
     end
   end
 
@@ -55,7 +55,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       fill_in 'password_confirmation', with: ''
       # 「登録する」ボタンを押してもユーザーモデルのカウントが増えないことを確認する
       expect  do
-        scroll_display('.cyan-submit-btn')
+        scroll_display('.orange-submit-btn')
       end.to change { User.count }.by(0)
       # 新規登録ページへ戻されることを確認する
       expect(page).to have_current_path('/users')
@@ -88,7 +88,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       click_link sns
 
       input_info_and_sign_up(provider.to_s)
-      submit_and_expect_success('.cyan-submit-btn', 1, '登録が完了しました')
+      submit_and_expect_success('.orange-submit-btn', 1, '登録が完了しました')
     end
 
     it "#{sns}連携をキャンセルすると新規登録モーダルがあるトップページに戻る" do
