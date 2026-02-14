@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     # パスワード再設定用URLが添付されたメールが送信された際の遷移先
     get 'passwords/email_submitted', to: 'users/passwords#email_submitted', as: :email_submitted
     # パスワードの変更が完了した際の遷移先
-    get 'passwords/updated', to: 'users/passwords#updated', as: :updated
+    get 'passwords/update_completion', to: 'users/passwords#update_completion', as: :update_completion
   end
 
   root to: "books#index"

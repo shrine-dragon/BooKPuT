@@ -1,5 +1,5 @@
 class Users::PasswordsController < Devise::PasswordsController
-  skip_before_action :require_no_authentication, only: [:updated]
+  skip_before_action :require_no_authentication, only: [:update_completion]
 
   def create
     self.resource = resource_class.send_reset_password_instructions(resource_params)
@@ -16,7 +16,7 @@ class Users::PasswordsController < Devise::PasswordsController
     super
   end
 
-  def updated
+  def update_completion
     flash.clear
   end
 
@@ -32,7 +32,7 @@ class Users::PasswordsController < Devise::PasswordsController
         sign_in(resource_name, resource, bypass: true)
       end
       flash.clear
-      redirect_to updated_path and return
+      redirect_to update_completion_path and return
     else
       set_minimum_password_length
       render :edit
@@ -51,6 +51,6 @@ class Users::PasswordsController < Devise::PasswordsController
   end
 
   def after_resetting_password_path_for(resource)
-    updated_path
+    update_completion_path
   end
 end
