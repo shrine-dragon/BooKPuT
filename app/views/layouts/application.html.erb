@@ -25,7 +25,11 @@
         <%= content_tag(:div, value, class: "flash-message #{key}") %>
       <% end %>
     <% end %>
-    <%= yield %>
+
+    <div class="site-wrapper">
+      <%= yield %>
+    </div>
+
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>
 
     <script>

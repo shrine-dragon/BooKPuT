@@ -24,6 +24,12 @@
   padding-top: var(--header-height);
 }
 
+.site-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* 画面の高さを最低100%確保 */
+}
+
 .passwords {
   // パスワード関連のページが動いている時のみ、フラッシュメッセージを削除する
   .flash-message {

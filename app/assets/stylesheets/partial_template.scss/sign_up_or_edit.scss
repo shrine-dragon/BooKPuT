@@ -4,13 +4,20 @@ $btn-border: #ccc;    /* 境界線 */
 $btn-radius: 4px;     /* 角丸 */
 $btn-padding: 5px 15px;
 
-.sign-up-form{
+.sign-up-page{
   aspect-ratio: 16 / 9; /* 画像の縦横比を保つ */
   background-image: asset-url("bookshelves.png");
   background-size: cover;
   background-position: center; /* 中央に合わせると綺麗 */
   background-repeat: no-repeat;
   padding-bottom: 5px;
+}
+
+.edit-profile-page{
+  background-color: orange;
+  .form-wrapper{
+    margin-bottom: 0px !important;
+  }
 }
 
 .form-wrapper{
