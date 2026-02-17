@@ -22,9 +22,14 @@ class User < ApplicationRecord
           }, 
           # sns_auth_process が true の時は、このバリデーションをまるごとスキップ！
           confirmation: true,
+          # 編集時などでパスワードが空(nil)の時はスキップする
+          allow_blank: true,
           unless: :sns_auth_process?
 
-  validates :password_confirmation, presence: true, unless: :sns_auth_process?
+  validates :password_confirmation,
+            presence: true,
+            if: -> { password.present? }, # パスワードがある時だけ必須にする
+            unless: :sns_auth_process?
 
   validates :email, presence: true, uniqueness: true,
             format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i, message: 'は不正な形式です' }

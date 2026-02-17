@@ -29,8 +29,8 @@
           <%= @user.gender.name %>
         </p>
         <div class="edit-profile btn-on-center hovers">
-          <%= link_to(edit_user_path(current_user), class: "edit-profile-btn") do %>
-            <span class="edit-profile btn-text">プロフィールを変更する</span>
+          <%= link_to(edit_profile_user_path(current_user), class: "edit-profile-btn") do %>
+            <span class="edit-profile btn-text">プロフィールを編集する</span>
           <% end %>
         </div>
       </div>
@@ -44,14 +44,14 @@
           <%= @user.masked_email %>
         </p>
         <div class="edit-log-in-info hovers">
-          <%= link_to(root_path, class: "edit-email-btn") do %>
+          <%= link_to(edit_email_user_path(current_user), class: "edit-email-btn") do %>
             <span class="edit-log-in-info btn-text">メールアドレスを変更する</span>
           <% end %>
         </div>
         <p class="registered-info">パスワード</p>
         <p class="current-user-info">********</p>
         <div class="edit-log-in-info hovers">
-          <%= link_to(root_path, class: "edit-password-btn") do %>
+          <%= link_to(edit_password_user_path(current_user), class: "edit-password-btn") do %>
             <span class="edit-log-in-info btn-text">パスワードを変更する</span>
           <% end %>
         </div>

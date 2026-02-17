@@ -1,8 +1,8 @@
 <%= render 'partial_template/second_header' %>
 
-<%= render layout: 'password_reset_layout', locals: { title: 'パスワード再設定' } do %>
-  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: 'reset-password' }) do |f| %>
-    <div class="reset-password-text">
+<%= render layout: 'partial_template/edit_user_info_layout', locals: { title: 'パスワード再設定' } do %>
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: 'edit-password' }) do |f| %>
+    <div class="edit-user-info-text">
       <p>登録済みのメールアドレスを入力してください。</p>
       <p>パスワード再設定用のメールを送信します。</p>
     </div>

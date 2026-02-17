@@ -20,5 +20,12 @@ Rails.application.routes.draw do
 
   get 'privacy_policy', to: 'static_pages#privacy_policy'
   
-  resources :users, only: [:show, :edit, :update, :destroy]
+  resources :users, only: [:show, :update, :destroy] do
+    member do
+      get 'edit_profile'
+      get 'edit_email'
+      get 'edit_password'
+      # 更新処理は標準の update アクションを使い回すか、別途 patch を定義する
+    end
+  end
 end

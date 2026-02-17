@@ -1,7 +1,7 @@
 <%= render 'partial_template/second_header' %>
 
-<%= render layout: 'password_reset_layout', locals: { title: 'パスワード変更完了' } do %>
-  <div class="reset-password-text">
+<%= render layout: 'partial_template/edit_user_info_layout', locals: { title: 'パスワード変更完了' } do %>
+  <div class="edit-user-info-text">
     <p>パスワードの変更が完了しました。</p>
     <p>引き続き、アプリをお楽しみください。</p>
   </div>
