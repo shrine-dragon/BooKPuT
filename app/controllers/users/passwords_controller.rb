@@ -3,7 +3,7 @@ class Users::PasswordsController < Devise::PasswordsController
 
   def create
     self.resource = resource_class.send_reset_password_instructions(resource_params)
-    
+
     if resource.errors.added?(:email, :blank)
       render :new
     else
@@ -40,17 +40,18 @@ class Users::PasswordsController < Devise::PasswordsController
   end
 
   private
+
   def reset_password_params
     params.require(:user).permit(:password, :password_confirmation, :reset_password_token)
   end
 
   protected
 
-  def after_sending_reset_password_instructions_path_for(resource_name)
+  def after_sending_reset_password_instructions_path_for(_resource_name)
     email_submitted_path
   end
 
-  def after_resetting_password_path_for(resource)
+  def after_resetting_password_path_for(_resource)
     update_completion_path
   end
 end

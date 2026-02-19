@@ -9,10 +9,10 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   # POST /resource/sign_in
-def create
+  def create
     # 1. ユーザー認証を試みる
     self.resource = warden.authenticate(auth_options)
-    
+
     if resource
       # ログイン成功時
       set_flash_message!(:notice, :signed_in)
@@ -21,7 +21,7 @@ def create
       respond_with resource, location: after_sign_in_path_for(resource)
     else
       # ログイン失敗時：リダイレクトしてエラーメッセージを渡す
-      flash[:alert] = "メールアドレスまたはパスワードが違います。"
+      flash[:alert] = 'メールアドレスまたはパスワードが違います。'
       redirect_back(fallback_location: root_path) # 元のページへ戻す
     end
   end

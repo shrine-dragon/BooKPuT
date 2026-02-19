@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
-  # アソシエーション  
+  # アソシエーション
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :omniauthable, omniauth_providers: [:twitter, :facebook, :google_oauth2, :line]
+         :recoverable, :rememberable, :omniauthable, omniauth_providers: %i[twitter facebook google_oauth2 line]
   has_one_attached :image
   belongs_to_active_hash :gender
   has_many :sns_credentials, dependent: :destroy # ユーザーが消えるときにSNS情報も自動で削除される
@@ -10,21 +10,21 @@ class User < ApplicationRecord
   after_validation :report_errors, if: -> { errors.any? }
 
   def report_errors
-    puts "--- ❌ バリデーションエラーが発生しました ❌ ---"
+    puts '--- ❌ バリデーションエラーが発生しました ❌ ---'
     p errors.full_messages
   end
 
   # バリデーション
   validates :password, presence: true, length: { minimum: 8, maximum: 20 },
-          format: { 
-            with: /\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]+\z/, 
-            message: 'は英字の大文字・小文字・数字をすべて含めて入力してください' 
-          }, 
-          # sns_auth_process が true の時は、このバリデーションをまるごとスキップ！
-          confirmation: true,
-          # 編集時などでパスワードが空(nil)の時はスキップする
-          allow_blank: true,
-          unless: :sns_auth_process?
+                       format: {
+                         with: /\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]+\z/,
+                         message: 'は英字の大文字・小文字・数字をすべて含めて入力してください'
+                       },
+                       # sns_auth_process が true の時は、このバリデーションをまるごとスキップ！
+                       confirmation: true,
+                       # 編集時などでパスワードが空(nil)の時はスキップする
+                       allow_blank: true,
+                       unless: :sns_auth_process?
 
   validates :password_confirmation,
             presence: true,
@@ -32,7 +32,7 @@ class User < ApplicationRecord
             unless: :sns_auth_process?
 
   validates :email, presence: true, uniqueness: true,
-            format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i, message: 'は不正な形式です' }
+                    format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i, message: 'は不正な形式です' }
 
   validates :gender_id, presence: true, numericality: { other_than: 0, message: 'を選択してください' }
 
@@ -45,11 +45,11 @@ class User < ApplicationRecord
 
   # SNS認証
   def self.from_omniauth(auth)
-    Rails.logger.debug "===== AUTH DATA ====="
+    Rails.logger.debug '===== AUTH DATA ====='
     Rails.logger.debug auth.info
-    
+
     # LINEの場合、auth.info.email が空なら自動入力されません
-    puts "===== LINE AUTH DATA ====="
+    puts '===== LINE AUTH DATA ====='
     p auth.info
     # 1. SNS情報を元にSNS認証テーブルからデータを探す、なければ作る
     sns = SnsCredential.where(provider: auth.provider, uid: auth.uid).first_or_initialize
@@ -65,11 +65,11 @@ class User < ApplicationRecord
     user.email = email if user.email.blank?
 
     user.gender_id = 4 if user.gender_id.blank?
-    
+
     # もし新規ユーザー（まだ保存されていない）なら、ランダムなパスワードを設定する
     if user.persisted? == false
       # SNS経由の場合はパスワードを手動で入れさせないため、自動生成する
-      secure_password = "Password123" # これなら大文字・小文字・数字すべてクリア
+      secure_password = 'Password123' # これなら大文字・小文字・数字すべてクリア
       user.password = secure_password
       user.password_confirmation = secure_password
     end
@@ -82,20 +82,20 @@ class User < ApplicationRecord
     end
 
     # コントローラーに { user: user, sns: sns } の形で返す
-    { user: user, sns: sns } 
+    { user: user, sns: sns }
   end
 
   attr_accessor :sns_auth_process
 
   def sns_auth_process?
-    self.sns_auth_process.to_s == "true"
+    sns_auth_process.to_s == 'true'
   end
 
   # ヘルパーメソッドを追加（もし必要なら）
   def session_sns_auth_exists?
     # ここはモデルなので session を直接触れませんが、
     # sns_auth_process をコントローラーから確実に渡すようにします
-    self.sns_auth_process == true
+    sns_auth_process == true
   end
 
   # メールアドレスを伏せ字にする
@@ -110,8 +110,8 @@ class User < ApplicationRecord
 
   def birth_date_cannot_be_in_the_future
     # birth_dateが存在し、かつ今日より後の日付であればエラーを追加
-    if birth_date.present? && birth_date > Date.today
-      errors.add(:birth_date, "は今日以前の日付を選択してください")
-    end
+    return unless birth_date.present? && birth_date > Date.today
+
+    errors.add(:birth_date, 'は今日以前の日付を選択してください')
   end
 end

@@ -4,7 +4,7 @@ RSpec.describe User, type: :model do
   before do
     @user = FactoryBot.build(:user)
   end
-  
+
   describe 'メールアドレスによる新規登録' do
     context 'ユーザー情報を保存できて新規登録できる時' do
       it '必須項目が全て正しく入力されていれば保存できる' do
@@ -45,7 +45,7 @@ RSpec.describe User, type: :model do
       it '生年月日が今日より後の日付（未来）だと登録できない' do
         @user.birth_date = Date.today + 1.day
         @user.valid?
-        expect(@user.errors.full_messages).to include("生年月日は今日以前の日付を選択してください")
+        expect(@user.errors.full_messages).to include('生年月日は今日以前の日付を選択してください')
       end
 
       it '性別が選択されていないと登録できない' do

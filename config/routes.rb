@@ -16,11 +16,11 @@ Rails.application.routes.draw do
     get 'passwords/update_completion', to: 'users/passwords#update_completion', as: :update_completion
   end
 
-  root to: "books#index"
+  root to: 'books#index'
 
   get 'privacy_policy', to: 'static_pages#privacy_policy'
-  
-  resources :users, only: [:show, :update, :destroy] do
+
+  resources :users, only: %i[show update destroy] do
     member do
       get 'edit_profile'
       get 'edit_email'

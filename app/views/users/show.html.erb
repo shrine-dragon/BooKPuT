@@ -17,7 +17,7 @@
           <% if @user.image.attached? %>
             <%= image_tag @user.image, class: "current-user-image" %>
           <% else %>
-            <%= image_tag "no-image.png", class: "current-user-image" %>
+            <%= image_tag "no-image.png", class: "current-user-image", id:"no-image" %>
           <% end %>
         </p>
         <p class="registered-info">生年月日</p>

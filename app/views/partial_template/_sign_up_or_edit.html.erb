@@ -17,7 +17,16 @@
           <label>画像(任意)</label>
         </div>
         <%= f.file_field :image, class:"upload-image custom-file-btn hovers", id: "user-image" %>
+        
+        <%= f.hidden_field :delete_image, value: '0', id: 'delete-image-flag' %>
+
         <div class="upload-image-list">
+          <% if is_edit && model.image.attached? %>
+            <div class="image-preview-wrapper">
+              <%= image_tag model.image, class: "preview-image" %>
+              <span class="image-delete-btn">削除</span>
+            </div>
+          <% end %>
         </div>
       </div>
 

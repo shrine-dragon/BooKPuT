@@ -12,21 +12,22 @@ OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE if Rails.env.development?
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
   # アプリ側で環境変数を読み込む
-  config.omniauth :google_oauth2,ENV['GOOGLE_API_KEY'],ENV['GOOGLE_API_SECRET_KEY']
+  config.omniauth :google_oauth2, ENV['GOOGLE_API_KEY'], ENV['GOOGLE_API_SECRET_KEY']
   config.omniauth :twitter, ENV['TWITTER_API_KEY'], ENV['TWITTER_API_SECRET_KEY'],
-  {
-    client_options: {
-      ssl: {
-        verify: !Rails.env.development? # 開発環境(development)の時だけ false になる
-      }
-    }
-  }
-  config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET'], scope: 'email', info_fields: 'email,name'
+                  {
+                    client_options: {
+                      ssl: {
+                        verify: !Rails.env.development? # 開発環境(development)の時だけ false になる
+                      }
+                    }
+                  }
+  config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET'], scope: 'email',
+                                                                                 info_fields: 'email,name'
   config.omniauth :line, ENV['LINE_CHANNEL_ID'], ENV['LINE_CHANNEL_SECRET'],
-  {
-    scope: 'profile openid email',
-    bot_prompt: 'normal'
-  }
+                  {
+                    scope: 'profile openid email',
+                    bot_prompt: 'normal'
+                  }
   # 認証失敗時にfailureアクションへリダイレクトさせる設定
   config.omniauth_path_prefix = '/users/auth'
   # The secret key used by Devise. Devise uses this key to generate

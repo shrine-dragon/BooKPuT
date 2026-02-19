@@ -7,6 +7,6 @@ class Gender < ActiveHash::Base
     { id: 4, name: '回答しない' }
   ]
   include ActiveHash::Associations
-  
+
   has_many :users
 end
