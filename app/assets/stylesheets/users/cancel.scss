@@ -1,0 +1,63 @@
+.select-reason-destroy-account{
+  color: red;
+  padding: 10px;
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.reasons-to-destroy-account{
+  margin: 10px 0 20px;
+  li{
+    line-height: 40px;
+    font-size: 18px;
+    font-weight: bold;
+    label {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      
+      input[type="checkbox"] {
+        margin-right: 15px;
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+}
+
+.dummy-text-area {
+  align-items: center;
+  margin-bottom: 30px;
+  .feedback-form {
+    width: 400px;
+    height: 120px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    resize: none; // ユーザーがサイズ変更できないように固定
+    &:focus {
+      outline: none;
+      border: 2px solid orange; // フォーカス時に少し色を変える
+    }
+  }
+}
+
+.continue-account.btn-on-center, .destroy-account.btn-on-center{
+  width: 250px;
+  max-width: 360px;
+}
+
+.continue-account.btn-on-center{
+  background-color: orange;
+  margin-bottom: 10px;
+}
+
+.destroy-account.btn-on-center{
+  background-color: red;
+}
+
+.continue_account.btn-text, .destroy_account.btn-text{
+  font-size: 20px;
+}

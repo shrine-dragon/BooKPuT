@@ -26,6 +26,11 @@ Rails.application.routes.draw do
       get 'edit_email'
       get 'edit_password'
       # 更新処理は標準の update アクションを使い回すか、別途 patch を定義する
+      get 'cancel'
+    end
+    collection do
+      # /users/destroy_completion というURLになる
+      get 'destroy_completion'
     end
   end
 end

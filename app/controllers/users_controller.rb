@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user
+  skip_before_action :authenticate_user!, only: [:destroy_completion]
+  before_action :set_user, except: [:destroy_completion]
   # show以外は本人しかアクセスできないようにする
-  before_action :ensure_correct_user, only: %i[show update destroy]
+  before_action :ensure_correct_user, only: %i[show update destroy cancel]
 
   def show; end
 
@@ -50,8 +51,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def cancel
+  end
+
   def destroy
     @user.destroy
+    redirect_to destroy_completion_users_path(@user)
+  end
+
+  def destroy_completion
   end
 
   private
