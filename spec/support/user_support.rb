@@ -163,6 +163,11 @@ module UserSupport
     expect(page).to have_selector('.modal.log-in-user', visible: true)
   end
 
+  def log_in_and_visit_my_page
+    login_as(@user)
+    visit user_path(@user)
+  end
+
   def not_log_in_user
     # トップページに｢ログイン｣｢新規登録｣の文字があり、未ログインの状態であることを確認する
     visit root_path
@@ -172,9 +177,12 @@ module UserSupport
     expect(page).to have_no_content(@user.nickname)
   end
 
-  def log_in_and_visit_my_page
+  def check_access_denied(path)
+    # ログインし、トップページへ遷移する
     login_as(@user)
-    visit user_path(@user)
+    visit path
+    # トップページへ戻されていることを確認する
+    expect(page).to have_current_path(root_path)
   end
 
   def click_btn_and_visit_my_page_and_show_flash_message(btn_text)

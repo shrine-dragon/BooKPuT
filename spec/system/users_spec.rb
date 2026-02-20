@@ -344,16 +344,9 @@ RSpec.describe 'マイページ', type: :system do
     end
 
     it 'ログインユーザーであっても別のユーザーのマイページへ遷移し、アカウント情報やログイン情報を閲覧できない' do
-      # ログインし、トップページに遷移する
-      login_as(@user)
-      visit root_path
-
+      # 別ユーザーのアカウントを作成する
       another_user = FactoryBot.create(:user)
-
-      # 別ユーザーのマイページへ直接アクセスする
-      visit user_path(another_user)
-      # トップページへ押し戻されていることを確認する
-      expect(page).to have_current_path(root_path)
+      check_access_denied(user_path(another_user))
     end
   end
 
@@ -538,6 +531,56 @@ RSpec.describe 'マイページ', type: :system do
       expect(page).to have_selector('.error-message', text: 'パスワード（確認用）とパスワードが一致しません')
       # 編集画面の項目がまだ存在することを確認する
       expect(page).to have_content('新しいパスワード(必須)')
+    end
+  end
+
+  context 'アカウントを削除できる時' do
+    it 'ログインユーザーはモーダルからマイページへ遷移し、アカウントを削除できる' do
+      log_in_and_visit_my_page
+      # マイページにアカウント削除ボタンがあることを確認する
+      expect(page).to have_content('アカウントを解約する')
+      # ボタンを押し、アカウント解約ページに遷移していることを確認する
+      click_on('アカウントを解約する')
+      expect(page).to have_current_path(cancel_user_path(@user), wait: 10)
+      expect(page).to have_content('アカウント解約')
+
+      # アンケートには回答せず、解約ボタンを押す
+      # ユーザーモデルのカウントが1減っていることと、アカウント解約完了ページに遷移していることを確認する
+      expect {
+        find('#destroy-account').click
+        # 遷移を待機することでDB処理との同期を図る
+        expect(page).to have_current_path(destroy_completion_users_path, wait: 10)
+      }.to change(User, :count).by(-1)
+
+      # トップページに戻ると｢ログイン｣｢新規登録｣の文字があり、ユーザー名が表示されていないことを確認する
+      click_on('トップページへ戻る')
+      expect(page).to have_current_path(root_path)
+      expect(page).to have_content('ログイン')
+      expect(page).to have_content('新規登録')
+      expect(page).to have_no_content(@user.nickname)
+    end
+  end
+
+  context 'アカウントを削除できない時' do
+    it '未ログインユーザーはマイページへ遷移して、アカウントを削除できない' do
+      not_log_in_user
+    end
+
+    it 'ログインユーザーであっても別のユーザーのアカウントを解約できない' do
+      another_user = FactoryBot.create(:user)
+      check_access_denied(cancel_user_path(another_user))
+    end
+
+    it 'ユーザー本人であっても｢利用を継続する｣ボタンを押すとトップページへ遷移し、アカウントを解約できない' do
+      # ログインし、直接アカウント解約ページへ遷移する
+      login_as(@user)
+      visit cancel_user_path(@user)
+
+      # ｢利用を継続する｣ボタンを押す
+
+      click_on('利用を継続する')
+      expect(page).to have_current_path(root_path)
+      expect(page).to have_no_content('アカウントを解約する')
     end
   end
 end
