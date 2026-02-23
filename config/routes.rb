@@ -29,8 +29,7 @@ Rails.application.routes.draw do
       get 'cancel'
     end
     collection do
-      # /users/destroy_completion というURLになる
-      get 'destroy_completion'
+      get 'cancel_completion'
     end
   end
 end

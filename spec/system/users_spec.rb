@@ -27,7 +27,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       # プレビュー画像が表示されることを確認する
       expect(page).to have_selector('.upload-image-list img')
 
-      # 削除ボタンが表示されていることを確認（画像の検証ツールに見えるボタン）
+      # 解約ボタンが表示されていることを確認（画像の検証ツールに見えるボタン）
       expect(page).to have_selector('.image-delete-btn', text: '削除')
       # 画像を一度削除し、画像と削除ボタンが消えていることを確認する
       if has_link?('削除')
@@ -56,7 +56,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       # 「登録する」ボタンを押してもユーザーモデルのカウントが増えないことを確認する
       expect  do
         scroll_display('.orange-submit-btn')
-      end.to change {User, :count}.by(0)
+      end.to change(User, :count).by(0)
       # 新規登録ページへ戻されることを確認する
       expect(page).to have_current_path(user_registration_path)
       # エラーメッセージが表示されていることを確認する
@@ -534,29 +534,29 @@ RSpec.describe 'マイページ', type: :system do
     end
   end
 
-  context 'アカウントを削除できる時' do
-    it 'ログインユーザーはモーダルからマイページへ遷移し、アカウントを削除できる' do
+  context 'アカウントを解約できる時' do
+    it 'ログインユーザーはモーダルからマイページへ遷移し、アカウントを解約できる' do
       log_in_and_visit_my_page
-      # マイページにアカウント削除ボタンがあることを確認する
+      # マイページにアカウント解約ボタンがあることを確認する
       expect(page).to have_content('アカウントを解約する')
       # ボタンを押し、アカウント解約ページに遷移していることを確認する
       click_on('アカウントを解約する')
       expect(page).to have_current_path(cancel_user_path(@user), wait: 10)
       expect(page).to have_content('アカウント解約')
 
-      # アカウント解約ページに最初の削除ボタンがあることを確認する
+      # アカウント解約ページに最初の解約ボタンがあることを確認する
       expect(page).to have_content('解約する')
-      # ボタンを押すと、最終確認のメッセージと最後の削除ボタンがあることを確認する
+      # ボタンを押すと、最終確認のメッセージと最後の解約ボタンがあることを確認する
       find('#first-destroy-btn').click
-      expect(page).to have_content('アカウントを本当に解約しますか？一度削除すると復元できません。')
+      expect(page).to have_content('アカウントを本当に解約しますか？一度解約すると復元できません。')
       expect(page).to have_content('本当に解約する')
 
       # アンケートには回答せず、最後の解約ボタンを押す
       # ユーザーモデルのカウントが1減っていることと、アカウント解約完了ページに遷移していることを確認する
       expect do
         click_on('本当に解約する')
-        # 削除完了後のパスに遷移するのを待機（これで処理完了を確実にする）
-        expect(page).to have_current_path(destroy_completion_users_path, wait: 10)
+        # 解約完了後のパスに遷移するのを待機（これで処理完了を確実にする）
+        expect(page).to have_current_path(cancel_completion_users_path, wait: 10)
       end.to change(User, :count).by(-1)
 
       # トップページに戻ると｢ログイン｣｢新規登録｣の文字があり、ユーザー名が表示されていないことを確認する
@@ -568,8 +568,8 @@ RSpec.describe 'マイページ', type: :system do
     end
   end
 
-  context 'アカウントを削除できない時' do
-    it '未ログインユーザーはマイページへ遷移して、アカウントを削除できない' do
+  context 'アカウントを解約できない時' do
+    it '未ログインユーザーはマイページへ遷移して、アカウントを解約できない' do
       not_log_in_user
     end
 
