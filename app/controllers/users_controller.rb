@@ -56,7 +56,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    redirect_to destroy_completion_users_path(@user)
+    redirect_to destroy_completion_users_path
   end
 
   def destroy_completion

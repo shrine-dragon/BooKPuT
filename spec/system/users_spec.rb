@@ -56,7 +56,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       # 「登録する」ボタンを押してもユーザーモデルのカウントが増えないことを確認する
       expect  do
         scroll_display('.orange-submit-btn')
-      end.to change { User.count }.by(0)
+      end.to change {User, :count}.by(0)
       # 新規登録ページへ戻されることを確認する
       expect(page).to have_current_path(user_registration_path)
       # エラーメッセージが表示されていることを確認する
@@ -544,13 +544,20 @@ RSpec.describe 'マイページ', type: :system do
       expect(page).to have_current_path(cancel_user_path(@user), wait: 10)
       expect(page).to have_content('アカウント解約')
 
-      # アンケートには回答せず、解約ボタンを押す
+      # アカウント解約ページに最初の削除ボタンがあることを確認する
+      expect(page).to have_content('解約する')
+      # ボタンを押すと、最終確認のメッセージと最後の削除ボタンがあることを確認する
+      find('#first-destroy-btn').click
+      expect(page).to have_content('アカウントを本当に解約しますか？一度削除すると復元できません。')
+      expect(page).to have_content('本当に解約する')
+
+      # アンケートには回答せず、最後の解約ボタンを押す
       # ユーザーモデルのカウントが1減っていることと、アカウント解約完了ページに遷移していることを確認する
-      expect {
-        find('#destroy-account').click
-        # 遷移を待機することでDB処理との同期を図る
+      expect do
+        click_on('本当に解約する')
+        # 削除完了後のパスに遷移するのを待機（これで処理完了を確実にする）
         expect(page).to have_current_path(destroy_completion_users_path, wait: 10)
-      }.to change(User, :count).by(-1)
+      end.to change(User, :count).by(-1)
 
       # トップページに戻ると｢ログイン｣｢新規登録｣の文字があり、ユーザー名が表示されていないことを確認する
       click_on('トップページへ戻る')
