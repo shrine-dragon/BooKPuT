@@ -1,8 +1,8 @@
 <%= render 'partial_template/second_header' %>
 
-<%= render layout: 'password_reset_layout', locals: { title: 'メール送信完了' } do %>
-  <div class="reset-password-text">
-    <p class="reset-password-caution">※パスワードの再設定はまだ完了していません。</p>
+<%= render layout: 'partial_template/edit_user_info_layout', locals: { title: 'メール送信完了' } do %>
+  <div class="edit-user-info-text">
+    <p class="edit-password-caution">※パスワードの再設定はまだ完了していません。</p>
     <p>パスワード再設定用のメールを送信しました。</p>
     <p>1時間以内にメールに記載されているURLにアクセスし、パスワードを再設定してください。</p>
     <p class="email-not-submitted">メールが届かない場合は、以下の原因が考えられます。</p>

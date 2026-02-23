@@ -214,7 +214,7 @@
 .modal.log-in-user{
   height: auto;
   min-height: 160px;
-  width: 180px;
+  width: 200px;
   right: 20px;
   top: 70px; /* ★ヘッダーの height と合わせる */
   background-color: whitesmoke;
@@ -229,20 +229,20 @@
 }
 
 .my-page-btn, .log-out-btn{
-  border-radius: 8px;
+  border-radius: 6px;
   padding: 12px 25px;
-}
-
-.my-page-btn{
-  background-color: deepskyblue;
-  border-radius: 8px;
-}
-
-.log-out-btn{
-  background-color: red;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1.5px solid #ddd;
+  transition: all 0.3s;
 }
 
 .my-page-btn-text, .log-out-btn-text{
   font-size: 16px;
   font-weight: bold;
+}
+
+.fa-solid.fa-user, .fa-right-from-bracket{
+  cursor: pointer;
 }

@@ -1,9 +1,9 @@
 class Users::PasswordsController < Devise::PasswordsController
-  skip_before_action :require_no_authentication, only: [:updated]
+  skip_before_action :require_no_authentication, only: [:update_completion]
 
   def create
     self.resource = resource_class.send_reset_password_instructions(resource_params)
-    
+
     if resource.errors.added?(:email, :blank)
       render :new
     else
@@ -16,7 +16,7 @@ class Users::PasswordsController < Devise::PasswordsController
     super
   end
 
-  def updated
+  def update_completion
     flash.clear
   end
 
@@ -32,7 +32,7 @@ class Users::PasswordsController < Devise::PasswordsController
         sign_in(resource_name, resource, bypass: true)
       end
       flash.clear
-      redirect_to updated_path and return
+      redirect_to update_completion_path and return
     else
       set_minimum_password_length
       render :edit
@@ -40,17 +40,18 @@ class Users::PasswordsController < Devise::PasswordsController
   end
 
   private
+
   def reset_password_params
     params.require(:user).permit(:password, :password_confirmation, :reset_password_token)
   end
 
   protected
 
-  def after_sending_reset_password_instructions_path_for(resource_name)
+  def after_sending_reset_password_instructions_path_for(_resource_name)
     email_submitted_path
   end
 
-  def after_resetting_password_path_for(resource)
-    updated_path
+  def after_resetting_password_path_for(_resource)
+    update_completion_path
   end
 end

@@ -65,9 +65,11 @@
   <div class="modal-wrapper log-in-user">
     <ul class="log-in-user-container">
       <li class="my-page-btn hovers">
-        <%= link_to "マイページ", root_path, class: "my-page-btn-text" %>
+        <i class="fa-solid fa-user"></i>
+        <%= link_to "マイページ", current_user, class: "my-page-btn-text" %>
       </li>
       <li class="log-out-btn hovers">
+        <i class="fa-right-from-bracket"></i>
         <%= link_to "ログアウト", destroy_user_session_path,class: "log-out-btn-text" %>
       </li>
     </ul>

@@ -4,13 +4,20 @@ $btn-border: #ccc;    /* 境界線 */
 $btn-radius: 4px;     /* 角丸 */
 $btn-padding: 5px 15px;
 
-.sign-up-form{
+.sign-up-page{
   aspect-ratio: 16 / 9; /* 画像の縦横比を保つ */
   background-image: asset-url("bookshelves.png");
   background-size: cover;
   background-position: center; /* 中央に合わせると綺麗 */
   background-repeat: no-repeat;
   padding-bottom: 5px;
+}
+
+.edit-profile-page{
+  .form-wrapper{
+    background-color: lavender;
+    margin-bottom: 0px !important;
+  }
 }
 
 .form-wrapper{
@@ -124,13 +131,12 @@ $btn-padding: 5px 15px;
   padding-bottom: 25px;
 }
 
-.cyan-submit-btn {
+.orange-submit-btn {
   width: 200px;
   height: 60px;
   font-size: 20px;
   font-weight: bold;
-  cursor: pointer;
-  background-color: cyan;
+  background-color: orange;
   border: none;/* f.submit特有の枠線を消す */
   outline: none;
   /* 卵焼きのような楕円形にする設定 */

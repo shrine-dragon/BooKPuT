@@ -1,0 +1,95 @@
+<%= render 'partial_template/second_header' %>
+
+<div class="my-page">
+  <div class="my-page-wrapper">
+    <h1 class="my-page-heading">マイページ</h1>
+    <div class="my-page-container">
+      <div class="my-page-contents">
+        <h1 class="contents-heading">
+          プロフィール
+        </h1>
+        <p class="registered-info">ニックネーム</p>
+        <p class="current-user-info">
+          <%= @user.nickname %>
+        </p>
+        <p class="registered-info">画像</p>
+        <p class="current-user-info">
+          <% if @user.image.attached? %>
+            <%= image_tag @user.image, class: "current-user-image" %>
+          <% else %>
+            <%= image_tag "no-image.png", class: "current-user-image", id:"no-image" %>
+          <% end %>
+        </p>
+        <p class="registered-info">生年月日</p>
+        <p class="current-user-info">
+          <%= @user.birth_date.strftime('%Y/%m/%d') %>
+        </p>
+        <p class="registered-info">性別</p>
+        <p class="current-user-info">
+          <%= @user.gender.name %>
+        </p>
+        <div class="edit-profile btn-on-center hovers">
+          <%= link_to(edit_profile_user_path(current_user), class: "edit-profile-btn") do %>
+            <span class="edit-profile btn-text">プロフィールを編集する</span>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="my-page-contents">
+        <h1 class="contents-heading">
+          ログイン情報
+        </h1>
+        <p class="registered-info">メールアドレス</p>
+        <p class="current-user-info">
+          <%= @user.masked_email %>
+        </p>
+        <div class="edit-log-in-info hovers">
+          <%= link_to(edit_email_user_path(current_user), class: "edit-email-btn") do %>
+            <span class="edit-log-in-info btn-text">メールアドレスを変更する</span>
+          <% end %>
+        </div>
+        <p class="registered-info">パスワード</p>
+        <p class="current-user-info">********</p>
+        <div class="edit-log-in-info hovers">
+          <%= link_to(edit_password_user_path(current_user), class: "edit-password-btn") do %>
+            <span class="edit-log-in-info btn-text">パスワードを変更する</span>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="my-page-contents">
+        <h1 class="contents-heading">
+          マイ投稿
+        </h1>
+        <div class="empty-message">
+          <p>投稿はありません</p>
+        </div>
+      </div>
+
+      <div class="my-page-contents">
+        <h1 class="contents-heading">
+          高評価リスト
+        </h1>
+        <div class="empty-message">
+          <p>高評価した投稿はありません</p>
+        </div>
+      </div>
+
+      <div class="my-page-contents">
+        <h1 class="contents-heading">
+          お気に入りリスト
+        </h1>
+        <div class="empty-message">
+          <p>お気に入りに追加した投稿はありません</p>
+        </div>
+      </div>
+      <div class="account-cancellation">
+        <p id="underline-text"><%= link_to "アカウントを解約する", cancel_user_path(@user), class: "cancel-account" %></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render 'partial_template/return_btn' %>
+
+<%= render 'partial_template/footer' %>

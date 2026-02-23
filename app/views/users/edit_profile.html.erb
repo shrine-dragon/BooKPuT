@@ -1,0 +1,14 @@
+<%= render 'partial_template/second_header' %>
+
+<div class="edit-profile-page">
+  <%= render 'partial_template/sign_up_or_edit', 
+           model: @user, 
+           url: user_path(@user), 
+           title: 'プロフィール編集', 
+           btn_text: '更新する',
+           is_edit: true %>
+</div>
+
+<%= render 'partial_template/return_btn' %>
+
+<%= render 'partial_template/footer' %>

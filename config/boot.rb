@@ -1,12 +1,12 @@
-require "logger"
+require 'logger'
 ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../Gemfile', __dir__)
 
 require 'bundler/setup' # Set up gems listed in the Gemfile.
 require 'bootsnap/setup' # Speed up boot time by caching expensive operations.
-require "yaml"
+require 'yaml'
 module YAML
   class << self
-    alias_method :original_safe_load, :safe_load
+    alias original_safe_load safe_load
     def safe_load(yaml, **kwargs)
       original_safe_load(yaml, **kwargs.merge(aliases: true))
     end

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'static_pages/privacy_policy'
+  # deviseを用いたユーザー管理機能
   devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks',
     registrations: 'users/registrations',
@@ -13,10 +13,24 @@ Rails.application.routes.draw do
     # パスワード再設定用URLが添付されたメールが送信された際の遷移先
     get 'passwords/email_submitted', to: 'users/passwords#email_submitted', as: :email_submitted
     # パスワードの変更が完了した際の遷移先
-    get 'passwords/updated', to: 'users/passwords#updated', as: :updated
-
+    get 'passwords/update_completion', to: 'users/passwords#update_completion', as: :update_completion
   end
-  # get 'users/auth/failure', to: redirect('/')
-  root to: "books#index"
+
+  root to: 'books#index'
+
   get 'privacy_policy', to: 'static_pages#privacy_policy'
+
+  resources :users, only: %i[show update destroy] do
+    member do
+      get 'edit_profile'
+      get 'edit_email'
+      get 'edit_password'
+      # 更新処理は標準の update アクションを使い回すか、別途 patch を定義する
+      get 'cancel'
+    end
+    collection do
+      # /users/destroy_completion というURLになる
+      get 'destroy_completion'
+    end
+  end
 end

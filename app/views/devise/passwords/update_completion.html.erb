@@ -1,15 +1,17 @@
 <%= render 'partial_template/second_header' %>
 
-<%= render layout: 'password_reset_layout', locals: { title: 'パスワード変更完了' } do %>
-  <div class="reset-password-text">
+<%= render layout: 'partial_template/edit_user_info_layout', locals: { title: 'パスワード変更完了' } do %>
+  <div class="completion-text">
     <p>パスワードの変更が完了しました。</p>
     <p>引き続き、アプリをお楽しみください。</p>
   </div>
-  <div class="return-to-top-page btn-on-center hovers">
+  <div class="return-to-top-page btn-on-center">
     <%= link_to(root_path, class: "return-to-top-page-btn") do %>
       <span class="return-to-top-page btn-text">トップページへ戻る</span>
     <% end %>
   </div>
 <% end %>
+
+<%= render 'partial_template/return_btn' %>
 
 <%= render 'partial_template/footer' %>

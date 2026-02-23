@@ -1,0 +1,30 @@
+<%= render 'partial_template/second_header' %>
+
+<div class="edit-email">
+  <%= render layout: 'partial_template/edit_user_info_layout', locals: { title: 'メールアドレス変更' } do %>
+    <%= form_with model: @user, url: user_path(@user), method: :patch, local: true, class: 'edit-email' do |f| %>
+
+      <%= hidden_field_tag :edit_type, 'email' %>
+
+      <div class="edit-user-info-text">
+        <p>新しいメールアドレスを入力し、<br>｢更新する｣ボタンを押してください。</p>
+      </div>
+
+      <div class="form-contents">
+        <div class="form-text">
+          <label>メールアドレス(必須)</label>
+        </div>
+        <%= f.email_field :email, class:"input-text", id:"email", placeholder:"例：bookput@gmail.com" %>
+        <%= render "partial_template/error_messages", model: @user, attribute: :email %>
+      </div>
+
+      <div class="form-btn-container">
+        <%= f.submit "変更する", class: "orange-submit-btn hovers" %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<%= render 'partial_template/return_btn' %>
+
+<%= render 'partial_template/footer' %>

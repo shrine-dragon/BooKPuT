@@ -3,18 +3,18 @@ module UserSupport
 
   included do
     before do
-       # ブラウザが実際に動く様子が見えるモード
-       # 最初からウィンドウサイズを指定
+      # ブラウザが実際に動く様子が見えるモード
+      # 最初からウィンドウサイズを指定
       driven_by :selenium_chrome do |driver_option|
         driver_option.add_argument('--window-size=1280,1024')
       end
 
       OmniAuth.config.test_mode = true
       # 失敗時に例外を投げず、callback用のURLにリダイレクトさせる設定
-      OmniAuth.config.on_failure = Proc.new { |env|
+      OmniAuth.config.on_failure = proc do |env|
         env['devise.mapping'] = Devise.mappings[:user]
         OmniAuth::FailureEndpoint.new(env).redirect_to_failure
-      }
+      end
     end
 
     after do
@@ -27,7 +27,7 @@ module UserSupport
     visit root_path
 
     # 初期状態ではモーダルが表示されていないことを確認する
-    expect(page).to have_no_selector(".modal.#{selector_type}",  visible: true)
+    expect(page).to have_no_selector(".modal.#{selector_type}", visible: true)
 
     # ページ内に｢新規登録｣または「ログイン」の文字があることを確認する
     target = find(".#{selector_type}-menu-text", text: header_menu_text, visible: :all)
@@ -82,24 +82,25 @@ module UserSupport
     select @user.gender.name, from: 'gender'
     fill_in 'email', with: random_email if find('#email').value.blank?
 
-    execute_script('document.getElementById("sns_auth_process").value = "true";') if has_selector?('#sns_auth_process', visible: false)
+    execute_script('document.getElementById("sns_auth_process").value = "true";') if has_selector?('#sns_auth_process',
+                                                                                                   visible: false)
   end
 
-  def submit_and_expect_success(selector, count_change,     flash_message)
-    expect {
+  def submit_and_expect_success(selector, count_change, flash_message)
+    expect do
       scroll_display(selector)
-    }.to change { User.count }.by(count_change)
-    
+    end.to change { User.count }.by(count_change)
+
     verify_top_page_after_login(flash_message)
   end
 
   def verify_top_page_after_login(flash_message)
     expect(page).to have_current_path(root_path, wait: 15)
 
-    #トップページにフラッシュメッセージが表示されていることを確認する
+    # トップページにフラッシュメッセージが表示されていることを確認する
     expect(page).to have_selector('.flash-message', text: flash_message)
-    
-    #トップページに｢新規登録｣｢ログイン｣のmenuテキストが表示されていないことを確認する
+
+    # トップページに｢新規登録｣｢ログイン｣のmenuテキストが表示されていないことを確認する
     expect(page).to have_no_selector('.sign-up-menu-text', text: '新規登録')
     expect(page).to have_no_selector('.log-in-menu-text', text: 'ログイン')
     # トップページにユーザー名が表示されていることを確認する
@@ -114,23 +115,23 @@ module UserSupport
 
   def click_btn_and_no_change
     # 「ログイン」ボタンを押してもユーザー名が表示されていないことを確認する
-    scroll_display(".log-in-submit-btn")
+    scroll_display('.log-in-submit-btn')
     # ページが遷移していない（＝ログイン後のトップページにいない）ことを確認する
     # トップページにユーザーのニックネームが表示されていないことを確認する
-    expect(page).to have_current_path(root_path) 
+    expect(page).to have_current_path(root_path)
     expect(page).to have_no_content(@user.nickname)
   end
 
   def create_log_in_mock_data(provider)
     # モックデータを作成
     OmniAuth.config.mock_auth[provider.to_sym] = OmniAuth::AuthHash.new({
-      provider: provider.to_s,
-      uid: '123456',
-      info: {
-        name: @user.nickname,
-        email: @user.email
-      }
-    })
+                                                                          provider: provider.to_s,
+                                                                          uid: '123456',
+                                                                          info: {
+                                                                            name: @user.nickname,
+                                                                            email: @user.email
+                                                                          }
+                                                                        })
   end
 
   def get_token_and_access_edit_password_page
@@ -139,5 +140,90 @@ module UserSupport
     @user.update(reset_password_token: hashed_token, reset_password_sent_at: Time.now.utc)
     # トークンを使って編集ページへ直接行く
     visit edit_user_password_path(reset_password_token: raw_token)
+  end
+
+  def log_in_and_show_modal
+    # 最初からログイン状態にし、トップページへ遷移する
+    login_as(@user)
+    visit root_path
+
+    # 初期状態ではモーダルが表示されていないことを確認する
+    expect(page).to have_no_selector('.modal.log-in-user', visible: true)
+
+    # ページ内にログインユーザーのニックネームが表示されていることを確認する
+    login_user_target = find('.user-nickname', text: @user.nickname, visible: :all)
+
+    # 画面をスクロールさせる
+    execute_script('arguments[0].scrollIntoView({block: "center"});', login_user_target)
+    # 0.5秒待機する
+    sleep 0.5
+    # menuの代わりにモーダルを表示状態(block)にするJSを実行
+    execute_script('document.querySelector(".modal.log-in-user").style.display = "block";')
+    # モーダルが表示されたことを確認する
+    expect(page).to have_selector('.modal.log-in-user', visible: true)
+  end
+
+  def log_in_and_visit_my_page
+    login_as(@user)
+    visit user_path(@user)
+  end
+
+  def not_log_in_user
+    # トップページに｢ログイン｣｢新規登録｣の文字があり、未ログインの状態であることを確認する
+    visit root_path
+    expect(page).to have_content('ログイン')
+    expect(page).to have_content('新規登録')
+    # トップページにユーザーのニックネームが表示されていないことを確認する
+    expect(page).to have_no_content(@user.nickname)
+  end
+
+  def check_access_denied(path)
+    # ログインし、トップページへ遷移する
+    login_as(@user)
+    visit path
+    # トップページへ戻されていることを確認する
+    expect(page).to have_current_path(root_path)
+  end
+
+  def click_btn_and_visit_my_page_and_show_flash_message(btn_text)
+    # ボタンを押す
+    click_on(btn_text)
+    # マイページに遷移し、フラッシュメッセージが表示されていることを確認する
+    expect(page).to have_current_path(user_path(@user), wait: 10)
+    expect(page).to have_selector('.flash-message', text: '更新しました')
+  end
+
+  def click_btn_and_check_account_info
+    # 編集ボタンを押すとプロフィール編集ページへ遷移することを確認する
+    click_on('プロフィールを編集する')
+    expect(page).to have_current_path(edit_profile_user_path(@user))
+
+    # すでに登録済みのアカウント情報がフォームに入っていることを確認する
+    expect(
+      find('#nickname').value
+    ).to eq(@user.nickname)
+    expect(
+      find('#birth_date').value
+    ).to eq(@user.birth_date.to_s)
+    expect(
+      find('#gender').value
+    ).to eq(@user.gender_id.to_s)
+  end
+
+  def click_btn_and_check_email
+    # 変更ボタンを押すとメールアドレス変更ページへ遷移することを確認する
+    click_on('メールアドレスを変更する')
+    expect(page).to have_current_path(edit_email_user_path(@user))
+
+    # すでに登録済みのアカウント情報がフォームに入っていることを確認する
+    expect(
+      find('#email').value
+    ).to eq(@user.email)
+  end
+
+  def click_btn_and_visit_edit_password_page
+    # 変更ボタンを押すとパスワード変更ページへ遷移することを確認する
+    click_on('パスワードを変更する')
+    expect(page).to have_current_path(edit_password_user_path(@user))
   end
 end

@@ -1,43 +1,56 @@
-// Turbolinks環境ではこのイベント名が必須です
 document.addEventListener('turbolinks:load', () => {
   const fileInput = document.querySelector('.upload-image');
   const imageList = document.querySelector('.upload-image-list');
 
-  // 要素が見つからない場合はここで終了（他ページでのエラー防止）
   if (!fileInput || !imageList) return;
 
+  // 削除処理を関数として独立させる
+  const deleteImage = () => {
+    fileInput.value = ""; // ファイル選択をリセット
+    imageList.innerHTML = ""; // プレビュー表示を消去
+
+    // 隠しフィールドがあれば '1' (削除する) に書き換える
+    const deleteFlag = document.getElementById('delete-image-flag');
+    if (deleteFlag) {
+      deleteFlag.value = '1';
+    }
+  };
+
+  // 新しく画像を選択した時のプレビューを生成
   fileInput.addEventListener('change', (e) => {
-    imageList.innerHTML = "";
-
+    // 新しく画像が選ばれたら削除フラグを '0' に戻す
+    const deleteFlag = document.getElementById('delete-image-flag');
+    if (deleteFlag) deleteFlag.value = '0';
+    
     const file = e.target.files[0];
-    if (!file) return;
+    if (!file) {
+      deleteImage();
+      return;
+    }
 
-    // 画像のURLを生成して表示
+    imageList.innerHTML = "";
     const blob = window.URL.createObjectURL(file);
-
-    // 画像の要素を付与
     const blobImage = document.createElement('img');
     blobImage.setAttribute('src', blob);
-    // 表示サイズを明示的に指定（CSSが当たっていない場合でも見えるようにうる）
-    blobImage.style.width = '200px'; 
-    blobImage.style.height = 'auto';
-    blobImage.style.display = 'block';
-
-    imageList.appendChild(blobImage);
+    blobImage.classList.add('preview-image'); // CSSクラスを統一
 
     const deleteBtn = document.createElement('button');
     deleteBtn.innerHTML = "削除";
-    deleteBtn.setAttribute('type', 'button'); // form送信を防ぐために必須
-    deleteBtn.classList.add('image-delete-btn'); // CSS用
+    deleteBtn.setAttribute('type', 'button');
+    deleteBtn.classList.add('image-delete-btn');
 
-    // 5. 削除ボタンが押された時の処理
-    deleteBtn.addEventListener('click', () => {
-      fileInput.value = ""; // ファイル選択をリセット
-      imageList.innerHTML = ""; // プレビュー表示を消去
-    });
+    // 生成したボタンに削除イベントを登録
+    deleteBtn.addEventListener('click', deleteImage);
 
-    // 6. 画面に画像とボタンを表示
     imageList.appendChild(blobImage);
     imageList.appendChild(deleteBtn);
+  });
+
+  // 最初から表示されている（編集時の）削除ボタンにもイベントを登録
+  // イベントデリゲーションという手法を使い、imageList内のどこかがクリックされた時に判定する
+  imageList.addEventListener('click', (e) => {
+    if (e.target.classList.contains('image-delete-btn')) {
+      deleteImage();
+    }
   });
 });

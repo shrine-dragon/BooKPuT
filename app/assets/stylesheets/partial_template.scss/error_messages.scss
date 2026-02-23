@@ -15,8 +15,9 @@
   margin-bottom: 15px;
 }
 
-.reset-password {
+.edit-password, .edit-email {
   .error-message {
-    width: 375px !important;
+    width: 300px !important;
+    max-width: 360px;
   }
 }

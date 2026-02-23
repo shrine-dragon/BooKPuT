@@ -32,20 +32,20 @@ gem 'bootsnap', '>= 1.4.2', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:windows]
-  gem 'rspec-rails', '~> 3.8'
   gem 'factory_bot_rails', '~> 5.0'
   gem 'faker'
+  gem 'rspec-rails', '~> 3.8'
 end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'web-console', '>= 3.3.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'letter_opener'
+  gem 'rubocop', require: false
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'rubocop', require: false
-  gem 'letter_opener'
 end
 
 group :test do
@@ -57,27 +57,27 @@ group :test do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:windows, :jruby]
-gem 'devise'
-gem 'pry-rails'
 gem 'active_hash'
-gem 'mini_magick'
+gem 'aws-sdk-s3', require: false
+gem 'devise'
 gem 'image_processing', '~> 1.2'
-gem "aws-sdk-s3", require: false
-gem 'rails-i18n'
 gem 'kaminari'
+gem 'mini_magick'
 gem 'mutex_m'
+gem 'pry-rails'
+gem 'rails-i18n'
+gem 'tzinfo-data', platforms: %i[windows jruby]
 
-gem 'omniauth-twitter'
+gem 'line-bot-api'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-line'
-gem 'line-bot-api'
 gem 'omniauth-rails_csrf_protection'
+gem 'omniauth-twitter'
 # omniauth認証はCSRF脆弱性が指摘されているため対策としてインストール
 gem 'omniauth-rails_csrf_protection'
 # 環境変数を管理するためインストール(vim ~/.zshrcで定義することも可能)
-gem 'dotenv-rails', groups: [:development, :test]
+gem 'dotenv-rails', groups: %i[development test]
 
 gem 'database_cleaner-active_record'
 
