@@ -1,0 +1,22 @@
+.flash-message {
+  width: 20%;
+  padding: 12px;
+  text-align: center;
+  font-weight: bold;
+  position: fixed;
+  top: 80px;
+  left: 80px;
+  z-index: 1000; /* 特にかぶっていないため、ヘッダーと同じ設定 */
+}
+
+/* 成功時の色（シアン系） */
+.notice {
+  background-color: cyan;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* 少し浮かせて見やすくする */
+}
+
+/* 警告時の色（赤系） */
+.alert {
+  background-color: red;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
