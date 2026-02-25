@@ -32,4 +32,7 @@ Rails.application.routes.draw do
       get 'cancel_completion'
     end
   end
+
+  resources :books do
+  end
 end

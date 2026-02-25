@@ -51,16 +51,14 @@ class UsersController < ApplicationController
     end
   end
 
-  def cancel
-  end
+  def cancel; end
 
   def destroy
     @user.destroy
     redirect_to cancel_completion_users_path
   end
 
-  def cancel_completion
-  end
+  def cancel_completion; end
 
   private
 
