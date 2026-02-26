@@ -70,7 +70,7 @@
       </li>
       <li class="log-out-btn hovers">
         <i class="fa-right-from-bracket"></i>
-        <%= link_to "ログアウト", destroy_user_session_path,class: "log-out-btn-text" %>
+        <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "log-out-btn-text" %>
       </li>
     </ul>
   </div>
