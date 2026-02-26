@@ -341,12 +341,15 @@ RSpec.describe 'マイページ', type: :system do
   context 'マイページへ遷移ができない時' do
     it '未ログインユーザーはマイページへ遷移して、アカウント情報やログイン情報を閲覧できない' do
       not_log_in_user
+
+      another_user = FactoryBot.create(:user)
+      not_log_in_user_access_denied(user_path(another_user))
     end
 
     it 'ログインユーザーであっても別のユーザーのマイページへ遷移し、アカウント情報やログイン情報を閲覧できない' do
       # 別ユーザーのアカウントを作成する
       another_user = FactoryBot.create(:user)
-      check_access_denied(user_path(another_user))
+      log_in_user_access_denied(user_path(another_user))
     end
   end
 
@@ -571,11 +574,14 @@ RSpec.describe 'マイページ', type: :system do
   context 'アカウントを解約できない時' do
     it '未ログインユーザーはマイページへ遷移して、アカウントを解約できない' do
       not_log_in_user
+
+      another_user = FactoryBot.create(:user)
+      not_log_in_user_access_denied(user_path(another_user))
     end
 
     it 'ログインユーザーであっても別のユーザーのアカウントを解約できない' do
       another_user = FactoryBot.create(:user)
-      check_access_denied(cancel_user_path(another_user))
+      log_in_user_access_denied(cancel_user_path(another_user))
     end
 
     it 'ユーザー本人であっても｢利用を継続する｣ボタンを押すとトップページへ遷移し、アカウントを解約できない' do
