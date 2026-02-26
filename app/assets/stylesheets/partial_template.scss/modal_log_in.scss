@@ -73,13 +73,19 @@
 /* .is-center クラスを付与した時だけ中央に配置 */
 .modal.log-in.is-center {
   display: flex !important;
+  position: fixed !important;
+  width: 100%;
+  max-width: 400px;
+  height: auto !important;
   flex-direction: column;
   top: 50% !important;
   left: 50% !important;
   right: auto !important; /* ヘッダー用の右寄せをリセット */
   transform: translate(-50%, -50%) !important;
   position: fixed;
-  z-index: 2000; /* ヘッダーより上に表示 */
+  z-index: 9999; /* ヘッダーより上に表示 */
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
   
   /* 中央モーダルの時だけバツボタンを表示 */
   .close-modal {

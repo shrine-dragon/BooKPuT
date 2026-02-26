@@ -19,10 +19,17 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
   </head>
 
-  <body class="<%= controller_name %>">
+  <body class="<%= controller_name %>" data-flash-alert="<%= flash[:alert] %>">
     <% flash.each do |key, value| %>
-      <% if value.present? %>
-        <%= content_tag(:div, value, class: "flash-message #{key}") %>
+      <% # 「ログインが必要です」というメッセージは、JSのトリガーにするだけで表示はしない %>
+      <% if value == "ログインが必要です" %>
+        <div class="flash-message <%= key %>" style="display: none;" data-auth-trigger="true">
+          <%= value %>
+        </div>
+      <% else %>
+        <div class="flash-message <%= key %>">
+          <%= value %>
+        </div>
       <% end %>
     <% end %>
 

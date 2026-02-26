@@ -140,7 +140,7 @@ RSpec.describe 'ログイン', type: :system do
       fill_in 'email',    with: "wrong_#{@user.email}"
       fill_in 'password', with: 'wrong_password'
       click_btn_and_no_change
-      expect(page).to have_content('メールアドレスまたはパスワードが違います。')
+      expect(page).to have_content('メールアドレスまたはパスワードが違います')
     end
   end
 
