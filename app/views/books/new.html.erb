@@ -1,8 +1,14 @@
 <%= render 'partial_template/second_header' %>
 
-<%= render layout: 'partial_template/book_post_layout', locals: { title: '新規投稿' } do %>
-
-<% end %>
+<div class="new-book-post-page">
+  <%= render 'partial_template/book_post', 
+            model: @book, 
+            url: books_path,
+            title: '新規投稿', 
+            btn_text: '投稿する',
+            is_edit: false
+            %>
+</div>
 
 <%= render 'partial_template/return_btn' %>
 

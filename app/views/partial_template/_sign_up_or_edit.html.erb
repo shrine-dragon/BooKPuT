@@ -44,7 +44,7 @@
         <div class="form-text">
           <label>性別(必須)</label>
         </div>
-        <div class="gender-wrapper">
+        <div class="pull-down-wrapper">
           <%= f.collection_select(:gender_id, Gender.all, :id, :name, {}, {class:"select-pull-down", id:"gender"}) %>
         </div>
         <%= render "partial_template/error_messages", model: @user, attribute: :gender_id %>

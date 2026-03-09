@@ -7,13 +7,15 @@ class BooksController < ApplicationController
 
   def new
     @book = Book.new
+    @book.book_contents.build
   end
 
   def create
     @book = Book.new(book_params)
     if @book.save
-      redirect_to root_path
+      redirect_to root_path, notice: "投稿が完了しました"
     else
+      @book.book_contents.build if @book.book_contents.blank?
       render :new
     end
   end

@@ -1,6 +1,6 @@
 <%= render 'partial_template/second_header' %>
 
-<%= render layout: 'partial_template/edit_user_info_layout', locals: { title: '新しいパスワードの設定' } do %>
+<%= render layout: 'partial_template/edit_user_info', locals: { title: '新しいパスワードの設定' } do %>
   <%# トークンエラー %>
   <%= render "partial_template/error_messages", model: resource, attribute: :reset_password_token %>
 

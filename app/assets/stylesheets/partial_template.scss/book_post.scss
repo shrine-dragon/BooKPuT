@@ -1,0 +1,43 @@
+.form-wrapper.book-post{
+  /* form-wrapperの本来のwidthは55% */
+  width: 70%;
+  background-color: bisque;
+  .input-text{
+    width: 100% !important; 
+    max-width: none;
+  }
+
+  .content-field {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .external-search-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+    /* 親の align-items: center を上書きして左に寄せる */
+    align-self: flex-start;
+    margin-left: 15%;
+    .search-btn {
+      width: 160px;
+      font-size: 0.8rem;
+      padding: 7px 0px;
+      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      text-decoration: none;
+      color: #333;
+      &:hover { background: #f0f0f0; }
+    }
+  }
+
+  #contents-container {
+    width: 70%;
+  }
+}
+
+.plus-btn{
+  margin-top: 5px;
+}
