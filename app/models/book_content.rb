@@ -1,9 +1,6 @@
 class BookContent < ApplicationRecord
   belongs_to :book
-
-  with_options if: :first_content? do
-    validates :content, presence: true, length: { minimum: 20, maximum: 50 }
-  end
+  validates :content, presence: true, length: { maximum: 50 }
 
   private
 

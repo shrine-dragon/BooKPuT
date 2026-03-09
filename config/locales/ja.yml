@@ -33,7 +33,6 @@ ja:
         book_content:
           attributes:
             content:
-              too_short: "を20文字以上で入力してください"
               too_long: "を50文字以下で入力してください"
               blank: "を入力してください"
   devise:

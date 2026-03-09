@@ -13,9 +13,8 @@ class BooksController < ApplicationController
   def create
     @book = Book.new(book_params)
     if @book.save
-      redirect_to root_path, notice: "投稿が完了しました"
+      redirect_to root_path
     else
-      @book.book_contents.build if @book.book_contents.blank?
       render :new
     end
   end
@@ -41,8 +40,13 @@ class BooksController < ApplicationController
   private
 
   def book_params
-    params.require(:book).permit(:title, :image, :category_id,
-    book_contents_attributes: [:id, :content, :_destroy]).merge(user_id: current_user.id)
+    params.require(:book).permit(
+      :title, 
+      :image, 
+      :category_id, 
+      :delete_image,
+      book_contents_attributes: [:id, :content, :_destroy]
+    ).merge(user_id: current_user.id)
   end
 
   def set_book

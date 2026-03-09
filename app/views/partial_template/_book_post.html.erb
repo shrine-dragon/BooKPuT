@@ -19,16 +19,25 @@
           </div>
           <%= f.file_field :image, class:"upload-image custom-file-btn hovers", id: "book-image" %>
 
-          <%= f.hidden_field :delete_image, value: '0', id: 'delete-image-flag' %>
+          <% if model.errors[:image].any? || (model.image.attached? && !model.image.persisted?) %>
+            <p class="image-re-select-message" >
+              画像を選択し直してください
+            </p>
+          <% end %>
 
-          <div class="upload-image-list">
-            <% if is_edit && model.respond_to?(:image) && model.image.attached? %>
+          <div class="upload-image-list" id="image-preview-container" >
+            <% if model.image.attached? && model.image.persisted? %>
               <div class="image-preview-wrapper">
-                <%= image_tag model.image, class: "preview-image" %>
-                <span class="image-delete-btn">削除</span>
+               <%= image_tag model.image, class: "preview-image" %>
+               <%= f.hidden_field :image, value: model.image.signed_id %>
+               <span class="image-delete-btn">削除</span>
               </div>
+            <% else %>
+              <div id="client-side-preview"></div>
             <% end %>
           </div>
+
+          <%= f.hidden_field :delete_image, value: '0', id: 'delete-image-flag' %>
 
           <div class="external-search-links">
             <%= link_to 'https://www.amazon.co.jp/s?k=' + (f.object.title || "本"), target: :_blank, rel: "noopener", class: "search-btn amazon", id: 'amazon-link' do %>
@@ -56,13 +65,15 @@
           </div>
 
           <div id="contents-container">
-            <%= f.fields_for :book_contents do |content_form| %>
+            <%= f.fields_for :book_contents, model.book_contents do |content_form| %>
               <div class="content-field">
-                <%= content_form.text_field :content, class:"input-text", placeholder:"20〜50文字以内" %>
-
-                <% if content_form.index == 0 %>
-                  <%= render "partial_template/error_messages", model: content_form.object, attribute: :content %>
-                <% end %>
+                <div class="input-main-part" style="flex: 1;">
+                  <%= content_form.text_field :content, class:"input-text", placeholder:"50文字以内" %>
+                  <div class="error-wrapper">
+                    <%= render "partial_template/error_messages", model: content_form.object, attribute: :content %>
+                  </div>
+                </div>
+                <span class="remove-content-btn hovers" >−</span>
               </div>
             <% end %>
           </div>
