@@ -1,16 +1,35 @@
 document.addEventListener('turbolinks:load', () => {
+  const remainingText = document.getElementById('remaining-count');
+
   const container = document.getElementById('contents-container');
   const addButton = document.getElementById('add-content-btn');
+
   if (!container || !addButton) return;
 
   const maxFields = 7;
+
+  const updateRemainingCount = () => {
+    const currentFields = container.querySelectorAll('.content-field').length;
+    const remaining = maxFields - currentFields;
+    
+    if (remainingText) {
+      remainingText.textContent = `(残り${remaining}項目)`;
+    }
+
+    // ついでに、残り0ならボタンを非表示にするなどの制御も可能です
+    if (remaining <= 0) {
+      addButton.style.display = 'none';
+    } else {
+      addButton.style.display = 'inline-flex';
+    }
+  };
 
   // ボタンの状態（表示・非表示）を更新する共通関数
   const updateButtonStates = () => {
     const fields = container.querySelectorAll('.content-field');
     
     // 最大数ならプラスボタンを隠す
-    addButton.style.display = (fields.length >= maxFields) ? 'none' : 'block';
+    //addButton.style.display = (fields.length >= maxFields) ? 'none' : 'block';
 
     // 1つしかなければマイナスボタンを隠す
     fields.forEach(field => {
@@ -47,6 +66,7 @@ document.addEventListener('turbolinks:load', () => {
       container.appendChild(newField);
       updateButtonStates();
     }
+    setTimeout(updateRemainingCount, 0);
   });
 
   // マイナスボタンの処理（イベントデリゲート）
@@ -54,6 +74,8 @@ document.addEventListener('turbolinks:load', () => {
     if (e.target.classList.contains('remove-content-btn')) {
       e.target.closest('.content-field').remove();
       updateButtonStates();
+      setTimeout(updateRemainingCount, 0);
     }
   });
+  updateRemainingCount();
 });
