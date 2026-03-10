@@ -8,9 +8,5 @@ FactoryBot.define do
     after(:build) do |book|
       book.book_contents << build(:book_content, book: book)
     end
-
-    after(:build) do |book|
-      book.image.attach(io: File.open('app/assets/images/Doflamingo.png'), filename: 'Doflamingo.png', content_type: 'image/png')
-    end
   end
 end

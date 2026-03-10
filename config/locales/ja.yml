@@ -14,11 +14,17 @@ ja:
       book:
         title: "タイトル"
         category_id: "本の種類"
-        book_contents: "内容"
+        book_contents: "内容項目"
+      "book/book_contents":
+        content: "内容項目"
       book_content:
         content: "内容項目"
     errors:
-      format: "%{message}" # 「モデル名＋属性名」を表示せずメッセージだけ表示する設定
+      messages:
+        too_long: "を%{count}文字以内で入力してください"
+        too_short: "を%{count}文字以上で入力してください"
+        blank: "を入力してください"
+        record_invalid: "バリデーションに失敗しました: %{errors}"
       models:
         user:
           attributes:
@@ -29,12 +35,8 @@ ja:
         book:
           attributes:
             book_contents:
-              blank: "内容を入力してください"
-        book_content:
-          attributes:
-            content:
-              too_long: "を50文字以下で入力してください"
-              blank: "を入力してください"
+              too_long: "を%{count}項目以内で入力してください"
+              too_short: "を入力してください"
   devise:
     registrations:
       signed_up: "登録が完了しました"
