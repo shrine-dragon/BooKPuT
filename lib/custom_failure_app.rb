@@ -8,7 +8,7 @@ class CustomFailureApp < Devise::FailureApp
       http_auth
     else
       # 謎のエラーメッセージを消し、代わりにJS判定用の目印をflashに入れる
-      flash[:alert] = "force_login"
+      flash[:alert] = 'force_login'
       redirect
     end
   end

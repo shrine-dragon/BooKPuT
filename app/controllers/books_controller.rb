@@ -13,16 +13,16 @@ class BooksController < ApplicationController
   def create
     @book = Book.new(book_params)
     if @book.save
-      redirect_to root_path, notice: "投稿しました"
+      redirect_to root_path, notice: '投稿しました'
     else
       render :new
     end
   end
-    
+
   def show; end
-    
+
   def edit; end
-    
+
   def update
     if @book.update(book_params)
       redirect_to book_path(@book.id)
@@ -32,20 +32,20 @@ class BooksController < ApplicationController
   end
 
   def destroy
-    if @book.destroy
-      redirect_to root_path
-    end
+    return unless @book.destroy
+
+    redirect_to root_path
   end
 
   private
 
   def book_params
     params.require(:book).permit(
-      :title, 
-      :image, 
-      :category_id, 
+      :title,
+      :image,
+      :category_id,
       :delete_image,
-      book_contents_attributes: [:id, :content, :_destroy]
+      book_contents_attributes: %i[id content _destroy]
     ).merge(user_id: current_user.id)
   end
 

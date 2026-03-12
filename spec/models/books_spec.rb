@@ -15,7 +15,7 @@ RSpec.describe Book, type: :model do
       it '画像が添付されていなくても保存できる' do
         @book.image = ''
         expect(@book).to be_valid
-      end 
+      end
     end
 
     context '投稿内容を保存できない時' do
@@ -38,7 +38,7 @@ RSpec.describe Book, type: :model do
       end
 
       it '内容項目が入力されていないと保存できない' do
-        @book.book_contents = [] 
+        @book.book_contents = []
         @book.valid?
         expect(@book.errors.full_messages).to include('内容項目を入力してください')
       end

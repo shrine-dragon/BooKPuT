@@ -5,6 +5,7 @@ class Book < ApplicationRecord
   belongs_to :category
   has_one_attached :image
   attr_accessor :delete_image
+
   has_many :book_contents, dependent: :destroy
   accepts_nested_attributes_for :book_contents, allow_destroy: true
 
