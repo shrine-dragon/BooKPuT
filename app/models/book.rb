@@ -4,6 +4,8 @@ class Book < ApplicationRecord
   belongs_to :user
   belongs_to :category
   has_one_attached :image
+  # attr_accessor：外部から変数を参照したり、変更したりできるようになる
+  attr_accessor :remote_image_url
   attr_accessor :delete_image
 
   has_many :book_contents, dependent: :destroy

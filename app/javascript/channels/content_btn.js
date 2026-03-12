@@ -28,9 +28,6 @@ document.addEventListener('turbolinks:load', () => {
   const updateButtonStates = () => {
     const fields = container.querySelectorAll('.content-field');
     
-    // 最大数ならプラスボタンを隠す
-    //addButton.style.display = (fields.length >= maxFields) ? 'none' : 'block';
-
     // 1つしかなければマイナスボタンを隠す
     fields.forEach(field => {
       const removeBtn = field.querySelector('.remove-content-btn');

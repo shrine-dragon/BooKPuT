@@ -1,13 +1,13 @@
 <%= render 'partial_template/header' %>
 
 <main>
-  <div class='post-list'>
-    <div class="post-list-wrapper">
-      <div class="post-list-heading">
+  <div class='book-post-list'>
+    <div class="book-post-list-wrapper">
+      <div class="book-post-list-heading">
         <h2>投稿一覧</h2>
       </div>
-      <div class="post-images-container">
-        <ul class="post-images slick-slider">
+      <div class="book-post-images-container">
+        <ul class="book-post-images slick-slider">
           <li class="post-image">
             <%= image_tag("Gecko-moria.png", class: "irasutoya-image") %>
           </li>
@@ -61,7 +61,7 @@
           <div class="app-feature-container swiper-slide">
             <%= image_tag("bookshelves.png", class: "feature-image") %>
             <h2 class="app-feature-sentence">
-              読んだ本の内容や感想を<br>20〜140文字以内で投稿できます
+              読んだ本の内容や感想を<br>最低50文字から投稿できます
             </h2>
           </div>
 
@@ -124,7 +124,7 @@
           </h3>
           <span>+</span>
           <div class="answer">
-            A 無理に長文を書く必要はございません。最低20文字以上書けば投稿可能です。
+            A 無理に長文を書く必要はございません。最低50文字以上書けば投稿可能です。
           </div>
         </li>
       </ul>

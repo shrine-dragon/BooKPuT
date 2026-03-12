@@ -12,6 +12,13 @@ class BooksController < ApplicationController
 
   def create
     @book = Book.new(book_params)
+    # APIからのURLがある場合、Active Storageにダウンロードして保存
+    if params[:book][:remote_image_url].present? && !@book.image.attached?
+      require 'open-uri'
+      file = URI.open(params[:book][:remote_image_url])
+      @book.image.attach(io: file, filename: 'book_image.jpg')
+    end
+
     if @book.save
       redirect_to root_path, notice: '投稿しました'
     else
@@ -43,8 +50,9 @@ class BooksController < ApplicationController
     params.require(:book).permit(
       :title,
       :image,
-      :category_id,
+      :remote_image_url,
       :delete_image,
+      :category_id,
       book_contents_attributes: %i[id content _destroy]
     ).merge(user_id: current_user.id)
   end

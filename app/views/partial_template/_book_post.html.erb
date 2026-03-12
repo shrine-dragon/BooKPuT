@@ -18,6 +18,7 @@
             <label>画像(任意)</label>
           </div>
           <%= f.file_field :image, class:"upload-image hovers", id: "book-image" %>
+          <%= f.hidden_field :remote_image_url, id: "remote-image-url" %>
 
           <% if model.errors[:image].any? || (model.image.attached? && !model.image.persisted?) %>
             <p class="image-re-select-message" >
@@ -40,10 +41,22 @@
           <%= f.hidden_field :delete_image, value: '0', id: 'delete-image-flag' %>
 
           <div class="external-search-links">
-            <%= link_to 'https://www.amazon.co.jp/s?k=' + (f.object.title || "本"), target: :_blank, rel: "noopener", class: "search-btn amazon", id: 'amazon-link' do %>
+            <span id="api-search-btn" class="external-search-btn api hovers">書籍を自動検索</span>
+            <div id="search-results-modal" style="display: none;">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h3>検索結果から選択</h3>
+                  <span id="close-modal" class="close-btn">&times;</span>
+                </div>
+                <div id="search-results-list" class="results-grid">
+                </div>
+              </div>
+            </div>
+
+            <%= link_to 'https://www.amazon.co.jp/s?k=' + (f.object.title || "本"), target: :_blank, rel: "noopener", class: "external-search-btn amazon hovers", id: 'amazon-link' do %>
               <i class="fa-brands fa-amazon"></i> Amazonから探す
             <% end %>
-            <%= link_to 'https://www.google.com/search?tbm=isch&q=' + (f.object.title || "本") + "+表紙", target: :_blank, rel: "noopener", class: "search-btn google", id: 'google-link' do %>
+            <%= link_to 'https://www.google.com/search?tbm=isch&q=' + (f.object.title || "本") + "+表紙", target: :_blank, rel: "noopener", class: "external-search-btn google hovers", id: 'google-link' do %>
               <i class="fa-brands fa-google"></i> Googleから探す
             <% end %>
           </div>
