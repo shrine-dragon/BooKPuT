@@ -14,7 +14,7 @@ $btn-padding: 5px 15px;
 }
 
 .form-text,
-.upload-image.custom-file-btn,
+.upload-image,
 .birth-date-wrapper,
 .pull-down-wrapper
 {
@@ -22,7 +22,7 @@ $btn-padding: 5px 15px;
   text-align: left;
 }
 
-.upload-image.custom-file-btn {
+.upload-image {
   &::file-selector-button {
     background-color: $btn-bg;
     border: 1px solid $btn-border;
@@ -55,7 +55,7 @@ $btn-padding: 5px 15px;
   border-radius: 4px;
 }
 
-.image-delete-btn {
+.delete-image-btn {
   display: block; /* 画像の真下に配置 */
   margin-top: 8px;
   background-color: $btn-bg;

@@ -28,7 +28,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       expect(page).to have_selector('.upload-image-list img')
 
       # 解約ボタンが表示されていることを確認（画像の検証ツールに見えるボタン）
-      expect(page).to have_selector('.image-delete-btn', text: '削除')
+      expect(page).to have_selector('.delete-image-btn', text: '削除')
       # 画像を一度削除し、画像と削除ボタンが消えていることを確認する
       if has_link?('削除')
         click_link '削除'
@@ -414,7 +414,7 @@ RSpec.describe 'マイページ', type: :system do
       expect(page).to have_current_path(edit_profile_user_path(@user))
 
       # 削除ボタンを押すとプレビューが消えることを確認する
-      find('.image-delete-btn', text: '削除').click
+      find('.delete-image-btn', text: '削除').click
       expect(page).to have_no_selector('.upload-image-list img')
 
       click_btn_and_visit_my_page_and_show_flash_message('更新する')
@@ -437,7 +437,7 @@ RSpec.describe 'マイページ', type: :system do
       # エラーメッセージが表示され、編集ページに戻されることを確認する
       expect(page).to have_current_path(user_path(@user))
       expect(page).to have_content('ニックネームを入力してください')
-      expect(page).to have_content('ニックネームは3文字以上で入力してください')
+      expect(page).to have_content('ニックネームを3文字以上で入力してください')
       expect(page).to have_content('生年月日を入力してください')
       expect(page).to have_content('性別を選択してください')
 
@@ -551,7 +551,7 @@ RSpec.describe 'マイページ', type: :system do
       expect(page).to have_content('解約する')
       # ボタンを押すと、最終確認のメッセージと最後の解約ボタンがあることを確認する
       find('#first-destroy-btn').click
-      expect(page).to have_content('アカウントを本当に解約しますか？一度解約すると復元できません。')
+      expect(page).to have_content("アカウントを本当に解約しますか？\n一度解約すると復元できません。")
       expect(page).to have_content('本当に解約する')
 
       # アンケートには回答せず、最後の解約ボタンを押す

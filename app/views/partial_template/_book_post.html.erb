@@ -17,7 +17,7 @@
           <div class="form-text">
             <label>画像(任意)</label>
           </div>
-          <%= f.file_field :image, class:"upload-image custom-file-btn hovers", id: "book-image" %>
+          <%= f.file_field :image, class:"upload-image hovers", id: "book-image" %>
 
           <% if model.errors[:image].any? || (model.image.attached? && !model.image.persisted?) %>
             <p class="image-re-select-message" >
@@ -25,12 +25,12 @@
             </p>
           <% end %>
 
-          <div class="upload-image-list" id="image-preview-container" >
+          <div class="upload-image-list" id="preview-image-container" >
             <% if model.image.attached? && model.image.persisted? %>
-              <div class="image-preview-wrapper">
+              <div class="preview-image-wrapper">
                <%= image_tag model.image, class: "preview-image" %>
                <%= f.hidden_field :image, value: model.image.signed_id %>
-               <span class="image-delete-btn">削除</span>
+               <span class="delete-image-btn">削除</span>
               </div>
             <% else %>
               <div id="client-side-preview"></div>

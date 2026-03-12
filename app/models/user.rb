@@ -16,7 +16,9 @@ class User < ApplicationRecord
   end
 
   # バリデーション
-  validates :password, presence: true, length: { minimum: 8, maximum: 20 },
+  validates :password, presence: true, on: :create, unless: :sns_auth_process?
+
+  validates :password, length: { minimum: 8, maximum: 20 },
                        format: {
                          with: /\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]+\z/,
                          message: 'は英字の大文字・小文字・数字をすべて含めて入力してください'
