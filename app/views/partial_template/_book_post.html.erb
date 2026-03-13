@@ -41,7 +41,7 @@
           <%= f.hidden_field :delete_image, value: '0', id: 'delete-image-flag' %>
 
           <div class="external-search-links">
-            <span id="api-search-btn" class="external-search-btn api hovers">書籍を自動検索</span>
+            <span id="api-search-btn" class="external-search-btn api hovers" data-api-key="<%= ENV['GOOGLE_BOOKS_API_KEY'] %>">書籍を自動検索</span>
             <div id="search-results-modal" style="display: none;">
               <div class="modal-content">
                 <div class="modal-header">
