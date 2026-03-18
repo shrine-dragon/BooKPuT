@@ -31,10 +31,10 @@
                           <p class="category-tag"># <%= book.category.name %></p>
                           <ul class="content-list">
                             <% book.book_contents.take(2).each do |bc| %>
-                              <li>・<%= bc.content %></li>
+                              <li><%= bc.content %></li>
                             <% end %>
                             <% if book.book_contents.count > 2 %>
-                              <li>・…</li>
+                              <li>…</li>
                             <% end %>
                           </ul>
                         </div>
@@ -46,11 +46,6 @@
             </li>
           <% end %>
         </ul>
-      </div>
-      <div class="new-post btn-on-center">
-        <%= link_to(new_book_path, class: "new-post-btn") do %>
-          <span class="new-post btn-text">新規投稿</span>
-        <% end %>
       </div>
     </div>
   </div>
