@@ -3,7 +3,9 @@ class BooksController < ApplicationController
   before_action :set_book, only: %i[show edit update destroy]
   before_action :ensure_correct_user, only: %i[edit update destroy]
 
-  def index; end
+  def index
+    @books = Book.includes(:user, :book_contents)
+  end
 
   def new
     @book = Book.new
