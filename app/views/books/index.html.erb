@@ -6,47 +6,53 @@
       <div class="book-post-list-heading">
         <h2>投稿一覧</h2>
       </div>
-      <div class="book-post-images-container">
-        <ul class="book-post-images slick-slider">
-          <% @books.shuffle.each do |book| %>
-            <li class="post-image">
-              <%= link_to book_path(book.user_id), class: "museum-card-link" do %>
-                <div class="museum-card">
-                  <div class="frame">
-                    <div class="card-content-wrapper">
-                      <div class="image-area">
-                        <% if book.image.attached? %>
-                          <%= image_tag book.image, class: "main-image" %>
-                        <% else %>
-                          <%= image_tag "no-image.png", class: "main-image" %>
-                        <% end %>
-                      </div>
-                      
-                      <div class="info-area">
-                        <div class="title-plate">
-                          <span class="book-title"><%= book.title %></span>
+      <% if @books.any? %>
+        <div class="book-post-images-container">
+          <ul class="book-post-images slick-slider">
+            <% @books.shuffle.each do |book| %>
+              <li class="post-image">
+                <%= link_to book_path(book.user_id), class: "museum-card-link" do %>
+                  <div class="museum-card">
+                    <div class="frame">
+                      <div class="card-content-wrapper">
+                        <div class="image-area">
+                          <% if book.image.attached? %>
+                            <%= image_tag book.image, class: "main-image" %>
+                          <% else %>
+                            <%= image_tag "no-image.png", class: "main-image" %>
+                          <% end %>
                         </div>
                         
-                        <div class="hover-details">
-                          <p class="category-tag"># <%= book.category.name %></p>
-                          <ul class="content-list">
-                            <% book.book_contents.take(2).each do |bc| %>
-                              <li><%= bc.content %></li>
-                            <% end %>
-                            <% if book.book_contents.count > 2 %>
-                              <li>…</li>
-                            <% end %>
-                          </ul>
+                        <div class="info-area">
+                          <div class="title-plate">
+                            <span class="book-title"><%= book.title %></span>
+                          </div>
+                          
+                          <div class="hover-details">
+                            <p class="category-tag"># <%= book.category.name %></p>
+                            <ul class="content-list">
+                              <% book.book_contents.take(2).each do |bc| %>
+                                <li><%= bc.content %></li>
+                              <% end %>
+                              <% if book.book_contents.count > 2 %>
+                                <li>…</li>
+                              <% end %>
+                            </ul>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% else %>
+        <div class="empty-message">
+          <p>投稿はありません</p>
+        </div>
+      <% end %>
     </div>
   </div>
 

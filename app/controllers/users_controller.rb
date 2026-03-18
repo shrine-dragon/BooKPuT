@@ -5,7 +5,9 @@ class UsersController < ApplicationController
   # show以外は本人しかアクセスできないようにする
   before_action :ensure_correct_user, only: %i[show update destroy cancel]
 
-  def show; end
+  def show
+    @my_books = @user.books.order(created_at: :desc)
+  end
 
   def edit_profile; end
 

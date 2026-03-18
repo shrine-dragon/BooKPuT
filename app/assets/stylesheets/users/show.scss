@@ -21,6 +21,12 @@
   padding: 10px 0 10px 10px;
   background-color: ghostwhite;
   margin-bottom: 20px;
+  .swiper-button-prev {
+    left: -80px !important;
+  }
+  .swiper-button-next {
+    right: -80px !important;
+  }
 }
 
 .contents-heading{
@@ -64,6 +70,48 @@
 
 .edit-profile.btn-text, .edit-log-in-info.btn-text{
   color: royalblue;
+}
+
+/* マイページ用の調整 */
+.museum-card.is-mini {
+  width: 100%; 
+  
+  .frame {
+    border: 1px solid #ccc; 
+    border-image: none;
+    outline: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+
+  .image-area {
+    height: 300px; /* 350px * 0.75 ≒ 260px */
+  }
+
+  .book-title {
+    font-size: 14px;
+  }
+
+  &.is-hovered {
+    transform: scale(1.05) !important;
+    
+    .frame {
+      border: 1px solid #999;
+    }
+  }
+
+  .slick-prev {
+    left: -50px !important;
+  }
+
+  .slick-next {
+    right: -50px !important;
+  }
+}
+
+.my-page-contents {
+  position: relative;
+  z-index: 1;
+  &:hover { z-index: 10; } 
 }
 
 .empty-message{
