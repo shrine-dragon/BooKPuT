@@ -1,6 +1,6 @@
 <%= render 'partial_template/second_header' %>
 
-<%= render layout: 'partial_template/edit_user_info_layout', locals: { title: 'パスワード再設定' } do %>
+<%= render layout: 'partial_template/edit_user_info', locals: { title: 'パスワード再設定' } do %>
   <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: 'edit-password' }) do |f| %>
     <div class="edit-user-info-text">
       <p>登録済みのメールアドレスを入力してください。</p>

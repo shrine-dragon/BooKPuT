@@ -1,111 +1,222 @@
-.post-list-wrapper{
-  overflow: visible !important;
+.book-post-list {
+  background-color: bisque;
+}
+
+.book-post-list-wrapper,
+.book-post-images-container{
+  position: relative;
+}
+
+.book-post-list-wrapper{
   padding: 0 60px 30px;
 }
 
-.post-images-container{
-  width: 720px;
+.book-post-images-container{
+  width: 90%;
   margin: 0 auto;
   position: relative;
-
-  .slick-dots {
-    position: relative !important; /* absoluteを解除 */
-    bottom: auto !important;      /* Slickの規定位置をリセット */
-    display: flex !important;
-    justify-content: center;
-    align-items: center;
-    list-style: none;
-    padding: 0;
-    
-    margin: 25px 0 !important;
-
-    li {
-      margin: 0 8px !important; /* ドット同士の間隔 */
-      width: auto !important;   /* Slickが勝手に決める幅をリセット */
-      height: auto !important;
-
-      button {
-        /* ★ 通常時のドットを大きく、かつ「正円」にする */
-        width: 13px !important;
-        height: 13px !important;
-        background: rgba(0, 0, 0, 0.2) !important;
-        border-radius: 50% !important;
-        border: none !important;
-        padding: 0 !important;
-        font-size: 0 !important; /* 数字を消す */
-        display: block !important;
-        transition: all 0.3s ease;
-
-        &:before {
-          display: none !important; /* Slick標準のドット（・）を完全に消す */
-        }
-      }
-
-      /* ★ アクティブ時のオレンジの棒 */
-      &.slick-active {
-        button {
-          width: 40px !important;   /* 横に長く */
-          height: 14px !important;  /* 通常時と高さを合わせる */
-          background: orange !important;
-          border-radius: 10px !important;
-        }
-      }
-    }
-  }
 }
 
-.slick-prev, .slick-next{
-  z-index: 10; /* 最小の設定 */
-  filter: drop-shadow(0px 0px 5px rgba(255, 255, 255, 0.5));
+/* スライド中（is-sliding）は拡大を強制解除して事故を防ぐ */
+.book-post-images.is-sliding .museum-card {
+  transform: scale(1) !important;
+  transition: none !important;
 }
 
-.slick-prev {
-  left: -40px !important;
+.slick-list {
+  /* 左右は見切れてほしいので基本は hidden */
+  overflow: hidden !important;
+  padding-bottom: 180px !important;
+  margin-bottom: -180px !important; 
+  position: relative;
+  z-index: 1;
 }
 
-.slick-next {
-  right: -40px !important;
-}
-
-.slick-prev:before, .slick-next:before {
-  color: #333 !important; /* 黒系の色を指定 */
-  font-size: 30px;        /* 大きさを調整 */
-}
-
-.post-list-heading h2{
+.book-post-list-heading h2{
   text-align: center;
-  margin-bottom: 30px;
-  padding-top: 30px;
+  padding: 30px 0;
   font-weight: bold;
   font-size: 25px;
 }
 
-.post-images.slick-slider{
+.book-post-images.slick-slider{
   display: block;
   padding: 0;
   margin: 0;
 }
 
-.post-image{
+.book-post-images {
+  &.is-sliding {
+    .museum-card {
+      pointer-events: none !important;
+      opacity: 1 !important; // スライド中に薄くならないように固定      
+    }
+  }
+}
+
+// スライド中のガード
+.is-sliding .museum-card {
+  pointer-events: none !important;
+}
+
+.post-image {
+  margin: 10px 15px; 
   outline: none;
-  padding: 0 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
-.irasutoya-image{
-  height: 250px;
-  width: 200px;
-  flex-shrink: 0; /* 画像が潰れないように固定 */
-  border: 10px solid;
-  border-image: linear-gradient(to right bottom,#e0d9b6,#b4983a) 1 / 10px;
-  outline: 3px outset #efe9cc;
-  padding: 15px;
+.museum-card {
+  height: 100%;
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
+  display: block;
+  backface-visibility: hidden;
+  will-change: transform;
+  &.is-hovered {
+    transform: scale(1.1) !important;
+    z-index: 9999 !important;
+    height: 360px;
+    .frame {
+      height: auto !important; /* 額縁も伸びる */
+      box-shadow: 0 15px 45px rgba(0,0,0,0.4);
+      padding-bottom: 15px; /* 下部に少し余裕を持たせる */
+    }
+
+    .info-area {
+      justify-content: flex-start; /* 中央寄せを解除して上詰めに */
+    }
+
+    .hover-details {
+      display: block !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      height: auto !important;
+      margin-top: 15px;
+      transform: translateY(0);
+    }
+  }
+}
+
+.is-sliding .museum-card {
+  transform: scale(1) !important;
+  transition: none !important;
+}
+
+.frame {
+  height: 100%;
+  border: 12px solid;
+  border-image: linear-gradient(to right bottom, #e0d9b6, #b4983a) 1;
+  outline: 4px outset #efe9cc;
   background: #FFF;
-  box-shadow: 1px 3px 10px #999;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease; // 伸びる動きをスムーズに
+  overflow: visible !important;
 }
 
-.new-post{
-  width: 190px;
-  background: #F93;
+.card-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: visible !important;
+}
+
+.image-area {
+  flex-shrink: 0; /* 画像が潰れないように固定 */
+  height: 350px;  /* お好みの高さに調整してください */
+  overflow: hidden;
+  .main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.info-area {
+  flex-grow: 1; /* 残りのスペースを埋める */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  padding: 10px 0;
+  overflow: visible !important;
+}
+
+.title-plate {
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 6px 8px;
+  box-shadow: inset 1px 1px 2px rgba(0,0,0,0.1);
+  max-width: 90%;
+}
+
+.book-title {
+  font-weight: bold;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  font-size: 18px;
+}
+
+.hover-details {
+  display: none; /* 念のため物理的に消しておく */
+  opacity: 0;
+  visibility: hidden;
+  width: 100%;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+  transform: translateY(-5px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  position: relative !important;
+}
+
+.category-tag {
+  color: #f93;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.content-list {
+  list-style: none !important;
+  padding: 0;
+  margin: 0;
+  li {
+    font-size: 16px;
+    line-height: 1.4;
+    white-space: nowrap;      /* 改行させない */
+    overflow: hidden;         /* はみ出しを隠す */
+    text-overflow: ellipsis;  /* 三点リーダーを表示 */
+    max-width: 100%;
+  }
+}
+
+.slick-prev, .slick-next{
+  top: 35% !important;
+  transform: translateY(-50%);
+  z-index: 10; /* 最小の設定 */
+  filter: drop-shadow(0px 0px 5px rgba(255, 255, 255, 0.5));
+}
+
+.slick-prev {
+  left: -40px;
+}
+
+.slick-next {
+  right: -40px;
+}
+
+.slick-prev:before, .slick-next:before {
+  color: #333 !important;
+  font-size: 30px;
 }
 
 .app-description{
@@ -316,8 +427,6 @@
 .swiper-button-prev,
 .swiper-button-next {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
   color: #000 !important; /* 黒色 */
   width: 50px !important;  /* クリックエリアを広げる */
   height: 50px !important;
@@ -333,6 +442,6 @@
 
 .swiper-button-prev:after,
 .swiper-button-next:after {
-  font-size: 40px !important; /* ここでサイズ調整 */
+  font-size: 40px !important;
   font-weight: bold;
 }

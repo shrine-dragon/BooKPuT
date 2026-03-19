@@ -11,3 +11,12 @@
   width: 300px !important;
   max-width: 100%;
 }
+
+.edit-password{
+  position: relative;
+
+  .toggle-password{
+    left: 90%;
+    top: 23px;
+  }
+}

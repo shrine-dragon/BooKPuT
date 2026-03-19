@@ -1,35 +1,58 @@
 <%= render 'partial_template/header' %>
 
 <main>
-  <div class='post-list'>
-    <div class="post-list-wrapper">
-      <div class="post-list-heading">
+  <div class='book-post-list'>
+    <div class="book-post-list-wrapper">
+      <div class="book-post-list-heading">
         <h2>投稿一覧</h2>
       </div>
-      <div class="post-images-container">
-        <ul class="post-images slick-slider">
-          <li class="post-image">
-            <%= image_tag("Gecko-moria.png", class: "irasutoya-image") %>
-          </li>
-          <li class="post-image">
-            <%= image_tag("Crocodile.png", class: "irasutoya-image") %>
-          </li>
-          <li class="post-image">
-            <%= image_tag("Lucci.png", class: "irasutoya-image") %>
-          </li>
-          <li class="post-image">
-            <%= image_tag("Jinbe.png", class: "irasutoya-image") %>
-          </li>
-          <li class="post-image">
-            <%= image_tag("Enel.png", class: "irasutoya-image") %>
-          </li>
-        </ul>
-      </div>
-      <div class="new-post btn-on-center">
-        <%= link_to(root_path, class: "new-post-btn") do %>
-          <span class="new-post btn-text">新規投稿</span>
-        <% end %>
-      </div>
+      <% if @books.any? %>
+        <div class="book-post-images-container">
+          <ul class="book-post-images slick-slider">
+            <% @books.shuffle.each do |book| %>
+              <li class="post-image">
+                <%= link_to book_path(book.user_id), class: "museum-card-link" do %>
+                  <div class="museum-card">
+                    <div class="frame">
+                      <div class="card-content-wrapper">
+                        <div class="image-area">
+                          <% if book.image.attached? %>
+                            <%= image_tag book.image, class: "main-image" %>
+                          <% else %>
+                            <%= image_tag "no-image.png", class: "main-image" %>
+                          <% end %>
+                        </div>
+                        
+                        <div class="info-area">
+                          <div class="title-plate">
+                            <span class="book-title"><%= book.title %></span>
+                          </div>
+                          
+                          <div class="hover-details">
+                            <p class="category-tag"># <%= book.category.name %></p>
+                            <ul class="content-list">
+                              <% book.book_contents.take(2).each do |bc| %>
+                                <li><%= bc.content %></li>
+                              <% end %>
+                              <% if book.book_contents.count > 2 %>
+                                <li>…</li>
+                              <% end %>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% else %>
+        <div class="empty-message">
+          <p>投稿はありません</p>
+        </div>
+      <% end %>
     </div>
   </div>
 
@@ -61,7 +84,7 @@
           <div class="app-feature-container swiper-slide">
             <%= image_tag("bookshelves.png", class: "feature-image") %>
             <h2 class="app-feature-sentence">
-              読んだ本の内容や感想を<br>20〜140文字以内で投稿できます
+              読んだ本の内容や感想を<br>最低50文字から投稿できます
             </h2>
           </div>
 
@@ -124,7 +147,7 @@
           </h3>
           <span>+</span>
           <div class="answer">
-            A 無理に長文を書く必要はございません。最低20文字以上書けば投稿可能です。
+            A 無理に長文を書く必要はございません。最低50文字以上書けば投稿可能です。
           </div>
         </li>
       </ul>
@@ -132,7 +155,7 @@
   </div>
 </main>
 
-<%= link_to(root_path, class: "right-bottom-btn post hovers") do %>
+<%= link_to(new_book_path, class: "right-bottom-btn post hovers") do %>
   <span class="right-bottom-btn-text post">投稿する</span>
 <% end %>
 

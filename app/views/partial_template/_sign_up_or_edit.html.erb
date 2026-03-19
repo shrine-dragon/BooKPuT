@@ -16,15 +16,15 @@
         <div class="form-text">
           <label>画像(任意)</label>
         </div>
-        <%= f.file_field :image, class:"upload-image custom-file-btn hovers", id: "user-image" %>
+        <%= f.file_field :image, class:"upload-image hovers", id: "user-image" %>
         
         <%= f.hidden_field :delete_image, value: '0', id: 'delete-image-flag' %>
 
-        <div class="upload-image-list">
+        <div class="upload-image-list" id="preview-image-container">
           <% if is_edit && model.image.attached? %>
-            <div class="image-preview-wrapper">
+            <div class="preview-image-wrapper">
               <%= image_tag model.image, class: "preview-image" %>
-              <span class="image-delete-btn">削除</span>
+              <span class="delete-image-btn">削除</span>
             </div>
           <% end %>
         </div>
@@ -44,7 +44,7 @@
         <div class="form-text">
           <label>性別(必須)</label>
         </div>
-        <div class="gender-wrapper">
+        <div class="pull-down-wrapper">
           <%= f.collection_select(:gender_id, Gender.all, :id, :name, {}, {class:"select-pull-down", id:"gender"}) %>
         </div>
         <%= render "partial_template/error_messages", model: @user, attribute: :gender_id %>

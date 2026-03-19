@@ -13,71 +13,16 @@ $btn-padding: 5px 15px;
   padding-bottom: 5px;
 }
 
-.edit-profile-page{
-  .form-wrapper{
-    background-color: lavender;
-    margin-bottom: 0px !important;
-  }
-}
-
-.form-wrapper{
-  width: 55%;
-  margin: 0 auto 55px;
-  background-color: ghostwhite;
-}
-
-.form-heading{
-  text-align: center;
-  padding: 30px 0;
-  font-weight: bold;
-  font-size: 25px;
-}
-
-.form-container{
-  width: 70%;
-  margin: 0 auto;
-}
-
-.form-contents{
-  margin-bottom: 25px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .form-text,
-.upload-image.custom-file-btn,
+.upload-image,
 .birth-date-wrapper,
-.gender-wrapper
+.pull-down-wrapper
 {
   width: 70%;
   text-align: left;
 }
 
-.input-text{
-  width: 70%;
-}
-
-.form-text{
-  margin-bottom: 5px;
-  text-align: left;
-  label{
-    font-size: 18px;
-    font-weight: bold;
-    display: block;
-  }
-}
-
-.input-text{
-  height: 45px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-.upload-image.custom-file-btn {
+.upload-image {
   &::file-selector-button {
     background-color: $btn-bg;
     border: 1px solid $btn-border;
@@ -110,7 +55,7 @@ $btn-padding: 5px 15px;
   border-radius: 4px;
 }
 
-.image-delete-btn {
+.delete-image-btn {
   display: block; /* 画像の真下に配置 */
   margin-top: 8px;
   background-color: $btn-bg;
@@ -121,24 +66,4 @@ $btn-padding: 5px 15px;
   font-size: 14px;
   width: fit-content;    /* 文字幅に合わせる */
   transition: background-color 0.2s;
-}
-
-.form-btn-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: 25px;
-  padding-bottom: 25px;
-}
-
-.orange-submit-btn {
-  width: 200px;
-  height: 60px;
-  font-size: 20px;
-  font-weight: bold;
-  background-color: orange;
-  border: none;/* f.submit特有の枠線を消す */
-  outline: none;
-  /* 卵焼きのような楕円形にする設定 */
-  border-radius: 50px / 45px;
 }

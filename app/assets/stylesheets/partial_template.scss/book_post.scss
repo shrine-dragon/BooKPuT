@@ -1,0 +1,122 @@
+.form-wrapper.book-post{
+  /* form-wrapperの本来のwidthは55% */
+  width: 70%;
+  background-color: bisque;
+  .input-text{
+    width: 100% !important; 
+    max-width: none;
+  }
+}
+
+.external-search-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 15px;
+  /* 親の align-items: center を上書きして左に寄せる */
+  align-self: flex-start;
+  margin-left: 15%;
+}
+
+.external-search-btn {
+  width: 160px;
+  font-size: 0.8rem;
+  padding: 7px 0px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #333;
+  background-color: ghostwhite;
+}
+
+#search-results-modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 900px;
+  max-height: 80vh;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px; right: 20px;
+  font-size: 30px;
+  cursor: pointer;
+  color: #666;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 15px;
+  overflow-y: auto;
+  max-height: 60vh;
+  margin-top: 20px;
+}
+
+.result-card {
+  text-align: center;
+  cursor: pointer;
+  padding: 5px;
+  transition: transform 0.2s;
+}
+
+.result-card:hover{
+  transform: scale(1.05);
+}
+
+.result-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+}
+
+.result-title {
+  font-size: 10px;
+  margin-top: 5px;
+  height: 2.4em; overflow: hidden;
+}
+
+#contents-container {
+  width: 70%;
+}
+
+.content-field {
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  .input-text {
+    flex: 1;/* 残りの幅を全部使う */
+    margin-bottom: 0;
+  }
+}
+
+.remove-content-btn {
+  border: 0.5px solid #ccc;
+  background-color: #f8f8f8;
+  padding: 2px 8px;
+  cursor: pointer;
+  border-radius: 4px;
+  align-self: flex-start; 
+  margin-top: 10px;
+}
+
+.plus-btn{
+  margin-top: 5px;
+}

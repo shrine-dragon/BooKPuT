@@ -27,13 +27,13 @@ RSpec.describe User, type: :model do
       it 'ニックネームが3文字未満だと登録できない' do
         @user.nickname = 'a' * 2
         @user.valid?
-        expect(@user.errors.full_messages).to include('ニックネームは3文字以上で入力してください')
+        expect(@user.errors.full_messages).to include('ニックネームを3文字以上で入力してください')
       end
 
       it 'ニックネームが16文字を超えると登録できない' do
         @user.nickname = 'a' * 17
         @user.valid?
-        expect(@user.errors.full_messages).to include('ニックネームは16文字以内で入力してください')
+        expect(@user.errors.full_messages).to include('ニックネームを16文字以内で入力してください')
       end
 
       it '生年月日が未入力だと登録できない' do
@@ -83,14 +83,14 @@ RSpec.describe User, type: :model do
         @user.password = 'abCD123'
         @user.password_confirmation = @user.password
         @user.valid?
-        expect(@user.errors.full_messages).to include('パスワードは8文字以上で入力してください')
+        expect(@user.errors.full_messages).to include('パスワードを8文字以上で入力してください')
       end
 
       it 'パスワードが20文字を超えると登録できない' do
         @user.password = 'abcdeFGHIJ12345678910'
         @user.password_confirmation = @user.password
         @user.valid?
-        expect(@user.errors.full_messages).to include('パスワードは20文字以内で入力してください')
+        expect(@user.errors.full_messages).to include('パスワードを20文字以内で入力してください')
       end
 
       it 'パスワードが全角だと登録できず、半角英数混合でないといけない' do

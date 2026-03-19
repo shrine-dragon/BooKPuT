@@ -1,5 +1,8 @@
 ja:
   activerecord:
+    models:
+      book: "本"
+      book_content: "内容項目"
     attributes:
       user:
         nickname: "ニックネーム"
@@ -8,7 +11,20 @@ ja:
         password_confirmation: "パスワード（確認用）"
         birth_date: "生年月日"
         gender_id: "性別"
+      book:
+        title: "タイトル"
+        category_id: "本の種類"
+        book_contents: "内容項目"
+      "book/book_contents":
+        content: "内容項目"
+      book_content:
+        content: "内容項目"
     errors:
+      messages:
+        too_long: "を%{count}文字以内で入力してください"
+        too_short: "を%{count}文字以上で入力してください"
+        blank: "を入力してください"
+        record_invalid: "バリデーションに失敗しました: %{errors}"
       models:
         user:
           attributes:
@@ -16,6 +32,11 @@ ja:
               confirmation: "とパスワードが一致しません"
             email:
               taken: "はすでに使用されています"
+        book:
+          attributes:
+            book_contents:
+              too_long: "を%{count}項目以内で入力してください"
+              too_short: "を入力してください"
   devise:
     registrations:
       signed_up: "登録が完了しました"

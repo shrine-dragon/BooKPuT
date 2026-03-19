@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # deviseを用いたユーザー管理機能
-  devise_for :users, controllers: {
+  devise_for :users, skip: [:sessions], controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks',
     registrations: 'users/registrations',
     sessions: 'users/sessions',
@@ -14,6 +14,9 @@ Rails.application.routes.draw do
     get 'passwords/email_submitted', to: 'users/passwords#email_submitted', as: :email_submitted
     # パスワードの変更が完了した際の遷移先
     get 'passwords/update_completion', to: 'users/passwords#update_completion', as: :update_completion
+
+    post 'users/sign_in', to: 'users/sessions#create', as: :user_session
+    delete 'users/sign_out', to: 'users/sessions#destroy', as: :destroy_user_session
   end
 
   root to: 'books#index'
@@ -31,5 +34,8 @@ Rails.application.routes.draw do
     collection do
       get 'cancel_completion'
     end
+  end
+
+  resources :books do
   end
 end

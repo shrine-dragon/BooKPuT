@@ -2,25 +2,6 @@ module UserSupport
   extend ActiveSupport::Concern
 
   included do
-    before do
-      # ブラウザが実際に動く様子が見えるモード
-      # 最初からウィンドウサイズを指定
-      driven_by :selenium_chrome do |driver_option|
-        driver_option.add_argument('--window-size=1280,1024')
-      end
-
-      OmniAuth.config.test_mode = true
-      # 失敗時に例外を投げず、callback用のURLにリダイレクトさせる設定
-      OmniAuth.config.on_failure = proc do |env|
-        env['devise.mapping'] = Devise.mappings[:user]
-        OmniAuth::FailureEndpoint.new(env).redirect_to_failure
-      end
-    end
-
-    after do
-      OmniAuth.config.test_mode = false
-      Warden.test_reset!
-    end
   end
 
   def open_modal(selector_type, header_menu_text)
@@ -104,7 +85,7 @@ module UserSupport
     expect(page).to have_no_selector('.sign-up-menu-text', text: '新規登録')
     expect(page).to have_no_selector('.log-in-menu-text', text: 'ログイン')
     # トップページにユーザー名が表示されていることを確認する
-    expect(page).to have_content(@user.nickname)
+    expect(page).to have_selector('.user-nickname', text: @user.nickname, visible: false)
   end
 
   def return_to_top_page_and_show_flash_message(flash_message)
@@ -171,18 +152,30 @@ module UserSupport
   def not_log_in_user
     # トップページに｢ログイン｣｢新規登録｣の文字があり、未ログインの状態であることを確認する
     visit root_path
-    expect(page).to have_content('ログイン')
-    expect(page).to have_content('新規登録')
+    expect(page).to have_selector('.log-in-menu-text', text: 'ログイン', visible: false)
+    expect(page).to have_selector('.sign-up-menu-text', text: '新規登録', visible: false)
     # トップページにユーザーのニックネームが表示されていないことを確認する
     expect(page).to have_no_content(@user.nickname)
   end
 
-  def check_access_denied(path)
-    # ログインし、トップページへ遷移する
+  def log_in_user_access_denied(path)
+    # ログインし、トップページへ移動する
     login_as(@user)
     visit path
     # トップページへ戻されていることを確認する
     expect(page).to have_current_path(root_path)
+  end
+
+  def not_log_in_user_access_denied(path)
+    # トップページへ移動する
+    visit root_path
+    # 直接、未ログインユーザーが移動できないpathでアクセスしようとする
+    visit path
+    # トップページへ戻されていることを確認する
+    expect(page).to have_current_path(root_path)
+    # ｢ログインが必要です｣というエラーメッセージとログインモーダルが表示されていることを確認する
+    expect(page).to have_content('ログインが必要です')
+    expect(page).to have_selector('.modal.log-in')
   end
 
   def click_btn_and_visit_my_page_and_show_flash_message(btn_text)

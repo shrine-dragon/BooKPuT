@@ -21,7 +21,7 @@ class Users::SessionsController < Devise::SessionsController
       respond_with resource, location: after_sign_in_path_for(resource)
     else
       # ログイン失敗時：リダイレクトしてエラーメッセージを渡す
-      flash[:alert] = 'メールアドレスまたはパスワードが違います。'
+      flash[:alert] = 'メールアドレスまたはパスワードが違います'
       redirect_back(fallback_location: root_path) # 元のページへ戻す
     end
   end

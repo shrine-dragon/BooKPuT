@@ -4,6 +4,9 @@
 require 'rails_helper'
 
 RSpec.describe 'ユーザー新規登録', type: :system do
+  include UserSupport
+  include OtherSupport
+
   before do
     @user = FactoryBot.build(:user)
   end
@@ -21,21 +24,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       fill_in 'password',   with: @user.password
       fill_in 'password_confirmation', with: @user.password_confirmation
 
-      # 任意項目である画像をアップロードできることを確認する
-      image_path = Rails.root.join('spec/fixtures/Doflamingo.png')
-      attach_file('user[image]', image_path)
-      # プレビュー画像が表示されることを確認する
-      expect(page).to have_selector('.upload-image-list img')
-
-      # 解約ボタンが表示されていることを確認（画像の検証ツールに見えるボタン）
-      expect(page).to have_selector('.image-delete-btn', text: '削除')
-      # 画像を一度削除し、画像と削除ボタンが消えていることを確認する
-      if has_link?('削除')
-        click_link '削除'
-        expect(page).to have_no_selector('.upload-image-list img')
-        # 一度削除した画像を再度アップロードできることを確認する
-        attach_file('user[image]', image_path)
-      end
+      image_test('user[image]')
 
       submit_and_expect_success('.orange-submit-btn', 1, '登録が完了しました')
     end
@@ -140,7 +129,7 @@ RSpec.describe 'ログイン', type: :system do
       fill_in 'email',    with: "wrong_#{@user.email}"
       fill_in 'password', with: 'wrong_password'
       click_btn_and_no_change
-      expect(page).to have_content('メールアドレスまたはパスワードが違います。')
+      expect(page).to have_content('メールアドレスまたはパスワードが違います')
     end
   end
 
@@ -251,7 +240,7 @@ RSpec.describe 'パスワード変更', type: :system do
       # トップページへ戻り、ログインできている（＝ニックネームがある）ことを確認する
       click_on 'トップページへ戻る'
       expect(page).to have_current_path(root_path)
-      expect(page).to have_content(@user.nickname)
+      expect(page).to have_selector('.user-nickname', text: @user.nickname, visible: false)
     end
   end
 
@@ -260,7 +249,7 @@ RSpec.describe 'パスワード変更', type: :system do
       login_as(@user)
       visit root_path
       # トップページにユーザーのニックネームが存在し、ログイン状態であることを確認する
-      expect(page).to have_content(@user.nickname)
+      expect(page).to have_selector('.user-nickname', text: @user.nickname, visible: false)
       # トップページに｢ログイン｣の文字がないことを確認する
       expect(page).to have_no_content('ログイン')
     end
@@ -330,7 +319,7 @@ RSpec.describe 'マイページ', type: :system do
       click_on('マイページ')
       expect(page).to have_current_path(user_path(@user), wait: 15)
       # マイページにアカウント情報やログイン情報が表示されていることを確認する
-      expect(page).to have_content(@user.nickname)
+      expect(page).to have_selector('.user-nickname', text: @user.nickname, visible: false)
       expect(page).to have_content(@user.birth_date.strftime('%Y/%m/%d'))
       expect(page).to have_content(@user.gender.name)
       expect(page).to have_content(@user.masked_email)
@@ -341,12 +330,15 @@ RSpec.describe 'マイページ', type: :system do
   context 'マイページへ遷移ができない時' do
     it '未ログインユーザーはマイページへ遷移して、アカウント情報やログイン情報を閲覧できない' do
       not_log_in_user
+
+      another_user = FactoryBot.create(:user)
+      not_log_in_user_access_denied(user_path(another_user))
     end
 
     it 'ログインユーザーであっても別のユーザーのマイページへ遷移し、アカウント情報やログイン情報を閲覧できない' do
       # 別ユーザーのアカウントを作成する
       another_user = FactoryBot.create(:user)
-      check_access_denied(user_path(another_user))
+      log_in_user_access_denied(user_path(another_user))
     end
   end
 
@@ -411,7 +403,7 @@ RSpec.describe 'マイページ', type: :system do
       expect(page).to have_current_path(edit_profile_user_path(@user))
 
       # 削除ボタンを押すとプレビューが消えることを確認する
-      find('.image-delete-btn', text: '削除').click
+      find('.delete-image-btn', text: '削除').click
       expect(page).to have_no_selector('.upload-image-list img')
 
       click_btn_and_visit_my_page_and_show_flash_message('更新する')
@@ -434,7 +426,7 @@ RSpec.describe 'マイページ', type: :system do
       # エラーメッセージが表示され、編集ページに戻されることを確認する
       expect(page).to have_current_path(user_path(@user))
       expect(page).to have_content('ニックネームを入力してください')
-      expect(page).to have_content('ニックネームは3文字以上で入力してください')
+      expect(page).to have_content('ニックネームを3文字以上で入力してください')
       expect(page).to have_content('生年月日を入力してください')
       expect(page).to have_content('性別を選択してください')
 
@@ -548,7 +540,7 @@ RSpec.describe 'マイページ', type: :system do
       expect(page).to have_content('解約する')
       # ボタンを押すと、最終確認のメッセージと最後の解約ボタンがあることを確認する
       find('#first-destroy-btn').click
-      expect(page).to have_content('アカウントを本当に解約しますか？一度解約すると復元できません。')
+      expect(page).to have_content("アカウントを本当に解約しますか？\n一度解約すると復元できません。")
       expect(page).to have_content('本当に解約する')
 
       # アンケートには回答せず、最後の解約ボタンを押す
@@ -562,7 +554,7 @@ RSpec.describe 'マイページ', type: :system do
       # トップページに戻ると｢ログイン｣｢新規登録｣の文字があり、ユーザー名が表示されていないことを確認する
       click_on('トップページへ戻る')
       expect(page).to have_current_path(root_path)
-      expect(page).to have_content('ログイン')
+      expect(page).to have_selector('.log-in-menu-text', text: 'ログイン', visible: false)
       expect(page).to have_content('新規登録')
       expect(page).to have_no_content(@user.nickname)
     end
@@ -571,11 +563,14 @@ RSpec.describe 'マイページ', type: :system do
   context 'アカウントを解約できない時' do
     it '未ログインユーザーはマイページへ遷移して、アカウントを解約できない' do
       not_log_in_user
+
+      another_user = FactoryBot.create(:user)
+      not_log_in_user_access_denied(user_path(another_user))
     end
 
     it 'ログインユーザーであっても別のユーザーのアカウントを解約できない' do
       another_user = FactoryBot.create(:user)
-      check_access_denied(cancel_user_path(another_user))
+      log_in_user_access_denied(cancel_user_path(another_user))
     end
 
     it 'ユーザー本人であっても｢利用を継続する｣ボタンを押すとトップページへ遷移し、アカウントを解約できない' do

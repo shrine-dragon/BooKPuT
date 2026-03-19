@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_one_attached :image
   belongs_to_active_hash :gender
   has_many :sns_credentials, dependent: :destroy # ユーザーが消えるときにSNS情報も自動で削除される
+  has_many :books, dependent: :destroy
 
   after_validation :report_errors, if: -> { errors.any? }
 
@@ -15,7 +16,9 @@ class User < ApplicationRecord
   end
 
   # バリデーション
-  validates :password, presence: true, length: { minimum: 8, maximum: 20 },
+  validates :password, presence: true, on: :create, unless: :sns_auth_process?
+
+  validates :password, length: { minimum: 8, maximum: 20 },
                        format: {
                          with: /\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]+\z/,
                          message: 'は英字の大文字・小文字・数字をすべて含めて入力してください'

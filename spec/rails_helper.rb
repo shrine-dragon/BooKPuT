@@ -28,16 +28,42 @@ require 'rspec/rails'
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
 
 RSpec.configure do |config|
-  # 2. System spec で定義した Module を使う設定
   config.include UserSupport, type: :system
   config.include Warden::Test::Helpers
 
+  config.before(:each, type: :system) do
+    # ここで画面ありの Chrome を指定
+    driven_by :selenium_chrome do |driver_option|
+      driver_option.add_argument('--window-size=1280,1024')
+    end
+  end
+
+  # --- DatabaseCleaner の設定 ---
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.strategy = :transaction
+  end
+
+  config.before(:each, type: :system) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
   config.after(:each) do
-    # 各テストが終わるたびにログイン状態を完全にリセットする
+    DatabaseCleaner.clean
     Warden.test_reset!
-    # 送信されたメールも空にする
     ActionMailer::Base.deliveries.clear
   end
+  # ----------------------------
+
+  config.infer_spec_type_from_file_location!
+  config.filter_rails_from_backtrace!
 end
 
 # Checks for pending migrations and applies them before tests are run.
@@ -76,7 +102,7 @@ RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_fixtures = true
+  config.use_transactional_fixtures = false
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
@@ -97,10 +123,6 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
-
-  config.before(:each, type: :system) do
-    driven_by :selenium_chrome_headless
-  end
 end
 
 # Omniauthのモック（偽物のデータ）を設定
