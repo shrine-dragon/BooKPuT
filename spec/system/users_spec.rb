@@ -27,7 +27,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       # プレビュー画像が表示されることを確認する
       expect(page).to have_selector('.upload-image-list img')
 
-      # 解約ボタンが表示されていることを確認（画像の検証ツールに見えるボタン）
+      # 削除ボタンが表示されていることを確認（画像の検証ツールに見えるボタン）
       expect(page).to have_selector('.delete-image-btn', text: '削除')
       # 画像を一度削除し、画像と削除ボタンが消えていることを確認する
       if has_link?('削除')
@@ -251,7 +251,7 @@ RSpec.describe 'パスワード変更', type: :system do
       # トップページへ戻り、ログインできている（＝ニックネームがある）ことを確認する
       click_on 'トップページへ戻る'
       expect(page).to have_current_path(root_path)
-      expect(page).to have_content(@user.nickname)
+      expect(page).to have_selector('.user-nickname', text: @user.nickname, visible: false)
     end
   end
 
@@ -260,7 +260,7 @@ RSpec.describe 'パスワード変更', type: :system do
       login_as(@user)
       visit root_path
       # トップページにユーザーのニックネームが存在し、ログイン状態であることを確認する
-      expect(page).to have_content(@user.nickname)
+      expect(page).to have_selector('.user-nickname', text: @user.nickname, visible: false)
       # トップページに｢ログイン｣の文字がないことを確認する
       expect(page).to have_no_content('ログイン')
     end
@@ -330,7 +330,7 @@ RSpec.describe 'マイページ', type: :system do
       click_on('マイページ')
       expect(page).to have_current_path(user_path(@user), wait: 15)
       # マイページにアカウント情報やログイン情報が表示されていることを確認する
-      expect(page).to have_content(@user.nickname)
+      expect(page).to have_selector('.user-nickname', text: @user.nickname, visible: false)
       expect(page).to have_content(@user.birth_date.strftime('%Y/%m/%d'))
       expect(page).to have_content(@user.gender.name)
       expect(page).to have_content(@user.masked_email)
@@ -565,7 +565,7 @@ RSpec.describe 'マイページ', type: :system do
       # トップページに戻ると｢ログイン｣｢新規登録｣の文字があり、ユーザー名が表示されていないことを確認する
       click_on('トップページへ戻る')
       expect(page).to have_current_path(root_path)
-      expect(page).to have_content('ログイン')
+      expect(page).to have_selector('.log-in-menu-text', text: 'ログイン', visible: false)
       expect(page).to have_content('新規登録')
       expect(page).to have_no_content(@user.nickname)
     end
