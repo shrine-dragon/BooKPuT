@@ -13,26 +13,30 @@ RSpec.describe '新規投稿', type: :system do
 
   context '新規投稿ができる時' do
     it '正しい情報を入力すれば新規投稿ができ、トップページに移動する' do
-      # ログインし、トップページに遷移する
-      login_as(@user)
-      visit root_path
-      # トップページに｢投稿する｣ボタンがあることを確認する
-      expect(page).to have_selector('.right-bottom-btn-text.post', text: '投稿する', visible: false)
-      # ｢投稿する｣ボタンを押すと、新規投稿ページに遷移することを確認する
-      click_on('投稿する')
-      expect(page).to have_current_path(new_book_path)
+      visit_new_book_path
 
       # 必須項目を入力または選択する
       fill_in 'title',   with: @book.title
       select '漫画',      from: 'category'
-      fill_in 'content', with: @book_content.content
+      fill_in 'book_content_0', with: @book_content.content
+
+      # 内容項目が最初は1つであることを確認する
+      expect(all('.input-main-part').count).to eq 1
+
+      # 内容項目を1つ追加し、2つ目の項目が増えたことを確認する
+      find('#add-content-btn').click
+      expect(all('.input-main-part').count).to eq 2
+      expect(page).to have_selector('#book_content_1', wait: 5)
+
+      # 2つ目の入力欄に値を入力する
+      fill_in 'book_content_1', with: '2つ目の項目です'
 
       image_test('book[image]')
 
-      # ｢投稿する｣ボタンを押すとBookモデルとBookContentモデルのカウントが1上がることを確認する
+      # ｢投稿する｣ボタンを押すとBookモデルのカウントが1,BookContentモデルのカウントが2上がることを確認する
       expect do
         scroll_display('.orange-submit-btn')
-      end.to change { Book.count }.by(1).and change { BookContent.count }.by(1)
+      end.to change { Book.count }.by(1).and change { BookContent.count }.by(2)
 
       # トップページに遷移し、フラッシュメッセージが表示されていることを確認する
       expect(page).to have_current_path(root_path)
@@ -48,23 +52,51 @@ RSpec.describe '新規投稿', type: :system do
       expect(page).to have_content('漫画', wait: 5)
       expect(page).to have_content(@book_content.content)
     end
+
+    it '新規投稿ページに各サイトへの外部リンクが正しく設置されている' do
+      visit_new_book_path
+
+      expect(page).to have_link('Amazonから探す', href: /amazon\.co\.jp/)
+      expect(page).to have_link('Googleから探す', href: /google\.com/)
+
+      # 別タブで開く仕様であることを確認する
+      expect(find_link('Amazonから探す')[:target]).to eq '_blank'
+      expect(find_link('Googleから探す')[:target]).to eq '_blank'
+    end
+
+    it '内容項目の追加と削除が正常に動作する' do
+      visit_new_book_path
+
+      # 内容項目を1つ追加し、2つ目の項目が存在することを確認する
+      find('#add-content-btn').click
+      expect(page).to have_selector('#book_content_1')
+
+      # 残りカウントが減少していることを確認する
+      expect(page).to have_content('(残り5項目)') 
+
+      # 追加された内容項目の方の「−」ボタンをクリックする
+      all('.remove-content-btn')[1].click 
+      
+      # 2つ目の内容項目が削除され、カウントが戻ることを確認する
+      expect(page).to have_no_selector('#book_content_1')
+      expect(page).to have_content('(残り6項目)') 
+    end
   end
 
   context '新規投稿ができない時' do
     it '必須項目が空欄だったり誤った情報ではエラーメッセージが表示され、投稿できない' do
-      # ログインし、新規投稿ページに遷移する
-      login_as(@user)
-      visit new_book_path
+      visit_new_book_path
 
       # 必須項目を空欄にする
       fill_in 'title',   with: ''
       select '--',      from: 'category'
-      fill_in 'content', with: ''
-      
+      fill_in 'book_content_0', with: ''
+
       # ｢投稿する｣ボタンを押してもBookモデルとBookContentモデルのカウントが上がらないことを確認する
       expect do
         scroll_display('.orange-submit-btn')
-      end.to change { Book.count }.by(0).and change { BookContent.count }.by(0)
+      end.to change { Book.count }.by(0)
+        .and change { BookContent.count }.by(0)
 
       # 新規投稿ページで各入力項目にエラーメッセージが表示されていることを確認する
       expect(page).to have_current_path(books_path)
@@ -79,11 +111,11 @@ RSpec.describe '新規投稿', type: :system do
       # ｢投稿する｣ボタンを押してもログインモーダルが表示され、新規投稿ページに遷移できないことを確認する
       scroll_display('.right-bottom-btn')
 
-      # URLでは｢http://localhost:3000/books/new｣となっている
-      expect(page).to have_current_path(new_book_path)
-
       expect(page).to have_content('ログインが必要です', wait: 10)
       expect(page).to have_selector('.modal.log-in', visible: true)
+
+      # URLでは｢http://localhost:3000/books/new｣となっている
+      expect(page).to have_current_path(new_book_path)
     end
   end
 end

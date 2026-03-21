@@ -1,5 +1,5 @@
 document.addEventListener('turbolinks:load', () => {
-  const titleField = document.getElementById('title-field');
+  const titleField = document.getElementById('title');
   const apiBtn = document.getElementById('api-search-btn');
   const modal = document.getElementById('search-results-modal');
   const resultsList = document.getElementById('search-results-list');
