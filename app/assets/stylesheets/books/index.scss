@@ -18,7 +18,7 @@
 }
 
 /* スライド中（is-sliding）は拡大を強制解除して事故を防ぐ */
-.book-post-images.is-sliding .museum-card {
+.book-post-images.is-sliding .book-card {
   transform: scale(1) !important;
   transition: none !important;
 }
@@ -47,7 +47,7 @@
 
 .book-post-images {
   &.is-sliding {
-    .museum-card {
+    .book-card {
       pointer-events: none !important;
       opacity: 1 !important; // スライド中に薄くならないように固定      
     }
@@ -55,7 +55,7 @@
 }
 
 // スライド中のガード
-.is-sliding .museum-card {
+.is-sliding .book-card {
   pointer-events: none !important;
 }
 
@@ -67,7 +67,7 @@
   flex-direction: column;
 }
 
-.museum-card {
+.book-card {
   height: 100%;
   position: relative;
   transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
@@ -99,7 +99,7 @@
   }
 }
 
-.is-sliding .museum-card {
+.is-sliding .book-card {
   transform: scale(1) !important;
   transition: none !important;
 }

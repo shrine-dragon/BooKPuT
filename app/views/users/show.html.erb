@@ -66,9 +66,9 @@
             <ul class="book-post-images slick-slider">
               <% @my_books.each do |my_book| %>
                 <li class="post-image">
-                  <%= link_to book_path(my_book.id), class: "museum-card-link" do %>
-                    <div class="museum-card is-mini">
-                      <div class="frame">
+                  <%= link_to book_path(my_book.id), class: "book-card-link" do %>
+                    <div class="book-card is-mini">
+                      <div class="frame white">
                         <div class="card-content-wrapper">
                           <div class="image-area">
                             <%= image_tag (my_book.image.attached? ? my_book.image : "no-image.png"), class: "main-image" %>
