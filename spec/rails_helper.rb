@@ -125,6 +125,10 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+  # FactoryBotのメソッド（createなど）を FactoryBot. なしで書けるようにする
+  config.include FactoryBot::Syntax::Methods
+  # Request Specでsign_inメソッドを使えるようにする
+  config.include Devise::Test::IntegrationHelpers, type: :request
 end
 
 # Omniauthのモック（偽物のデータ）を設定

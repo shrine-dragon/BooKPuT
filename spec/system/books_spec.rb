@@ -32,7 +32,8 @@ RSpec.describe '新規投稿', type: :system do
       # ｢投稿する｣ボタンを押すとBookモデルのカウントが1,BookContentモデルのカウントが2上がることを確認する
       expect do
         scroll_display('.orange-submit-btn')
-      end.to change { Book.count }.by(1).and change { BookContent.count }.by(2)
+      end.to change { Book.count }.by(1)
+        .and change { BookContent.count }.by(2)
 
       # トップページに遷移し、フラッシュメッセージが表示されていることを確認する
       expect(page).to have_current_path(root_path)
