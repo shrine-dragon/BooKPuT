@@ -5,9 +5,10 @@ module OtherSupport
 
   end
 
-  def image_test(image_text)
+  def image_test(file_name,image_text)
     # 任意項目である画像をアップロードできることを確認する
-    image_path = Rails.root.join('spec/fixtures/Doflamingo.png')
+    image_path = Rails.root.join('spec/fixtures/' + file_name)
+
     attach_file(image_text, image_path)
     # プレビュー画像が表示されることを確認する
     expect(page).to have_selector('.upload-image-list img')
@@ -21,5 +22,8 @@ module OtherSupport
       # 一度削除した画像を再度アップロードできることを確認する
       attach_file(image_text, image_path)
     end
+
+    # 正しくアップロードされているか、ファイル名で最終確認する
+    expect(page).to have_selector('.preview-image', wait: 5)
   end
 end

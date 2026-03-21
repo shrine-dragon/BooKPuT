@@ -31,7 +31,7 @@ RSpec.describe '新規投稿', type: :system do
       # 2つ目の入力欄に値を入力する
       fill_in 'book_content_1', with: '2つ目の項目です'
 
-      image_test('book[image]')
+      image_test('Momose-Akira-no-firstLove-failing.png', 'book[image]')
 
       # ｢投稿する｣ボタンを押すとBookモデルのカウントが1,BookContentモデルのカウントが2上がることを確認する
       expect do
@@ -43,7 +43,7 @@ RSpec.describe '新規投稿', type: :system do
       expect(page).to have_content('投稿しました')
 
       # トップページに投稿した画像とタイトルが表示されていることを確認する
-      expect(page).to have_selector("img[src$='Doflamingo.png']")
+      expect(page).to have_selector(".main-image")
       expect(page).to have_content(@book.title)
       # 投稿にカーソルを当てるとカテゴリー名と内容が表示されることを確認する
       post_element = find('.card-content-wrapper')

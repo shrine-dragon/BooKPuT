@@ -78,14 +78,23 @@ module UserSupport
   def verify_top_page_after_login(flash_message)
     expect(page).to have_current_path(root_path, wait: 15)
 
+    # 今DBに保存されたばかりの最新ユーザーを取得する
+    latest_user = User.last
+
     # トップページにフラッシュメッセージが表示されていることを確認する
     expect(page).to have_selector('.flash-message', text: flash_message)
 
     # トップページに｢新規登録｣｢ログイン｣のmenuテキストが表示されていないことを確認する
     expect(page).to have_no_selector('.sign-up-menu-text', text: '新規登録')
     expect(page).to have_no_selector('.log-in-menu-text', text: 'ログイン')
-    # トップページにユーザー名が表示されていることを確認する
+
+    # ヘッダーに登録したニックネームと画像が表示されていることを確認する
     expect(page).to have_selector('.user-nickname', text: @user.nickname, visible: false)
+    if latest_user.image.attached?
+      expect(page).to have_selector('.user-image')
+    else
+      expect(page).to have_selector('.user-image.no-exist')
+    end
   end
 
   def return_to_top_page_and_show_flash_message(flash_message)

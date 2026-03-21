@@ -24,7 +24,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       fill_in 'password',   with: @user.password
       fill_in 'password_confirmation', with: @user.password_confirmation
 
-      image_test('user[image]')
+      image_test('Zakky.png', 'user[image]')
 
       submit_and_expect_success('.orange-submit-btn', 1, '登録が完了しました')
     end
@@ -375,7 +375,7 @@ RSpec.describe 'マイページ', type: :system do
       expect(page).to have_current_path(edit_profile_user_path(@user))
 
       # 画像を添付する
-      image_path = Rails.root.join('spec/fixtures/Doflamingo.png')
+      image_path = Rails.root.join('spec/fixtures/Zakky.png')
       attach_file('user[image]', image_path)
       # プレビューが表示されることを確認する
       expect(page).to have_selector('.upload-image-list img')
@@ -389,8 +389,8 @@ RSpec.describe 'マイページ', type: :system do
 
     it '設定済みのプロフィール画像を削除してデフォルトに戻すことができる' do
       # あらかじめ画像を持たせた状態でテストを開始する
-      image_path = Rails.root.join('spec/fixtures/Doflamingo.png')
-      @user.image.attach(io: File.open(image_path), filename: 'Doflamingo.png')
+      image_path = Rails.root.join('spec/fixtures/Zakky.png')
+      @user.image.attach(io: File.open(image_path), filename: 'Zakky.png')
 
       log_in_and_visit_my_page
 
