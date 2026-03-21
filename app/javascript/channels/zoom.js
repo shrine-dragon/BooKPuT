@@ -1,5 +1,5 @@
 $(document).on('turbolinks:load', function() {
-  const $slider = $('.book-post-images');
+  const $slider = $('.book-cards');
   let hoverTimer = null;
 
   // 1. スライド前後の状態管理

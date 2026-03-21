@@ -3,7 +3,7 @@
 }
 
 .book-post-list-wrapper,
-.book-post-images-container{
+.book-cards-container{
   position: relative;
 }
 
@@ -11,14 +11,14 @@
   padding: 0 60px 30px;
 }
 
-.book-post-images-container{
+.book-cards-container{
   width: 90%;
   margin: 0 auto;
   position: relative;
 }
 
 /* スライド中（is-sliding）は拡大を強制解除して事故を防ぐ */
-.book-post-images.is-sliding .book-card {
+.book-cards.is-sliding .book-card {
   transform: scale(1) !important;
   transition: none !important;
 }
@@ -39,13 +39,13 @@
   font-size: 25px;
 }
 
-.book-post-images.slick-slider{
+.book-cards.slick-slider{
   display: block;
   padding: 0;
   margin: 0;
 }
 
-.book-post-images {
+.book-cards {
   &.is-sliding {
     .book-card {
       pointer-events: none !important;
@@ -59,7 +59,7 @@
   pointer-events: none !important;
 }
 
-.post-image {
+.book-cards {
   margin: 10px 15px; 
   outline: none;
   position: relative;
