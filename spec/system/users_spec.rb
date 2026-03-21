@@ -23,6 +23,8 @@ RSpec.describe 'ユーザー新規登録', type: :system do
 
       image_test('Zakky.png', 'user[image]')
 
+      toggle_password(@user.password, @user.password_confirmation)
+
       submit_and_expect_success('.orange-submit-btn', 1, '登録が完了しました')
     end
   end
@@ -119,6 +121,8 @@ RSpec.describe 'ログイン', type: :system do
       # 必須事項を入力する
       fill_in 'email',      with: @user.email
       fill_in 'password',   with: @user.password
+
+      toggle_password(@user.password, @user.password_confirmation)
 
       submit_and_expect_success('.log-in-submit-btn', 0, 'ログインしました')
     end
@@ -239,6 +243,8 @@ RSpec.describe 'パスワード変更', type: :system do
       # 入力されたパスワードが正しいか、送信前にチェックを入れる
       expect(page).to have_field('password', with: new_pw)
       expect(page).to have_field('password_confirmation', with: new_pw)
+
+      toggle_password(new_pw, new_pw)
 
       # 変更するボタンを押す
       click_on '変更する'

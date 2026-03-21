@@ -97,6 +97,40 @@ module UserSupport
     end
   end
 
+  def toggle_password(password_text, password_confirmation_text)
+    # パスワードの入力欄が最初は非表示（type="password"）であることを確認する
+    expect(page).to have_selector('#password[type="password"]')
+
+    # 確認用パスワードがある場合のみ確認する
+    has_confirmation = page.has_selector?('#password_confirmation')
+    if has_confirmation
+      expect(page).to have_selector('#password_confirmation[type="password"]')
+    end
+
+    # 全てのパスワード可視化アイコンをクリックする
+    all('.toggle-password').each(&:click)
+
+    # パスワードと確認用パスワード(あれば)が表示状態になっていることを確認する
+
+    icon_count = has_confirmation ? 2 : 1
+    expect(page).to have_selector('.fa-eye.toggle-password', count: icon_count)
+    expect(page).to have_selector('#password[type="text"]')
+    expect(page.find('#password').value).to eq password_text
+
+    if has_confirmation
+      expect(page).to have_selector('#password_confirmation[type="text"]')
+      expect(page.find('#password_confirmation').value).to eq password_confirmation_text
+    end
+
+    # 再度アイコンを押すとパスワードと確認用パスワード(あれば)が非表示になることを確認する
+    all('.fa-eye.toggle-password').each(&:click)
+    expect(page).to have_selector('#password[type="password"]')
+  
+    if has_confirmation
+      expect(page).to have_selector('#password_confirmation[type="password"]')
+    end
+  end
+
   def return_to_top_page_and_show_flash_message(flash_message)
     # トップページに遷移し、フラッシュメッセージが表示されることを確認する
     expect(page).to have_current_path(root_path, wait: 10)
