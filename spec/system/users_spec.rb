@@ -4,9 +4,6 @@
 require 'rails_helper'
 
 RSpec.describe 'ユーザー新規登録', type: :system do
-  include UserSupport
-  include OtherSupport
-
   before do
     @user = FactoryBot.build(:user)
   end
@@ -14,7 +11,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
   context 'メールアドレスでユーザー新規登録ができる時' do
     it '正しい情報を入力すれば新規登録ができ、トップページに移動する' do
       open_modal(:'sign-up', '新規登録')
-      access_sign_up_page
+      visit_sign_up_page
 
       # 必須事項を入力または選択する
       fill_in 'nickname',   with: @user.nickname
@@ -33,7 +30,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
   context 'メールアドレスでユーザー新規登録ができない時' do
     it '必須項目が空欄だったり、誤った情報では登録できず、新規登録ページに遷移する' do
       open_modal(:'sign-up', '新規登録')
-      access_sign_up_page
+      visit_sign_up_page
 
       # 必須項目を空欄にする
       fill_in 'nickname', with: ''
@@ -48,8 +45,21 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       end.to change(User, :count).by(0)
       # 新規登録ページへ戻されることを確認する
       expect(page).to have_current_path(user_registration_path)
-      # エラーメッセージが表示されていることを確認する
-      expect(page).to have_content 'ニックネームを入力してください'
+
+      # エラーメッセージのリストを定義する
+      error_messages = [
+        'ニックネームを入力してください',
+        'ニックネームを3文字以上で入力してください',
+        '生年月日を入力してください',
+        '性別を選択してください',
+        'メールアドレスを入力してください',
+        'メールアドレスは不正な形式です',
+        'パスワードを入力してください'
+      ]
+      # 空欄用のエラーメッセージが全て表示されていることを確認する
+      error_messages.each do |message|
+        expect(page).to have_content(message)
+      end
     end
   end
 
@@ -214,7 +224,7 @@ RSpec.describe 'パスワード変更', type: :system do
       # メール送信完了ページに遷移していることを確認する
       expect(page).to have_current_path(email_submitted_path)
 
-      get_token_and_access_edit_password_page
+      get_token_and_visit_edit_password_page
 
       # フィールドが出るまで最大5秒待つ
       expect(page).to have_field('password', wait: 5)
@@ -281,7 +291,7 @@ RSpec.describe 'パスワード変更', type: :system do
     end
 
     it '無効な入力内容（例：パスワード不一致）ではエラーメッセージが表示され、パスワードを変更できない' do
-      get_token_and_access_edit_password_page
+      get_token_and_visit_edit_password_page
 
       # フィールドが出るまで最大5秒待つ
       expect(page).to have_field('password', wait: 5)
@@ -312,18 +322,14 @@ RSpec.describe 'マイページ', type: :system do
   end
 
   context 'マイページへ遷移できる時' do
-    it 'ログインユーザーはモーダルからマイページへ遷移し、アカウント情報やログイン情報を閲覧できる' do
-      log_in_and_show_modal
+    it 'ログインユーザーはモーダルからマイページへ遷移し、さまざまな情報を閲覧できる' do
+      log_in_and_visit_my_page
 
-      # ｢マイページ｣ボタンをクリックし、マイページへ遷移していることを確認する
-      click_on('マイページ')
-      expect(page).to have_current_path(user_path(@user), wait: 15)
-      # マイページにアカウント情報やログイン情報が表示されていることを確認する
-      expect(page).to have_selector('.user-nickname', text: @user.nickname, visible: false)
-      expect(page).to have_content(@user.birth_date.strftime('%Y/%m/%d'))
-      expect(page).to have_content(@user.gender.name)
-      expect(page).to have_content(@user.masked_email)
-      expect(page).to have_content('********')
+      show_account_info
+      show_log_in_info
+      show_favorite_posted_contents
+      show_high_rating_posted_contents
+      show_favorite_posted_contents
     end
   end
 
@@ -345,6 +351,7 @@ RSpec.describe 'マイページ', type: :system do
   context 'プロフィールを編集できる時' do
     it '必須事項を全て入力していれば編集できる' do
       log_in_and_visit_my_page
+      show_account_info
       click_btn_and_check_account_info
 
       # 編集内容を定義する
@@ -438,6 +445,7 @@ RSpec.describe 'マイページ', type: :system do
   context 'メールアドレスを変更できる時' do
     it '@を含んだメールアドレスを入力していれば変更できる' do
       log_in_and_visit_my_page
+      show_log_in_info
       click_btn_and_check_email
 
       # 別のメールアドレスを入力し、変更ボタンを押す
@@ -452,6 +460,7 @@ RSpec.describe 'マイページ', type: :system do
   context 'メールアドレスを変更できない時' do
     it 'メールアドレスが空欄だとエラーメッセージが表示され、変更できない' do
       log_in_and_visit_my_page
+      show_log_in_info
       click_btn_and_check_email
 
       # メールアドレスを空欄し、変更ボタンを押す
@@ -469,6 +478,7 @@ RSpec.describe 'マイページ', type: :system do
   context 'パスワードを変更できる時' do
     it 'パスワードと確認用パスワードを入力していれば変更できる' do
       log_in_and_visit_my_page
+      show_log_in_info
       click_btn_and_visit_edit_password_page
 
       # 新しいパスワードと確認用パスワードをそれぞれ入力する
@@ -486,6 +496,7 @@ RSpec.describe 'マイページ', type: :system do
   context 'パスワードを変更できない時' do
     it 'パスワードや確認用パスワードが空欄だとエラーメッセージが表示され、変更できない' do
       log_in_and_visit_my_page
+      show_log_in_info
       click_btn_and_visit_edit_password_page
 
       # パスワードと確認用パスワードを空欄にする
@@ -504,6 +515,7 @@ RSpec.describe 'マイページ', type: :system do
 
     it '無効な入力内容（例：パスワード不一致）ではエラーメッセージが表示され、パスワードを変更できない' do
       log_in_and_visit_my_page
+      show_log_in_info
       click_btn_and_visit_edit_password_page
 
       # パスワードと確認用パスワードをわざと違うものにする

@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe '新規投稿', type: :system do
-  include UserSupport
-  include BookSupport
-  include OtherSupport
-
   before do
     @user = FactoryBot.create(:user)
     @book = FactoryBot.build(:book)
@@ -42,15 +38,7 @@ RSpec.describe '新規投稿', type: :system do
       expect(page).to have_current_path(root_path)
       expect(page).to have_content('投稿しました')
 
-      # トップページに投稿した画像とタイトルが表示されていることを確認する
-      expect(page).to have_selector(".book-posted-image")
-      expect(page).to have_content(@book.title)
-      # 投稿にカーソルを当てるとカテゴリー名と内容が表示されることを確認する
-      post_element = find('.card-content-wrapper')
-      post_element.hover
-
-      expect(page).to have_content('漫画', wait: 5)
-      expect(page).to have_content(@book_content.content)
+      show_posted_contents
     end
 
     it '新規投稿ページに各サイトへの外部リンクが正しく設置されている' do
@@ -98,11 +86,19 @@ RSpec.describe '新規投稿', type: :system do
       end.to change { Book.count }.by(0)
         .and change { BookContent.count }.by(0)
 
+      # エラーメッセージのリストを定義する
+      error_messages = [
+        'タイトルを入力してください',
+        '本の種類を選択してください',
+        '内容項目を入力してください'
+      ]
+
       # 新規投稿ページで各入力項目にエラーメッセージが表示されていることを確認する
       expect(page).to have_current_path(books_path)
-      expect(page).to have_content('タイトルを入力してください')
-      .and have_content('本の種類を選択してください')
-      .and have_content('内容項目を入力してください')
+
+      error_messages.each do |message|
+        expect(page).to have_content(message)
+      end
     end
 
     it '未ログインユーザーは新規投稿できず、新規投稿ボタンを押すとログインモーダルが表示される' do

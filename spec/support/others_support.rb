@@ -1,8 +1,12 @@
+# 2つ以上のテストコードファイルで使用するメソッドを記述
+
 module OtherSupport
   extend ActiveSupport::Concern
 
   included do
-
+    before do
+      @user = FactoryBot.create(:user)
+    end
   end
 
   def image_test(file_name,image_text)
@@ -25,5 +29,11 @@ module OtherSupport
 
     # 正しくアップロードされているか、ファイル名で最終確認する
     expect(page).to have_selector('.preview-image', wait: 5)
+  end
+
+  def visit_my_page
+    # ｢マイページ｣ボタンをクリックし、マイページへ遷移していることを確認する
+    click_on('マイページ')
+    expect(page).to have_current_path(user_path(@user), wait: 15)
   end
 end
