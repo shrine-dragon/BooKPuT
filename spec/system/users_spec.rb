@@ -148,10 +148,10 @@ RSpec.describe 'ログイン', type: :system do
   end
 
   sns_login_data = {
-    'Google' => { provider: :google_oauth2, selector: '#google-log-in', message: 'Google アカウントでログインしました。' },
-    'X(Twitter)' => { provider: :twitter, selector: '#twitter-log-in', message: 'X アカウントでログインしました。' },
-    'Facebook' => { provider: :facebook, selector: '#facebook-log-in', message: 'Facebook アカウントでログインしました。' },
-    'LINE' => { provider: :line, selector: '#line-log-in', message: 'LINE アカウントでログインしました。' }
+    'Google' => { provider: :google_oauth2, selector: '#google-log-in', message: 'Google アカウントでログインしました' },
+    'X(Twitter)' => { provider: :twitter, selector: '#twitter-log-in', message: 'X アカウントでログインしました' },
+    'Facebook' => { provider: :facebook, selector: '#facebook-log-in', message: 'Facebook アカウントでログインしました' },
+    'LINE' => { provider: :line, selector: '#line-log-in', message: 'LINE アカウントでログインしました' }
   }
 
   context 'SNSでログインができる時' do

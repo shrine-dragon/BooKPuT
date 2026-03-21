@@ -45,7 +45,7 @@ ja:
       signed_out: "ログアウトしました"
       destroy: "ログアウトしました"
     omniauth_callbacks:
-      success: "%{kind} アカウントでログインしました。"
+      success: "%{kind} アカウントでログインしました"
     omniauth_providers:
       google_oauth2: "Google"
       twitter: "X"
