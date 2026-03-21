@@ -1,0 +1,39 @@
+<li class="book-cards">
+  <%# リンク先が user_id だったり id だったりするので変数を活用 %>
+  <%= link_to book_path(path_id), class: "book-card-link" do %>
+    <%# indexは通常、showはis-miniを付与 %>
+    <div class="book-card <%= local_assigns[:is_mini] ? 'is-mini' : '' %>">
+      <%# indexはgolden、showはwhite %>
+      <div class="frame <%= frame_color %>">
+        <div class="card-content-wrapper">
+          <div class="image-area">
+            <% if book.image.attached? %>
+              <%= image_tag book.image, class: "book-posted-image" %>
+            <% else %>
+              <%= image_tag "no-image.png", class: "book-posted-image no-exist" %>
+            <% end %>
+          </div>
+          
+          <div class="info-area">
+            <div class="title-plate">
+              <span class="book-title"><%= book.title %></span>
+            </div>
+            
+            <div class="hover-details">
+              <p class="category-tag"># <%= book.category.name %></p>
+              <ul class="content-list">
+                <% book.book_contents.take(2).each do |bc| %>
+                  <li><%= bc.content %></li>
+                <% end %>
+                <%# 3つ目がある場合の「…」表示も共通化 %>
+                <% if book.book_contents.count > 2 %>
+                  <li>…</li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</li>

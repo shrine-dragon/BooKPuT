@@ -17,7 +17,7 @@
             <% if current_user.image.attached? %>
               <%= image_tag current_user.image, class: 'user-image' %>
             <% else%>
-              <%= image_tag "no-image.png", class: 'user-image' %>
+              <%= image_tag "no-image.png", class: 'user-image no-exist' %>
             <% end %>
           </li>
         <% else %>

@@ -7,44 +7,10 @@
         <h2>投稿一覧</h2>
       </div>
       <% if @books.any? %>
-        <div class="book-post-images-container">
-          <ul class="book-post-images slick-slider">
+        <div class="book-cards-container">
+          <ul class="book-cards slick-slider">
             <% @books.shuffle.each do |book| %>
-              <li class="post-image">
-                <%= link_to book_path(book.user_id), class: "museum-card-link" do %>
-                  <div class="museum-card">
-                    <div class="frame">
-                      <div class="card-content-wrapper">
-                        <div class="image-area">
-                          <% if book.image.attached? %>
-                            <%= image_tag book.image, class: "main-image" %>
-                          <% else %>
-                            <%= image_tag "no-image.png", class: "main-image" %>
-                          <% end %>
-                        </div>
-                        
-                        <div class="info-area">
-                          <div class="title-plate">
-                            <span class="book-title"><%= book.title %></span>
-                          </div>
-                          
-                          <div class="hover-details">
-                            <p class="category-tag"># <%= book.category.name %></p>
-                            <ul class="content-list">
-                              <% book.book_contents.take(2).each do |bc| %>
-                                <li><%= bc.content %></li>
-                              <% end %>
-                              <% if book.book_contents.count > 2 %>
-                                <li>…</li>
-                              <% end %>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                <% end %>
-              </li>
+              <%= render 'partial_template/book_cards', book: book, path_id: book.user_id, frame_color: 'golden' %>
             <% end %>
           </ul>
         </div>
@@ -60,7 +26,7 @@
     <div class="app-description-wrapper">
       <h2>本を読むと共に、発信する時代へ！</h2>
       <p>読書とSNSを融合させた近代的なアプリ</p>
-      <p>たった20文字で本の内容をアウトプット可</p>
+      <p>50文字以内で本の内容をアウトプット可</p>
       <p>老若男女、どなたでも楽しめます。</p>
       <p class="app-download-text">アプリ版のダウンロードはこちら</p>
       <div class="store-btns">
@@ -147,7 +113,7 @@
           </h3>
           <span>+</span>
           <div class="answer">
-            A 無理に長文を書く必要はございません。最低50文字以上書けば投稿可能です。
+            A 無理に長文を書く必要はございません。数文字〜50文字書けば投稿可能です。
           </div>
         </li>
       </ul>

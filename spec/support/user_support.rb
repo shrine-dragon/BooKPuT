@@ -25,7 +25,7 @@ module UserSupport
     expect(page).to have_selector(".modal.#{selector_type}", visible: true)
   end
 
-  def access_sign_up_page
+  def visit_sign_up_page
     # 新規登録用モーダルに｢メールアドレスでアカウント作成｣のボタンがあることを確認する
     expect(page).to have_content('メールアドレスでアカウント作成')
     # ボタンをクリックする
@@ -78,14 +78,23 @@ module UserSupport
   def verify_top_page_after_login(flash_message)
     expect(page).to have_current_path(root_path, wait: 15)
 
+    # 今DBに保存されたばかりの最新ユーザーを取得する
+    latest_user = User.last
+
     # トップページにフラッシュメッセージが表示されていることを確認する
     expect(page).to have_selector('.flash-message', text: flash_message)
 
     # トップページに｢新規登録｣｢ログイン｣のmenuテキストが表示されていないことを確認する
     expect(page).to have_no_selector('.sign-up-menu-text', text: '新規登録')
     expect(page).to have_no_selector('.log-in-menu-text', text: 'ログイン')
-    # トップページにユーザー名が表示されていることを確認する
+
+    # ヘッダーに登録したニックネームと画像が表示されていることを確認する
     expect(page).to have_selector('.user-nickname', text: @user.nickname, visible: false)
+    if latest_user.image.attached?
+      expect(page).to have_selector('.user-image')
+    else
+      expect(page).to have_selector('.user-image.no-exist')
+    end
   end
 
   def return_to_top_page_and_show_flash_message(flash_message)
@@ -115,7 +124,7 @@ module UserSupport
                                                                         })
   end
 
-  def get_token_and_access_edit_password_page
+  def get_token_and_visit_edit_password_page
     # メール送信によってDBに保存された「生のトークン」を直接取得する
     raw_token, hashed_token = Devise.token_generator.generate(User, :reset_password_token)
     @user.update(reset_password_token: hashed_token, reset_password_sent_at: Time.now.utc)
@@ -145,8 +154,22 @@ module UserSupport
   end
 
   def log_in_and_visit_my_page
-    login_as(@user)
-    visit user_path(@user)
+    log_in_and_show_modal
+    visit_my_page
+  end
+
+  def show_account_info
+    # マイページにアカウント情報が表示されていることを確認する
+    expect(page).to have_selector('.user-nickname', text: @user.nickname, visible: false)
+    expect(page).to have_selector('.current-user-image')
+    expect(page).to have_content(@user.birth_date.strftime('%Y/%m/%d'))
+    expect(page).to have_content(@user.gender.name)
+  end
+
+  def show_log_in_info
+    # マイページにログイン情報が表示されていることを確認する
+    expect(page).to have_content(@user.masked_email)
+    expect(page).to have_content('********')
   end
 
   def not_log_in_user

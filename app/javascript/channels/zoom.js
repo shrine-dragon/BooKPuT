@@ -1,12 +1,12 @@
 $(document).on('turbolinks:load', function() {
-  const $slider = $('.book-post-images');
+  const $slider = $('.book-cards');
   let hoverTimer = null;
 
   // 1. スライド前後の状態管理
   $slider.on('beforeChange', function() {
     $slider.addClass('is-sliding');
     clearTimeout(hoverTimer);
-    $('.museum-card').removeClass('is-hovered'); // 拡大をリセット
+    $('.book-card').removeClass('is-hovered'); // 拡大をリセット
   });
 
   $slider.on('afterChange', function() {
@@ -14,9 +14,9 @@ $(document).on('turbolinks:load', function() {
   });
 
   // 2. イベント委譲（$(document).on）を使い、Slickが生成したすべての要素に対応
-  $(document).off('mouseenter mouseleave', '.museum-card');
+  $(document).off('mouseenter mouseleave', '.book-card');
 
-  $(document).on('mouseenter', '.museum-card', function() {
+  $(document).on('mouseenter', '.book-card', function() {
     // スライド中なら無視
     if ($slider.hasClass('is-sliding')) return;
 
@@ -31,7 +31,7 @@ $(document).on('turbolinks:load', function() {
     }, 150); // 150msホバーで拡大
   });
 
-  $(document).on('mouseleave', '.museum-card', function() {
+  $(document).on('mouseleave', '.book-card', function() {
     const $card = $(this);
     clearTimeout(hoverTimer);
     $card.removeClass('is-hovered');

@@ -44,16 +44,19 @@ document.addEventListener('turbolinks:load', () => {
   addButton.addEventListener('click', () => {
     const fields = container.querySelectorAll('.content-field');
     if (fields.length < maxFields) {
-      // 最初の要素ではなく、常に最新の要素をコピー元にすると構造が安定します
+      // 最初の要素ではなく、常に最新の要素をコピー元にすると構造が安定する
       const lastField = fields[fields.length - 1];
       const newField = lastField.cloneNode(true);
+
+      const nextIndex = fields.length;
       
-      const uniqueId = new Date().getTime();
       newField.querySelectorAll('input').forEach(input => {
         input.value = '';
-        // 🚨 [0] や [177306...] の部分を新しいタイムスタンプで一括置換
-        input.name = input.name.replace(/\[(\d+)\]/g, `[${uniqueId}]`);
-        input.id = input.id.replace(/_(\d+)_/g, `_${uniqueId}_`);
+        // id と name を連番に置換
+        // id: book_content_0 -> book_content_1
+        input.id = input.id.replace(/\d+$/, nextIndex); 
+        // name: book[book_contents_attributes][0][content] -> ...[1][content]
+        input.name = input.name.replace(/\[\d+\]/g, `[${nextIndex}]`);
       });
 
       // エラー表示をクリア

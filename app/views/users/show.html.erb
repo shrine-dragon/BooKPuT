@@ -65,32 +65,7 @@
           <div class="book-post-images-container">
             <ul class="book-post-images slick-slider">
               <% @my_books.each do |my_book| %>
-                <li class="post-image">
-                  <%= link_to book_path(my_book.id), class: "museum-card-link" do %>
-                    <div class="museum-card is-mini">
-                      <div class="frame">
-                        <div class="card-content-wrapper">
-                          <div class="image-area">
-                            <%= image_tag (my_book.image.attached? ? my_book.image : "no-image.png"), class: "main-image" %>
-                          </div>
-                          <div class="info-area">
-                            <div class="title-plate">
-                              <span class="book-title"><%= my_book.title %></span>
-                            </div>
-                            <div class="hover-details">
-                              <p class="category-tag"># <%= my_book.category.name %></p>
-                              <ul class="content-list">
-                                <% my_book.book_contents.take(2).each do |m_bc| %>
-                                  <li><%= m_bc.content %></li>
-                                <% end %>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  <% end %>
-                </li>
+                <%= render 'partial_template/book_cards', book: my_book, path_id: my_book.id, frame_color: 'white', is_mini: true %>
               <% end %>
             </ul>
           </div>

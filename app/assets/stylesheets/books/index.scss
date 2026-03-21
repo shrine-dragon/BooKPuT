@@ -3,7 +3,7 @@
 }
 
 .book-post-list-wrapper,
-.book-post-images-container{
+.book-cards-container{
   position: relative;
 }
 
@@ -11,14 +11,14 @@
   padding: 0 60px 30px;
 }
 
-.book-post-images-container{
+.book-cards-container{
   width: 90%;
   margin: 0 auto;
   position: relative;
 }
 
 /* スライド中（is-sliding）は拡大を強制解除して事故を防ぐ */
-.book-post-images.is-sliding .museum-card {
+.book-cards.is-sliding .book-card {
   transform: scale(1) !important;
   transition: none !important;
 }
@@ -39,15 +39,15 @@
   font-size: 25px;
 }
 
-.book-post-images.slick-slider{
+.book-cards.slick-slider{
   display: block;
   padding: 0;
   margin: 0;
 }
 
-.book-post-images {
+.book-cards {
   &.is-sliding {
-    .museum-card {
+    .book-card {
       pointer-events: none !important;
       opacity: 1 !important; // スライド中に薄くならないように固定      
     }
@@ -55,11 +55,11 @@
 }
 
 // スライド中のガード
-.is-sliding .museum-card {
+.is-sliding .book-card {
   pointer-events: none !important;
 }
 
-.post-image {
+.book-cards {
   margin: 10px 15px; 
   outline: none;
   position: relative;
@@ -67,7 +67,7 @@
   flex-direction: column;
 }
 
-.museum-card {
+.book-card {
   height: 100%;
   position: relative;
   transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
@@ -99,7 +99,7 @@
   }
 }
 
-.is-sliding .museum-card {
+.is-sliding .book-card {
   transform: scale(1) !important;
   transition: none !important;
 }
@@ -129,7 +129,7 @@
   flex-shrink: 0; /* 画像が潰れないように固定 */
   height: 350px;  /* お好みの高さに調整してください */
   overflow: hidden;
-  .main-image {
+  .book-posted-image{
     width: 100%;
     height: 100%;
     object-fit: cover;
