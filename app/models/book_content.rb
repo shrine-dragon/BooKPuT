@@ -1,6 +1,6 @@
 class BookContent < ApplicationRecord
   belongs_to :book
-  validates :content, presence: true, length: { maximum: 50 }
+  validates :content, length: { maximum: 50 }
 
   private
 

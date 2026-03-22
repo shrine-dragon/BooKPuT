@@ -16,10 +16,15 @@ RSpec.describe Book, type: :model do
         @book.image = ''
         expect(@book).to be_valid
       end
+
+      it '内容項目が7つ以内なら保存できる' do
+        6.times { @book.book_contents.build(content: 'テスト') }
+        expect(@book).to be_valid
+      end
     end
 
     context '投稿内容を保存できない時' do
-      it 'タイトルが入力されていないと保存' do
+      it 'タイトルが入力されていないと保存できない' do
         @book.title = ''
         @book.valid?
         expect(@book.errors.full_messages).to include('タイトルを入力してください')
@@ -41,17 +46,14 @@ RSpec.describe Book, type: :model do
         @book.book_contents = []
         @book.valid?
         expect(@book.errors.full_messages).to include('内容項目を入力してください')
+
+        expect(@book.errors.full_messages).to include('内容項目を少なくとも1つ入力してください')
       end
 
       it '内容項目が51文字以上だと保存できない' do
         @book.book_contents.first.content = 'a' * 51
         @book.valid?
         expect(@book.errors.full_messages).to include('内容項目を50文字以内で入力してください')
-      end
-
-      it '内容項目が7つ以内なら保存できる' do
-        6.times { @book.book_contents.build(content: 'テスト') }
-        expect(@book).to be_valid
       end
 
       it '内容項目が8項目以上だと保存できない' do

@@ -14,4 +14,23 @@ class Book < ApplicationRecord
   validates :title, presence: true, length: { maximum: 100 }
   validates :category_id, presence: true, numericality: { other_than: 0, message: 'を選択してください' }
   validates :book_contents, length: { minimum: 1, maximum: 7 }
+
+  validate :at_least_one_content
+
+  before_validation :compact_book_contents
+
+  private
+
+  def at_least_one_content
+    if book_contents.reject { |c| c.content.blank? || c.marked_for_destruction? }.empty?
+      errors.add(:book_contents, "を少なくとも1つ入力してください")
+    end
+  end
+
+  def compact_book_contents
+  # contentが空のものを、保存対象から除外する
+    book_contents.each do |content|
+      content.mark_for_destruction if content.content.blank?
+    end
+  end
 end
