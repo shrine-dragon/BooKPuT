@@ -82,14 +82,13 @@
               <div class="content-field">
                 <div class="input-main-part" style="flex: 1;">
                   <%= content_form.text_field :content, id: "book_content_#{content_form.index}", class:"input-text", placeholder:"50文字以内" %>
-                  <div class="error-wrapper">
-                    <%= render "partial_template/error_messages", model: content_form.object, attribute: :content %>
-                  </div>
                 </div>
                 <span class="remove-content-btn hovers" >−</span>
               </div>
             <% end %>
           </div>
+
+          <%= render "partial_template/error_messages", model: model, attribute: :book_contents %>
 
           <span type="button" id="add-content-btn" class="plus-btn hovers">
             ＋</i> 項目を追加する<span id="remaining-count">(残り<%= 7 - model.book_contents.length %>項目)</span>
