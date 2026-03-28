@@ -20,7 +20,7 @@
           <%= f.file_field :image, class:"upload-image hovers", id: "book-image" %>
           <%= f.hidden_field :remote_image_url, id: "remote-image-url" %>
 
-          <% if model.errors[:image].any? || (model.image.attached? && !model.image.persisted?) %>
+          <% if model.errors.any? %>
             <p class="image-re-select-message" >
               画像を選択し直してください
             </p>
@@ -65,16 +65,16 @@
         <div class="form-contents">
           <div class="form-text">
             <label>本の種類(必須)</label>
+            <div class="pull-down-wrapper">
+              <%= f.collection_select(:category_id, Category.all, :id, :name, {}, {class:"select-pull-down", id:"category"}) %>
+            </div>
+            <%= render "partial_template/error_messages", model: model, attribute: :category_id %>
           </div>
-          <div class="pull-down-wrapper">
-            <%= f.collection_select(:category_id, Category.all, :id, :name, {}, {class:"select-pull-down", id:"category"}) %>
-          </div>
-          <%= render "partial_template/error_messages", model: model, attribute: :category_id %>
         </div>
 
         <div class="form-contents">
           <div class="form-text">
-            <label>内容(必須)</label>
+            <label>内容(1項目以上、入力必須)</label>
           </div>
 
           <div id="contents-container">
@@ -86,9 +86,8 @@
                 <span class="remove-content-btn hovers" >−</span>
               </div>
             <% end %>
+            <%= render "partial_template/error_messages", model: model, filter: "内容" %>
           </div>
-
-          <%= render "partial_template/error_messages", model: model, attribute: :book_contents %>
 
           <span type="button" id="add-content-btn" class="plus-btn hovers">
             ＋</i> 項目を追加する<span id="remaining-count">(残り<%= 7 - model.book_contents.length %>項目)</span>

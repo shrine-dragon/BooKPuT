@@ -8,6 +8,13 @@
   word-wrap: break-word;
   overflow-wrap: break-word;
   width: 70%;
+  text-align: left !important
+}
+
+.book-post{
+  .error-message{
+    width: 100% !important;
+  }
 }
 
 .error-message.is-full-with{
@@ -20,4 +27,23 @@
     width: 300px !important;
     max-width: 360px;
   }
+}
+
+.error-wrapper {
+  align-self: flex-start;
+  width: 70%;
+  margin: 4px auto 0 0;
+}
+
+.error-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.error-item {
+  color: red;
+  font-size: 0.8em;
+  text-align: left;
 }

@@ -1,7 +1,5 @@
 <li class="book-cards">
-  <%# リンク先が user_id だったり id だったりするので変数を活用 %>
   <%= link_to book_path(path_id), class: "book-card-link" do %>
-    <%# indexは通常、showはis-miniを付与 %>
     <div class="book-card <%= local_assigns[:is_mini] ? 'is-mini' : '' %>">
       <%# indexはgolden、showはwhite %>
       <div class="frame <%= frame_color %>">
@@ -20,7 +18,11 @@
             </div>
             
             <div class="hover-details">
-              <p class="category-tag"># <%= book.category.name %></p>
+              <% unless [0, 11, 12].include?(book.category_id) %>
+                <span class="category-tag" style="color: <%= book.category.color %>;">
+                  # <%= book.category.name %>
+                </span>
+              <% end %>
               <ul class="content-list">
                 <% book.book_contents.take(2).each do |bc| %>
                   <li><%= bc.content %></li>

@@ -14,16 +14,24 @@ class BooksController < ApplicationController
 
   def create
     @book = Book.new(book_params)
-    # APIからのURLがある場合、Active Storageにダウンロードして保存
-    if params[:book][:remote_image_url].present? && !@book.image.attached?
-      require 'open-uri'
-      file = URI.open(params[:book][:remote_image_url])
-      @book.image.attach(io: file, filename: 'book_image.jpg')
-    end
-
-    if @book.save
+    
+    if @book.valid?
+      if params[:book][:remote_image_url].present? && !@book.image.attached?
+        begin
+          require 'open-uri'
+          file = URI.open(params[:book][:remote_image_url])
+          @book.image.attach(io: file, filename: 'book_image.jpg')
+        rescue => e
+          logger.error "Image download failed: #{e.message}"
+        end
+      end
+      
+      @book.save
       redirect_to root_path, notice: '投稿しました'
     else
+      puts "--- Validation Errors ---"
+      puts @book.errors.full_messages
+      puts "-------------------------"
       render :new
     end
   end
