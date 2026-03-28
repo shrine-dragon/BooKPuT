@@ -20,8 +20,12 @@ module BookSupport
     post_element = find('.card-content-wrapper')
     post_element.hover
 
-    expect(page).to have_content('漫画', wait: 5)
+    expect(page).to have_content('# 漫画', wait: 5)
     expect(page).to have_content(@book_content.content)
+    # style属性の中に、カテゴリーが持つカラーコードが含まれているか確認する
+    target_category = Category.find(1)
+    rgb_color = "rgb(#{target_category.color.match(/#(..)(..)(..)/).captures.map(&:hex).join(', ')})"
+    expect(find('.category-tag', text: target_category.name)[:style]).to include(rgb_color)
   end
 
   def show_high_rating_posted_contents
