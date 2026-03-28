@@ -1,6 +1,5 @@
 document.addEventListener('turbolinks:load', () => {
   const remainingText = document.getElementById('remaining-count');
-
   const container = document.getElementById('contents-container');
   const addButton = document.getElementById('add-content-btn');
 
@@ -8,74 +7,82 @@ document.addEventListener('turbolinks:load', () => {
 
   const maxFields = 7;
 
+  // 「現在表示されている」フィールドのみを取得する関数
+  const getVisibleFields = () => {
+    return Array.from(container.querySelectorAll('.content-field')).filter(field => field.style.display !== 'none');
+  };
+
   const updateRemainingCount = () => {
-    const currentFields = container.querySelectorAll('.content-field').length;
-    const remaining = maxFields - currentFields;
+    const visibleFields = getVisibleFields();
+    const remaining = maxFields - visibleFields.length;
     
     if (remainingText) {
       remainingText.textContent = `(残り${remaining}項目)`;
     }
 
-    // ついでに、残り0ならボタンを非表示にするなどの制御も可能です
-    if (remaining <= 0) {
-      addButton.style.display = 'none';
-    } else {
-      addButton.style.display = 'inline-flex';
-    }
+    addButton.style.display = (remaining <= 0) ? 'none' : 'inline-flex';
   };
 
-  // ボタンの状態（表示・非表示）を更新する共通関数
   const updateButtonStates = () => {
-    const fields = container.querySelectorAll('.content-field');
+    const visibleFields = getVisibleFields();
     
-    // 1つしかなければマイナスボタンを隠す
-    fields.forEach(field => {
+    visibleFields.forEach(field => {
       const removeBtn = field.querySelector('.remove-content-btn');
       if (removeBtn) {
-        removeBtn.style.display = (fields.length > 1) ? 'inline-block' : 'none';
+        // 表示されているのが1つだけならマイナスボタンを隠す
+        removeBtn.style.display = (visibleFields.length > 1) ? 'inline-block' : 'none';
       }
     });
   };
 
-  // 起動時（エラー戻り時含む）に実行
   updateButtonStates();
 
   // プラスボタンの処理
   addButton.addEventListener('click', () => {
-    const fields = container.querySelectorAll('.content-field');
-    if (fields.length < maxFields) {
-      // 最初の要素ではなく、常に最新の要素をコピー元にすると構造が安定する
-      const lastField = fields[fields.length - 1];
-      const newField = lastField.cloneNode(true);
+    const allFields = container.querySelectorAll('.content-field');
+    const visibleFields = getVisibleFields();
 
-      const nextIndex = fields.length;
+    // 1. まず非表示になっているフィールド（以前消したフィールド）があれば、それを再表示する
+    const hiddenField = Array.from(allFields).find(field => field.style.display === 'none');
+
+    if (hiddenField) {
+      hiddenField.style.display = 'flex'; // 元の表示形式に合わせる（flexやblockなど）
+    } else if (allFields.length < maxFields) {
+      // 2. 非表示のものがなく、かつ最大数に達していなければ新規作成（クローン）
+      const lastField = allFields[allFields.length - 1];
+      const newField = lastField.cloneNode(true);
+      newField.style.display = 'flex'; 
+
+      const nextIndex = allFields.length;
       
       newField.querySelectorAll('input').forEach(input => {
         input.value = '';
-        // id と name を連番に置換
-        // id: book_content_0 -> book_content_1
         input.id = input.id.replace(/\d+$/, nextIndex); 
-        // name: book[book_contents_attributes][0][content] -> ...[1][content]
         input.name = input.name.replace(/\[\d+\]/g, `[${nextIndex}]`);
       });
 
-      // エラー表示をクリア
       const errorWrapper = newField.querySelector('.error-wrapper');
       if (errorWrapper) errorWrapper.innerHTML = '';
 
       container.appendChild(newField);
-      updateButtonStates();
     }
-    setTimeout(updateRemainingCount, 0);
+
+    updateButtonStates();
+    updateRemainingCount();
   });
 
-  // マイナスボタンの処理（イベントデリゲート）
+  // マイナスボタンの処理
   container.addEventListener('click', (e) => {
     if (e.target.classList.contains('remove-content-btn')) {
-      e.target.closest('.content-field').remove();
+      const field = e.target.closest('.content-field');
+      
+      // 物理的に削除せず、非表示にするだけ（中身のvalueは維持される）
+      field.style.display = 'none';
+      
       updateButtonStates();
-      setTimeout(updateRemainingCount, 0);
+      updateRemainingCount();
     }
   });
+
   updateRemainingCount();
 });
