@@ -144,12 +144,25 @@
   display: block;
 }
 
+.genre-hashtags-area {
+  margin: 4px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.genre-tag {
+  font-size: 0.8rem;
+  color: #666;
+}
+
 .content-list {
   list-style: none !important;
   padding: 0;
   margin: 0;
   li {
-    font-size: 16px;
+    font-size: 18px;
+    font-weight: bold;
     line-height: 1.4;
     white-space: nowrap;      /* 改行させない */
     overflow: hidden;         /* はみ出しを隠す */

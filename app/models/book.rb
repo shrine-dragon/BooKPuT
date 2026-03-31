@@ -10,6 +10,10 @@ class Book < ApplicationRecord
 
   attribute :genre_ids, :json, default: []
 
+  def genres
+    Genre.where(id: genre_ids)
+  end
+
   has_many :book_contents, dependent: :destroy
   accepts_nested_attributes_for :book_contents, allow_destroy: true
 
