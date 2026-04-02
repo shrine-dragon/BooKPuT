@@ -12,35 +12,32 @@
 }
 
 .form-container{
-  width: 70%;
+  width: 55%;
   margin: 0 auto;
 }
 
 .form-contents{
-  margin-bottom: 25px;
-  width: 100%;
+  margin-bottom: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: left;
 }
 
 .form-text{
-  margin-bottom: 5px;
-  text-align: left;
-  label{
-    font-size: 18px;
-    font-weight: bold;
-    display: block;
-  }
+  font-size: 18px;
+  font-weight: bold;
+  display: block;
 }
 
 .input-text{
-  width: 70%;
+  width: 100%;
   height: 45px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+  font-weight: normal;
 }
 
 .toggle-password{
