@@ -75,9 +75,9 @@
         <div class="form-contents" id="genre-section" style="display: <%= model.category_id.present? && ![0, 10, 11, 12].include?(model.category_id) ? 'flex' : 'none' %>; flex-direction: column; align-items: center; width: 70%; margin: 0 auto;">
           <div class="form-text" style="width: 100%;">
             <label>本のジャンル(3つまで選択可・必須)</label>
-            <div class="genre-options-wrapper" style="display: flex; flex-wrap: wrap; gap: 10px; width: 100%; justify-content: flex-start;">
+            <div class="genre-options-wrapper">
               <% Genre.all.each do |genre| %>
-                <label class="genre-option hovers" data-category-id="<%= genre.category_id %>" style="display: none; cursor: pointer; padding: 5px; border: 1px solid #ccc; border-radius: 4px;">
+                <label class="genre-option hovers" data-category-id="<%= genre.category_id %>">
                   <%= f.check_box :genre_ids, { multiple: true, id: "genre_#{genre.id}", class: "genre-checkbox" }, genre.id, nil %>
                   <span class="genre-name"><%= genre.name %></span>
                 </label>
