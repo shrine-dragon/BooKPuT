@@ -279,7 +279,7 @@ RSpec.describe 'パスワード変更', type: :system do
       click_on('送信する')
       # メール送信完了ページへ遷移せず、エラーメッセージが表示されていることを確認する
       expect(page).to have_current_path(user_password_path, wait: 10)
-      expect(page).to have_selector('.error-message', text: 'メールアドレスを入力してください')
+      expect(page).to have_selector('.error-item', text: 'メールアドレスを入力してください')
     end
 
     it '未登録のメールアドレスを入力するとパスワード再設定用のメールは届かず、パスワードも変更できない' do
@@ -317,7 +317,7 @@ RSpec.describe 'パスワード変更', type: :system do
 
       # パスワード変更完了ページへ遷移せず、エラーメッセージが表示されていることを確認する
       expect(page).to have_current_path(user_password_path, wait: 10)
-      expect(page).to have_selector('.error-message', text: 'パスワード（確認用）とパスワードが一致しません')
+      expect(page).to have_selector('.error-item', text: 'パスワード（確認用）とパスワードが一致しません')
     end
   end
 end
@@ -514,7 +514,7 @@ RSpec.describe 'マイページ', type: :system do
 
       # マイページへ遷移せず、エラーメッセージが表示されていることを確認する
       expect(page).to have_current_path(user_path(@user), wait: 10)
-      expect(page).to have_selector('.error-message', text: 'パスワードを入力してください')
+      expect(page).to have_selector('.error-item', text: 'パスワードを入力してください')
       # 編集画面の項目がまだ存在することを確認する
       expect(page).to have_content('新しいパスワード(必須)')
     end
@@ -538,7 +538,7 @@ RSpec.describe 'マイページ', type: :system do
 
       # パスワード変更完了ページへ遷移せず、エラーメッセージが表示されていることを確認する
       expect(page).to have_current_path(user_path(@user), wait: 10)
-      expect(page).to have_selector('.error-message', text: 'パスワード（確認用）とパスワードが一致しません')
+      expect(page).to have_selector('.error-item', text: 'パスワード（確認用）とパスワードが一致しません')
       # 編集画面の項目がまだ存在することを確認する
       expect(page).to have_content('新しいパスワード(必須)')
     end
