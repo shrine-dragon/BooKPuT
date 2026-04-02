@@ -19,6 +19,7 @@ class Book < ApplicationRecord
 
   validates :title, presence: true, length: { maximum: 100 }
   validates :category_id, presence: true, numericality: { other_than: 0, message: 'を選択してください' }
+  validates :genre_ids, presence: { message: 'を選択してください' }
   validates :book_contents, length: { minimum: 1, maximum: 7 }
 
   validate :genre_selection_limit
@@ -34,7 +35,7 @@ class Book < ApplicationRecord
       errors.add(:genre_ids, "を選択してください")
     # 3つより多い場合
     elsif genre_ids.reject(&:blank?).length > 3
-      errors.add(:genre_ids, "を3つ以内で選択してください")
+      errors.add(:genre_ids, "は3つまで選択してください")
     end
   end
 
