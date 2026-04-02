@@ -18,20 +18,33 @@
             </div>
             
             <div class="hover-details">
-              <% unless [0, 11, 12].include?(book.category_id) %>
-                <span class="category-tag" style="color: <%= book.category.color %>;">
-                  # <%= book.category.name %>
-                </span>
-              <% end %>
-              <ul class="content-list">
-                <% book.book_contents.take(2).each do |bc| %>
-                  <li><%= bc.content %></li>
+              <div class="category-hashtags-area">
+                <% unless [0, 11, 12].include?(book.category_id) %>
+                  <span class="category-tag" style="color: <%= book.category.color %>;">
+                    # <%= book.category.name %>
+                  </span>
                 <% end %>
-                <%# 3つ目がある場合の「…」表示も共通化 %>
-                <% if book.book_contents.count > 2 %>
-                  <li>…</li>
+              </div>
+              <div class="genre-hashtags-area">
+                <% if book.genres.present? %>
+                  <% book.genres.each do |genre| %>
+                    <% unless [900, 901].include?(genre.id) %>
+                      <span class="genre-tag"># <%= genre.name %></span>
+                    <% end %>
+                  <% end %>
                 <% end %>
-              </ul>
+              </div>
+              <div class="content-area">
+                <ul class="content-list">
+                  <% book.book_contents.take(2).each do |bc| %>
+                    <li><%= bc.content %></li>
+                  <% end %>
+                  <%# 3つ目がある場合の「…」表示も共通化 %>
+                  <% if book.book_contents.count > 2 %>
+                    <li>…</li>
+                  <% end %>
+                </ul>
+              </div>
             </div>
           </div>
         </div>

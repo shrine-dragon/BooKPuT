@@ -15,6 +15,7 @@ ja:
         title: "タイトル"
         category_id: "本の種類"
         book_contents: "内容項目"
+        genre_ids: "本のジャンル"
       "book/book_contents":
         content: "内容項目"
       book_content:

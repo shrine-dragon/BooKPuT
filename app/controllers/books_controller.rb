@@ -32,7 +32,7 @@ class BooksController < ApplicationController
       puts "--- Validation Errors ---"
       puts @book.errors.full_messages
       puts "-------------------------"
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -63,6 +63,7 @@ class BooksController < ApplicationController
       :remote_image_url,
       :delete_image,
       :category_id,
+      genre_ids: [],
       book_contents_attributes: %i[id content _destroy]
     ).merge(user_id: current_user.id)
   end

@@ -91,6 +91,23 @@
   height: 2.4em; overflow: hidden;
 }
 
+.form-contents.book-category{
+  margin-bottom: 20px !important;
+}
+
+.genre-options-wrapper{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: flex-start;
+  margin: 15px 0 25px;
+}
+
+.genre-option{
+  display: none;
+}
+
+
 #contents-container {
   width: 70%;
 }

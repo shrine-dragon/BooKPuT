@@ -42,6 +42,18 @@ RSpec.describe Book, type: :model do
         expect(@book.errors.full_messages).to include('本の種類を選択してください')
       end
 
+      it '本のジャンルが選択されていないと保存できない' do
+        @book.genre_ids = []
+        @book.valid?
+        expect(@book.errors.full_messages).to include('本のジャンルを選択してください')
+      end
+
+      it 'ジャンルが4つ以上選択されていると保存できない' do
+        @book.genre_ids = [1, 2, 3, 4]
+        @book.valid?
+        expect(@book.errors.full_messages).to include('本のジャンルは3つまで選択してください') 
+      end
+
       it '内容項目が入力されていないと保存できない' do
         @book.book_contents = []
         @book.valid?

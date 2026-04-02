@@ -16,6 +16,14 @@ RSpec.describe '新規投稿', type: :system do
       select '漫画',      from: 'category'
       fill_in 'book_content_0', with: @book_content.content
 
+      # 本の種類を選択すると本のジャンルが表示されることを確認する
+      expect(page).to have_selector('#genre-section', visible: true)
+
+      # 本のジャンルに最大3つまでチェックを入れる
+      check '少年漫画'
+      check '少女漫画'
+      check '青年漫画'
+
       # 内容項目が最初は1つであることを確認する
       expect(all('.input-main-part').count).to eq 1
 
@@ -29,10 +37,10 @@ RSpec.describe '新規投稿', type: :system do
 
       image_test('Momose-Akira-no-firstLove-failing.png', 'book[image]')
 
-      # ｢投稿する｣ボタンを押すとBookモデルのカウントが1,BookContentモデルのカウントが2上がることを確認する
+      # ｢投稿する｣ボタンを押すとBookモデルのカウントが1,BookContentモデルのカウントが2、Genreモデルのカウントが3上がることを確認する
       expect do
         scroll_display('.orange-submit-btn')
-      end.to change { Book.count }.by(1)
+      end.to change { Book.count }       .by(1)
         .and change { BookContent.count }.by(2)
 
       # トップページに遷移し、フラッシュメッセージが表示されていることを確認する
@@ -102,6 +110,32 @@ RSpec.describe '新規投稿', type: :system do
       error_messages.each do |message|
         expect(page).to have_content(message)
       end
+
+      # 本の種類を選択した状態で投稿ボタンを押す
+      select '漫画',      from: 'category'
+      expect do
+        scroll_display('.orange-submit-btn')
+      end
+
+      # 新規投稿ページで本のジャンルにエラーメッセージが表示されていることを確認する
+      expect(page).to have_current_path(books_path)
+      expect(page).to have_content('本のジャンルを選択してください')
+
+    end
+
+    it 'ジャンルを上限の3つまで選択すると、他のジャンルが選択できない' do
+      # 新規投稿ページで本の種類を選択する
+      visit_new_book_path
+      select '漫画', from: 'category'
+      
+      # 3つチェックを入れる
+      check '少年漫画'
+      check '少女漫画'
+      check '青年漫画'
+      
+      # 4つ目のチェックボックスが disabled になっているか確認する
+      # ※ 'バトル' はチェックしていない4つ目の項目と仮定
+      expect(find('label', text: 'バトル').find('input')).to be_disabled
     end
 
     it '未ログインユーザーは新規投稿できず、新規投稿ボタンを押すとログインモーダルが表示される' do
