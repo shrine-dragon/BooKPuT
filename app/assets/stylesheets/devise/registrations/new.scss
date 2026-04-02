@@ -1,8 +1,10 @@
 .register-password{
   position: relative;
+  width: 100%;
   
   .toggle-password{
-    left: 78%;
-    top: 55px;
+    right: 5%;
+    top: 50px;
+    z-index: 10;
   }
 }

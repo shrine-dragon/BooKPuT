@@ -15,7 +15,7 @@
   margin-top: 15px;
   /* 親の align-items: center を上書きして左に寄せる */
   align-self: flex-start;
-  margin-left: 15%;
+  width: 100%;
 }
 
 .external-search-btn {
@@ -112,7 +112,7 @@
 
 
 #contents-container {
-  width: 70%;
+  width: 100%;
 }
 
 .content-field {
