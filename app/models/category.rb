@@ -4,8 +4,8 @@ class Category < ActiveHash::Base
     # 非表示用
     { id: 1,  name: '漫画',        color: '#ff9500' },     
     # オレンジ
-    { id: 2,  name: '雑誌',        color: '#ffffff' },
-    # 白色
+    { id: 2,  name: '雑誌',        color: '#ffb6c1' },
+    # ピンク
     { id: 3,  name: '小説',        color: '#00bfff' },
     # 水色
     { id: 4,  name: 'エッセイ',     color: '#ffff00' },
