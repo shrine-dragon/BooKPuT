@@ -16,13 +16,15 @@ class BooksController < ApplicationController
     @book = Book.new(book_params)
     
     if @book.valid?
-      if params[:book][:remote_image_url].present? && !@book.image.attached?
-        begin
-          require 'open-uri'
-          file = URI.open(params[:book][:remote_image_url])
-          @book.image.attach(io: file, filename: 'book_image.jpg')
-        rescue => e
-          logger.error "Image download failed: #{e.message}"
+      if params[:book][:remote_image_url].present?
+        if !@book.image.attached?
+          begin
+            require 'open-uri'
+            file = URI.open(params[:book][:remote_image_url])
+            @book.image.attach(io: file, filename: 'book_image.jpg')
+          rescue => e
+            logger.error "Image download failed: #{e.message}"
+          end
         end
       end
       
@@ -69,7 +71,7 @@ class BooksController < ApplicationController
   end
 
   def set_book
-    @book = Book.find(params[:id])
+    @book = Book.includes(:book_contents).find(params[:id])
   end
 
   def ensure_correct_user

@@ -1,5 +1,5 @@
 <li class="book-cards">
-  <%= link_to book_path(path_id), class: "book-card-link" do %>
+  <%= link_to book_path(book), class: "book-card-link" do %>
     <div class="book-card <%= local_assigns[:is_mini] ? 'is-mini' : '' %>">
       <%# indexはgolden、showはwhite %>
       <div class="frame <%= frame_color %>">
