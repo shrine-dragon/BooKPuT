@@ -1,0 +1,116 @@
+<%= render 'partial_template/header' %>
+
+<div class="white-background-color">
+  <div class="detail-wrapper book-post-detail">
+    <h1 class="post-detail-heading">
+      投稿詳細
+    </h1>
+
+    <% @contents = @book.book_contents.to_a %>
+
+    <div class="detail-container">
+      <div class="detail-left">
+        <% if current_user == @book.user %>
+          <%= link_to user_path(current_user), class: "user-mypage-link" do %>
+            <div class="posted-by-field is-mypage">
+              <% if current_user.image.attached? %>
+                <%= image_tag current_user.image, class: 'user-image posted-by hovers' %>
+              <% else %>
+                <%= image_tag "no-image.png", class: 'user-image posted-by no-exist hovers' %>
+              <% end %>
+              <span class="user-nickname posted-by hovers"><%= current_user.nickname %></span>
+            </div>
+          <% end %>
+        <% else %>
+          <div class="posted-by-field">
+            <% if @book.user.image.attached? %>
+              <%= image_tag @book.user.image, class: 'user-image posted-by' %>
+            <% else %>
+              <%= image_tag "no-image.png", class: 'user-image posted-by no-exist' %>
+            <% end %>
+            <span class="user-nickname posted-by"><%= @book.user.nickname %></span>
+          </div>
+        <% end %>
+
+        <div class="content-item-field vertical-text fade-in-up">
+          <% [3, 5].each do |i| %>
+            <% if @contents[i]&.content.present? %>
+              <div class="content-item"><%= @contents[i].content %></div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="detail-center">
+        <div class="book-card-static">
+          <%# 一覧で使っている共通パーツをそのまま呼び出す。path_idなどは適切に調整してください %>
+          <%= render 'partial_template/book_cards', book: @book, path_id: @book.user_id, frame_color: 'golden' %>
+        </div>
+
+        <div class="hashtags-area">
+          <div class="category-hashtags-area">
+            <% unless [0, 11, 12].include?(@book.category_id) %>
+              <span class="category-tag" style="color: <%= @book.category.color %>;">
+                # <%= @book.category.name %>
+              </span>
+            <% end %>
+          </div>
+
+          <div class="genre-hashtags-area">
+            <% if @book.genres.present? %>
+              <% @book.genres.each do |genre| %>
+                <% unless [900, 901].include?(genre.id) %>
+                  <span class="genre-tag"># <%= genre.name %></span>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="content-item-field horizontal-text fade-in-up">
+          <% [0, 1, 2].each do |i| %>
+            <% if @contents[i]&.content.present? %>
+              <div class="content-item"><%= @contents[i].content %></div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="detail-right">
+        <ul class="btn-field">
+          <% if current_user == @book.user %>
+            <li class="detail-right-btn hovers">
+              <%= link_to "編集", edit_book_path(@book.user), class: 'detail-right-btn-text' %>
+            </li>
+            <li class="detail-right-btn hovers">
+              <%= link_to "削除", book_path(@book.user), method: :delete, class: 'detail-right-btn-text' %>
+            </li>
+          <% end %>
+          <li class="detail-right-btn hovers">
+            <%= link_to "報告", root_path, class: 'detail-right-btn-text' %>
+          </li>
+        </ul>
+        <ul class="reaction-icon-field">
+          <li>
+            <i class="fa-regular fa-thumbs-up"></i>
+          </li>
+            <i class="fa-regular fa-star"></i>
+          <li>
+          </li>
+        </ul>
+
+        <div class="content-item-field vertical-text fade-in-up">
+          <% [4, 6].each do |i| %>
+            <% if @contents[i]&.content.present? %>
+              <div class="content-item"><%= @contents[i].content %></div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render 'partial_template/return_btn' %>
+
+<%= render 'partial_template/footer' %>

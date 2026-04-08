@@ -73,7 +73,7 @@ class Genre < ActiveHash::Base
     { id: 62, category_id: 5, name: '起業・イノベーション' },
     { id: 63, category_id: 5, name: 'マネー・資産運用' },
 
-     # 実用書 (category_id: 6) のジャンル
+    # 実用書 (category_id: 6) のジャンル
     { id: 64, category_id: 6, name: '生活(健康・美容・医療・ファッション・冠婚葬祭)' },
     { id: 65, category_id: 6, name: '趣味(インドア・アウトドア・料理・インテリア・スポーツ・筋トレ・占い・ゲーム・旅行)' },
     { id: 66, category_id: 6, name: '女性(恋愛・結婚・出産・家事・育児・教育)' },
