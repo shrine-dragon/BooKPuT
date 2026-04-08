@@ -9,7 +9,7 @@ module OtherSupport
     end
   end
 
-  def image_test(file_name,image_text)
+  def image_test(file_name, image_text)
     # 任意項目である画像をアップロードできることを確認する
     image_path = Rails.root.join('spec/fixtures/' + file_name)
 

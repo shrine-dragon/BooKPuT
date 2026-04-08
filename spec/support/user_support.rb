@@ -103,9 +103,7 @@ module UserSupport
 
     # 確認用パスワードがある場合のみ確認する
     has_confirmation = page.has_selector?('#password_confirmation')
-    if has_confirmation
-      expect(page).to have_selector('#password_confirmation[type="password"]')
-    end
+    expect(page).to have_selector('#password_confirmation[type="password"]') if has_confirmation
 
     # 全てのパスワード可視化アイコンをクリックする
     all('.toggle-password').each(&:click)
@@ -125,10 +123,10 @@ module UserSupport
     # 再度アイコンを押すとパスワードと確認用パスワード(あれば)が非表示になることを確認する
     all('.fa-eye.toggle-password').each(&:click)
     expect(page).to have_selector('#password[type="password"]')
-  
-    if has_confirmation
-      expect(page).to have_selector('#password_confirmation[type="password"]')
-    end
+
+    return unless has_confirmation
+
+    expect(page).to have_selector('#password_confirmation[type="password"]')
   end
 
   def return_to_top_page_and_show_flash_message(flash_message)

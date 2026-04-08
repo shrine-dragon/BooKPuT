@@ -12,8 +12,8 @@ RSpec.describe '新規投稿', type: :system do
       visit_new_book_path
 
       # 必須項目を入力または選択する
-      fill_in 'title',   with: @book.title
-      select '漫画',      from: 'category'
+      fill_in 'title', with: @book.title
+      select '漫画', from: 'category'
       fill_in 'book_content_0', with: @book_content.content
 
       # 本の種類を選択すると本のジャンルが表示されることを確認する
@@ -40,8 +40,8 @@ RSpec.describe '新規投稿', type: :system do
       # ｢投稿する｣ボタンを押すとBookモデルのカウントが1,BookContentモデルのカウントが2、Genreモデルのカウントが3上がることを確認する
       expect do
         scroll_display('.orange-submit-btn')
-      end.to change { Book.count }       .by(1)
-        .and change { BookContent.count }.by(2)
+      end.to change { Book.count }.by(1)
+                                  .and change { BookContent.count }.by(2)
 
       # トップページに遷移し、フラッシュメッセージが表示されていることを確認する
       expect(page).to have_current_path(root_path)
@@ -69,14 +69,14 @@ RSpec.describe '新規投稿', type: :system do
       expect(page).to have_selector('#book_content_1')
 
       # 残りカウントが減少していることを確認する
-      expect(page).to have_content('(残り5項目)') 
+      expect(page).to have_content('(残り5項目)')
 
       # 追加された内容項目の方の「−」ボタンをクリックする
-      all('.remove-content-btn')[1].click 
-      
+      all('.remove-content-btn')[1].click
+
       # 2つ目の内容項目が削除され、カウントが戻ることを確認する
       expect(page).to have_no_selector('#book_content_1')
-      expect(page).to have_content('(残り6項目)') 
+      expect(page).to have_content('(残り6項目)')
     end
   end
 
@@ -85,23 +85,23 @@ RSpec.describe '新規投稿', type: :system do
       visit_new_book_path
 
       # 必須項目を空欄にする
-      fill_in 'title',   with: ''
-      select '--',      from: 'category'
+      fill_in 'title', with: ''
+      select '--', from: 'category'
       fill_in 'book_content_0', with: ''
 
       # ｢投稿する｣ボタンを押してもBookモデルとBookContentモデルのカウントが上がらないことを確認する
       expect do
         scroll_display('.orange-submit-btn')
       end.to change { Book.count }.by(0)
-        .and change { BookContent.count }.by(0)
+                                  .and change { BookContent.count }.by(0)
 
       # エラーメッセージのリストを定義する
-      error_messages = [
-        'タイトルを入力してください',
-        '画像を選択し直してください',
-        '本の種類を選択してください',
-        '内容項目を入力してください',
-        '内容項目を少なくとも1つ入力してください'
+      error_messages = %w[
+        タイトルを入力してください
+        画像を選択し直してください
+        本の種類を選択してください
+        内容項目を入力してください
+        内容項目を少なくとも1つ入力してください
       ]
 
       # 新規投稿ページで各入力項目にエラーメッセージが表示されていることを確認する
@@ -112,7 +112,7 @@ RSpec.describe '新規投稿', type: :system do
       end
 
       # 本の種類を選択した状態で投稿ボタンを押す
-      select '漫画',      from: 'category'
+      select '漫画', from: 'category'
       expect do
         scroll_display('.orange-submit-btn')
       end
@@ -120,19 +120,18 @@ RSpec.describe '新規投稿', type: :system do
       # 新規投稿ページで本のジャンルにエラーメッセージが表示されていることを確認する
       expect(page).to have_current_path(books_path)
       expect(page).to have_content('本のジャンルを選択してください')
-
     end
 
     it 'ジャンルを上限の3つまで選択すると、他のジャンルが選択できない' do
       # 新規投稿ページで本の種類を選択する
       visit_new_book_path
       select '漫画', from: 'category'
-      
+
       # 3つチェックを入れる
       check '少年漫画'
       check '少女漫画'
       check '青年漫画'
-      
+
       # 4つ目のチェックボックスが disabled になっているか確認する
       # ※ 'バトル' はチェックしていない4つ目の項目と仮定
       expect(find('label', text: 'バトル').find('input')).to be_disabled
@@ -149,6 +148,19 @@ RSpec.describe '新規投稿', type: :system do
 
       # URLでは｢http://localhost:3000/books/new｣となっている
       expect(page).to have_current_path(new_book_path)
+    end
+  end
+end
+
+RSpec.describe '投稿詳細', type: :system do
+  before do
+    @user = FactoryBot.create(:user)
+    @book = FactoryBot.build(:book)
+    @book_content = FactoryBot.build(:book_content)
+  end
+
+  context '投稿詳細を閲覧できる時' do
+    it '' do
     end
   end
 end

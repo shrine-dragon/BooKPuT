@@ -14,7 +14,7 @@ module BookSupport
 
   def show_posted_contents
     # 投稿した画像とタイトルが表示されていることを確認する
-    expect(page).to have_selector(".book-posted-image")
+    expect(page).to have_selector('.book-posted-image')
     expect(page).to have_content(@book.title)
     # 投稿にカーソルを当てるとカテゴリー名と内容が表示されることを確認する
     post_element = find('.card-content-wrapper')

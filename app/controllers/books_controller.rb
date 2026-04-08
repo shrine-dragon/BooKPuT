@@ -14,26 +14,24 @@ class BooksController < ApplicationController
 
   def create
     @book = Book.new(book_params)
-    
+
     if @book.valid?
-      if params[:book][:remote_image_url].present?
-        if !@book.image.attached?
-          begin
-            require 'open-uri'
-            file = URI.open(params[:book][:remote_image_url])
-            @book.image.attach(io: file, filename: 'book_image.jpg')
-          rescue => e
-            logger.error "Image download failed: #{e.message}"
-          end
+      if params[:book][:remote_image_url].present? && !@book.image.attached?
+        begin
+          require 'open-uri'
+          file = URI.open(params[:book][:remote_image_url])
+          @book.image.attach(io: file, filename: 'book_image.jpg')
+        rescue StandardError => e
+          logger.error "Image download failed: #{e.message}"
         end
       end
-      
+
       @book.save
       redirect_to root_path, notice: '投稿しました'
     else
-      puts "--- Validation Errors ---"
+      puts '--- Validation Errors ---'
       puts @book.errors.full_messages
-      puts "-------------------------"
+      puts '-------------------------'
       render :new, status: :unprocessable_entity
     end
   end
