@@ -14,7 +14,7 @@ RSpec.describe '新規投稿', type: :system do
       # 必須項目を入力または選択する
       fill_in 'title', with: @book.title
       select '漫画', from: 'category'
-      fill_in 'book_content_0', with: @book_content.content
+      fill_in 'book_content_0', with: '1つ目の内容項目です'
 
       # 本の種類を選択すると本のジャンルが表示されることを確認する
       expect(page).to have_selector('#genre-section', visible: true)
@@ -33,7 +33,7 @@ RSpec.describe '新規投稿', type: :system do
       expect(page).to have_selector('#book_content_1', wait: 5)
 
       # 2つ目の入力欄に値を入力する
-      fill_in 'book_content_1', with: '2つ目の項目です'
+      fill_in 'book_content_1', with: '2つ目の内容項目です'
 
       image_test('Momose-Akira-no-firstLove-failing.png', 'book[image]')
 
@@ -160,7 +160,38 @@ RSpec.describe '投稿詳細', type: :system do
   end
 
   context '投稿詳細を閲覧できる時' do
-    it '' do
+    it '全ユーザーは投稿詳細ページで投稿内容をチェックできる' do
+      new_post
+      # トップページで投稿済みの内容をクリックする
+      find('.book-card-link').click
+      # 投稿詳細ページに遷移することを確認する
+      expect(page).to have_current_path(book_path(Book.last))
+      expect(page).to have_content('投稿詳細')
+
+      #投稿詳細ページに投稿したユーザーの情報と投稿内容の各項目が表示されていることを確認する
+      expect(page).to have_selector('.user-image.posted-by')
+      expect(page).to have_content(@user.nickname)
+
+      expect(page).to have_content(@book.title)
+      expect(find('.book-posted-image')[:src]).to include('Momose-Akira-no-firstLove-failing')
+      expect(page).to have_content('# 漫画', wait: 5)
+
+      ['少年漫画', '少女漫画', '青年漫画'].each do |genre|
+        expect(page).to have_content("# #{genre}")
+      end
+      
+      (0..6).each do |i|
+        expect(page).to have_content("#{i+1}つ目の内容項目です")
+      end
+    end
+  end
+
+  context '投稿詳細を閲覧できない時' do
+    it '投稿が1つもないと投稿詳細を閲覧できない' do
+      # トップページで投稿が1つも存在しないことを確認する
+      visit root_path
+      expect(page).to have_content('投稿はありません')
+      expect(page).to have_no_selector('.book-card-link')
     end
   end
 end

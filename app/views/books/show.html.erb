@@ -41,40 +41,40 @@
         </div>
       </div>
 
-    <div class="detail-center">
-      <div class="book-card-static">
-        <%# 一覧で使っている共通パーツをそのまま呼び出す。path_idなどは適切に調整してください %>
-        <%= render 'partial_template/book_cards', book: @book, path_id: @book.user_id, frame_color: 'golden' %>
-      </div>
-
-      <div class="hashtags-area">
-        <div class="category-hashtags-area">
-          <% unless [0, 11, 12].include?(@book.category_id) %>
-            <span class="category-tag" style="color: <%= @book.category.color %>;">
-              # <%= @book.category.name %>
-            </span>
-          <% end %>
+      <div class="detail-center">
+        <div class="book-card-static">
+          <%# 一覧で使っている共通パーツをそのまま呼び出す。path_idなどは適切に調整してください %>
+          <%= render 'partial_template/book_cards', book: @book, path_id: @book.user_id, frame_color: 'golden' %>
         </div>
 
-        <div class="genre-hashtags-area">
-          <% if @book.genres.present? %>
-            <% @book.genres.each do |genre| %>
-              <% unless [900, 901].include?(genre.id) %>
-                <span class="genre-tag"># <%= genre.name %></span>
+        <div class="hashtags-area">
+          <div class="category-hashtags-area">
+            <% unless [0, 11, 12].include?(@book.category_id) %>
+              <span class="category-tag" style="color: <%= @book.category.color %>;">
+                # <%= @book.category.name %>
+              </span>
+            <% end %>
+          </div>
+
+          <div class="genre-hashtags-area">
+            <% if @book.genres.present? %>
+              <% @book.genres.each do |genre| %>
+                <% unless [900, 901].include?(genre.id) %>
+                  <span class="genre-tag"># <%= genre.name %></span>
+                <% end %>
               <% end %>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="content-item-field horizontal-text fade-in-up">
+          <% [0, 1, 2].each do |i| %>
+            <% if @contents[i]&.content.present? %>
+              <div class="content-item"><%= @contents[i].content %></div>
             <% end %>
           <% end %>
         </div>
       </div>
-
-      <div class="content-item-field horizontal-text fade-in-up">
-        <% [0, 1, 2].each do |i| %>
-          <% if @contents[i]&.content.present? %>
-            <div class="content-item"><%= @contents[i].content %></div>
-          <% end %>
-        <% end %>
-      </div>
-    </div>
 
       <div class="detail-right">
         <ul class="btn-field">
