@@ -85,18 +85,21 @@
             <li class="detail-right-btn hovers">
               <%= link_to "削除", book_path(@book.user), method: :delete, class: 'detail-right-btn-text' %>
             </li>
+          <% else %>
+            <li class="detail-right-btn hovers">
+              <%= link_to "報告", root_path, class: 'detail-right-btn-text' %>
+            </li>
           <% end %>
-          <li class="detail-right-btn hovers">
-            <%= link_to "報告", root_path, class: 'detail-right-btn-text' %>
-          </li>
         </ul>
         <ul class="reaction-icon-field">
-          <li>
-            <i class="fa-regular fa-thumbs-up"></i>
-          </li>
-            <i class="fa-regular fa-star"></i>
-          <li>
-          </li>
+          <% unless current_user == @book.user %>
+            <li>
+              <i class="fa-regular fa-thumbs-up"></i>
+            </li>
+            <li>
+              <i class="fa-regular fa-star"></i>
+            <li>
+          <% end %>
         </ul>
 
         <div class="content-item-field vertical-text fade-in-up">
