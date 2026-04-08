@@ -1,0 +1,15 @@
+<%= render 'partial_template/header' %>
+
+<div class="new-book-post-page">
+  <%= render 'partial_template/book_post', 
+            model: @book, 
+            url: book_path,
+            title: '投稿編集', 
+            btn_text: '更新する',
+            is_edit: true
+            %>
+</div>
+
+<%= render 'partial_template/return_btn' %>
+
+<%= render 'partial_template/footer' %>
