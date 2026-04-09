@@ -60,10 +60,17 @@
 
     .book-card-static {
       width: 100%;
+
+      .book-card-link {
+        pointer-events: none; 
+        cursor: default;      
+      }
+
       .book-card {
         transform: none !important; 
         box-shadow: none;
         pointer-events: none; // 詳細画面ではホバー反応を無効化
+        cursor: none;
         
         .hover-details {
           display: none !important; // 詳細画面では一覧のホバー中身は出さない
