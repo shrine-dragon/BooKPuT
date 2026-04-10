@@ -43,7 +43,7 @@
 
       <div class="detail-center">
         <div class="book-card-static">
-          <%# 一覧で使っている共通パーツをそのまま呼び出す。path_idなどは適切に調整してください %>
+          <%# 一覧で使っている共通パーツをそのまま呼び出す %>
           <%= render 'partial_template/book_cards', book: @book, path_id: @book.user_id, frame_color: 'golden' %>
         </div>
 
@@ -79,24 +79,27 @@
       <div class="detail-right">
         <ul class="btn-field">
           <% if current_user == @book.user %>
-            <li class="detail-right-btn hovers">
-              <%= link_to "編集", edit_book_path(@book.user), class: 'detail-right-btn-text' %>
+            <li class="detail-right-btn hovers", , id='post-edit-btn'>
+              <%= link_to "編集", edit_book_path(@book), class: 'detail-right-btn-text' %>
             </li>
             <li class="detail-right-btn hovers">
               <%= link_to "削除", book_path(@book.user), method: :delete, class: 'detail-right-btn-text' %>
             </li>
+          <% else %>
+            <li class="detail-right-btn hovers">
+              <%= link_to "報告", root_path, class: 'detail-right-btn-text' %>
+            </li>
           <% end %>
-          <li class="detail-right-btn hovers">
-            <%= link_to "報告", root_path, class: 'detail-right-btn-text' %>
-          </li>
         </ul>
         <ul class="reaction-icon-field">
-          <li>
-            <i class="fa-regular fa-thumbs-up"></i>
-          </li>
-            <i class="fa-regular fa-star"></i>
-          <li>
-          </li>
+          <% unless current_user == @book.user %>
+            <li>
+              <i class="fa-regular fa-thumbs-up"></i>
+            </li>
+            <li>
+              <i class="fa-regular fa-star"></i>
+            <li>
+          <% end %>
         </ul>
 
         <div class="content-item-field vertical-text fade-in-up">

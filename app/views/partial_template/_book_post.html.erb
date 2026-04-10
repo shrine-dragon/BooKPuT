@@ -20,7 +20,7 @@
           <%= f.file_field :image, class:"upload-image hovers", id: "book-image" %>
           <%= f.hidden_field :remote_image_url, id: "remote-image-url" %>
 
-          <% if model.errors.any? %>
+          <% if model.errors[:image].any? %>
             <p class="image-re-select-message" >
               画像を選択し直してください
             </p>
@@ -72,14 +72,21 @@
           <%= render "partial_template/error_messages", model: model, attribute: :category_id %>
         </div>
 
-        <div class="form-contents" id="genre-section" style="display: <%= model.category_id.present? && ![0, 10, 11, 12].include?(model.category_id) ? 'flex' : 'none' %>; flex-direction: column; align-items: center; margin: 0 auto;">
+        <div class="form-contents book-genre" id="genre-section" style="display: <%= model.category_id.present? && ![0, 10, 11, 12].include?(model.category_id) ? 'flex' : 'none' %>; flex-direction: column; align-items: center; margin: 0 auto;">
           <div class="form-text">
             <label>本のジャンル(3つまで選択可・必須)</label>
           </div>
           <div class="genre-options-wrapper">
             <% Genre.all.each do |genre| %>
               <label class="genre-option hovers" data-category-id="<%= genre.category_id %>">
-                <%= f.check_box :genre_ids, { multiple: true, id: "genre_#{genre.id}", class: "genre-checkbox" }, genre.id, nil %>
+                <%= f.check_box :genre_ids,
+                 { 
+                  multiple: true, 
+                  id: "genre_#{genre.id}",
+                  class: "genre-checkbox",
+                  checked: f.object.genre_ids.include?(genre.id.to_s)
+                  },
+                  genre.id, nil %>
                 <span class="genre-name"><%= genre.name %></span>
               </label>
             <% end %>

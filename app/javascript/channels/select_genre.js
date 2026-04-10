@@ -15,6 +15,7 @@ document.addEventListener('turbolinks:load', () => {
       genreSection.style.display = 'none';
       // 手動でカテゴリーを変えた時だけチェックを消す
       if (!isInitialLoad) clearAllChecks();
+ n
     } else {
       genreSection.style.display = 'flex';
       
@@ -48,8 +49,6 @@ document.addEventListener('turbolinks:load', () => {
     const isExclusiveSelected = checkedBoxes.some(cb => ['900', '901'].includes(cb.value));
 
     checkboxes.forEach(cb => {
-      const isMeExclusive = ['900', '901'].includes(cb.value);
-
       if (isExclusiveSelected) {
         // 排他項目が選ばれている場合、チェックされていないものは全て無効
         cb.disabled = !cb.checked;
