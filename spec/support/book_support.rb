@@ -23,6 +23,7 @@ module BookSupport
   end
 
   def show_posted_contents
+    scroll_to(find('.card-content-wrapper'), align: :center)
     # 投稿した画像とタイトルが表示されていることを確認する
     expect(page).to have_selector('.book-posted-image')
     expect(page).to have_content(@book.title)

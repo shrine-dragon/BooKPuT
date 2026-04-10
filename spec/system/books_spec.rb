@@ -99,6 +99,8 @@ RSpec.describe '新規投稿', type: :system do
       
       # 項目を入力・選択し、ジャンルは最大3つまで選択する
       fill_in_new_post_form
+
+      expect(page).to have_selector('input[type="checkbox"]:checked', count: 3)
       
       # 4つ目が無効化されていることを確認する
       expect(find('label', text: 'バトル').find('input')).to be_disabled
@@ -219,6 +221,8 @@ RSpec.describe '投稿詳細', type: :system do
       #投稿詳細ページに投稿したユーザーの情報と投稿内容の各項目が表示されていることを確認する
       expect(page).to have_selector('.user-image.posted-by')
       expect(page).to have_content(@user.nickname)
+
+          scroll_to(find('.category-tag'))
 
       expect(page).to have_content(@book.title)
       # src属性にActiveStorageのファイル名が含まれているかを確認する
