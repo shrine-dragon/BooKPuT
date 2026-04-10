@@ -212,17 +212,11 @@ RSpec.describe '投稿詳細', type: :system do
   context '投稿詳細を閲覧できる時' do
     it '全ユーザーは投稿詳細ページで投稿内容をチェックできる' do
       # トップページに遷移し、投稿済みの内容をクリックする
-      visit root_path
-      find('.book-card-link').click
-      # 投稿詳細ページに遷移したことを確認する
-      expect(page).to have_current_path(book_path(@book))
-      expect(page).to have_content('投稿詳細')
+      visit_book_path
 
       #投稿詳細ページに投稿したユーザーの情報と投稿内容の各項目が表示されていることを確認する
       expect(page).to have_selector('.user-image.posted-by')
       expect(page).to have_content(@user.nickname)
-
-          scroll_to(find('.category-tag'))
 
       expect(page).to have_content(@book.title)
       # src属性にActiveStorageのファイル名が含まれているかを確認する
@@ -248,6 +242,130 @@ RSpec.describe '投稿詳細', type: :system do
       visit root_path
       expect(page).to have_content('投稿はありません')
       expect(page).to have_no_selector('.book-card-link')
+    end
+  end
+end
+
+RSpec.describe '投稿編集', type: :system do
+  before do
+    @user1 = FactoryBot.create(:user)
+    @user2 = FactoryBot.create(:user)
+    @book = FactoryBot.create(:book, user: @user1)
+  end
+
+  context '投稿を編集できる時' do
+    it 'ログインユーザーは自身の投稿を編集できる' do
+      # user1でログインする
+      login_as @user1
+
+      visit_book_path
+
+      # 編集ボタンを押し、投稿編集ページに遷移する
+      expect(page).to have_selector('#post-edit-btn', text: '編集', wait: 5)
+      click_on('編集')
+      expect(page).to have_current_path(edit_book_path(@book))
+      expect(page).to have_content('投稿編集')
+
+      # すでに保存済みのアカウント情報がフォームに入っていることを確認する
+      expect(
+        find('#title').value
+      ).to eq(@book.title)
+
+      expect(
+        find('#category').value
+      ).to eq(@book.category_id.to_s)
+      
+      @book.genres.each do |genre|
+        expect(
+          # ラベルのテキストから対応するチェックボックスを探し、それがチェックされているか確認する
+          page.has_checked_field?(genre.name)
+        ).to be_truthy
+      end
+
+      @book.book_contents.each_with_index do |content, i|
+        expect(
+          find("#book_content_#{i}").value
+        ).to eq(content.content)
+      end
+
+      # 保存済みの画像がプレビューで表示されていることを確認する
+      expect(page).to have_selector('.upload-image-list img')
+
+      # 編集内容を定義する
+      new_title = 'anotherTitle'
+      new_category_name = '雑誌'
+      new_genres = ['漫画', 'アニメ', 'ファッション']
+
+      # 各項目を編集する
+      fill_in 'title', with: new_title
+      select new_category_name, from: 'category'
+
+      # 一旦すべてのチェックを外す（既存のチェックがあるため）
+      all('#genre-section input[type="checkbox"]').each do |checkbox|
+        uncheck checkbox[:id] if checkbox.checked?
+      end
+
+      new_genres.each { |genre_name| check genre_name }
+
+      (0..6).each do |i|
+        # ループの中で「その番号用のテキスト」を作り、即座に fill_in する
+        new_content = "編集後の#{i+1}つ目の内容項目です"
+        fill_in "book_content_#{i}", with: new_content
+      end
+
+      # 既存の画像を削除し、新しい画像を添付する
+      image_path = Rails.root.join('spec/fixtures/Momose_Akira_no_firstlove_failing_2.png')
+      attach_file('book[image]', image_path)
+      # 新しい画像のプレビューが表示されることを確認する
+      expect(page).to have_selector('.upload-image-list img')
+
+      # 編集ボタンを押し、詳細ページに遷移していることを確認する
+      click_on('更新する')
+      expect(page).to have_content('更新しました', wait: 5)
+      expect(page).to have_current_path(book_path(@book))
+
+      # 詳細ページで内容が更新されていることを確認する
+      expect(page).to have_content(new_title)
+      expect(page).to have_content(new_category_name)
+      new_genres.each  do |genre_name|
+        expect(page).to have_content(genre_name)
+      end
+      (0..6).each do |i|
+        expect(page).to have_content("編集後の#{i+1}つ目の内容項目です")
+      end
+
+      expect(page).to have_selector('.book-posted-image')
+    end
+  end
+
+  context '投稿を編集できない時' do
+    it '未ログインユーザーは投稿を編集できない' do
+      visit_book_path
+
+      # 投稿詳細ページに編集ボタンが存在しないことを確認する
+      expect(page).to have_no_selector('#post-edit-btn', wait: 5)
+
+      # URLで編集ページへ移動しようとするとトップページへ遷移し、ログインモーダルが表示されることを確認する
+      visit edit_book_path(@book)
+      expect(page).to have_no_content('投稿編集')
+      expect(page).to have_current_path(root_path)
+      expect(page).to have_selector('.modal.log-in')
+      expect(page).to have_content('ログインが必要です')
+    end
+
+    it 'ログインユーザーであっても他者の投稿を編集できない' do
+      # user2でログインする
+      login_as @user2
+      # user1が作成した投稿の詳細ページに遷移する
+      visit_book_path
+
+      # 投稿詳細ページに編集ボタンが存在しないことを確認する
+      expect(page).to have_no_selector('#post-edit-btn', wait: 5)
+
+      # URLで編集ページへ移動しようとするとトップページへ遷移することを確認する
+      visit edit_book_path(@book)
+      expect(page).to have_no_content('投稿編集')
+      expect(page).to have_current_path(root_path)
     end
   end
 end
