@@ -23,9 +23,10 @@ $(document).on(loadEvent, function() {
 
   $(document).on('mouseover', function(e) {
     const $logInModal = $(".modal.log-in");
+    const $destroyModal = $(".modal.final-destroy-post");
   
     // ★追加：中央表示モード(.is-center)の時は、マウス移動で消さないようにする
-    if ($logInModal.hasClass('is-center')) return;
+    if ($logInModal.hasClass('is-center') || $destroyModal.is(':visible')) return;
 
     const isInsideSignUp = $(e.target).closest('.modal.sign-up, .sign-up-menu').length;
     const isInsideLogIn = $(e.target).closest('.modal.log-in, .log-in-menu').length;
@@ -48,6 +49,7 @@ $(document).on(loadEvent, function() {
       $(".modal.sign-up").fadeOut(200);
       $(".modal.log-in").fadeOut(200);
       $(".modal.log-in-user").fadeOut(200);
+      $(".modal.final-destroy-post").fadeOut(200);
     }
   });
   // 新規登録ページのモーダルの開閉処理(clickイベント)
@@ -88,6 +90,7 @@ $(document).on(loadEvent, function() {
     $("#modal-overlay").fadeOut(200);
     $(".modal.sign-up").fadeOut(200);
     $(".modal.log-in-user").fadeOut(200);
+    $(".modal.final-destroy-post").fadeOut(200);
     
     $logInModal.fadeOut(200, function() {
       if ($logInModal.hasClass('is-center')) {
@@ -109,4 +112,14 @@ $(document).on(loadEvent, function() {
       $logInModal.css("display", "flex");
     }
   }
+
+  $('#post-destroy-btn').on('click', function() {
+    $("#modal-overlay").fadeIn(200);
+    $(".modal.final-destroy-post").fadeIn(200);
+  });
+
+  $('.not-destroy-post, .modal.final-destroy-post .close-modal').on('click', function() {
+    $("#modal-overlay").fadeOut(200);
+    $(".modal.final-destroy-post").fadeOut(200);
+  });
 });

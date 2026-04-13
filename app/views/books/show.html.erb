@@ -82,8 +82,8 @@
             <li class="detail-right-btn hovers", , id='post-edit-btn'>
               <%= link_to "編集", edit_book_path(@book), class: 'detail-right-btn-text' %>
             </li>
-            <li class="detail-right-btn hovers">
-              <%= link_to "削除", book_path(@book.user), method: :delete, class: 'detail-right-btn-text' %>
+            <li class="detail-right-btn hovers", id='post-destroy-btn'>
+              <span class="detail-right-btn-text">削除</span>
             </li>
           <% else %>
             <li class="detail-right-btn hovers">
@@ -110,6 +110,23 @@
           <% end %>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<div id="modal-overlay"></div>
+
+<div class="modal final-destroy-post">
+  <div class="modal-wrapper final-destroy">
+    <div class="close-modal"><i class="fa-solid fa-xmark"></i></div>
+    <p class="warning-text">本当に削除しますか？<br>一度削除すると復元できません。</p>
+    <div class="destroy-post-really btn-on-center">
+      <%= link_to(book_path(@book), method: :delete, class: "destroy-post-really-btn final-destroy-link") do %>
+        <span class="destroy-post-really btn-text" id="destroy-post-really">本当に削除する</span>
+      <% end %>
+    </div>
+    <div class="not-destroy-post btn-on-center">
+      <span class="not-destroy-post btn-text">削除しない</span>
     </div>
   </div>
 </div>
