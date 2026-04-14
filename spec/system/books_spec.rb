@@ -102,10 +102,13 @@ RSpec.describe '新規投稿', type: :system do
       # 項目を入力・選択し、ジャンルは最大3つまで選択する
       fill_in_new_post_form
 
+      # チェックされている数が3つであることを確認する
       expect(page).to have_selector('input[type="checkbox"]:checked', count: 3)
-      
-      # 4つ目が無効化されていることを確認する
-      expect(find('label').find('input')).to be_disabled
+      # チェックが入っていない残りのジャンルがすべて「無効化(disabled)」されているかを確認する
+      uncheck_boxes = all('input.genre-checkbox:not(:checked)')
+      uncheck_boxes.each do |cb|
+        expect(cb).to be_disabled
+      end
       
       # 投稿ボタンを押し、ジャンルが3つ保存されていることを確認する
       expect {
