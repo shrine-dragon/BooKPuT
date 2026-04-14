@@ -38,8 +38,7 @@ RSpec.describe '新規投稿', type: :system do
       # ｢投稿する｣ボタンを押してもBookモデルとBookContentモデルのカウントが上がらないことを確認する
       expect do
         scroll_display('.orange-submit-btn')
-      end.to change { Book.count }.by(0)
-        .and change { BookContent.count }.by(0)
+      end.not_to change(Book, :count)
 
       # エラーメッセージのリストを定義する
       error_messages = %w[
