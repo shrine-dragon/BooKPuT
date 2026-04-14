@@ -31,6 +31,28 @@ module OtherSupport
     expect(page).to have_selector('.preview-image', wait: 5)
   end
 
+  def log_in_user_access_denied(path, no_exist_text)
+    # ログインし、トップページへ移動する
+    login_as(@user)
+    visit path
+    # トップページへ戻されていることを確認する
+    expect(page).to have_current_path(root_path)
+    expect(page).to have_no_content(no_exist_text)
+  end
+
+  def not_log_in_user_access_denied(path, no_exist_text)
+    # トップページへ移動する
+    visit root_path
+    # URLを入力して、未ログインユーザーが移動できないpathで直接アクセスしようとする
+    visit path
+    # トップページへ戻されていることを確認する
+    expect(page).to have_current_path(root_path)
+    expect(page).to have_no_content(no_exist_text)
+    # ｢ログインが必要です｣というエラーメッセージとログインモーダルが表示されていることを確認する
+    expect(page).to have_content('ログインが必要です')
+    expect(page).to have_selector('.modal.log-in')
+  end
+
   def visit_my_page
     # ｢マイページ｣ボタンをクリックし、マイページへ遷移していることを確認する
     click_on('マイページ')
