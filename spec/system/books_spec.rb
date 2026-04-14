@@ -352,7 +352,7 @@ RSpec.describe '投稿編集', type: :system do
       not_log_in_user_access_denied(edit_book_path(@book), '投稿編集')
     end
 
-    it 'ログインユーザーであっても他者の投稿を編集できない' do
+    it 'ログインユーザーであっても他人の投稿を編集できない' do
       # user2でログインする
       login_as @user2
       # user1が作成した投稿の詳細ページに遷移する

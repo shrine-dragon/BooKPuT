@@ -34,6 +34,8 @@ module OtherSupport
   def log_in_user_access_denied(path, no_exist_text)
     # ログインし、トップページへ移動する
     login_as(@user)
+    visit root_path
+    # URLを入力して、@userが移動できないpathへ直接アクセスしようとする
     visit path
     # トップページへ戻されていることを確認する
     expect(page).to have_current_path(root_path)
@@ -43,7 +45,7 @@ module OtherSupport
   def not_log_in_user_access_denied(path, no_exist_text)
     # トップページへ移動する
     visit root_path
-    # URLを入力して、未ログインユーザーが移動できないpathで直接アクセスしようとする
+    # URLを入力して、未ログインユーザーが移動できないpathへ直接アクセスしようとする
     visit path
     # トップページへ戻されていることを確認する
     expect(page).to have_current_path(root_path)

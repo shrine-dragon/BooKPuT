@@ -222,7 +222,7 @@ RSpec.describe 'パスワード変更', type: :system do
       # 登録済みのメールアドレスを入力する
       fill_in 'email', with: @user.email
       # 入力されたメールアドレスが正しいか、送信前にチェックを入れる
-      expect(page).to have_field('email', with: @user.email)
+      expect(page).to have_field('email', with: @user.email, wait: 5)
       click_on('送信する')
 
       # メール送信完了ページに遷移していることを確認する
@@ -446,6 +446,18 @@ RSpec.describe 'マイページ', type: :system do
       # 編集画面の項目（例：ニックネームラベル）がまだ存在することを確認する
       expect(page).to have_content('ニックネーム(必須)')
     end
+
+    it '未ログインユーザーは自身のプロフィールを編集できない' do
+      not_log_in_user
+
+      another_user = FactoryBot.create(:user)
+      not_log_in_user_access_denied(edit_profile_user_path(another_user), 'プロフィール編集')
+    end
+
+    it 'ログインユーザーでも別のユーザーのプロフィールを編集できない' do
+      another_user = FactoryBot.create(:user)
+      log_in_user_access_denied(cancel_user_path(another_user), 'プロフィール編集')
+    end
   end
 
   context 'メールアドレスを変更できる時' do
@@ -478,6 +490,18 @@ RSpec.describe 'マイページ', type: :system do
       expect(page).to have_content('メールアドレスは不正な形式です')
       # 編集画面の項目がまだ存在することを確認する
       expect(page).to have_content('メールアドレス(必須)')
+    end
+
+    it '未ログインユーザーは自身のメールアドレスを編集できない' do
+      not_log_in_user
+
+      another_user = FactoryBot.create(:user)
+      not_log_in_user_access_denied(edit_email_user_path(another_user), 'メールアドレス変更')
+    end
+
+    it 'ログインユーザーでも別のユーザーのメールアドレスを編集できない' do
+      another_user = FactoryBot.create(:user)
+      log_in_user_access_denied(cancel_user_path(another_user), 'メールアドレス変更')
     end
   end
 
@@ -542,6 +566,18 @@ RSpec.describe 'マイページ', type: :system do
       # 編集画面の項目がまだ存在することを確認する
       expect(page).to have_content('新しいパスワード(必須)')
     end
+
+    it '未ログインユーザーは自身のパスワードを編集できない' do
+      not_log_in_user
+
+      another_user = FactoryBot.create(:user)
+      not_log_in_user_access_denied(edit_password_user_path(another_user), 'パスワード変更')
+    end
+
+    it 'ログインユーザーでも別のユーザーのパスワードを編集できない' do
+      another_user = FactoryBot.create(:user)
+      log_in_user_access_denied(cancel_user_path(another_user), 'パスワード変更')
+    end
   end
 
   context 'アカウントを解約できる時' do
@@ -579,7 +615,7 @@ RSpec.describe 'マイページ', type: :system do
   end
 
   context 'アカウントを解約できない時' do
-    it '未ログインユーザーはマイページへ遷移して、アカウントを解約できない' do
+    it '未ログインユーザーはマイページへ遷移して、自身のアカウントを解約できない' do
       not_log_in_user
 
       another_user = FactoryBot.create(:user)
