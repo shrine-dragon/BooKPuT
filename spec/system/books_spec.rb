@@ -38,8 +38,7 @@ RSpec.describe '新規投稿', type: :system do
       # ｢投稿する｣ボタンを押してもBookモデルとBookContentモデルのカウントが上がらないことを確認する
       expect do
         scroll_display('.orange-submit-btn')
-      end.to change { Book.count }.by(0)
-        .and change { BookContent.count }.by(0)
+      end.not_to change(Book, :count)
 
       # エラーメッセージのリストを定義する
       error_messages = %w[
@@ -67,7 +66,7 @@ RSpec.describe '新規投稿', type: :system do
       expect(page).to have_content('本のジャンルを選択してください')
     end
 
-    it '未ログインユーザーは新規投稿できず、新規投稿ボタンを押すとログインモーダルが表示される' do
+    it '未ログインユーザーは新規投稿できない' do
       not_log_in_user
 
       # ｢投稿する｣ボタンを押してもログインモーダルが表示され、新規投稿ページに遷移できないことを確認する
@@ -78,6 +77,8 @@ RSpec.describe '新規投稿', type: :system do
 
       # URLでは｢http://localhost:3000/books/new｣となっている
       expect(page).to have_current_path(new_book_path)
+
+      not_log_in_user_access_denied(new_book_path, '新規投稿')
     end
   end
 
@@ -100,10 +101,13 @@ RSpec.describe '新規投稿', type: :system do
       # 項目を入力・選択し、ジャンルは最大3つまで選択する
       fill_in_new_post_form
 
+      # チェックされている数が3つであることを確認する
       expect(page).to have_selector('input[type="checkbox"]:checked', count: 3)
-      
-      # 4つ目が無効化されていることを確認する
-      expect(find('label', text: 'バトル').find('input')).to be_disabled
+      # チェックが入っていない残りのジャンルがすべて「無効化(disabled)」されているかを確認する
+      uncheck_boxes = all('input.genre-checkbox:not(:checked)')
+      uncheck_boxes.each do |cb|
+        expect(cb).to be_disabled
+      end
       
       # 投稿ボタンを押し、ジャンルが3つ保存されていることを確認する
       expect {
@@ -339,18 +343,13 @@ RSpec.describe '投稿編集', type: :system do
   end
 
   context '投稿を編集できない時' do
-    it '未ログインユーザーは投稿を編集できない' do
-      visit_book_path
+    it '未ログインユーザーは自身の投稿を編集できない' do
+      not_log_in_user
 
       # 投稿詳細ページに編集ボタンが存在しないことを確認する
       expect(page).to have_no_selector('#post-edit-btn', wait: 5)
 
-      # URLで編集ページへ移動しようとするとトップページへ遷移し、ログインモーダルが表示されることを確認する
-      visit edit_book_path(@book)
-      expect(page).to have_no_content('投稿編集')
-      expect(page).to have_current_path(root_path)
-      expect(page).to have_selector('.modal.log-in')
-      expect(page).to have_content('ログインが必要です')
+      not_log_in_user_access_denied(edit_book_path(@book), '投稿編集')
     end
 
     it 'ログインユーザーであっても他者の投稿を編集できない' do
@@ -363,9 +362,77 @@ RSpec.describe '投稿編集', type: :system do
       expect(page).to have_no_selector('#post-edit-btn', wait: 5)
 
       # URLで編集ページへ移動しようとするとトップページへ遷移することを確認する
-      visit edit_book_path(@book)
-      expect(page).to have_no_content('投稿編集')
+      log_in_user_access_denied(edit_book_path(@book), '投稿編集')
+    end
+  end
+end
+
+RSpec.describe '投稿削除', type: :system do
+  before do
+    @user1 = FactoryBot.create(:user)
+    @user2 = FactoryBot.create(:user)
+    @book = FactoryBot.create(:book, user: @user1)
+  end
+
+  context '投稿を削除できる時' do
+    it 'ログインユーザーは自身の投稿を削除できる' do
+      login_as @user1
+      visit_book_path
+
+      # 最初の削除ボタンを押し、投稿削除用のモーダルを開く
+      expect(page).to have_selector('#post-destroy-btn', text: '削除', wait: 5)
+      find('#post-destroy-btn').click
+      expect(page).to have_selector('.modal.final-destroy-post', visible: true, wait: 5)
+      expect(page).to have_content('本当に削除しますか？')
+      
+      # ｢本当に削除する｣ボタンを押すと、BookモデルとBookContentモデルのカウントが1下がることを確認する
+      expect do
+        find('#destroy-post-really').click
+        expect(page).to have_content('削除しました')
+      end.to change { Book.count }.by(-1)
+        .and change { BookContent.count }.by(-7)
+
+      # トップページに遷移し、投稿が削除されていることを確認する
       expect(page).to have_current_path(root_path)
+      expect(page).to have_no_selector('.book-posted-image')
+      expect(page).to have_no_content(@book.title)
+    end
+  end
+
+  context '投稿を削除できない時' do
+    it '未ログインユーザーは自身の投稿を削除できない' do
+      # ログインせずにトップページに遷移する
+      visit_book_path
+
+      # 投稿詳細ページに削除ボタンが存在しないことを確認する
+      expect(page).to have_no_selector('#post-destroy-btn', wait: 5)
+    end
+
+    it 'ログインユーザーであっても他者の投稿を削除できない' do
+      # user2でログインする
+      login_as @user2
+      # user1が作成した投稿の詳細ページに遷移する
+      visit_book_path
+
+      # 投稿詳細ページに削除ボタンが存在しないことを確認する
+      expect(page).to have_no_selector('#post-destroy-btn', wait: 5)
+    end
+
+    it '自身の投稿であっても｢削除しない｣ボタンや閉じるボタン、投稿削除用モーダル以外の要素を押すと削除できない' do
+      login_as @user1
+      visit_book_path
+
+      # 最初の削除ボタンを押し、投稿削除用のモーダルを開く
+      expect(page).to have_selector('#post-destroy-btn', text: '削除', wait: 5)
+
+      ['.not-destroy-post.btn-text', '.fa-xmark', '#modal-overlay'].each do |selector|
+        find('#post-destroy-btn').click
+        expect(page).to have_selector('.modal.final-destroy-post', visible: true, wait: 5)
+        expect {
+          find('.not-destroy-post.btn-text').click
+          expect(page).to have_no_selector('.modal.final-destroy-post', wait: 5)
+        }.not_to change { Book.count }
+      end
     end
   end
 end

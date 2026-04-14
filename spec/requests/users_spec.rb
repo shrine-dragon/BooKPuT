@@ -6,7 +6,7 @@ RSpec.describe 'Users', type: :request do
 
   describe '権限チェック' do
     context 'ログインしていない場合' do
-      it '編集関連のページにアクセスするとログイン画面にリダイレクトされること' do
+      it '編集関連のページにアクセスするとトップページにリダイレクトされること' do
         edit_paths = [
           edit_profile_user_path(user),
           edit_email_user_path(user),
@@ -21,7 +21,7 @@ RSpec.describe 'Users', type: :request do
     end
 
     context '自分以外のユーザーの編集画面にアクセスした場合' do
-      it '編集関連のページにアクセスするとログイン画面にリダイレクトされること' do
+      it '編集関連のページにアクセスするとトップページにリダイレクトされること' do
         edit_paths = [
           edit_profile_user_path(other_user),
           edit_email_user_path(other_user),
