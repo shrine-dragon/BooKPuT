@@ -65,7 +65,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
     end
 
     it 'モーダルを閉じてしまうと新規登録できない' do
-      open_modal(selector_type, header_menu_text)
+      open_modal(:'sign-up', '新規登録')
       close_modal(:'sign-up', '新規登録', '.header')
     end
   end
@@ -135,7 +135,7 @@ RSpec.describe 'ログイン', type: :system do
 
   context 'メールアドレスでログインができない時' do
     it 'モーダルを閉じてしまうとログインできない' do
-      open_modal(selector_type, header_menu_text)
+      open_modal(:'log-in', 'ログイン')
       close_modal(:'log-in', 'ログイン', '.header')
     end
 
