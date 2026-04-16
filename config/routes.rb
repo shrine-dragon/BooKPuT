@@ -37,5 +37,6 @@ Rails.application.routes.draw do
   end
 
   resources :books do
+    resources :comments,  only: [:index, :new, :create, :edit, :update, :destroy]
   end
 end
