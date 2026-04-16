@@ -63,6 +63,11 @@ RSpec.describe 'ユーザー新規登録', type: :system do
         expect(page).to have_content(message)
       end
     end
+
+    it 'モーダルを閉じてしまうと新規登録できない' do
+      open_modal(selector_type, header_menu_text)
+      close_modal(:'sign-up', '新規登録', '.header')
+    end
   end
 
   ['Google', 'X(Twitter)', 'Facebook', 'LINE'].each do |sns|
@@ -117,7 +122,7 @@ RSpec.describe 'ログイン', type: :system do
 
   context 'メールアドレスでログインができる時' do
     it '正しい情報を入力すればログインでき、トップページに移動する' do
-      open_modal('log-in', 'ログイン')
+      open_modal(:'log-in', 'ログイン')
       # 必須事項を入力する
       fill_in 'email',      with: @user.email
       fill_in 'password',   with: @user.password
@@ -129,6 +134,11 @@ RSpec.describe 'ログイン', type: :system do
   end
 
   context 'メールアドレスでログインができない時' do
+    it 'モーダルを閉じてしまうとログインできない' do
+      open_modal(selector_type, header_menu_text)
+      close_modal(:'log-in', 'ログイン', '.header')
+    end
+
     it '必須項目が空欄のままボタンを押してもログインできない' do
       open_modal('log-in', 'ログイン')
       # 必須事項を空欄にする
@@ -201,6 +211,11 @@ RSpec.describe 'ログアウト', type: :system do
     it '未ログインユーザーはログアウトできず、トップページの表示も変わらない' do
       not_log_in_user
     end
+
+    it 'モーダルを閉じてしまうとログアウトできない' do
+      log_in_and_show_modal
+      close_modal(:'log-in-user', @user.nickname, '.header')
+    end
   end
 end
 
@@ -210,7 +225,7 @@ RSpec.describe 'パスワード変更', type: :system do
   end
 
   context 'パスワードの変更ができる時' do
-    it '未ログインの状態でパスワード再設定ページへ遷移し、正しい情報を入力すればパスワードを変更できる' do
+    it '未ログインの状態でパスワード再設定ページに遷移し、正しい情報を入力すればパスワードを変更できる' do
       open_modal('log-in', 'ログイン')
       scroll_display('.forget-password')
 
@@ -261,7 +276,7 @@ RSpec.describe 'パスワード変更', type: :system do
   end
 
   context 'パスワードの変更ができない時' do
-    it 'ログインユーザーはログインモーダル経由でパスワード再設定ページへ遷移して、パスワードを変更できない' do
+    it 'ログインユーザーはログインモーダル経由でパスワード再設定ページに遷移して、パスワードを変更できない' do
       login_as(@user)
       visit root_path
       # トップページにユーザーのニックネームが存在し、ログイン状態であることを確認する
@@ -271,19 +286,19 @@ RSpec.describe 'パスワード変更', type: :system do
     end
 
     it 'メールアドレスを空欄にするとエラーメッセージが表示され、パスワードを変更できない' do
-      # パスワード再設定のためのメールアドレス入力ページへ遷移する
+      # パスワード再設定のためのメールアドレス入力ページに遷移する
       visit new_user_password_path
 
       # メールアドレスを空欄にして｢送信する｣ボタンを押す
       fill_in 'email', with: ''
       click_on('送信する')
-      # メール送信完了ページへ遷移せず、エラーメッセージが表示されていることを確認する
+      # メール送信完了ページに遷移せず、エラーメッセージが表示されていることを確認する
       expect(page).to have_current_path(user_password_path, wait: 10)
       expect(page).to have_selector('.error-item', text: 'メールアドレスを入力してください')
     end
 
     it '未登録のメールアドレスを入力するとパスワード再設定用のメールは届かず、パスワードも変更できない' do
-      # パスワード再設定のためのメールアドレス入力ページへ遷移する
+      # パスワード再設定のためのメールアドレス入力ページに遷移する
       visit new_user_password_path
 
       # 未登録のメールアドレスを入力にして｢送信する｣ボタンを押すが、パスワード再設定用のメールが届いていないことを確認する
@@ -292,7 +307,7 @@ RSpec.describe 'パスワード変更', type: :system do
         click_on('送信する')
       end.to change { ActionMailer::Base.deliveries.size }.by(0)
 
-      # メール送信完了ページへ遷移する
+      # メール送信完了ページに遷移する
       expect(page).to have_current_path(email_submitted_path)
     end
 
@@ -315,7 +330,7 @@ RSpec.describe 'パスワード変更', type: :system do
       # ｢変更する｣ボタンを押す
       click_on '変更する'
 
-      # パスワード変更完了ページへ遷移せず、エラーメッセージが表示されていることを確認する
+      # パスワード変更完了ページに遷移せず、エラーメッセージが表示されていることを確認する
       expect(page).to have_current_path(user_password_path, wait: 10)
       expect(page).to have_selector('.error-item', text: 'パスワード（確認用）とパスワードが一致しません')
     end
@@ -327,8 +342,8 @@ RSpec.describe 'マイページ', type: :system do
     @user = FactoryBot.create(:user)
   end
 
-  context 'マイページへ遷移できる時' do
-    it 'ログインユーザーはモーダルからマイページへ遷移し、さまざまな情報を閲覧できる' do
+  context 'マイページに遷移できる時' do
+    it 'ログインユーザーはモーダルからマイページに遷移し、さまざまな情報を閲覧できる' do
       log_in_and_visit_my_page
 
       show_account_info
@@ -339,15 +354,20 @@ RSpec.describe 'マイページ', type: :system do
     end
   end
 
-  context 'マイページへ遷移ができない時' do
-    it '未ログインユーザーはマイページへ遷移して、アカウント情報やログイン情報を閲覧できない' do
+  context 'マイページに遷移ができない時' do
+    it 'モーダルを閉じてしまうとマイページに遷移できない' do
+      log_in_and_show_modal
+      close_modal(:'log-in-user', @user.nickname, '.header')
+    end
+
+    it '未ログインユーザーはマイページに遷移して、アカウント情報やログイン情報を閲覧できない' do
       not_log_in_user
 
       another_user = FactoryBot.create(:user)
       not_log_in_user_access_denied(user_path(another_user), 'マイページ')
     end
 
-    it 'ログインユーザーであっても別のユーザーのマイページへ遷移し、アカウント情報やログイン情報を閲覧できない' do
+    it 'ログインユーザーであっても別のユーザーのマイページに遷移し、アカウント情報やログイン情報を閲覧できない' do
       # 別ユーザーのアカウントを作成する
       another_user = FactoryBot.create(:user)
       log_in_user_access_denied(user_path(another_user), 'マイページ')
@@ -370,7 +390,7 @@ RSpec.describe 'マイページ', type: :system do
       fill_in 'birth_date', with: new_birth_date
       select new_gender_name, from: 'gender'
 
-      # 更新ボタンを押すとマイページへ遷移し、フラッシュメッセージが表示されることを確認する
+      # 更新ボタンを押すとマイページに遷移し、フラッシュメッセージが表示されることを確認する
       click_btn_and_visit_my_page_and_show_flash_message('更新する')
 
       # マイページには変更した内容が反映されていることを確認する
@@ -383,7 +403,7 @@ RSpec.describe 'マイページ', type: :system do
       log_in_and_visit_my_page
       # 最初はデフォルト画像が表示されていることを確認（imgタグのsrc属性などで判定）
       expect(page).to have_selector('#no-image')
-      # 編集ボタンを押すとプロフィール編集ページへ遷移することを確認する
+      # 編集ボタンを押すとプロフィール編集ページに遷移することを確認する
       click_on('プロフィールを編集する')
       expect(page).to have_current_path(edit_profile_user_path(@user))
 
@@ -411,7 +431,7 @@ RSpec.describe 'マイページ', type: :system do
       expect(page).to have_selector('.current-user-image')
       expect(page).to have_no_selector('#no-image')
 
-      # 編集ボタンを押すとプロフィール編集ページへ遷移することを確認する
+      # 編集ボタンを押すとプロフィール編集ページに遷移することを確認する
       click_on('プロフィールを編集する')
       expect(page).to have_current_path(edit_profile_user_path(@user))
 
@@ -536,7 +556,7 @@ RSpec.describe 'マイページ', type: :system do
       # ｢変更する｣ボタンを押す
       click_on '変更する'
 
-      # マイページへ遷移せず、エラーメッセージが表示されていることを確認する
+      # マイページに遷移せず、エラーメッセージが表示されていることを確認する
       expect(page).to have_current_path(user_path(@user), wait: 10)
       expect(page).to have_selector('.error-item', text: 'パスワードを入力してください')
       # 編集画面の項目がまだ存在することを確認する
@@ -560,7 +580,7 @@ RSpec.describe 'マイページ', type: :system do
       # ｢変更する｣ボタンを押す
       click_on '変更する'
 
-      # パスワード変更完了ページへ遷移せず、エラーメッセージが表示されていることを確認する
+      # パスワード変更完了ページに遷移せず、エラーメッセージが表示されていることを確認する
       expect(page).to have_current_path(user_path(@user), wait: 10)
       expect(page).to have_selector('.error-item', text: 'パスワード（確認用）とパスワードが一致しません')
       # 編集画面の項目がまだ存在することを確認する
@@ -581,7 +601,7 @@ RSpec.describe 'マイページ', type: :system do
   end
 
   context 'アカウントを解約できる時' do
-    it 'ログインユーザーはモーダルからマイページへ遷移し、アカウントを解約できる' do
+    it 'ログインユーザーはモーダルからマイページに遷移し、アカウントを解約できる' do
       log_in_and_visit_my_page
       # マイページにアカウント解約ボタンがあることを確認する
       expect(page).to have_content('アカウントを解約する')
@@ -615,7 +635,7 @@ RSpec.describe 'マイページ', type: :system do
   end
 
   context 'アカウントを解約できない時' do
-    it '未ログインユーザーはマイページへ遷移して、自身のアカウントを解約できない' do
+    it '未ログインユーザーはマイページに遷移して、自身のアカウントを解約できない' do
       not_log_in_user
 
       another_user = FactoryBot.create(:user)
@@ -627,8 +647,8 @@ RSpec.describe 'マイページ', type: :system do
       log_in_user_access_denied(cancel_user_path(another_user), 'アカウント解約')
     end
 
-    it 'ユーザー本人であっても｢利用を継続する｣ボタンを押すとトップページへ遷移し、アカウントを解約できない' do
-      # ログインし、直接アカウント解約ページへ遷移する
+    it 'ユーザー本人であっても｢利用を継続する｣ボタンを押すとトップページに遷移し、アカウントを解約できない' do
+      # ログインし、直接アカウント解約ページに遷移する
       login_as(@user)
       visit cancel_user_path(@user)
 

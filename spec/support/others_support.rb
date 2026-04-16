@@ -56,7 +56,7 @@ module OtherSupport
   end
 
   def visit_my_page
-    # ｢マイページ｣ボタンをクリックし、マイページへ遷移していることを確認する
+    # ｢マイページ｣ボタンをクリックし、マイページに遷移していることを確認する
     click_on('マイページ')
     expect(page).to have_current_path(user_path(@user), wait: 15)
   end
