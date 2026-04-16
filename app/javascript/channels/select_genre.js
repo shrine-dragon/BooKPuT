@@ -8,7 +8,7 @@ document.addEventListener('turbolinks:load', () => {
 
   const updateGenreDisplay = (isInitialLoad = false) => {
     const selectedCategoryId = categorySelect.value;
-    const hiddenIds = ['0', '10', '11', '12']; 
+    const hiddenIds = ['0', '10', '11']; 
     
     // 表示・非表示の切り替え
     if (selectedCategoryId === "" || hiddenIds.includes(selectedCategoryId)) {
@@ -39,27 +39,47 @@ document.addEventListener('turbolinks:load', () => {
     }
   };
 
-  function updateCheckboxLimit() {
-    // 全チェックボックスの中から、チェックされている「数」を数える
-    // ※ 3つ制限は表示・非表示に関わらず「チェックされている総数」で判断
+  function updateCheckboxLimit(e) {
+    // 今回クリックされた要素（イベントが発生した場合のみ）
+    const target = e ? e.target : null;
+
+    // 「その他(900)」「回答しない(901)」のID定義
+    const exclusiveIds = ['901'];
+
+    // もし今回クリックされたのが排他項目（回答しない等）で、かつチェックを入れた場合
+    if (target && exclusiveIds.includes(target.value) && target.checked) {
+      checkboxes.forEach(cb => {
+        if (cb !== target) cb.checked = false; // 自分以外をすべて解除
+      });
+    } 
+    // もし今回クリックされたのが通常項目で、かつすでに排他項目がチェックされていた場合
+    else if (target && !exclusiveIds.includes(target.value) && target.checked) {
+      checkboxes.forEach(cb => {
+        if (exclusiveIds.includes(cb.value)) cb.checked = false; // 排他項目のチェックを解除
+      });
+    }
+
     const checkedBoxes = Array.from(checkboxes).filter(cb => cb.checked);
     const checkedCount = checkedBoxes.length;
-
-    // 「その他(900)」「回答しない(901)」の排他制御
-    const isExclusiveSelected = checkedBoxes.some(cb => ['900', '901'].includes(cb.value));
+    const isExclusiveSelected = checkedBoxes.some(cb => exclusiveIds.includes(cb.value));
 
     checkboxes.forEach(cb => {
       if (isExclusiveSelected) {
-        // 排他項目が選ばれている場合、チェックされていないものは全て無効
         cb.disabled = !cb.checked;
       } else {
-        // 通常時：3つ制限
         cb.disabled = !cb.checked && checkedCount >= 3;
       }
       
       // スタイル反映
-      cb.parentElement.style.opacity = cb.disabled ? '0.5' : '1';
-      cb.parentElement.style.pointerEvents = cb.disabled ? 'none' : 'auto';
+      const parent = cb.parentElement;
+      if (cb.disabled) {
+        // 「その他(900)」だけは無効時も不透明度を下げない
+        parent.style.opacity = (cb.value === '900') ? '1' : '0.5';
+        parent.style.pointerEvents = 'none';
+      } else {
+        parent.style.opacity = '1';
+        parent.style.pointerEvents = 'auto';
+      }
     });
   }
 

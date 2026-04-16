@@ -136,7 +136,7 @@ RSpec.describe '新規投稿', type: :system do
       end
     end
 
-    it '本のジャンルで｢その他｣｢回答しない｣にチェックを入れると、他のジャンルが選択できなくなる' do
+    it '本のジャンルで一度でも｢回答しない｣にチェックを入れると、他のジャンルが選択できなくなる' do
       visit_new_book_path
       scroll_to(find('#category'), align: :center)
 
@@ -144,24 +144,22 @@ RSpec.describe '新規投稿', type: :system do
       Category.where(id: 1..9).each do |category|
         select category.name, from: 'category'
         expect(page).to have_selector('.genre-option', visible: true)
-        ['その他', '回答しない'].each do |special_genre|
-          check special_genre
-          all('.genre-option').each do |option|
-            # そのオプションの中にある input と label を探す
-            checkbox = option.find('input[type="checkbox"]', visible: :all)
-            label_text = option.text
-            
-            if label_text == special_genre
-              expect(checkbox).not_to be_disabled
-            else
-              expect(checkbox).to be_disabled
-            end
+        check '回答しない'
+        all('.genre-option').each do |option|
+          # そのオプションの中にある input と label を探す
+          checkbox = option.find('input[type="checkbox"]', visible: :all)
+          label_text = option.text
+          
+          if label_text == '回答しない'
+            expect(checkbox).not_to be_disabled
+          else
+            expect(checkbox).to be_disabled
           end
-
-          # チェックを外すと、再び全て選択可能（disabled解除）になることを確認する
-          uncheck special_genre
-          expect(page).to have_no_selector('#genre-section input:disabled')
         end
+
+        # チェックを外すと、再び全て選択可能（disabled解除）になることを確認する
+        uncheck '回答しない'
+        expect(page).to have_no_selector('#genre-section input:disabled')
       end
     end
 
