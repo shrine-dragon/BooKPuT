@@ -8,9 +8,9 @@
         <div class="form-contents">
           <div class="form-text">
             <label>タイトル(必須)</label>
-            <%= f.text_field :title, class:"input-text", id:"title", placeholder:"100文字以内", maxlength:"100" %>
-            <%= render "partial_template/error_messages", model: model, attribute: :title %>
           </div>
+          <%= f.text_field :title, class:"input-text", id:"title", placeholder:"100文字以内", maxlength:"100" %>
+          <%= render "partial_template/error_messages", model: model, attribute: :title %>
         </div>
 
         <div class="form-contents">
@@ -20,7 +20,7 @@
           <%= f.file_field :image, class:"upload-image hovers", id: "book-image" %>
           <%= f.hidden_field :remote_image_url, id: "remote-image-url" %>
 
-          <% if model.errors.any? %>
+          <% if model.errors[:image].any? %>
             <p class="image-re-select-message" >
               画像を選択し直してください
             </p>
@@ -65,26 +65,33 @@
         <div class="form-contents book-category">
           <div class="form-text">
             <label>本の種類(必須)</label>
-            <div class="pull-down-wrapper">
-              <%= f.collection_select(:category_id, Category.all, :id, :name, {}, {class:"select-pull-down", id:"category"}) %>
-            </div>
-            <%= render "partial_template/error_messages", model: model, attribute: :category_id %>
           </div>
+          <div class="pull-down-wrapper">
+            <%= f.collection_select(:category_id, Category.all, :id, :name, {}, {class:"select-pull-down", id:"category"}) %>
+          </div>
+          <%= render "partial_template/error_messages", model: model, attribute: :category_id %>
         </div>
 
-        <div class="form-contents" id="genre-section" style="display: <%= model.category_id.present? && ![0, 10, 11, 12].include?(model.category_id) ? 'flex' : 'none' %>; flex-direction: column; align-items: center; width: 70%; margin: 0 auto;">
-          <div class="form-text" style="width: 100%;">
+        <div class="form-contents book-genre" id="genre-section" style="display: <%= model.category_id.present? && ![0, 10, 11, 12].include?(model.category_id) ? 'flex' : 'none' %>; flex-direction: column; align-items: center; margin: 0 auto;">
+          <div class="form-text">
             <label>本のジャンル(3つまで選択可・必須)</label>
-            <div class="genre-options-wrapper">
-              <% Genre.all.each do |genre| %>
-                <label class="genre-option hovers" data-category-id="<%= genre.category_id %>">
-                  <%= f.check_box :genre_ids, { multiple: true, id: "genre_#{genre.id}", class: "genre-checkbox" }, genre.id, nil %>
-                  <span class="genre-name"><%= genre.name %></span>
-                </label>
-              <% end %>
-              <div class="error-message-area" style="width: 100%;">
-                <%= render "partial_template/error_messages", model: model, attribute: :genre_ids %>
-              </div>
+          </div>
+          <div class="genre-options-wrapper">
+            <% Genre.all.each do |genre| %>
+              <label class="genre-option hovers" data-category-id="<%= genre.category_id %>">
+                <%= f.check_box :genre_ids,
+                 { 
+                  multiple: true, 
+                  id: "genre_#{genre.id}",
+                  class: "genre-checkbox",
+                  checked: f.object.genre_ids.include?(genre.id.to_s)
+                  },
+                  genre.id, nil %>
+                <span class="genre-name"><%= genre.name %></span>
+              </label>
+            <% end %>
+            <div class="error-message-area" style="width: 100%;">
+              <%= render "partial_template/error_messages", model: model, attribute: :genre_ids %>
             </div>
           </div>
         </div>

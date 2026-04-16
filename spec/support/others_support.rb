@@ -9,7 +9,7 @@ module OtherSupport
     end
   end
 
-  def image_test(file_name,image_text)
+  def image_test(file_name, image_text)
     # 任意項目である画像をアップロードできることを確認する
     image_path = Rails.root.join('spec/fixtures/' + file_name)
 
@@ -29,6 +29,28 @@ module OtherSupport
 
     # 正しくアップロードされているか、ファイル名で最終確認する
     expect(page).to have_selector('.preview-image', wait: 5)
+  end
+
+  def log_in_user_access_denied(path, no_exist_text)
+    # ログインし、トップページへ移動する
+    login_as(@user)
+    visit path
+    # トップページへ戻されていることを確認する
+    expect(page).to have_current_path(root_path)
+    expect(page).to have_no_content(no_exist_text)
+  end
+
+  def not_log_in_user_access_denied(path, no_exist_text)
+    # トップページへ移動する
+    visit root_path
+    # URLを入力して、未ログインユーザーが移動できないpathで直接アクセスしようとする
+    visit path
+    # トップページへ戻されていることを確認する
+    expect(page).to have_current_path(root_path)
+    expect(page).to have_no_content(no_exist_text)
+    # ｢ログインが必要です｣というエラーメッセージとログインモーダルが表示されていることを確認する
+    expect(page).to have_content('ログインが必要です')
+    expect(page).to have_selector('.modal.log-in')
   end
 
   def visit_my_page

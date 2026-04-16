@@ -1,22 +1,17 @@
-.input-text.new-password, .form-text.new-password{
-  margin-bottom: 10px;
-}
-
 .form-text.new-password{
-  width: 300px !important;
-  max-width: 100%;
+  margin: 10px 0;
 }
 
 .input-text.new-password{
-  width: 300px !important;
-  max-width: 100%;
+  margin-bottom: 5px;
 }
 
 .edit-password{
   position: relative;
+  margin-bottom: 5px;
 
   .toggle-password{
-    left: 90%;
-    top: 23px;
+    right: 5%;
+    top: 24px;
   }
 }

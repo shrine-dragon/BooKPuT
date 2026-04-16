@@ -103,9 +103,7 @@ module UserSupport
 
     # 確認用パスワードがある場合のみ確認する
     has_confirmation = page.has_selector?('#password_confirmation')
-    if has_confirmation
-      expect(page).to have_selector('#password_confirmation[type="password"]')
-    end
+    expect(page).to have_selector('#password_confirmation[type="password"]') if has_confirmation
 
     # 全てのパスワード可視化アイコンをクリックする
     all('.toggle-password').each(&:click)
@@ -125,10 +123,10 @@ module UserSupport
     # 再度アイコンを押すとパスワードと確認用パスワード(あれば)が非表示になることを確認する
     all('.fa-eye.toggle-password').each(&:click)
     expect(page).to have_selector('#password[type="password"]')
-  
-    if has_confirmation
-      expect(page).to have_selector('#password_confirmation[type="password"]')
-    end
+
+    return unless has_confirmation
+
+    expect(page).to have_selector('#password_confirmation[type="password"]')
   end
 
   def return_to_top_page_and_show_flash_message(flash_message)
@@ -213,26 +211,6 @@ module UserSupport
     expect(page).to have_selector('.sign-up-menu-text', text: '新規登録', visible: false)
     # トップページにユーザーのニックネームが表示されていないことを確認する
     expect(page).to have_no_content(@user.nickname)
-  end
-
-  def log_in_user_access_denied(path)
-    # ログインし、トップページへ移動する
-    login_as(@user)
-    visit path
-    # トップページへ戻されていることを確認する
-    expect(page).to have_current_path(root_path)
-  end
-
-  def not_log_in_user_access_denied(path)
-    # トップページへ移動する
-    visit root_path
-    # 直接、未ログインユーザーが移動できないpathでアクセスしようとする
-    visit path
-    # トップページへ戻されていることを確認する
-    expect(page).to have_current_path(root_path)
-    # ｢ログインが必要です｣というエラーメッセージとログインモーダルが表示されていることを確認する
-    expect(page).to have_content('ログインが必要です')
-    expect(page).to have_selector('.modal.log-in')
   end
 
   def click_btn_and_visit_my_page_and_show_flash_message(btn_text)

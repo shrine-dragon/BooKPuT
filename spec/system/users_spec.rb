@@ -49,14 +49,14 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       expect(page).to have_current_path(user_registration_path)
 
       # エラーメッセージのリストを定義する
-      error_messages = [
-        'ニックネームを入力してください',
-        'ニックネームを3文字以上で入力してください',
-        '生年月日を入力してください',
-        '性別を選択してください',
-        'メールアドレスを入力してください',
-        'メールアドレスは不正な形式です',
-        'パスワードを入力してください'
+      error_messages = %w[
+        ニックネームを入力してください
+        ニックネームを3文字以上で入力してください
+        生年月日を入力してください
+        性別を選択してください
+        メールアドレスを入力してください
+        メールアドレスは不正な形式です
+        パスワードを入力してください
       ]
       # 空欄用のエラーメッセージが全て表示されていることを確認する
       error_messages.each do |message|
@@ -279,7 +279,7 @@ RSpec.describe 'パスワード変更', type: :system do
       click_on('送信する')
       # メール送信完了ページへ遷移せず、エラーメッセージが表示されていることを確認する
       expect(page).to have_current_path(user_password_path, wait: 10)
-      expect(page).to have_selector('.error-message', text: 'メールアドレスを入力してください')
+      expect(page).to have_selector('.error-item', text: 'メールアドレスを入力してください')
     end
 
     it '未登録のメールアドレスを入力するとパスワード再設定用のメールは届かず、パスワードも変更できない' do
@@ -317,7 +317,7 @@ RSpec.describe 'パスワード変更', type: :system do
 
       # パスワード変更完了ページへ遷移せず、エラーメッセージが表示されていることを確認する
       expect(page).to have_current_path(user_password_path, wait: 10)
-      expect(page).to have_selector('.error-message', text: 'パスワード（確認用）とパスワードが一致しません')
+      expect(page).to have_selector('.error-item', text: 'パスワード（確認用）とパスワードが一致しません')
     end
   end
 end
@@ -344,13 +344,13 @@ RSpec.describe 'マイページ', type: :system do
       not_log_in_user
 
       another_user = FactoryBot.create(:user)
-      not_log_in_user_access_denied(user_path(another_user))
+      not_log_in_user_access_denied(user_path(another_user), 'マイページ')
     end
 
     it 'ログインユーザーであっても別のユーザーのマイページへ遷移し、アカウント情報やログイン情報を閲覧できない' do
       # 別ユーザーのアカウントを作成する
       another_user = FactoryBot.create(:user)
-      log_in_user_access_denied(user_path(another_user))
+      log_in_user_access_denied(user_path(another_user), 'マイページ')
     end
   end
 
@@ -514,7 +514,7 @@ RSpec.describe 'マイページ', type: :system do
 
       # マイページへ遷移せず、エラーメッセージが表示されていることを確認する
       expect(page).to have_current_path(user_path(@user), wait: 10)
-      expect(page).to have_selector('.error-message', text: 'パスワードを入力してください')
+      expect(page).to have_selector('.error-item', text: 'パスワードを入力してください')
       # 編集画面の項目がまだ存在することを確認する
       expect(page).to have_content('新しいパスワード(必須)')
     end
@@ -538,7 +538,7 @@ RSpec.describe 'マイページ', type: :system do
 
       # パスワード変更完了ページへ遷移せず、エラーメッセージが表示されていることを確認する
       expect(page).to have_current_path(user_path(@user), wait: 10)
-      expect(page).to have_selector('.error-message', text: 'パスワード（確認用）とパスワードが一致しません')
+      expect(page).to have_selector('.error-item', text: 'パスワード（確認用）とパスワードが一致しません')
       # 編集画面の項目がまだ存在することを確認する
       expect(page).to have_content('新しいパスワード(必須)')
     end
@@ -583,12 +583,12 @@ RSpec.describe 'マイページ', type: :system do
       not_log_in_user
 
       another_user = FactoryBot.create(:user)
-      not_log_in_user_access_denied(user_path(another_user))
+      not_log_in_user_access_denied(cancel_user_path(another_user), 'アカウント解約')
     end
 
     it 'ログインユーザーであっても別のユーザーのアカウントを解約できない' do
       another_user = FactoryBot.create(:user)
-      log_in_user_access_denied(cancel_user_path(another_user))
+      log_in_user_access_denied(cancel_user_path(another_user), 'アカウント解約')
     end
 
     it 'ユーザー本人であっても｢利用を継続する｣ボタンを押すとトップページへ遷移し、アカウントを解約できない' do

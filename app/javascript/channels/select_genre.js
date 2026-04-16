@@ -15,6 +15,7 @@ document.addEventListener('turbolinks:load', () => {
       genreSection.style.display = 'none';
       // 手動でカテゴリーを変えた時だけチェックを消す
       if (!isInitialLoad) clearAllChecks();
+ n
     } else {
       genreSection.style.display = 'flex';
       

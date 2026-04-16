@@ -1,0 +1,259 @@
+.detail-wrapper.book-post-detail{
+  /* form-wrapperの本来のwidthは55% */
+  width: 80%;
+  background-color: bisque;
+  margin: 0 auto;
+
+  .post-detail-heading{
+    text-align: center;
+    padding: 30px 0;
+    font-weight: bold;
+    font-size: 25px;
+  }
+
+  .detail-container{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .detail-left, .detail-center, .detail-right{
+    display: flex;
+    // 柱のように縦に表示させる
+    flex-direction: column;
+  }
+
+  .detail-left, .detail-right{
+    width: 300px;
+    flex-shrink: 0;
+  }
+
+  .posted-by-field{
+    display: flex;
+  }
+
+  .posted-by{
+    margin-left: 10px;
+  }
+
+  .user-image.posted-by{
+    width: 60px;
+    height: 60px;
+  }
+
+  .user-nickname.posted-by{
+    font-weight: bold;
+    font-size: 22px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    text-align: left;
+    align-items: center;
+    padding: 13px 10px;
+  }
+
+  .detail-center {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+
+    .book-card-static {
+      width: 100%;
+
+      .book-card-link {
+        pointer-events: none; 
+        cursor: default;      
+      }
+
+      .book-card {
+        transform: none !important; 
+        box-shadow: none;
+        pointer-events: none; // 詳細画面ではホバー反応を無効化
+        cursor: none;
+        
+        .hover-details {
+          display: none !important; // 詳細画面では一覧のホバー中身は出さない
+        }
+      }
+    }
+  }
+
+  .detail-center-contents{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .frame.golden{
+    width: 100% !important; // 中央カラムの幅に合わせる
+    max-width: 450px;
+    margin: 0 auto;
+  }
+
+  .title-plate {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    text-align: center;
+    word-wrap: break-word;   /* 長い英単語などがあっても強制改行 */
+    overflow-wrap: break-word;
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 6px 8px;
+    box-shadow: inset 1px 1px 2px rgba(0,0,0,0.1);
+  }
+
+  .book-title {
+    display: inline-block;   /* 文字数分の幅しか持たないインラインブロックにする */
+    text-align: left;        /* 2行目以降はこの中で左揃えになる */
+    white-space: normal;    /* 改行を許可する */
+    font-size: 20px;
+    line-height: 1.4;       /* 改行した時の行間を確保 */
+    font-weight: bold;
+    color: #333;
+    max-width: 100%;
+  }
+
+  .hashtags-area{
+    margin-left: 15px;
+  }
+
+  .category-hashtags-area, .genre-hashtags-area{
+    margin-top: 10px;
+  }
+
+  .category-tag{
+    font-size: 18px;
+  }
+
+  .genre-tag{
+    margin-right: 10px;
+  }
+
+  .btn-field, .reaction-icon-field{
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+  }
+
+  .btn-field{
+    margin: 0 15px 20px 0;
+  }
+
+  .detail-right-btn{
+    padding: 10px 15px;
+    background-color: whitesmoke;
+    border-radius: 8px;
+  }
+
+  .detail-right-btn-text{
+    font-size: 16px;
+  }
+
+  .fa-thumbs-up, .fa-star{
+    font-size: 25px;
+    cursor: pointer;
+  }
+
+  // 内容項目のレイアウト
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .fade-in-up {
+    opacity: 0; // 最初は隠す
+    animation: fadeInUp 1.2s ease-out forwards;
+    &.delay-1 { animation-delay: 0.3s; }
+    &.delay-2 { animation-delay: 0.6s; }
+  }
+
+  .content-item-field {
+    padding: 20px;
+    display: flex;
+    // 縦書きの場合の「左右中央揃え」は align-items
+    align-items: center; 
+    gap: 10px;
+    .content-item{
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    &.vertical-text {
+      writing-mode: vertical-lr;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+
+      .content-item {
+        writing-mode: vertical-lr;
+        border-left: 1px solid #333; 
+        padding: 10px 15px;
+        font-weight: bold;
+        line-height: 1.6;
+        height: auto;
+        max-height: 450px;
+      }
+    }
+
+    &.horizontal-text {
+      flex-direction: column;
+      width: 100%;
+
+      
+      .content-item {
+        width: 100%;
+        writing-mode: horizontal-tb;
+        border-top: 1px solid #333;
+        padding: 15px 0;
+      }
+    }
+  }
+
+  .content-item {
+    font-weight: bold;
+    font-size: 24px;
+  }
+}
+
+.modal.final-destroy-post{
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1001; 
+  background-color: white;
+  border-radius: 12px;
+  padding: 30px;
+  width: 400px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+
+  .close-modal {
+    display: block;
+  }
+}
+
+.modal-wrapper.final-destroy{
+  margin: 10px auto;
+}
+
+.destroy-post-really.btn-on-center, .not-destroy-post.btn-on-center{
+  padding: 8px 0 !important;
+}
+
+.destroy-post-really.btn-on-center{
+  background-color: red;
+  margin: 20px 0 15px;
+}
+
+.not-destroy-post.btn-on-center{
+  background-color: orange;
+}
+

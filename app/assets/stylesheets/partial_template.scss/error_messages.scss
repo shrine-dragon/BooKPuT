@@ -7,8 +7,9 @@
   text-align: left;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  width: 70%;
-  text-align: left !important
+  width: 100%;
+  text-align: left !important;
+  font-weight: bold;
 }
 
 .book-post{
@@ -31,7 +32,6 @@
 
 .error-wrapper {
   align-self: flex-start;
-  width: 70%;
 }
 
 .error-list {
@@ -45,4 +45,5 @@
   color: red;
   font-size: 14px;
   text-align: left;
+  font-weight: bold;
 }
