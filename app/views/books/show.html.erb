@@ -79,7 +79,7 @@
       <div class="detail-right">
         <ul class="btn-field">
           <% if current_user == @book.user %>
-            <li class="detail-right-btn hovers", , id='post-edit-btn'>
+            <li class="detail-right-btn hovers" id='post-edit-btn'>
               <%= link_to "編集", edit_book_path(@book), class: 'detail-right-btn-text' %>
             </li>
             <li class="detail-right-btn hovers", id='post-destroy-btn'>
@@ -98,7 +98,7 @@
             </li>
             <li>
               <i class="fa-regular fa-star"></i>
-            <li>
+            </li>
           <% end %>
         </ul>
 
@@ -110,6 +110,39 @@
           <% end %>
         </div>
       </div>
+    </div>
+
+    <div class="book-comments">
+      <div class="book-comment-list-wrapper">
+        <div class="comment-list">
+          
+        </div>
+      </div>
+      <% if user_signed_in? %>
+        <%# && current_user != @book.user %>
+        <%= form_with model: @comment, class: "post-comment-wrapper", local: true do |f| %>
+          <div class="post-comment-container">
+            <div class="post-comment-user-field">
+              <% if current_user.image.attached? %>
+                <%= image_tag current_user.image, class: 'user-image post-comment hovers' %>
+              <% else %>
+                <%= image_tag "no-image.png", class: 'user-image post-comment no-exist hovers' %>
+              <% end %>
+              <%= link_to user_path(current_user), class: 'comment-user-text' do %>
+                <span class="user-nickname post-comment hovers"><%= current_user.nickname %></span>
+              <% end %>
+            </div>
+            <div class="post-comment-field">
+              <div class="comment-form">
+                <%= f.text_field :text, class: "comment-form-text", maxlength: "100", placeholder: "コメントを100文字以内で入力" %>
+                <div class="comment-btn">
+                  <%= f.submit "コメント" , class: "comment-yellow-btn hovers"%>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </div>
