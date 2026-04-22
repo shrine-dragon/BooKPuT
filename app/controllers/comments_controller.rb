@@ -1,7 +1,7 @@
-class CommentController < ApplicationController
+class CommentsController < ApplicationController
   before_action :authenticate_user!,   except: [:index]
-  before_action :set_comment,          except: [:index, :create]
-  before_action :ensure_correct_user,  except: [:index]
+  before_action :set_comment,          only: [:edit, :update, :destroy]
+  before_action :ensure_correct_user,  only: [:edit, :update, :destroy]
 
   def index
     @book = Book.find(params[:book_id])
@@ -10,13 +10,18 @@ class CommentController < ApplicationController
 
   def create
     @book = Book.find(params[:book_id])
-    current_user.comments.build(comment_params)
+    @comment = current_user.comments.build(comment_params)
     @comment.book_id = @book.id
 
     if @comment.save
-      redirect_to book_path(@comment.book), notice: 'コメントしました'
+      flash.now[:notice] = 'コメントしました'
+      respond_to do |format|
+        format.html { redirect_to book_path(@book), notice: 'コメントしました' }
+        format.js
+      end
     else
-      redirect_to book_path(@book)
+      @comments = @book.comments.includes(:user) 
+      render "books/show"
     end
   end
 

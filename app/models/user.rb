@@ -7,6 +7,7 @@ class User < ApplicationRecord
   belongs_to_active_hash :gender
   has_many :sns_credentials, dependent: :destroy # ユーザーが消えるときにSNS情報も自動で削除される
   has_many :books, dependent: :destroy
+  has_many :comments,  dependent: :destroy
 
   after_validation :report_errors, if: -> { errors.any? }
 

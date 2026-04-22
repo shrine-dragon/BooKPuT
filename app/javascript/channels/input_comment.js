@@ -5,7 +5,7 @@ document.addEventListener('turbolinks:load', () => {
   if(!commentFormText) return;
 
   commentFormText.addEventListener('input', () => {
-    const text_count = commentFormText.value.length;
+    const text_count = commentFormText.value.trim().length;
     if (text_count == 0){
       commentBtn.classList.remove('is-show');
     } else {
