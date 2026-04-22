@@ -7,6 +7,8 @@
   top: 80px;
   left: 80px;
   z-index: 1000; /* 特にかぶっていないため、ヘッダーと同じ設定 */
+  opacity: 1;
+  transition: opacity 0.5s ease;
 }
 
 /* 成功時の色（シアン系） */
