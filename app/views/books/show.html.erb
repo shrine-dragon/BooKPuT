@@ -97,6 +97,9 @@
               <i class="fa-regular fa-thumbs-up"></i>
             </li>
             <li>
+              <i class="fa-regular fa-thumbs-down"></i>
+            </li>
+            <li>
               <i class="fa-regular fa-star"></i>
             </li>
           <% end %>
@@ -118,8 +121,7 @@
           
         </div>
       </div>
-      <% if user_signed_in? %>
-        <%# && current_user != @book.user %>
+      <% if user_signed_in? && current_user != @book.user %>
         <%= form_with model: [@book, @comment], local: false, class: "post-comment-wrapper" do |f| %>
           <div class="post-comment-container">
             <div class="post-comment-user-field">
