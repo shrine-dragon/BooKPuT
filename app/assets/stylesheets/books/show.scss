@@ -14,7 +14,6 @@
   .detail-container{
     display: flex;
     justify-content: center;
-    align-items: flex-start;
     width: 100%;
   }
 
@@ -22,6 +21,7 @@
     display: flex;
     // 柱のように縦に表示させる
     flex-direction: column;
+    height: 100%;
   }
 
   .detail-left, .detail-right{
@@ -31,6 +31,7 @@
 
   .posted-by-field{
     display: flex;
+    height: 100px;
   }
 
   .posted-by{
@@ -130,13 +131,17 @@
     margin-right: 10px;
   }
 
-  .btn-field, .reaction-icon-field{
+  .detail-right-upper{
+    height: 100px;
+  }
+
+  .detail-right-btn-field, .reaction-icon-field{
     display: flex;
     justify-content: flex-end;
     gap: 15px;
   }
 
-  .btn-field{
+  .detail-right-btn-field{
     margin: 0 15px 20px 0;
   }
 
@@ -152,7 +157,6 @@
 
   .fa-regular{
     font-size: 25px;
-    cursor: pointer;
   }
 
   // 内容項目のレイアウト
@@ -177,28 +181,38 @@
   .content-item-field {
     padding: 20px;
     display: flex;
-    // 縦書きの場合の「左右中央揃え」は align-items
-    align-items: center; 
     gap: 10px;
     .content-item{
       font-size: 20px;
       font-weight: bold;
+      line-height: 1.6;
+      height: 100%; 
+      max-height: 450px;
     }
 
     &.vertical-text {
       writing-mode: vertical-lr;
       display: flex;
-      justify-content: center;
       gap: 30px;
-
-      .content-item {
-        writing-mode: vertical-lr;
-        border-left: 1px solid #333; 
-        padding: 10px 15px;
-        font-weight: bold;
-        line-height: 1.6;
-        height: auto;
-        max-height: 450px;
+      align-items: flex-end;
+      min-height: 1000px;
+      &.left-side {
+        align-items: flex-end;
+        margin-right: 5px;
+        .content-item {
+          writing-mode: vertical-lr;
+          border-right: 1px solid #333; 
+          padding: 10px 15px 10px 5px;
+        }
+      }
+      &.right-side {
+        align-items: flex-start;
+        margin-left: 5px;
+        .content-item {
+          writing-mode: vertical-lr;
+          border-left: 1px solid #333;
+          padding: 10px 5px 10px 15px;
+        }
       }
     }
 
@@ -263,7 +277,6 @@
 
 .post-comment-container{
   display: flex;
-  align-items: center;
 }
 
 .post-comment-user-field{
@@ -288,19 +301,35 @@
   margin: 0 30px 0 10px;
 }
 
-.comment-form{
+.post-comment-field{
   display: flex;
+  width: 100%;
+  align-items: flex-start;
+  margin-top: 15px;
+}
+
+.comment-form{
+  flex-direction: column;
 }
 
 .comment-form-text{
-  max-width: 80%;
-  margin-right: 5px;
+  width: 700px;
+  height: 30px;
+  padding: 8px 12px;
+  box-sizing: border-box; // paddingを含めた高さをheightにする
+  line-height: 1.5;
+  vertical-align: middle;
+}
+
+.comment-caution-text{
+  font-weight: bold;
 }
 
 .comment-btn {
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s, visibility 0.3s;
+  margin-left: 5px;
   flex-shrink: 0;
 }
 
@@ -309,11 +338,16 @@
   visibility: visible;
 }
 
-.comment-yellow-btn{
-  font-size: 1.2rem;
+.submit-comment-btn{
   display: flex;
-  align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  .fa-solid {
+    font-size: 1.2rem;
+    line-height: 1;
+    display: block;
+  }
 }

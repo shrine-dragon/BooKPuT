@@ -32,7 +32,7 @@
           </div>
         <% end %>
 
-        <div class="content-item-field vertical-text fade-in-up">
+        <div class="content-item-field left-side vertical-text fade-in-up">
           <% [3, 5].each do |i| %>
             <% if @contents[i]&.content.present? %>
               <div class="content-item"><%= @contents[i].content %></div>
@@ -59,7 +59,7 @@
           <div class="genre-hashtags-area">
             <% if @book.genres.present? %>
               <% @book.genres.each do |genre| %>
-                <% unless [900, 901].include?(genre.id) %>
+                <% unless [901].include?(genre.id) %>
                   <span class="genre-tag"># <%= genre.name %></span>
                 <% end %>
               <% end %>
@@ -77,35 +77,39 @@
       </div>
 
       <div class="detail-right">
-        <ul class="btn-field">
-          <% if current_user == @book.user %>
-            <li class="detail-right-btn hovers" id='post-edit-btn'>
-              <%= link_to "編集", edit_book_path(@book), class: 'detail-right-btn-text' %>
-            </li>
-            <li class="detail-right-btn hovers", id='post-destroy-btn'>
-              <span class="detail-right-btn-text">削除</span>
-            </li>
-          <% else %>
-            <li class="detail-right-btn hovers">
-              <%= link_to "報告", root_path, class: 'detail-right-btn-text' %>
-            </li>
+        <div class="detail-right-upper">
+          <% if user_signed_in? %>
+            <ul class="detail-right-btn-field">
+              <% if current_user == @book.user %>
+                <li class="detail-right-btn hovers" id='post-edit-btn'>
+                  <%= link_to "編集", edit_book_path(@book), class: 'detail-right-btn-text' %>
+                </li>
+                <li class="detail-right-btn hovers", id='post-destroy-btn'>
+                  <span class="detail-right-btn-text">削除</span>
+                </li>
+              <% else %>
+                <li class="detail-right-btn hovers">
+                  <%= link_to "報告", root_path, class: 'detail-right-btn-text' %>
+                </li>
+              <% end %>
+            </ul>
+            <ul class="reaction-icon-field">
+              <% unless current_user == @book.user %>
+                <li>
+                  <i class="fa-regular fa-thumbs-up hovers"></i>
+                </li>
+                <li>
+                  <i class="fa-regular fa-thumbs-down hovers"></i>
+                </li>
+                <li>
+                  <i class="fa-regular fa-star hovers"></i>
+                </li>
+              <% end %>
+            </ul>
           <% end %>
-        </ul>
-        <ul class="reaction-icon-field">
-          <% unless current_user == @book.user %>
-            <li>
-              <i class="fa-regular fa-thumbs-up"></i>
-            </li>
-            <li>
-              <i class="fa-regular fa-thumbs-down"></i>
-            </li>
-            <li>
-              <i class="fa-regular fa-star"></i>
-            </li>
-          <% end %>
-        </ul>
+        </div>
 
-        <div class="content-item-field vertical-text fade-in-up">
+        <div class="content-item-field right-side vertical-text fade-in-up">
           <% [4, 6].each do |i| %>
             <% if @contents[i]&.content.present? %>
               <div class="content-item"><%= @contents[i].content %></div>
@@ -121,6 +125,7 @@
           
         </div>
       </div>
+      
       <% if user_signed_in? && current_user != @book.user %>
         <%= form_with model: [@book, @comment], local: false, class: "post-comment-wrapper" do |f| %>
           <div class="post-comment-container">
@@ -137,11 +142,12 @@
             <div class="post-comment-field">
               <div class="comment-form">
                 <%= f.text_field :text, class: "comment-form-text", maxlength: "100", placeholder: "コメントを100文字以内で入力" %>
-                <div class="comment-btn">
-                  <%= f.button type: "submit", class: "comment-yellow-btn hovers" do %>
-                    <i class="fa-solid fa-paper-plane"></i>
-                  <% end %>
-                </div>
+                <p class="comment-caution-text">※批判的な意見はご遠慮ください</p>
+              </div>
+              <div class="comment-btn">
+                <%= f.button type: "submit", class: "submit-comment-btn hovers" do %>
+                  <i class="fa-solid fa-paper-plane"></i>
+                <% end %>
               </div>
             </div>
           </div>
