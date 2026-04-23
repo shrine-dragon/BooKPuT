@@ -19,7 +19,6 @@
 
   .detail-left, .detail-center, .detail-right{
     display: flex;
-    // 柱のように縦に表示させる
     flex-direction: column;
     height: 100%;
   }
@@ -236,43 +235,23 @@
   }
 }
 
-.modal.final-destroy-post{
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1001; 
-  background-color: white;
-  border-radius: 12px;
-  padding: 30px;
-  width: 400px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-
-  .close-modal {
-    display: block;
-  }
+.posted-comment-list-container{
+  width: 85%;
+  border: 1px solid gainsboro;
+  margin: 0 auto 20px;
 }
 
-.modal-wrapper.final-destroy{
-  margin: 10px auto;
+.posted-comments-number{
+  margin-bottom: 5px;
+  font-size: 20px;
 }
 
-.destroy-post-really.btn-on-center, .not-destroy-post.btn-on-center{
-  padding: 8px 0 !important;
-}
-
-.destroy-post-really.btn-on-center{
-  background-color: red;
-  margin: 20px 0 15px;
-}
-
-.not-destroy-post.btn-on-center{
-  background-color: orange;
+.empty-message.none-comment{
+  height: 100px;
 }
 
 .post-comment-wrapper{
-  margin: 20px 0;
+  margin: 40px 0;
 }
 
 .post-comment-container{
@@ -294,9 +273,6 @@
   font-size: 18px;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  text-align: left;
-  align-items: center;
-  text-align: left;
   padding: 13px 10px;
   margin: 0 30px 0 10px;
 }
@@ -350,4 +326,39 @@
     line-height: 1;
     display: block;
   }
+}
+
+.modal.final-destroy-post{
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1001; 
+  background-color: white;
+  border-radius: 12px;
+  padding: 30px;
+  width: 400px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+
+  .close-modal {
+    display: block;
+  }
+}
+
+.modal-wrapper.final-destroy{
+  margin: 10px auto;
+}
+
+.destroy-post-really.btn-on-center, .not-destroy-post.btn-on-center{
+  padding: 8px 0 !important;
+}
+
+.destroy-post-really.btn-on-center{
+  background-color: red;
+  margin: 20px 0 15px;
+}
+
+.not-destroy-post.btn-on-center{
+  background-color: orange;
 }

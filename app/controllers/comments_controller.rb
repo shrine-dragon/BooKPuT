@@ -1,12 +1,7 @@
 class CommentsController < ApplicationController
-  before_action :authenticate_user!,   except: [:index]
+  before_action :authenticate_user!
   before_action :set_comment,          only: [:edit, :update, :destroy]
   before_action :ensure_correct_user,  only: [:edit, :update, :destroy]
-
-  def index
-    @book = Book.find(params[:book_id])
-    @comments = @user.comments.order(created_at: :desc)
-  end
 
   def create
     @book = Book.find(params[:book_id])

@@ -89,7 +89,7 @@
                 </li>
               <% else %>
                 <li class="detail-right-btn hovers">
-                  <%= link_to "報告", root_path, class: 'detail-right-btn-text' %>
+                  <%= link_to "通報", root_path, class: 'detail-right-btn-text' %>
                 </li>
               <% end %>
             </ul>
@@ -119,13 +119,20 @@
       </div>
     </div>
 
-    <div class="book-comments">
-      <div class="book-comment-list-wrapper">
-        <div class="comment-list">
-          
-        </div>
+    <div class="comments-wrapper">
+      <div class="posted-comment-list-container">
+        <% if @comments.any? %>
+          <p class="posted-comments-number">コメント <%= @comments.length %></p>
+          <div class="posted-comment-list">
+            <%= render partial: 'partial_template/posted_comment_list', collection: @comments, as: :comment %>
+          </div>
+        <% else %>
+          <div class="empty-message none-comment">
+            <p>コメントはありません</p>
+          </div>
+        <% end %>
       </div>
-      
+
       <% if user_signed_in? && current_user != @book.user %>
         <%= form_with model: [@book, @comment], local: false, class: "post-comment-wrapper" do |f| %>
           <div class="post-comment-container">

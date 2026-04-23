@@ -1,5 +1,28 @@
-const commentList = document.querySelector('.comment-list');
-commentList.insertAdjacentHTML('beforeend', '<%= j render "partial_template/comment_item", comment: @comment %>');
+const commentContainer = document.querySelector('.posted-comment-list-container');
+
+if (commentContainer) {
+  const emptyMessage = commentContainer.querySelector('.none-comment');
+  if (emptyMessage) {
+    emptyMessage.remove();
+  }
+
+  const newCommentHtml = '<%= j render partial: "partial_template/posted_comment_list", locals: { comment: @comment } %>';
+  commentContainer.insertAdjacentHTML('afterbegin', newCommentHtml);
+}
+
+const inputForm = document.querySelector('.comment-form-text');
+const submitBtn = document.querySelector('.submit-comment-btn');
+
+if (inputForm) {
+  inputForm.value = '';
+}
+
+if (submitBtn) {
+  submitBtn.disabled = false;
+  submitBtn.removeAttribute('data-disable-with'); 
+
+  submitBtn.classList.remove('is-show');
+}
 
 const flashContainer = document.getElementById('flash-container');
 if (flashContainer) {
@@ -10,10 +33,7 @@ if (flashContainer) {
       </div>
     <% end %>
   `;
-  window.fadeOutFlash();
+  if (typeof window.fadeOutFlash === 'function') {
+    window.fadeOutFlash();
+  }
 }
-
-const inputForm = document.querySelector('.comment-form-text');
-inputForm.value = '';
-const submitBtn = document.querySelector('.comment-btn');
-submitBtn.classList.remove('is-show');

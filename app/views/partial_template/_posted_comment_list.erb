@@ -1,0 +1,35 @@
+<div class="posted-comment-contents">
+  <div class="posted-comment-upper">
+    <div class="posted-comment-user-field">
+      <% if comment.user.image.attached? %>
+        <%= image_tag comment.user.image, class: 'user-image posted-comment hovers' %>
+      <% else %>
+        <%= image_tag "no-image.png", class: 'user-image posted-comment no-exist hovers' %>
+      <% end %>
+      <%= link_to user_path(comment.user), class: 'comment-user-text' do %>
+        <span class="user-nickname posted-comment hovers"><%= comment.user.nickname %></span>
+      <% end %>
+    </div>
+    <p class="posted-comment-time">
+      <%= comment.created_at.strftime('%Y/%m/%d %H:%M:%S') %>
+    </p>
+  </div>
+  <div class="posted-comment-center">
+    <p class="posted-comment-text">
+      <%= comment.text %>
+    </p>
+  </div>
+  <div class="posted-comment-lower">
+    <ul class="posted-comment-btn-field">
+      <% if current_user == comment.user %>
+        <li class="posted-comment-btn-text hovers", id="posted-comment-edit-btn">編集</li>
+        <li class="posted-comment-btn-text hovers", id="posted-comment-destroy-btn">削除</li>
+      <% else %>
+        <li class="posted-comment-btn-text hovers", id="posted-comment-hidden-btn">非表示</li>
+        <li class="posted-comment-btn-text hovers", id="posted-comment-report-btn">通報</li>
+        <i class="fa-regular fa-thumbs-up posted-comment hovers"></i>
+        <i class="fa-regular fa-thumbs-down posted-comment hovers"></i>
+      <% end %>
+    </ul>
+  </div>
+</div>
