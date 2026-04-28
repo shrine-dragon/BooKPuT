@@ -1,39 +1,59 @@
-const commentContainer = document.querySelector('.posted-comment-list-container');
+{
+  const commentList = document.getElementById('js-comment-list');
 
-if (commentContainer) {
-  const emptyMessage = commentContainer.querySelector('.none-comment');
-  if (emptyMessage) {
-    emptyMessage.remove();
+  if (commentList) {
+    const emptyMessage = commentList.querySelector('.none-comment');
+    if (emptyMessage) {
+      emptyMessage.remove();
+    }
+
+    const newCommentHtml = '<%= j render partial: "partial_template/posted_comment_list", locals: { comment: @comment } %>';
+    commentList.insertAdjacentHTML('afterbegin', newCommentHtml);
   }
 
-  const newCommentHtml = '<%= j render partial: "partial_template/posted_comment_list", locals: { comment: @comment } %>';
-  commentContainer.insertAdjacentHTML('afterbegin', newCommentHtml);
-}
+  const commentCountLabel = document.querySelector('.posted-comment-number');
 
-const inputForm = document.querySelector('.comment-form-text');
-const submitBtn = document.querySelector('.submit-comment-btn');
+  if (commentCountLabel) {
+    // 現在の数字を取得して+1する
+    const currentCount = parseInt(commentCountLabel.innerText.replace(/[^0-9]/g, '')) || 0;
+    commentCountLabel.innerText = `コメント ${currentCount + 1}`;
+  } else {
+    // 「コメントはありません」から初めて投稿された場合、ラベルを自作して挿入
+    const container = document.querySelector('.posted-comment-list-container');
+    container.insertAdjacentHTML('afterbegin', '<p class="posted-comment-number">コメント 1</p>');
+  }
 
-if (inputForm) {
-  inputForm.value = '';
-}
+  const inputForm = document.querySelector('.comment-form-text');
+  const submitBtn = document.querySelector('.submit-comment-btn');
+  const commentBtnWrapper = document.querySelector('.comment-btn');
 
-if (submitBtn) {
-  submitBtn.disabled = false;
-  submitBtn.removeAttribute('data-disable-with'); 
+  if (inputForm) {
+    inputForm.value = '';
+    inputForm.dispatchEvent(new Event('input'));
+  }
 
-  submitBtn.classList.remove('is-show');
-}
+  if (submitBtn) {
+    submitBtn.disabled = false;
+    submitBtn.removeAttribute('data-disable-with'); 
+  }
 
-const flashContainer = document.getElementById('flash-container');
-if (flashContainer) {
-  flashContainer.innerHTML = `
-    <% flash.each do |key, value| %>
-      <div class="flash-message <%= key %>">
-        <%= j value %>
-      </div>
-    <% end %>
-  `;
-  if (typeof window.fadeOutFlash === 'function') {
-    window.fadeOutFlash();
+  if (commentBtnWrapper) {
+    // 文字を消したので、ボタンを非表示クラスに戻す
+    // これで、次の1文字を打った時に再び JavaScript(①) が検知して表示してくれる
+    commentBtnWrapper.classList.remove('is-show');
+  }
+
+  const flashContainer = document.getElementById('flash-container');
+  if (flashContainer) {
+    flashContainer.innerHTML = `
+      <% flash.each do |key, value| %>
+        <div class="flash-message <%= key %>">
+          <%= j value %>
+        </div>
+      <% end %>
+    `;
+    if (typeof window.fadeOutFlash === 'function') {
+      window.fadeOutFlash();
+    }
   }
 }

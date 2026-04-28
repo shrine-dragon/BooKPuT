@@ -119,26 +119,13 @@
       </div>
     </div>
 
-    <div class="comments-wrapper">
-      <div class="posted-comment-list-container">
-        <% if @comments.any? %>
-          <p class="posted-comments-number">コメント <%= @comments.length %></p>
-          <div class="posted-comment-list">
-            <%= render partial: 'partial_template/posted_comment_list', collection: @comments, as: :comment %>
-          </div>
-        <% else %>
-          <div class="empty-message none-comment">
-            <p>コメントはありません</p>
-          </div>
-        <% end %>
-      </div>
-
+    <div class="comment-wrapper">
       <% if user_signed_in? && current_user != @book.user %>
         <%= form_with model: [@book, @comment], local: false, class: "post-comment-wrapper" do |f| %>
           <div class="post-comment-container">
             <div class="post-comment-user-field">
               <% if current_user.image.attached? %>
-                <%= image_tag current_user.image, class: 'user-image post-comment hovers' %>
+               <%= image_tag current_user.image, class: 'user-image post-comment hovers' %>
               <% else %>
                 <%= image_tag "no-image.png", class: 'user-image post-comment no-exist hovers' %>
               <% end %>
@@ -160,6 +147,21 @@
           </div>
         <% end %>
       <% end %>
+
+      <div class="posted-comment-list-container">
+        <% if @comments.any? %>
+          <p class="posted-comment-number">コメント <%= @comments.length %></p>
+          <div class="posted-comment-list" id="js-comment-list">
+            <%= render partial: 'partial_template/posted_comment_list', collection: @comments, as: :comment %>
+          </div>
+        <% else %>
+          <div class="posted-comment-list" id="js-comment-list">
+            <div class="empty-message none-comment">
+              <p>コメントはありません</p>
+            </div>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

@@ -8,11 +8,11 @@ Bundler.require(*Rails.groups)
 
 module BooKPuT
   class Application < Rails::Application
-    # --- ここから追加 ---
+    config.time_zone = 'Tokyo'
+    config.active_record.default_timezone = :local
     config.active_support.yaml_column_permitted_classes = [Symbol, Hash, Array, Time]
     # YAMLのエイリアスをグローバルに許可する（Ruby 3.1+ / Psych 4+ 対策）
     YAML.config_extensions << ->(config) { config.aliases = true } if YAML.respond_to?(:config_extensions)
-    # --- ここまで追加 ---
     config.load_defaults 6.0
 
     config.i18n.default_locale = :ja

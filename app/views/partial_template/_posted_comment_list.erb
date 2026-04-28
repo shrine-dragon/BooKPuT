@@ -22,11 +22,11 @@
   <div class="posted-comment-lower">
     <ul class="posted-comment-btn-field">
       <% if current_user == comment.user %>
-        <li class="posted-comment-btn-text hovers", id="posted-comment-edit-btn">編集</li>
-        <li class="posted-comment-btn-text hovers", id="posted-comment-destroy-btn">削除</li>
+        <li class="posted-comment-btn-text edit hovers">編集</li>
+        <li class="posted-comment-btn-text destroy hovers">削除</li>
       <% else %>
-        <li class="posted-comment-btn-text hovers", id="posted-comment-hidden-btn">非表示</li>
-        <li class="posted-comment-btn-text hovers", id="posted-comment-report-btn">通報</li>
+        <li class="posted-comment-btn-text hidden hovers",>非表示</li>
+        <li class="posted-comment-btn-text report hovers">通報</li>
         <i class="fa-regular fa-thumbs-up posted-comment hovers"></i>
         <i class="fa-regular fa-thumbs-down posted-comment hovers"></i>
       <% end %>

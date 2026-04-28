@@ -2,7 +2,7 @@ document.addEventListener('turbolinks:load', () => {
   const commentFormText = document.querySelector('.comment-form-text');
   const commentBtn = document.querySelector('.comment-btn');
 
-  if(!commentFormText) return;
+  if(!commentFormText || !commentBtn) return;
 
   commentFormText.addEventListener('input', () => {
     const text_count = commentFormText.value.trim().length;
