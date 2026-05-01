@@ -378,14 +378,14 @@ RSpec.describe '投稿削除', type: :system do
       visit_book_path
 
       # 最初の削除ボタンを押し、投稿削除用のモーダルを開く
-      expect(page).to have_selector('#post-destroy-btn', text: '削除', wait: 5)
-      find('#post-destroy-btn').click
-      expect(page).to have_selector('.modal.final-destroy-post', visible: true, wait: 5)
+      expect(page).to have_selector('#destroy-post-btn', text: '削除', wait: 5)
+      find('#destroy-post-btn').click
+      expect(page).to have_selector('.modal.finally-destroy', visible: true, wait: 5)
       expect(page).to have_content('本当に削除しますか？')
       
       # ｢本当に削除する｣ボタンを押すと、BookモデルとBookContentモデルのカウントが1下がることを確認する
       expect do
-        find('#destroy-post-really').click
+        find('.destroy-really.btn-text').click
         expect(page).to have_content('削除しました')
       end.to change { Book.count }.by(-1)
         .and change { BookContent.count }.by(-7)
@@ -403,7 +403,7 @@ RSpec.describe '投稿削除', type: :system do
       visit_book_path
 
       # 投稿詳細ページに削除ボタンが存在しないことを確認する
-      expect(page).to have_no_selector('#post-destroy-btn', wait: 5)
+      expect(page).to have_no_selector('#destroy-post-btn', wait: 5)
     end
 
     it 'ログインユーザーであっても他者の投稿を削除できない' do
@@ -413,7 +413,7 @@ RSpec.describe '投稿削除', type: :system do
       visit_book_path
 
       # 投稿詳細ページに削除ボタンが存在しないことを確認する
-      expect(page).to have_no_selector('#post-destroy-btn', wait: 5)
+      expect(page).to have_no_selector('#destroy-post-btn', wait: 5)
     end
 
     it '自身の投稿であっても｢削除しない｣ボタンや閉じるボタン、投稿削除用モーダル以外の要素を押すと削除できない' do
@@ -421,14 +421,14 @@ RSpec.describe '投稿削除', type: :system do
       visit_book_path
 
       # 最初の削除ボタンを押し、投稿削除用のモーダルを開く
-      expect(page).to have_selector('#post-destroy-btn', text: '削除', wait: 5)
+      expect(page).to have_selector('#destroy-post-btn', text: '削除', wait: 5)
 
-      ['.not-destroy-post.btn-text', '.fa-xmark', '#modal-overlay'].each do |selector|
-        find('#post-destroy-btn').click
-        expect(page).to have_selector('.modal.final-destroy-post', visible: true, wait: 5)
+      ['.not-destroy.btn-text', '.fa-xmark', '#modal-overlay'].each do |selector|
+        find('#destroy-post-btn').click
+        expect(page).to have_selector('.modal.finally-destroy', visible: true, wait: 5)
         expect {
-          find('.not-destroy-post.btn-text').click
-          expect(page).to have_no_selector('.modal.final-destroy-post', wait: 5)
+          find('.not-destroy.btn-text').click
+          expect(page).to have_no_selector('.modal.finally-destroy', wait: 5)
         }.not_to change { Book.count }
       end
     end

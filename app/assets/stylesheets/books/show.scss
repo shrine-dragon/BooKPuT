@@ -332,7 +332,7 @@
   }
 }
 
-.modal.final-destroy-post{
+.modal.finally-destroy{
   display: none;
   position: fixed;
   top: 50%;
@@ -350,19 +350,19 @@
   }
 }
 
-.modal-wrapper.final-destroy{
+.modal-wrapper.finally-destroy{
   margin: 10px auto;
 }
 
-.destroy-post-really.btn-on-center, .not-destroy-post.btn-on-center{
+.destroy-really.btn-on-center, .not-destroy.btn-on-center{
   padding: 8px 0 !important;
 }
 
-.destroy-post-really.btn-on-center{
+.destroy-really.btn-on-center{
   background-color: red;
   margin: 20px 0 15px;
 }
 
-.not-destroy-post.btn-on-center{
+.not-destroy.btn-on-center{
   background-color: orange;
 }

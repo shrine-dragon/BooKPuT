@@ -84,7 +84,7 @@
                 <li class="detail-right-btn hovers" id='post-edit-btn'>
                   <%= link_to "編集", edit_book_path(@book), class: 'detail-right-btn-text' %>
                 </li>
-                <li class="detail-right-btn hovers", id='post-destroy-btn'>
+                <li class="detail-right-btn hovers" id='destroy-post-btn' data-url="<%= book_path(@book) %>">
                   <span class="detail-right-btn-text">削除</span>
                 </li>
               <% else %>
@@ -168,17 +168,17 @@
 
 <div id="modal-overlay"></div>
 
-<div class="modal final-destroy-post">
-  <div class="modal-wrapper final-destroy">
+<div class="modal finally-destroy">
+  <div class="modal-wrapper finally-destroy">
     <div class="close-modal"><i class="fa-solid fa-xmark"></i></div>
     <p class="warning-text">本当に削除しますか？<br>一度削除すると復元できません。</p>
-    <div class="destroy-post-really btn-on-center">
-      <%= link_to(book_path(@book), method: :delete, class: "destroy-post-really-btn final-destroy-link") do %>
-        <span class="destroy-post-really btn-text" id="destroy-post-really">本当に削除する</span>
+    <div class="destroy-really btn-on-center">
+      <%= link_to "#", method: :delete, remote: true, class: "destroy-really-btn finally-destroy-link", id: "js-destroy-link" do %>
+        <span class="destroy-really btn-text">本当に削除する</span>
       <% end %>
     </div>
-    <div class="not-destroy-post btn-on-center">
-      <span class="not-destroy-post btn-text">削除しない</span>
+    <div class="not-destroy btn-on-center">
+      <span class="not-destroy btn-text">削除しない</span>
     </div>
   </div>
 </div>

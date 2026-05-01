@@ -23,7 +23,7 @@ $(document).on(loadEvent, function() {
 
   $(document).on('mouseover', function(e) {
     const $logInModal = $(".modal.log-in");
-    const $destroyModal = $(".modal.final-destroy-post");
+    const $destroyModal = $(".modal.finally-destroy");
   
     // ★追加：中央表示モード(.is-center)の時は、マウス移動で消さないようにする
     if ($logInModal.hasClass('is-center') || $destroyModal.is(':visible')) return;
@@ -49,7 +49,7 @@ $(document).on(loadEvent, function() {
       $(".modal.sign-up").fadeOut(200);
       $(".modal.log-in").fadeOut(200);
       $(".modal.log-in-user").fadeOut(200);
-      $(".modal.final-destroy-post").fadeOut(200);
+      $(".modal.finally-destroy").fadeOut(200);
     }
   });
   // 新規登録ページのモーダルの開閉処理(clickイベント)
@@ -90,7 +90,7 @@ $(document).on(loadEvent, function() {
     $("#modal-overlay").fadeOut(200);
     $(".modal.sign-up").fadeOut(200);
     $(".modal.log-in-user").fadeOut(200);
-    $(".modal.final-destroy-post").fadeOut(200);
+    $(".modal.finally-destroy").fadeOut(200);
     
     $logInModal.fadeOut(200, function() {
       if ($logInModal.hasClass('is-center')) {
@@ -113,13 +113,31 @@ $(document).on(loadEvent, function() {
     }
   }
 
-  $('#post-destroy-btn').on('click', function() {
+  $(document).on('click', '#destroy-post-btn', function() {
+    // ボタン自体、または親要素に設定されたdata-urlを取得する
+    // (HTML側の修正も必要です)
+    const bookDeleteUrl = $(this).data('url'); 
+    
+    $('#js-destroy-link').attr('href', bookDeleteUrl);
+    // 非同期(remote: true)を無効化して普通のリンクとして飛ばす
+    $('#js-destroy-link').attr('data-remote', 'false');
+
     $("#modal-overlay").fadeIn(200);
-    $(".modal.final-destroy-post").fadeIn(200);
+    $(".modal.finally-destroy").fadeIn(200);
   });
 
-  $('.not-destroy-post, .modal.final-destroy-post .close-modal').on('click', function() {
+  $('.not-destroy, .modal.finally-destroy .close-modal').on('click', function() {
     $("#modal-overlay").fadeOut(200);
-    $(".modal.final-destroy-post").fadeOut(200);
+    $(".modal.finally-destroy").fadeOut(200);
+  });
+
+  $(document).on('click', '.js-destroy-comment-trigger', function() {
+    const deleteUrl = $(this).data('url'); // data-urlを取得
+    $('#js-destroy-link').attr('href', deleteUrl); // モーダルのリンクを書き換え
+    // コメント削除の場合は非同期を有効化(remote: true;)する
+    $('#js-destroy-link').attr('data-remote', 'true');
+    
+    $("#modal-overlay").fadeIn(200);
+    $(".modal.finally-destroy").fadeIn(200);
   });
 });
