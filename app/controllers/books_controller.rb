@@ -54,7 +54,7 @@ class BooksController < ApplicationController
   def destroy
     return unless @book.destroy
 
-    redirect_to root_path, notice: '削除しました'
+    redirect_to root_path, notice: '投稿を削除しました'
   end
 
   private

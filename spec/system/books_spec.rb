@@ -386,7 +386,7 @@ RSpec.describe '投稿削除', type: :system do
       # ｢本当に削除する｣ボタンを押すと、BookモデルとBookContentモデルのカウントが1下がることを確認する
       expect do
         find('.destroy-really.btn-text').click
-        expect(page).to have_content('削除しました')
+        expect(page).to have_content('投稿を削除しました')
       end.to change { Book.count }.by(-1)
         .and change { BookContent.count }.by(-7)
 

@@ -33,7 +33,7 @@ class CommentsController < ApplicationController
   def destroy
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_to book_path(@comment.book), notice: '削除しました' }
+      format.html { redirect_to book_path(@comment.book), notice: 'コメントを削除しました' }
       format.js
     end
   end
