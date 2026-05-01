@@ -11,16 +11,16 @@
     <div class="detail-container">
       <div class="detail-left">
         <% if current_user == @book.user %>
-          <%= link_to user_path(current_user), class: "user-mypage-link" do %>
-            <div class="posted-by-field is-mypage">
+          <div class="posted-by-field is-mypage">
+            <%= link_to user_path(current_user), class: "user-mypage-link" do %>
               <% if current_user.image.attached? %>
                 <%= image_tag current_user.image, class: 'user-image posted-by hovers' %>
               <% else %>
                 <%= image_tag "no-image.png", class: 'user-image posted-by no-exist hovers' %>
               <% end %>
               <span class="user-nickname posted-by hovers"><%= current_user.nickname %></span>
-            </div>
-          <% end %>
+            <% end %>
+          </div>
         <% else %>
           <div class="posted-by-field">
             <% if @book.user.image.attached? %>

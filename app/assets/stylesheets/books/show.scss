@@ -26,11 +26,23 @@
   .detail-left, .detail-right{
     width: 300px;
     flex-shrink: 0;
+    justify-content: flex-start !important;
+  }
+
+  .detail-left {
+    padding-right: 15px;
   }
 
   .posted-by-field{
-    display: flex;
     height: 100px;
+  }
+
+  .user-mypage-link{
+    display: flex;
+  }
+
+  .user-mypage-link{
+    display: flex;
   }
 
   .posted-by{
@@ -130,6 +142,10 @@
     margin-right: 10px;
   }
 
+  .detail-right {
+    padding-left: 15px;
+  }
+
   .detail-right-upper{
     height: 100px;
   }
@@ -185,7 +201,7 @@
       font-size: 20px;
       font-weight: bold;
       line-height: 1.6;
-      height: 100%; 
+      height: auto;
       max-height: 450px;
     }
 
@@ -193,24 +209,24 @@
       writing-mode: vertical-lr;
       display: flex;
       gap: 30px;
-      align-items: flex-end;
-      min-height: 1000px;
+      align-items: flex-start;
+      height: auto;
       &.left-side {
         align-items: flex-end;
-        margin-right: 5px;
         .content-item {
           writing-mode: vertical-lr;
-          border-right: 1px solid #333; 
+          border-right: 1px solid #333;
           padding: 10px 15px 10px 5px;
+          min-height: 500px;
         }
       }
       &.right-side {
         align-items: flex-start;
-        margin-left: 5px;
         .content-item {
           writing-mode: vertical-lr;
           border-left: 1px solid #333;
           padding: 10px 5px 10px 15px;
+          min-height: 500px;
         }
       }
     }
