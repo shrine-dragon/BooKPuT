@@ -154,6 +154,10 @@
           <div class="posted-comment-list" id="js-comment-list">
             <%= render partial: 'partial_template/posted_comment_list', collection: @comments, as: :comment %>
           </div>
+          <div class="view-more-comments-container" style="<%= 'display: none;' if @comments.length <= 10 %>">
+            <p class="view-more-comments-text hovers" id="view-more-comments">コメントをもっと見る</p>
+            <p class="hide-comments-text hovers" id="hide-comments" style="display: none;">折りたたむ</p>
+          </div>
         <% else %>
           <div class="posted-comment-list" id="js-comment-list">
             <div class="empty-message none-comment">
