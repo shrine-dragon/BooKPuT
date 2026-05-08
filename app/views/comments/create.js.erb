@@ -1,60 +1,30 @@
-{
-  const commentList = document.getElementById('js-comment-list');
+// 1. 既存の「コメントはありません」を削除
+$('#js-comment-list .none-comment').remove();
 
-  if (commentList) {
-    const emptyMessage = commentList.querySelector('.none-comment');
-    if (emptyMessage) {
-      emptyMessage.remove();
-    }
+// 2. 新しいコメントのHTMLを作成
+// ここで hide() はせず、一度普通に挿入します
+var newCommentHtml = '<%= j render partial: "partial_template/posted_comment_list", locals: { comment: @comment } %>';
+$('#js-comment-list').prepend(newCommentHtml);
 
-    const newCommentHtml = '<%= j render partial: "partial_template/posted_comment_list", locals: { comment: @comment } %>';
-    commentList.insertAdjacentHTML('afterbegin', newCommentHtml);
-  }
+// 3. 総数のカウントとラベル更新
+var currentTotal = $('#js-comment-list .js-comment').length;
+var $countLabel = $('.posted-comment-number');
 
-  const commentCountLabel = document.querySelector('.posted-comment-number');
-
-  if (commentCountLabel) {
-    // 現在の数字を取得して+1する
-    const currentCount = parseInt(commentCountLabel.innerText.replace(/[^0-9]/g, '')) || 0;
-    commentCountLabel.innerText = `コメント ${currentCount + 1}`;
-  } else {
-    // 「コメントはありません」から初めて投稿された場合、ラベルを自作して挿入
-    const container = document.querySelector('.posted-comment-list-container');
-    container.insertAdjacentHTML('afterbegin', '<p class="posted-comment-number">コメント 1</p>');
-  }
-
-  const inputForm = document.querySelector('.comment-form-text');
-  const submitBtn = document.querySelector('.submit-comment-btn');
-  const commentBtnWrapper = document.querySelector('.comment-btn');
-
-  if (inputForm) {
-    inputForm.value = '';
-    inputForm.dispatchEvent(new Event('input'));
-  }
-
-  if (submitBtn) {
-    submitBtn.disabled = false;
-    submitBtn.removeAttribute('data-disable-with'); 
-  }
-
-  if (commentBtnWrapper) {
-    // 文字を消したので、ボタンを非表示クラスに戻す
-    // これで、次の1文字を打った時に再び JavaScript(①) が検知して表示してくれる
-    commentBtnWrapper.classList.remove('is-show');
-  }
-
-  const flashContainer = document.getElementById('flash-container');
-  if (flashContainer) {
-    flashContainer.innerHTML = `
-      <% flash.each do |key, value| %>
-        <div class="flash-message <%= key %>">
-          <%= j value %>
-        </div>
-      <% end %>
-    `;
-    if (typeof window.fadeOutFlash === 'function') {
-      window.fadeOutFlash();
-    }
-  }
-  $(document).trigger('comment:updated');
+if ($countLabel.length > 0) {
+  $countLabel.text('コメント ' + currentTotal);
+} else {
+  $('.posted-comment-list-container').prepend('<p class="posted-comment-number">コメント 1</p>');
 }
+
+// 4. フォームの初期化
+$('.comment-form-text').val('');
+$('.submit-comment-btn').prop('disabled', false).removeAttr('data-disable-with');
+$('.comment-btn').removeClass('is-show');
+
+// 5. フラッシュメッセージ
+$('#flash-container').html('<div class="flash-message notice">コメントを投稿しました</div>');
+if (typeof window.fadeOutFlash === 'function') { window.fadeOutFlash(); }
+
+// 6. 重要：投稿後に「もっと見る」のルールを強制適用
+// これを呼ぶことで、11件目だった場合はJS側が自動で隠してくれます
+$(document).trigger('comment:updated');
