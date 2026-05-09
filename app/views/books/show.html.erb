@@ -172,20 +172,37 @@
 
 <div id="modal-overlay"></div>
 
-<div class="modal finally-destroy">
-  <div class="modal-wrapper finally-destroy">
-    <div class="close-modal"><i class="fa-solid fa-xmark"></i></div>
-    <p class="warning-text">本当に削除しますか？<br>一度削除すると復元できません。</p>
-    <div class="destroy-really btn-on-center">
-      <%= link_to "#", method: :delete, remote: true, class: "destroy-really-btn finally-destroy-link", id: "js-destroy-link" do %>
-        <span class="destroy-really btn-text">本当に削除する</span>
-      <% end %>
-    </div>
-    <div class="not-destroy btn-on-center">
-      <span class="not-destroy btn-text">削除しない</span>
-    </div>
-  </div>
-</div>
+<%# 1. 削除用モーダル %>
+<%= render 'partial_template/final_action_modal', 
+    modal_class: 'destroy',
+    message: 'このコメントを削除しますか？',
+    method: :delete,
+    btn_text: '削除する',
+    btn_class: 'finally-destroy',
+    link_id: 'js-destroy-link',
+    no_action_text: '削除しない' %>
+
+
+<%# 2. 非表示用モーダル %>
+<%= render 'partial_template/final_action_modal', 
+    modal_class: 'hide',
+    message: 'このコメントを非表示にしますか？',
+    method: :post,
+    btn_text: '非表示にする',
+    btn_class: 'finally-hide',
+    link_id: 'js-hide-link',
+    no_action_text: '戻る' %>
+
+
+<%# 3. 通報用モーダル %>
+<%= render 'partial_template/final_action_modal', 
+    modal_class: 'report',
+    message: 'このコメントを不適切な内容として通報しますか？',
+    method: :post,
+    btn_text: '通報する',
+    btn_class: 'finally-report',
+    link_id: 'js-report-link',
+    no_action_text: 'キャンセル' %>
 
 <%= render 'partial_template/return_btn' %>
 

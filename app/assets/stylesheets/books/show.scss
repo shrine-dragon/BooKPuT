@@ -345,7 +345,7 @@
   margin: 10px 0;
 }
 
-.modal.finally-destroy{
+.modal.final-action{
   display: none;
   position: fixed;
   top: 50%;
@@ -363,19 +363,19 @@
   }
 }
 
-.modal-wrapper.finally-destroy{
+.modal-wrapper.final-action{
   margin: 10px auto;
 }
 
-.destroy-really.btn-on-center, .not-destroy.btn-on-center{
+.final-action.btn-on-center, .no-action.btn-on-center{
   padding: 8px 0 !important;
 }
 
-.destroy-really.btn-on-center{
+.final-action.btn-on-center{
   background-color: red;
   margin: 20px 0 15px;
 }
 
-.not-destroy.btn-on-center{
+.no-action.btn-on-center{
   background-color: orange;
 }
