@@ -1,57 +1,62 @@
 document.addEventListener('turbolinks:load', () => {
-  const LIMIT = 10;
+  const STEP = 10; // 1回に出す件数
+  const $list = $('#js-comment-list');
+  if (!$list.length) return;
 
-  function refreshComments() {
-    const $list = $('#js-comment-list');
+  // 現在「何件表示すべきか」を保持する変数
+  let currentVisibleCount = STEP;
+
+  function enforceLimit() {
     const $items = $list.find('.js-comment');
     const total = $items.length;
     const $container = $('.view-more-comments-container');
     const $viewMoreBtn = $('#view-more-comments');
     const $hideBtn = $('#hide-comments');
 
-    // 件数による基本表示
-    if (total <= LIMIT) {
-      $container.hide();
+    // 1. 全件数が表示予定数以下なら、ボタンを隠して全部出す
+    if (total <= currentVisibleCount) {
       $items.show();
+      // もし一度でも「もっと見る」を押して全表示になったなら「折りたたむ」だけ出す
+      if (currentVisibleCount > STEP) {
+        $viewMoreBtn.hide();
+        $hideBtn.show();
+      } else {
+        $container.hide();
+      }
       return;
     }
 
+    // 2. 制限が必要な場合
     $container.show();
+    $viewMoreBtn.show();
+    $hideBtn.hide();
 
-    // 「折りたたむ」が見えている（全表示モード）かどうかの判定
-    if ($hideBtn.is(':visible')) {
-      // 展開状態を維持（パッと表示）
-      $items.show();
-      $viewMoreBtn.hide();
-      $hideBtn.show();
-    } else {
-      // 制限状態を維持（11件目以降をパッと隠す）
-      $items.hide().slice(0, LIMIT).show();
-      $viewMoreBtn.show();
-      $hideBtn.hide();
-    }
+    // 決まった件数だけ表示し、残りをパッと隠す
+    $items.hide().slice(0, currentVisibleCount).show();
   }
 
-  // ボタンクリックイベント
+  // 監視設定
+  const observer = new MutationObserver(() => {
+    // 投稿・削除されたときは、表示数を初期（10件）に戻さず、
+    // 現在の表示枠を維持したまま再計算する
+    enforceLimit();
+  });
+  observer.observe($list[0], { childList: true });
+
+  // 初期実行
+  enforceLimit();
+
+  // 「もっと見る」クリック：表示枠を10増やす
   $(document).off('click', '#view-more-comments').on('click', '#view-more-comments', function() {
-    $(this).hide();
-    $('#hide-comments').show();
-    $('#js-comment-list .js-comment').show(); // 全件パッと表示
+    currentVisibleCount += STEP;
+    enforceLimit();
   });
 
-  // 「折りたたむ」クリック：アニメーションなしでパッと隠す
+  // 「折りたたむ」クリック：表示枠を10（初期値）に戻す
   $(document).off('click', '#hide-comments').on('click', '#hide-comments', function() {
-    $(this).hide();
-    $('#view-more-comments').show();
-    // 11件目以降をパッと隠す
-    $('#js-comment-list .js-comment').hide().slice(0, LIMIT).show();
+    currentVisibleCount = STEP;
+    enforceLimit();
+    // 折りたたんだらコメント欄の先頭へスムーズにスクロールさせると親切
+    $('html, body').animate({ scrollTop: $list.offset().top - 100 }, 200);
   });
-
-  // Railsからの合図（投稿・削除）を受けて実行
-  $(document).on('comment:updated', function() {
-    refreshComments();
-  });
-
-  // 初回実行
-  refreshComments();
 });

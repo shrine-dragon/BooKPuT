@@ -1,20 +1,13 @@
-// 1. 既存の「コメントはありません」を削除
+// 1. メッセージ削除
 $('#js-comment-list .none-comment').remove();
 
-// 2. 新しいコメントのHTMLを作成
-// ここで hide() はせず、一度普通に挿入します
+// 2. HTML挿入（これをやるだけで、上記の監視プログラムが自動で発動します）
 var newCommentHtml = '<%= j render partial: "partial_template/posted_comment_list", locals: { comment: @comment } %>';
 $('#js-comment-list').prepend(newCommentHtml);
 
-// 3. 総数のカウントとラベル更新
+// 3. ラベル更新（ここも実際の要素数を数えるのが一番正確です）
 var currentTotal = $('#js-comment-list .js-comment').length;
-var $countLabel = $('.posted-comment-number');
-
-if ($countLabel.length > 0) {
-  $countLabel.text('コメント ' + currentTotal);
-} else {
-  $('.posted-comment-list-container').prepend('<p class="posted-comment-number">コメント 1</p>');
-}
+$('.posted-comment-number').text('コメント ' + currentTotal);
 
 // 4. フォームの初期化
 $('.comment-form-text').val('');
@@ -24,7 +17,3 @@ $('.comment-btn').removeClass('is-show');
 // 5. フラッシュメッセージ
 $('#flash-container').html('<div class="flash-message notice">コメントを投稿しました</div>');
 if (typeof window.fadeOutFlash === 'function') { window.fadeOutFlash(); }
-
-// 6. 重要：投稿後に「もっと見る」のルールを強制適用
-// これを呼ぶことで、11件目だった場合はJS側が自動で隠してくれます
-$(document).trigger('comment:updated');
