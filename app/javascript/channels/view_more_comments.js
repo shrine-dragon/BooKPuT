@@ -9,9 +9,16 @@ document.addEventListener('turbolinks:load', () => {
   function enforceLimit() {
     const $items = $list.find('.js-comment');
     const total = $items.length;
+    const $numberLabel = $('.posted-comment-number');
     const $container = $('.view-more-comments-container');
     const $viewMoreBtn = $('#view-more-comments');
     const $hideBtn = $('#hide-comments');
+
+    if (total > 0) {
+      $numberLabel.show();
+    } else {
+      $numberLabel.hide();
+    }
 
     // 1. 全件数が表示予定数以下なら、ボタンを隠して全部出す
     if (total <= currentVisibleCount) {
@@ -56,7 +63,7 @@ document.addEventListener('turbolinks:load', () => {
   $(document).off('click', '#hide-comments').on('click', '#hide-comments', function() {
     currentVisibleCount = STEP;
     enforceLimit();
-    // 折りたたんだらコメント欄の先頭へスムーズにスクロールさせると親切
+    // 折りたたんだらコメント欄の先頭へスムーズにスクロールさせると親切です
     $('html, body').animate({ scrollTop: $list.offset().top - 100 }, 200);
   });
 });

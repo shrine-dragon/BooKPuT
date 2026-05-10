@@ -5,9 +5,11 @@ $('#js-comment-list .none-comment').remove();
 var newCommentHtml = '<%= j render partial: "partial_template/posted_comment_list", locals: { comment: @comment } %>';
 $('#js-comment-list').prepend(newCommentHtml);
 
-// 3. ラベル更新（ここも実際の要素数を数えるのが一番正確です）
+// 3. ラベル更新（ここも実際の要素数を数えるのが一番正確）
 var currentTotal = $('#js-comment-list .js-comment').length;
-$('.posted-comment-number').text('コメント ' + currentTotal);
+if (currentTotal > 0) {
+  $('.posted-comment-number').text('コメント ' + currentTotal).show();
+}
 
 // 4. フォームの初期化
 $('.comment-form-text').val('');
@@ -17,3 +19,10 @@ $('.comment-btn').removeClass('is-show');
 // 5. フラッシュメッセージ
 $('#flash-container').html('<div class="flash-message notice">コメントを投稿しました</div>');
 if (typeof window.fadeOutFlash === 'function') { window.fadeOutFlash(); }
+
+// 6. 「もっと見る」コンテナの制御
+if (currentTotal > 10) {
+  $('.view-more-comments-container').show();
+} else {
+  $('.view-more-comments-container').hide();
+}

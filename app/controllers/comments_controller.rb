@@ -38,6 +38,17 @@ class CommentsController < ApplicationController
     end
   end
 
+  def hide
+    HiddenComment.find_or_create_by(user_id: current_user.id, comment_id: @comment.id)
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def report
+    
+  end
+
   private
 
   def set_comment

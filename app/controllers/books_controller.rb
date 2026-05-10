@@ -38,7 +38,14 @@ class BooksController < ApplicationController
 
   def show
     @comment = Comment.new
-    @comments = @book.comments.order(created_at: :desc)
+    if user_signed_in?
+      # 現在のユーザーが非表示にしたcomment_idのリストを取得
+      hidden_comment_ids = current_user.hidden_comments.pluck(:comment_id)
+      # そのID以外のコメントを表示
+      @comments = @book.comments.where.not(id: hidden_comment_ids).includes(:user).order(created_at: :desc)
+    else
+      @comments = @book.comments.includes(:user).order(created_at: :desc)
+    end
   end
 
   def edit; end

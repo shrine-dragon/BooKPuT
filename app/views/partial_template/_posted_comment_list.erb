@@ -39,7 +39,7 @@
         </li>
       <% else %>
         <li class="posted-comment-btn-text hovers js-hide-comment-trigger"
-          data-url="<%= book_comment_path(comment.book, comment) %>">
+          data-url="<%=  hide_book_comment_path(comment.book, comment) %>">
           非表示
         </li>
         <li class="posted-comment-btn-text hovers js-report-comment-trigger"
