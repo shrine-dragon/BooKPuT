@@ -4,6 +4,11 @@ $(".modal.final-action.report").fadeOut(200);
 
 // フラッシュメッセージを表示
 $('#flash-container').html('<div class="flash-message notice">コメントを通報しました</div>');
+
+// HTML上のボタンの状態を通報済みに書き換える
+$('.js-report-comment-trigger[data-comment-id="<%= @comment.id %>"]').attr('data-reported', 'true');
+
+// フラッシュメッセージのフェードアウト処理の実行
 if (typeof window.fadeOutFlash === 'function') {
   window.fadeOutFlash();
 }

@@ -46,7 +46,15 @@ class CommentsController < ApplicationController
   end
 
   def report
-    ReportedComment.find_or_create_by(user_id: current_user.id, comment_id: @comment.id)
+    @report = ReportedComment.where(user_id: current_user.id, comment_id: @comment.id).first_or_initialize
+
+    if @report.new_record?
+      @report.save
+      @status = :created   # 初めての通報
+    else
+      @status = :exists    # 既に通報済み
+    end
+
     respond_to do |format|
       format.js
     end

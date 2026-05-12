@@ -155,12 +155,21 @@ $(document).on(loadEvent, function() {
 
   // コメントの通報ボタン
   $(document).on('click', '.js-report-comment-trigger', function() {
-    const reportUrl = $(this).data('url');
-    const $modal = $(".modal.final-action.report");
-    
-    $modal.find('#js-report-link').attr('href', reportUrl);
-    
-    $("#modal-overlay").fadeIn(200);
-    $modal.fadeIn(200);
+    const $btn = $(this);
+    const isReported = $btn.attr('data-reported'); // 通報済みかチェック
+
+    if (isReported === 'true') {
+      // 【二度目以降】モーダルを出さずにメッセージだけ表示
+      $('#flash-container').html('<div class="flash-message alert">通報済みのコメントです</div>');
+      if (typeof window.fadeOutFlash === 'function') {
+        window.fadeOutFlash();
+      }
+    } else {
+      // 【初めて】モーダルを表示する既存の処理
+      const reportUrl = $btn.data('url');
+      $('#js-report-link').attr('href', reportUrl);
+      $('#modal-overlay').fadeIn(200);
+      $('.modal.final-action.report').fadeIn(200);
+    }
   });
 });
