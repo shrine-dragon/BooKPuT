@@ -347,38 +347,3 @@
 .view-more-comments-container{
   margin: 10px 0;
 }
-
-.modal.final-action{
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1001; 
-  background-color: white;
-  border-radius: 12px;
-  padding: 30px;
-  width: 400px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-
-  .close-modal {
-    display: block;
-  }
-}
-
-.modal-wrapper.final-action{
-  margin: 10px auto;
-}
-
-.final-action.btn-on-center, .no-action.btn-on-center{
-  padding: 8px 0 !important;
-}
-
-.final-action.btn-on-center{
-  background-color: red;
-  margin: 20px 0 15px;
-}
-
-.no-action.btn-on-center{
-  background-color: orange;
-}
