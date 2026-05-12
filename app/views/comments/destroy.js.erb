@@ -1,6 +1,6 @@
 // 1. モーダルを閉じる
 $("#modal-overlay").fadeOut(200);
-$(".modal.final-action.destroy").fadeOut(200);
+$(".modal.final-action.destroy-comment").fadeOut(200);
 
 // 2. 要素を削除（これによって MutationObserver が発動します）
 $('#comment-<%= @comment.id %>').remove();

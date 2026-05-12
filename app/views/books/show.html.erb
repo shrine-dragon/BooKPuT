@@ -172,17 +172,27 @@
 
 <div id="modal-overlay"></div>
 
-<%# 1. 削除用モーダル %>
+<%# 2. 投稿削除用モーダル %>
 <%= render 'partial_template/final_action_modal', 
-    modal_class: 'destroy',
+    modal_class: 'destroy-post',
+    message: 'この投稿を削除しますか？',
+    method: :delete,
+    btn_text: '削除する',
+    btn_class: 'finally-destroy-post',
+    link_id: 'js-destroy-post-link',
+    no_action_text: '削除しない' %>
+
+<%# 2. コメント削除用モーダル %>
+<%= render 'partial_template/final_action_modal', 
+    modal_class: 'destroy-comment',
     message: 'このコメントを削除しますか？',
     method: :delete,
     btn_text: '削除する',
-    btn_class: 'finally-destroy',
-    link_id: 'js-destroy-link',
+    btn_class: 'finally-destroy-comment',
+    link_id: 'js-destroy-comment-link',
     no_action_text: '削除しない' %>
 
-<%# 2. 非表示用モーダル %>
+<%# 3. 非表示用モーダル %>
 <%= render 'partial_template/final_action_modal', 
     modal_class: 'hide',
     message: 'このコメントを非表示にしますか？',
@@ -192,8 +202,7 @@
     link_id: 'js-hide-link',
     no_action_text: '戻る' %>
 
-
-<%# 3. 通報用モーダル %>
+<%# 4. 通報用モーダル %>
 <%= render 'partial_template/final_action_modal', 
     modal_class: 'report',
     message: 'このコメントを不適切な内容として通報しますか？',

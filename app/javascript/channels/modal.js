@@ -124,8 +124,8 @@ $(document).on(loadEvent, function() {
     const bookDeleteUrl = $(this).data('url'); 
     
     // 削除用モーダルの中にあるリンクを書き換え
-    const $modal = $(".modal.final-action.destroy");
-    $modal.find('#js-destroy-link').attr('href', bookDeleteUrl).attr('data-remote', 'false');
+    const $modal = $(".modal.final-action.destroy-post");
+    $modal.find('#js-destroy-post-link').attr('href', bookDeleteUrl).attr('data-remote', 'false');
 
     $("#modal-overlay").fadeIn(200);
     $modal.fadeIn(200);
@@ -134,9 +134,9 @@ $(document).on(loadEvent, function() {
   // コメントの削除ボタン
   $(document).on('click', '.js-destroy-comment-trigger', function() {
     const deleteUrl = $(this).data('url');
-    const $modal = $(".modal.final-action.destroy");
+    const $modal = $(".modal.final-action.destroy-comment");
     
-    $modal.find('#js-destroy-link').attr('href', deleteUrl).attr('data-remote', 'true');
+    $modal.find('#js-destroy-comment-link').attr('href', deleteUrl).attr('data-remote', 'true');
     
     $("#modal-overlay").fadeIn(200);
     $modal.fadeIn(200);
