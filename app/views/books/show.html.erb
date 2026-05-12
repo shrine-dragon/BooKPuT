@@ -149,7 +149,7 @@
       <% end %>
 
       <div class="posted-comment-list-container">
-        <p class="posted-comment-number">コメント <%= @comments.length %></p>
+        <p class="posted-comment-number" style="display: none;"></p>
         
         <div class="posted-comment-list" id="js-comment-list">
           <% if @comments.any? %>

@@ -1,28 +1,15 @@
-// 1. メッセージ削除
+// 1. 「コメントはありません」を消す
 $('#js-comment-list .none-comment').remove();
 
-// 2. HTML挿入（これをやるだけで、上記の監視プログラムが自動で発動します）
+// 2. コメントを追加
 var newCommentHtml = '<%= j render partial: "partial_template/posted_comment_list", locals: { comment: @comment } %>';
 $('#js-comment-list').prepend(newCommentHtml);
 
-// 3. ラベル更新（ここも実際の要素数を数えるのが一番正確）
-var currentTotal = $('#js-comment-list .js-comment').length;
-if (currentTotal > 0) {
-  $('.posted-comment-number').text('コメント ' + currentTotal).show();
-}
-
-// 4. フォームの初期化
+// 3. フォームの初期化
 $('.comment-form-text').val('');
 $('.submit-comment-btn').prop('disabled', false).removeAttr('data-disable-with');
 $('.comment-btn').removeClass('is-show');
 
-// 5. フラッシュメッセージ
+// 4. フラッシュメッセージ
 $('#flash-container').html('<div class="flash-message notice">コメントを投稿しました</div>');
 if (typeof window.fadeOutFlash === 'function') { window.fadeOutFlash(); }
-
-// 6. 「もっと見る」コンテナの制御
-if (currentTotal > 10) {
-  $('.view-more-comments-container').show();
-} else {
-  $('.view-more-comments-container').hide();
-}

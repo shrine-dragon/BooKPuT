@@ -15,42 +15,53 @@ document.addEventListener('turbolinks:load', () => {
     const $hideBtn = $('#hide-comments');
 
     if (total > 0) {
-      $numberLabel.show();
+      // 1件以上ある場合
+      $list.find('.none-comment').remove(); // 「なし」メッセージを消す
+      $numberLabel.text('コメント ' + total).show(); // ★ここでテキストを最新件数に更新して表示
     } else {
+      // 0件の場合
       $numberLabel.hide();
+      if ($list.find('.none-comment').length === 0) {
+        $list.append('<div class="empty-message none-comment"><p>コメントはありません</p></div>');
+      }
+      $container.hide();
+      return;
     }
+    // ------------------------------------------
 
     // 1. 全件数が表示予定数以下なら、ボタンを隠して全部出す
     if (total <= currentVisibleCount) {
       $items.show();
-      // もし一度でも「もっと見る」を押して全表示になったなら「折りたたむ」だけ出す
-      if (currentVisibleCount > STEP) {
+      // 表示件数がSTEP(10)以下のときはコンテナごと隠す
+      if (total <= STEP) {
+        $container.hide();
+      } else {
+        // 11件以上あるが全表示されているときは「折りたたむ」だけ出す
+        $container.show();
         $viewMoreBtn.hide();
         $hideBtn.show();
-      } else {
-        $container.hide();
       }
-      return;
+    } else {
+      // 制限が必要な場合（total > currentVisibleCount）
+      $container.show();
+      $viewMoreBtn.show();
+      $hideBtn.hide();
+      $items.hide().slice(0, currentVisibleCount).show();
     }
-
-    // 2. 制限が必要な場合
-    $container.show();
-    $viewMoreBtn.show();
-    $hideBtn.hide();
-
-    // 決まった件数だけ表示し、残りをパッと隠す
-    $items.hide().slice(0, currentVisibleCount).show();
   }
 
   // 監視設定
   const observer = new MutationObserver(() => {
-    // 投稿・削除されたときは、表示数を初期（10件）に戻さず、
-    // 現在の表示枠を維持したまま再計算する
     enforceLimit();
   });
-  observer.observe($list[0], { childList: true });
+  
+  // subtree: true にし、ターゲットの中身がどう変わっても検知するようにします
+  observer.observe($list[0], { 
+    childList: true, 
+    subtree: true, 
+    characterData: true 
+  });
 
-  // 初期実行
   enforceLimit();
 
   // 「もっと見る」クリック：表示枠を10増やす

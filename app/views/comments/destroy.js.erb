@@ -1,31 +1,12 @@
-{
-  $("#modal-overlay").fadeOut(200);
-  $(".modal.final-action.destroy").fadeOut(200);
+// 1. モーダルを閉じる
+$("#modal-overlay").fadeOut(200);
+$(".modal.final-action.destroy").fadeOut(200);
 
-  const targetComment = document.getElementById('comment-<%= @comment.id %>');
-  if (targetComment) {
-    targetComment.remove();
-  }
+// 2. 要素を削除（これによって MutationObserver が発動します）
+$('#comment-<%= @comment.id %>').remove();
 
-  const countLabel = document.querySelector('.posted-comment-number');
-  if (countLabel) {
-    const currentCount = parseInt(countLabel.innerText.replace(/[^0-9]/g, '')) || 0;
-    if (currentCount <= 1) {
-      // 最後の1件を消した場合はラベルごと消す、あるいは「コメントはありません」を出す
-      countLabel.remove();
-      const list = document.getElementById('js-comment-list');
-      list.innerHTML = '<div class="empty-message none-comment"><p>コメントはありません</p></div>';
-    } else {
-      countLabel.innerText = `コメント ${currentCount - 1}`;
-    }
-  }
-
-  const flashContainer = document.getElementById('flash-container');
-  if (flashContainer) {
-    flashContainer.innerHTML = '<div class="flash-message notice">コメントを削除しました</div>';
-    if (typeof window.fadeOutFlash === 'function') {
-      window.fadeOutFlash();
-    }
-  }
-  $(document).trigger('comment:updated');
+// 3. フラッシュメッセージ
+$('#flash-container').html('<div class="flash-message notice">コメントを削除しました</div>');
+if (typeof window.fadeOutFlash === 'function') {
+  window.fadeOutFlash();
 }
