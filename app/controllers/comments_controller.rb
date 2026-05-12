@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_comment,          only: [:edit, :update, :destroy]
-  before_action :ensure_correct_user,  only: [:edit, :update, :destroy]
+  before_action :set_comment,          only: %i[edit update destroy hide report]
+  before_action :ensure_correct_user,  only: %i[edit update destroy]
 
   def create
     @book = Book.find(params[:book_id])
@@ -15,13 +15,13 @@ class CommentsController < ApplicationController
         format.js
       end
     else
-      @comments = @book.comments.includes(:user) 
-      render "books/show"
+      @comments = @book.comments.includes(:user)
+      render 'books/show'
     end
   end
 
   def edit; end
-    
+
   def update
     if @comment.update(comment_params)
       redirect_to book_path(@comment.book), notice: '更新しました'
@@ -45,9 +45,7 @@ class CommentsController < ApplicationController
     end
   end
 
-  def report
-    
-  end
+  def report; end
 
   private
 

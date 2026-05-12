@@ -28,7 +28,7 @@ class Book < ApplicationRecord
 
   before_validation :compact_book_contents
 
-  has_many :comments,  dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   private
 

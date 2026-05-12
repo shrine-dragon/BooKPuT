@@ -25,7 +25,7 @@ module UserSupport
     expect(page).to have_selector(".modal.#{selector_type}", visible: true)
   end
 
-  def close_modal(selector_type, header_menu_text, not_modal_selector)
+  def close_modal(selector_type, _header_menu_text, not_modal_selector)
     # モーダル以外の部分にカーソルを置く
     find(not_modal_selector).hover
     # モーダルが非表示になってしまうことを確認する
