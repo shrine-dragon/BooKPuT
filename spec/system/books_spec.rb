@@ -378,12 +378,12 @@ RSpec.describe '投稿削除', type: :system do
       # 最初の削除ボタンを押し、投稿削除用のモーダルを開く
       expect(page).to have_selector('#destroy-post-btn', text: '削除', wait: 5)
       find('#destroy-post-btn').click
-      expect(page).to have_selector('.modal.finally-destroy', visible: true, wait: 5)
-      expect(page).to have_content('本当に削除しますか？')
+      expect(page).to have_selector('.modal.final-action.destroy-post', visible: true, wait: 5)
+      expect(page).to have_content('この投稿を削除しますか？')
 
       # ｢本当に削除する｣ボタンを押すと、BookモデルとBookContentモデルのカウントが1下がることを確認する
       expect do
-        find('.destroy-really.btn-text').click
+        find('.final-action.btn-text').click
         expect(page).to have_content('投稿を削除しました')
       end.to change { Book.count }.by(-1)
                                   .and change { BookContent.count }.by(-7)
@@ -421,12 +421,12 @@ RSpec.describe '投稿削除', type: :system do
       # 最初の削除ボタンを押し、投稿削除用のモーダルを開く
       expect(page).to have_selector('#destroy-post-btn', text: '削除', wait: 5)
 
-      ['.not-destroy.btn-text', '.fa-xmark', '#modal-overlay'].each do |_selector|
+      ['.no-action.btn-text', '.fa-xmark', '#modal-overlay'].each do |_selector|
         find('#destroy-post-btn').click
-        expect(page).to have_selector('.modal.finally-destroy', visible: true, wait: 5)
+        expect(page).to have_selector('.modal.final-action.destroy-post', visible: true, wait: 5)
         expect do
-          find('.not-destroy.btn-text').click
-          expect(page).to have_no_selector('.modal.finally-destroy', wait: 5)
+          find('.no-action.btn-text').click
+          expect(page).to have_no_selector('.modal.final-action.destroy-post', wait: 5)
         end.not_to(change { Book.count })
       end
     end
