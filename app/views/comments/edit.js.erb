@@ -1,0 +1,11 @@
+var commentId = "<%= @comment.id %>";
+var container = $("#comment-" + commentId + " .posted-comment-center");
+
+// テキストを隠してフォームを表示
+container.find('.posted-comment-text').hide();
+container.html("<%= j(render 'edit_form', book: @book, comment: @comment) %>");
+
+// 【重要】ボタンを即座に表示させる
+container.find('.comment-btn').addClass('is-show');
+
+container.find(".edit-input").focus();

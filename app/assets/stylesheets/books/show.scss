@@ -34,6 +34,7 @@
   }
 
   .posted-by-field{
+    display: flex;
     height: 100px;
   }
 
@@ -267,6 +268,12 @@
   width: 85%;
 }
 
+.posted-comment-center .post-comment-container {
+  border: none; /* 二重線を防ぐ */
+  padding: 0;
+  margin: 10px 0;
+}
+
 .post-comment-container{
   display: flex;
   width: 100%;
@@ -318,6 +325,9 @@
 }
 
 .comment-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s, visibility 0.3s;

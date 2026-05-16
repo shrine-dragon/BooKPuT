@@ -20,13 +20,24 @@ class CommentsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    @book = @comment.book
+    respond_to do |format|
+      format.js
+    end
+  end
 
   def update
     if @comment.update(comment_params)
-      redirect_to book_path(@comment.book), notice: '更新しました'
+      flash.now[:notice] = 'コメントを編集しました'
+      respond_to do |format|
+        format.html { redirect_to book_path(@comment.book), notice: 'コメントを編集しました' }
+        format.js
+      end
     else
-      redirect_to book_path(@comment.book)
+      respond_to do |format|
+        format.js { render :edit } 
+      end
     end
   end
 

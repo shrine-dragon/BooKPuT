@@ -33,7 +33,10 @@
     <ul class="posted-comment-btn-field">
       <% if user_signed_in? %>
         <% if current_user == comment.user %>
-          <li class="posted-comment-btn-text edit hovers">編集</li>
+          <li class="posted-comment-btn-text hovers js-edit-comment-trigger" 
+            data-url="<%= edit_book_comment_path(comment.book, comment) %>">
+            編集
+          </li>
           <li class="posted-comment-btn-text hovers js-destroy-comment-trigger" 
             data-url="<%= book_comment_path(comment.book, comment) %>">
             削除

@@ -1,0 +1,27 @@
+.edit-comment-form {
+display: block !important;
+  width: 100% !important;
+  margin: 10px 0;
+}
+
+/* 送信ボタンの初期状態（一文字も入っていない時用） */
+.submit-comment-btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  position: relative;
+  z-index: 10;
+  .fa-solid {
+    font-size: 1.2rem;
+    line-height: 1;
+    display: block;
+  }
+}
+
+/* アイコン自体のサイズ */
+.edit-submit-btn i {
+  font-size: 1.2rem;
+}

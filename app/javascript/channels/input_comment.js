@@ -1,15 +1,14 @@
 document.addEventListener('turbolinks:load', () => {
-  const commentFormText = document.querySelector('.comment-form-text');
-  const commentBtn = document.querySelector('.comment-btn');
+  $(document).on('input', '.comment-form-text', function() {
+    const text_count = $(this).val().trim().length;
+    const commentBtn = $(this).closest('.post-comment-field').find('.comment-btn');
 
-  if(!commentFormText || !commentBtn) return;
+    if(!commentBtn) return;
 
-  commentFormText.addEventListener('input', () => {
-    const text_count = commentFormText.value.trim().length;
-    if (text_count == 0){
-      commentBtn.classList.remove('is-show');
+    if (text_count === 0) {
+      commentBtn.removeClass('is-show');
     } else {
-      commentBtn.classList.add('is-show');
+      commentBtn.addClass('is-show');
     }
   });
 });

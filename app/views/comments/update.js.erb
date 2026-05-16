@@ -1,0 +1,6 @@
+$("#comment-<%= @comment.id %> .posted-comment-center").html(`
+  <p class="posted-comment-text"><%= j(@comment.text) %></p>
+`);
+
+$('#flash-container').html('<div class="flash-message notice">コメントを更新しました</div>');
+if (typeof window.fadeOutFlash === 'function') { window.fadeOutFlash(); }
