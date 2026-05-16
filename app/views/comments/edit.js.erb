@@ -1,11 +1,20 @@
 var commentId = "<%= @comment.id %>";
 var container = $("#comment-" + commentId + " .posted-comment-center");
 
-// テキストを隠してフォームを表示
-container.find('.posted-comment-text').hide();
-container.html("<%= j(render 'edit_form', book: @book, comment: @comment) %>");
+// 万が一のために一度全体を綺麗に戻す（保険）
+$('.edit-comment-form').each(function() {
+  $(this).closest('.posted-comment-center').find('.posted-comment-text').show();
+  $(this).remove();
+});
 
-// 【重要】ボタンを即座に表示させる
+// 今回のターゲットのテキストだけを隠す
+container.find('.posted-comment-text').hide();
+
+// フォームを挿入
+container.append("<%= j(render 'edit_form', book: @book, comment: @comment) %>");
+
+// 紙飛行機ボタンを表示
 container.find('.comment-btn').addClass('is-show');
 
+// フォーカスを当てる
 container.find(".edit-input").focus();
