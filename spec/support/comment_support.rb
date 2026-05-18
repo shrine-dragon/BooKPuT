@@ -19,7 +19,15 @@ module CommentSupport
     expect(page).to have_content(new_comment.created_at.strftime('%Y/%m/%d %H:%M:%S'))
   end
 
-  def final_action_of_comment_operation(selector_name, btn_text, warning_text, final_action_text, model_name, number, flash_message)
+  def final_action_of_comment_operation(
+    selector_name,
+    btn_text,
+    warning_text,
+    final_action_text,
+    model_name,
+    number,
+    flash_message
+    )
     # コメントの下にボタンが存在することを確認する
     find(".js-#{selector_name}-trigger", text: btn_text).click
 
