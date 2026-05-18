@@ -75,23 +75,17 @@ RSpec.describe 'コメント削除', type: :system do
       visit_book_path
       check_comment_info
 
-      # コメントの下に削除ボタンが存在することを確認する
-      find('.js-destroy-comment-trigger', text: '削除').click
+      final_action_of_comment_operation(
+        "destroy-comment",
+        "削除",
+        "このコメントを削除しますか？",
+        "削除する",
+        Comment,
+        -1,
+        "コメントを削除しました"
+      )
 
-      # 削除ボタンを押すと最終確認の削除用モーダルが表示されることを確認する
-      expect(page).to have_selector('.modal.final-action.destroy-comment')
-
-      # コメントを削除するとCommentモデルのカウントが1下がることを確認する
-      expect(page).to have_content('このコメントを削除しますか？')
-      expect do
-        click_on('削除する')
-        sleep 0.5
-      end.to change { Comment.count }.by(-1)
-
-      # 投稿詳細ページにコメントが存在しないことを確認する
-      expect(page).to have_current_path(book_path(book))
-      expect(page).to have_content('コメントを削除しました')
-
+      # 投稿詳細ページにコメントが存在せず、｢コメントはありません｣と表示されていることを確認する
       expect(page).to have_no_content(comment.text)
     end
   end
