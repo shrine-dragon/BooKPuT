@@ -421,11 +421,13 @@ RSpec.describe '投稿削除', type: :system do
       # 最初の削除ボタンを押し、投稿削除用のモーダルを開く
       expect(page).to have_selector('#destroy-post-btn', text: '削除', wait: 5)
 
-      ['.no-action.btn-text', '.fa-xmark', '#modal-overlay'].each do |_selector|
+      selectors = ['.no-action.btn-text', '.fa-xmark', '#modal-overlay']
+
+      selectors.each do |_selector|
         find('#destroy-post-btn').click
         expect(page).to have_selector('.modal.final-action.destroy-post', visible: true, wait: 5)
         expect do
-          find('.no-action.btn-text').click
+          find(_selector).click
           expect(page).to have_no_selector('.modal.final-action.destroy-post', wait: 5)
         end.not_to(change { Book.count })
       end
