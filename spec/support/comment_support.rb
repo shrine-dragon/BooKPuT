@@ -6,7 +6,7 @@ module CommentSupport
     let(:user2)   { FactoryBot.create(:user) }
     let(:user3)   { FactoryBot.create(:user) }
 
-    let!(:book)    { FactoryBot.create(:book, user: user1) }
+    let!(:book)   { FactoryBot.create(:book, user: user1) }
     let(:comment) { FactoryBot.create(:comment, user: user2, book: book) }
   end
 

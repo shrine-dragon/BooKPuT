@@ -39,7 +39,7 @@ RSpec.describe 'コメント投稿', type: :system do
       expect(page).to have_no_selector('.comment-form-text')
     end
     
-    it 'book投稿者は自身に投稿に対してコメントできない' do
+    it 'book投稿者本人は自身に投稿に対してコメントできない' do
       # user1でログインする
       login_as user1
       # 投稿詳細ページに遷移する
@@ -48,6 +48,20 @@ RSpec.describe 'コメント投稿', type: :system do
       expect(page).to have_no_selector('.comment-form-text')
       expect(page).to have_no_selector('.user-image.post-comment')
       expect(page).to have_no_selector('.user-image.post-comment')
+    end
+
+    it 'コメントフォームが空だと送信ボタンが表示されず、コメントできない' do
+      # user2でログインする
+      login_as user2
+      # 投稿詳細ページに遷移する
+      visit_book_path
+
+      # コメントフォームが存在していることを確認する
+      expect(page).to have_selector('.comment-form-text')
+      # コメントフォームを空欄のままにする
+      fill_in 'text', with: ''
+      # コメント送信ボタンが表示されていないことを確認する
+      expect(page).to have_no_selector('.submit-comment-btn', visible: true)
     end
   end
 end
