@@ -43,22 +43,6 @@ module UserSupport
     expect(page).to have_content '新規登録フォーム'
   end
 
-  def scroll_display(selector_or_text)
-    # セレクタ（#や.）でなければテキストとして探す
-    element = if selector_or_text.start_with?('#', '.')
-                find(selector_or_text, wait: 10, visible: :all)
-              else
-                # text: selector_or_text を match: :first にするか、
-                # リンク内のテキストが含まれているものを探すように変更
-                find('a', text: selector_or_text, wait: 10, visible: :all)
-              end
-
-    execute_script('arguments[0].scrollIntoView({block: "center"});', element)
-    sleep 0.5
-    # 強制的にクリック
-    execute_script('arguments[0].click();', element)
-  end
-
   def input_info_and_sign_up(provider)
     expect(page).to have_current_path("/users/auth/#{provider}/callback", wait: 10)
     expect(page).to have_content('新規登録フォーム', wait: 10)
