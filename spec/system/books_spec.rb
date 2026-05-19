@@ -114,7 +114,7 @@ RSpec.describe '新規投稿', type: :system do
         click_on '投稿する'
         expect(page).to have_content('投稿しました')
       end.to change { Book.count }.by(1)
-                                  .and change { BookContent.count }.by(1)
+        .and change { BookContent.count }.by(1)
 
       last_book = Book.last
       expect(last_book.genre_ids.length).to eq 3

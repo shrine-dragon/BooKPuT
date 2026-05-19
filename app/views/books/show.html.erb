@@ -194,22 +194,22 @@
 
 <%# 3. 非表示用モーダル %>
 <%= render 'partial_template/final_action_modal', 
-    modal_class: 'hide',
+    modal_class: 'hide-comment',
     message: 'このコメントを非表示にしますか？',
     method: :post,
     btn_text: '非表示にする',
-    btn_class: 'finally-hide',
-    link_id: 'js-hide-link',
+    btn_class: 'finally-hide-comment',
+    link_id: 'js-hide-comment-link',
     no_action_text: '戻る' %>
 
 <%# 4. 通報用モーダル %>
 <%= render 'partial_template/final_action_modal', 
-    modal_class: 'report',
+    modal_class: 'report-comment',
     message: 'このコメントを不適切な内容として通報しますか？',
     method: :post,
     btn_text: '通報する',
-    btn_class: 'finally-report',
-    link_id: 'js-report-link',
+    btn_class: 'finally-report-comment',
+    link_id: 'js-report-comment-link',
     no_action_text: 'キャンセル' %>
 
 <%= render 'partial_template/return_btn' %>

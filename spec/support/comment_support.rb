@@ -28,6 +28,10 @@ module CommentSupport
     number,
     flash_message
     )
+
+    visit_book_path
+    check_comment_info
+
     # コメントの下にボタンが存在することを確認する
     find(".js-#{selector_name}-trigger", text: btn_text).click
 
@@ -41,8 +45,32 @@ module CommentSupport
       sleep 0.5
     end.to change { model_name.count }.by(number)
 
-    # 投稿詳細ページにコメントが存在しないことを確認する
+    # 投稿詳細ページに遷移し、フラッシュメッセージが表示されていることを確認する
     expect(page).to have_current_path(book_path(book))
     expect(page).to have_content(flash_message)
+  end
+
+  def close_modal_final_action(selector_name, btn_text)
+    expect(page).to have_selector(".js-#{selector_name}-trigger", text: btn_text)
+
+    selectors = ['.no-action.btn-text', '.fa-xmark', '#modal-overlay']
+
+    selectors.each do |_selector|
+      find(".js-#{selector_name}-trigger", text: btn_text).click
+      expect(page).to have_selector(".modal.final-action.#{selector_name}", visible: true, wait: 5)
+      expect do
+        if _selector == '#modal-overlay'
+          # 【ポイント】重なり合っている背景要素は、JavaScriptで強制的にクリックを発火させる
+          page.execute_script("document.querySelector('#modal-overlay').click();")
+        else
+          # 通常のボタン（キャンセルや×ボタン）は普通にクリック
+          find(_selector).click
+        end
+
+        expect(page).to have_no_selector(".modal.final-action.#{selector_name}", wait: 5)
+      end.not_to(change { Comment.count })
+      
+      sleep 0.1
+    end
   end
 end

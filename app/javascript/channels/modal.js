@@ -145,9 +145,9 @@ $(document).on(loadEvent, function() {
   // コメントの非表示ボタン
   $(document).on('click', '.js-hide-comment-trigger', function() {
     const hideUrl = $(this).data('url');
-    const $modal = $(".modal.final-action.hide");
+    const $modal = $(".modal.final-action.hide-comment");
     
-    $modal.find('#js-hide-link').attr('href', hideUrl);
+    $modal.find('#js-hide-comment-link').attr('href', hideUrl);
     
     $("#modal-overlay").fadeIn(200);
     $modal.fadeIn(200);
@@ -167,9 +167,9 @@ $(document).on(loadEvent, function() {
     } else {
       // 【初めて】モーダルを表示する既存の処理
       const reportUrl = $btn.data('url');
-      $('#js-report-link').attr('href', reportUrl);
+      $('#js-report-comment-link').attr('href', reportUrl);
       $('#modal-overlay').fadeIn(200);
-      $('.modal.final-action.report').fadeIn(200);
+      $('.modal.final-action.report-comment').fadeIn(200);
     }
   });
 });

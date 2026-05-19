@@ -1,6 +1,6 @@
 // モーダルを非表示
 $("#modal-overlay").fadeOut(200);
-$(".modal.final-action.hide").fadeOut(200);
+$(".modal.final-action.hide-comment").fadeOut(200);
 
 // 対象のコメントを削除（MutationObserverが検知して件数を調整してくれる）
 $('#comment-<%= @comment.id %>').remove();

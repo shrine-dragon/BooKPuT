@@ -3,16 +3,14 @@ require 'rails_helper'
 RSpec.describe 'コメント投稿', type: :system do
   context 'コメントを投稿できる時' do
     it 'book投稿者以外のログインユーザーはコメント投稿ができる', js: true do
-      # user2でログインする
       login_as user2
-      # 投稿詳細ページに遷移する
       visit_book_path
 
       # コメントフォームが存在していることを確認する
       expect(page).to have_selector('.comment-form-text')
       # コメントフォームにテキストを入力する
       fill_in 'text', with: comment.text
-      # 同時にコメント送信ボタンが表示されていることを確認する
+      # コメント送信ボタンが表示されていることを確認する
       expect(page).to have_selector('.submit-comment-btn', visible: true)
       # コメントを送信するとCommentモデルのカウントが1上がることを確認する
       expect do
@@ -31,18 +29,16 @@ RSpec.describe 'コメント投稿', type: :system do
   end
 
   context 'コメントを投稿できない時' do
-    it '未ログインユーザーはコメントできない' do
+    it '未ログインユーザーはコメント自体できない' do
       not_log_in_user
-      # 投稿詳細ページに遷移する
       visit_book_path
+
       # 投稿詳細ページにコメントフォームが存在していないことを確認する
       expect(page).to have_no_selector('.comment-form-text')
     end
     
-    it 'book投稿者本人は自身に投稿に対してコメントできない' do
-      # user1でログインする
+    it 'book投稿者本人は自身の投稿に対してコメントできない' do
       login_as user1
-      # 投稿詳細ページに遷移する
       visit_book_path
       # 投稿詳細ページにコメントフォームなどが存在していないことを確認する
       expect(page).to have_no_selector('.comment-form-text')
@@ -51,9 +47,7 @@ RSpec.describe 'コメント投稿', type: :system do
     end
 
     it 'コメントフォームが空だと送信ボタンが表示されず、コメントできない' do
-      # user2でログインする
       login_as user2
-      # 投稿詳細ページに遷移する
       visit_book_path
 
       # コメントフォームが存在していることを確認する
@@ -66,14 +60,36 @@ RSpec.describe 'コメント投稿', type: :system do
   end
 end
 
+RSpec.describe 'コメント編集', type: :system do
+  let!(:comment) { FactoryBot.create(:comment, user: user2, book: book) }
+
+  context 'コメントを編集できる時' do
+    it 'コメント投稿者は自身のコメントを編集できる' do
+      
+    end
+  end
+
+  context 'コメントを編集できない時' do
+    it 'should do something' do
+      
+    end
+
+    it 'should do something' do
+      
+    end
+
+    it 'should do something' do
+      
+    end
+  end
+end
+
 RSpec.describe 'コメント削除', type: :system do
   let!(:comment) { FactoryBot.create(:comment, user: user2, book: book) }
 
   context 'コメントを削除できる時' do
     it 'コメント投稿者は自身のコメントを削除できる', js: true do
       login_as user2
-      visit_book_path
-      check_comment_info
 
       final_action_of_comment_operation(
         "destroy-comment",
@@ -84,9 +100,9 @@ RSpec.describe 'コメント削除', type: :system do
         -1,
         "コメントを削除しました"
       )
-
       # 投稿詳細ページにコメントが存在せず、｢コメントはありません｣と表示されていることを確認する
       expect(page).to have_no_content(comment.text)
+      expect(page).to have_content('コメントはありません')
     end
   end
 
@@ -109,31 +125,131 @@ RSpec.describe 'コメント削除', type: :system do
       end
     end
 
-    it 'コメント投稿者本人でも｢削除するボタン以外の要素を押すとコメントを削除できない｣' do
+    it 'コメント投稿者本人でも｢削除する｣ボタン以外の要素を押すとモーダルは閉じてしまい、コメントを削除できない｣' do
       login_as user2
       visit_book_path
       check_comment_info
 
-      expect(page).to have_selector('.js-destroy-comment-trigger', text: '削除')
+      close_modal_final_action("destroy-comment", "削除")
+    end
+  end
+end
 
-      selectors = ['.no-action.btn-text', '.fa-xmark', '#modal-overlay']
+RSpec.describe 'コメント非表示', type: :system do
+  let!(:comment) { FactoryBot.create(:comment, user: user2, book: book) }
 
-      selectors.each do |_selector|
-        find('.js-destroy-comment-trigger', text: '削除').click
-        expect(page).to have_selector('.modal.final-action.destroy-comment', visible: true, wait: 5)
-        expect do
-          if _selector == '#modal-overlay'
-            # 【ポイント】重なり合っている背景要素は、JavaScriptで強制的にクリックを発火させる
-            page.execute_script("document.querySelector('#modal-overlay').click();")
-          else
-            # 通常のボタン（キャンセルや×ボタン）は普通にクリック
-            find(_selector).click
-          end
+  context 'コメントを非表示にできる時' do
+    it 'コメント投稿者以外のログインユーザーは、他者のコメントを非表示にできる' do
+      login_as user1
 
-          expect(page).to have_no_selector('.modal.final-action.destroy-comment', wait: 5)
-        end.not_to(change { Comment.count })
-        
-        sleep 0.1
+      final_action_of_comment_operation(
+        "hide-comment",
+        "非表示",
+        "このコメントを非表示にしますか？",
+        "非表示にする",
+        HiddenComment,
+        1,
+        "コメントを非表示にしました"
+      )
+
+      # 投稿詳細ページでコメントが非表示になっていることを確認する
+      expect(page).to have_no_content(comment.text)
+
+      # 別のユーザーでログインした場合、投稿詳細ページでコメントは表示されていることを確認する
+      login_as user3
+      visit_book_path
+      expect(page).to have_content(comment.text)
+    end
+  end
+
+  context 'コメントを非表示にできない時' do
+    it '未ログインユーザーはコメント自体を非表示にできない' do
+      not_log_in_user
+      visit_book_path
+      check_comment_info
+
+      # コメントの下に｢非表示｣ボタンが存在しないことを確認する
+      expect(page).to have_no_selector('.js-hide-comment-trigger', text: '非表示')
+    end
+
+    it 'コメント投稿者本人は自身のコメントを非表示にできない' do
+      login_as user2
+      visit_book_path
+      check_comment_info
+
+      # コメント内にuser2のニックネームが表示されていることを確認する
+      expect(page).to have_content(user2.nickname)
+
+      # コメントの下に｢非表示｣ボタンが存在しないことを確認する
+      expect(page).to have_no_selector('.js-hide-comment-trigger', text: '非表示')
+    end
+
+    it 'コメント投稿者以外のログインユーザーでも｢非表示にする｣ボタン以外の要素を押すとモーダルは閉じてしまい、コメントを非表示にできない｣' do
+      [user1, user3].each do |one_user|
+        login_as one_user
+        visit_book_path
+        check_comment_info
+
+        close_modal_final_action("hide-comment", "非表示")
+      end
+    end
+  end
+end
+
+RSpec.describe 'コメント通報', type: :system do
+  let!(:comment) { FactoryBot.create(:comment, user: user2, book: book) }
+
+  context 'コメントを通報できる時' do
+    it 'コメント投稿者以外のログインユーザーは、他者のコメントを通報できる' do
+      login_as user1
+
+      final_action_of_comment_operation(
+        "report-comment",
+        "通報",
+        "このコメントを不適切な内容として通報しますか？",
+        "通報する",
+        ReportedComment,
+        1,
+        "コメントを通報しました"
+      )
+      # 再度通報ボタンを押すと｢通報済みのコメントです｣と表示され、ReportedCommentモデルのカウントは変わらないことを確認する
+      expect do
+        find(".js-report-comment-trigger").click
+        sleep 0.5
+        expect(page).to have_content("通報済みのコメントです")
+      end.to change { ReportedComment.count }.by(0)
+    end
+  end
+
+  context 'コメントを通報できない時' do
+    it '未ログインユーザーはコメント自体を通報できない' do
+      not_log_in_user
+      visit_book_path
+      check_comment_info
+
+      # コメントの下に｢通報｣ボタンが存在しないことを確認する
+      expect(page).to have_no_selector('.js-report-comment-trigger', text: '通報')
+    end
+
+    it 'コメント投稿者本人は自身のコメントを通報できない' do
+      login_as user2
+      visit_book_path
+      check_comment_info
+
+      # コメント内にuser2のニックネームが表示されていることを確認する
+      expect(page).to have_content(user2.nickname)
+
+      # コメントの下に｢通報｣ボタンが存在しないことを確認する
+      expect(page).to have_no_selector('.js-report-comment-trigger', text: '通報')
+    end
+
+    it 'コメント投稿者以外のログインユーザーでも｢通報する｣ボタン以外の要素を押すとモーダルは閉じてしまい、コメントを非表示にできない｣' do
+      [user1, user3].each do |one_user|
+        login_as one_user
+        visit_book_path
+        check_comment_info
+
+        close_modal_final_action("report-comment", "通報")
       end
     end
   end
