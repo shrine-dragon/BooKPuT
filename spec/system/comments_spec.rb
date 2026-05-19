@@ -65,21 +65,97 @@ RSpec.describe 'コメント編集', type: :system do
 
   context 'コメントを編集できる時' do
     it 'コメント投稿者は自身のコメントを編集できる' do
-      
+      login_as user2
+      visit_book_path
+      check_comment_info
+
+      # 投稿詳細ページに｢編集｣ボタンが表示されていることを確認する
+      expect(page).to have_selector(".js-edit-comment-trigger", text: "編集")
+      # ｢編集｣ボタンを押す
+      find(".js-edit-comment-trigger", text: "編集").click
+
+      within('.edit-comment-form') do
+        # コメントフォームと、フォームの中にコメントテキストが表示されていることを確認する
+        expect(page).to have_selector(".comment-form-text")
+        expect(page).to have_field('comment[text]', with: comment.text)
+
+        # 編集用のテキストを用意してフォームを更新する
+        new_text = "anotherText"
+        fill_in 'comment[text]', with: new_text
+
+        # コメント更新ボタンが表示されていることを確認する
+        expect(page).to have_selector('.edit-comment-btn', visible: true)
+
+        # 更新ボタンを押すと投稿詳細ページに遷移して、フラッシュメッセージが表示されていることを確認する
+        find('.edit-comment-btn').click
+      end
+
+      sleep 0.5
+      expect(page).to have_content('コメントを更新しました', wait: 5)
+      expect(page).to have_current_path(book_path(book))
+
+      # 投稿詳細ページに編集したコメントが表示されていることを確認する
+      expect(page).to have_content("anotherText")
     end
   end
 
   context 'コメントを編集できない時' do
-    it 'should do something' do
-      
+    it '未ログインユーザーはコメント自体を編集できない' do
+      not_log_in_user
+      visit_book_path
+      check_comment_info
+
+      # コメントの下に｢編集｣ボタンが存在しないことを確認する
+      expect(page).to have_no_selector('.js-edit-comment-trigger', text: '編集')
     end
 
-    it 'should do something' do
-      
+    it 'コメント投稿者以外のログインユーザーは他者のコメントを削除できない' do
+      [user1, user3].each do |user|
+        login_as user
+        visit_book_path
+        check_comment_info
+        expect(page).to have_no_selector('.js-edit-comment-trigger', text: '編集')
+      end
     end
 
-    it 'should do something' do
-      
+    it 'コメントフォームが空だと送信ボタンが表示されず、コメントを編集できない' do
+      login_as user2
+      visit_book_path
+      check_comment_info
+
+      expect(page).to have_selector(".js-edit-comment-trigger", text: "編集")
+      find(".js-edit-comment-trigger", text: "編集").click
+
+      within('.edit-comment-form') do
+        expect(page).to have_selector(".comment-form-text")
+        expect(page).to have_field('comment[text]', with: comment.text)
+
+        # コメントフォームを空にする
+        fill_in 'comment[text]', with: ''
+        # コメント更新ボタンが表示されていないことを確認する
+        expect(page).to have_no_selector('.edit-comment-btn', visible: true)
+      end
+    end
+
+    it 'コメントフォームとコメント更新ボタン以外の部分を押すとフォームが閉じてしまい、コメントを編集できない' do
+      login_as user2
+      visit_book_path
+      check_comment_info
+
+      expect(page).to have_selector(".js-edit-comment-trigger", text: "編集")
+      find(".js-edit-comment-trigger", text: "編集").click
+
+      within('.edit-comment-form') do
+        expect(page).to have_selector(".comment-form-text")
+        expect(page).to have_field('comment[text]', with: comment.text)
+      end
+
+      # コメントフォームとコメント更新ボタン以外の部分を押すとフォームが消えてしまうことを確認する
+      find('.detail-container').click
+      expect(page).to have_no_selector(".edit-comment-form", wait: 5)
+
+      # データベースのコメント件数が変わっていない（削除も更新もされていない）ことを確認する
+      expect(comment.reload.text).to eq(comment.text)
     end
   end
 end
@@ -112,7 +188,7 @@ RSpec.describe 'コメント削除', type: :system do
       visit_book_path
       check_comment_info
 
-      # コメントの下に｢削除ボタン｣が存在しないことを確認する
+      # コメントの下に｢削除｣ボタンが存在しないことを確認する
       expect(page).to have_no_selector('.js-destroy-comment-trigger', text: '削除')
     end
 
