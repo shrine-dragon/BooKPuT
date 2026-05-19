@@ -17,13 +17,13 @@ RSpec.describe Comment, type: :model do
       it '文字が入力されていないと保存できない' do
         @comment.text = ''
         @comment.valid?
-        expect(@comment.errors.full_messages).to include("Textを入力してください")
+        expect(@comment.errors.full_messages).to include('Textを入力してください')
       end
 
       it '文字が101文字以上だと保存できない' do
         @comment.text = 'a' * 101
         @comment.valid?
-        expect(@comment.errors.full_messages).to include("Textを100文字以内で入力してください")
+        expect(@comment.errors.full_messages).to include('Textを100文字以内で入力してください')
       end
 
       it 'userが紐づいていないと保存できない' do
@@ -38,5 +38,5 @@ RSpec.describe Comment, type: :model do
         expect(@comment.errors.full_messages).to include('Bookを入力してください')
       end
     end
-  end  
+  end
 end

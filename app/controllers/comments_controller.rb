@@ -36,7 +36,7 @@ class CommentsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.js { render :edit } 
+        format.js { render :edit }
       end
     end
   end

@@ -27,8 +27,7 @@ module CommentSupport
     model_name,
     number,
     flash_message
-    )
-
+  )
     visit_book_path
     check_comment_info
 
@@ -69,7 +68,7 @@ module CommentSupport
 
         expect(page).to have_no_selector(".modal.final-action.#{selector_name}", wait: 5)
       end.not_to(change { Comment.count })
-      
+
       sleep 0.1
     end
   end
