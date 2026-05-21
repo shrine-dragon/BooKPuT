@@ -202,21 +202,27 @@ RSpec.describe '新規投稿', type: :system do
 end
 
 RSpec.describe '投稿詳細', type: :system do
-  let(:user1)         { FactoryBot.create(:user) }
-  let(:user2)         { FactoryBot.create(:user) }
+  let(:user1)        { FactoryBot.create(:user) }
+  let(:user2)        { FactoryBot.create(:user) }
+  let(:user3)        { FactoryBot.create(:user) }
   let!(:book)        { FactoryBot.create(:book, user: user1) }
   let(:book_content) { book.book_contents.first }
 
   context '投稿詳細を閲覧できる時' do
     it '全ユーザーは投稿詳細ページで投稿内容をチェックできる' do
-      [user1, user2].each do |one_user|
-        # トップページに遷移し、投稿済みの内容をクリックする
-        login_as one_user
+      [user1, user2, user3, nil].each do |one_user|
+        if one_user
+          login_as one_user
+        else
+          # 未ログイン状態を作るためのヘルパー（Wardenのログアウト処理、または独自メソッド）
+          logout if respond_to?(:logout) 
+        end
+
         visit_book_path
 
         # 投稿詳細ページに投稿したユーザーの情報と投稿内容の各項目が表示されていることを確認する
         expect(page).to have_selector('.user-image.posted-by')
-        expect(page).to have_content(one_user.nickname)
+        expect(page).to have_content(user1.nickname)
 
         expect(page).to have_content(book.title)
         # src属性にActiveStorageのファイル名が含まれているかを確認する
