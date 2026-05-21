@@ -202,31 +202,35 @@ RSpec.describe '新規投稿', type: :system do
 end
 
 RSpec.describe '投稿詳細', type: :system do
-  let(:user)         { FactoryBot.create(:user) }
-  let(:book)         { FactoryBot.create(:book, user: user) }
+  let(:user1)         { FactoryBot.create(:user) }
+  let(:user2)         { FactoryBot.create(:user) }
+  let!(:book)        { FactoryBot.create(:book, user: user1) }
   let(:book_content) { book.book_contents.first }
 
   context '投稿詳細を閲覧できる時' do
     it '全ユーザーは投稿詳細ページで投稿内容をチェックできる' do
-      # トップページに遷移し、投稿済みの内容をクリックする
-      visit_book_path
+      [user1, user2].each do |one_user|
+        # トップページに遷移し、投稿済みの内容をクリックする
+        login_as one_user
+        visit_book_path
 
-      # 投稿詳細ページに投稿したユーザーの情報と投稿内容の各項目が表示されていることを確認する
-      expect(page).to have_selector('.user-image.posted-by')
-      expect(page).to have_content(user.nickname)
+        # 投稿詳細ページに投稿したユーザーの情報と投稿内容の各項目が表示されていることを確認する
+        expect(page).to have_selector('.user-image.posted-by')
+        expect(page).to have_content(one_user.nickname)
 
-      expect(page).to have_content(book.title)
-      # src属性にActiveStorageのファイル名が含まれているかを確認する
-      expect(find('.book-posted-image')[:src]).to include('Momose-Akira-no-firstLove-failing')
+        expect(page).to have_content(book.title)
+        # src属性にActiveStorageのファイル名が含まれているかを確認する
+        expect(find('.book-posted-image')[:src]).to include('Momose-Akira-no-firstLove-failing')
 
-      expect(page).to have_content("# #{book.category.name}")
+        expect(page).to have_content("# #{book.category.name}")
 
-      book.genres.each do |genre|
-        expect(page).to have_content("# #{genre.name}")
-      end
+        book.genres.each do |genre|
+          expect(page).to have_content("# #{genre.name}")
+        end
 
-      book.book_contents.each do |content|
-        expect(page).to have_content(content.content)
+        book.book_contents.each do |content|
+          expect(page).to have_content(content.content)
+        end
       end
     end
   end
@@ -246,7 +250,7 @@ end
 RSpec.describe '投稿編集', type: :system do
   let(:user1) { FactoryBot.create(:user) }
   let(:user2) { FactoryBot.create(:user) }
-  let(:book)  { FactoryBot.create(:book, user: user1) }
+  let!(:book) { FactoryBot.create(:book, user: user1) }
   let(:user)  { user1 }
 
   context '投稿を編集できる時' do
@@ -337,6 +341,7 @@ RSpec.describe '投稿編集', type: :system do
   context '投稿を編集できない時' do
     it '未ログインユーザーは自身の投稿を編集できない' do
       not_log_in_user
+      visit_book_path
 
       # 投稿詳細ページに編集ボタンが存在しないことを確認する
       expect(page).to have_no_selector('#post-edit-btn', wait: 5)
@@ -360,10 +365,10 @@ RSpec.describe '投稿編集', type: :system do
 end
 
 RSpec.describe '投稿削除', type: :system do
-  let(:user1) { FactoryBot.create(:user) }
-  let(:user2) { FactoryBot.create(:user) }
-  let(:book)  { FactoryBot.create(:book, user: user1) }
-  let(:user)  { user1 }
+  let(:user1)  { FactoryBot.create(:user) }
+  let(:user2)  { FactoryBot.create(:user) }
+  let!(:book)  { FactoryBot.create(:book, user: user1) }
+  let(:user)   { user1 }
 
   context '投稿を削除できる時' do
     it 'ログインユーザーは自身の投稿を削除できる' do
@@ -393,6 +398,7 @@ RSpec.describe '投稿削除', type: :system do
   context '投稿を削除できない時' do
     it '未ログインユーザーは自身の投稿を削除できない' do
       # ログインせずにトップページに遷移する
+      not_log_in_user
       visit_book_path
 
       # 投稿詳細ページに削除ボタンが存在しないことを確認する
@@ -427,7 +433,6 @@ RSpec.describe '投稿削除', type: :system do
           else
             find(_selector).click
           end
-          
           expect(page).to have_no_selector('.modal.final-action.destroy-post', wait: 5)
         end.not_to(change { Book.count })
       end
