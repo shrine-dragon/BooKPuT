@@ -1,9 +1,6 @@
 module UserSupport
   extend ActiveSupport::Concern
 
-  included do
-  end
-
   def open_modal(selector_type, header_menu_text)
     visit root_path
 
@@ -43,19 +40,17 @@ module UserSupport
     expect(page).to have_content '新規登録フォーム'
   end
 
-  def input_info_and_sign_up(provider)
-    expect(page).to have_current_path("/users/auth/#{provider}/callback", wait: 10)
+  def input_info_and_sign_up(provider, target_user = user)
     expect(page).to have_content('新規登録フォーム', wait: 10)
 
     # 必須事項を入力または選択する
     # ニックネームとメールが空なら補完
-    fill_in 'nickname', with: @user.nickname if find('#nickname').value.blank?
-    fill_in 'birth_date', with: @user.birth_date.strftime('%Y-%m-%d')
-    select @user.gender.name, from: 'gender'
+    fill_in 'nickname', with: target_user.nickname if find('#nickname').value.blank?
+    fill_in 'birth_date', with: target_user.birth_date.strftime('%Y-%m-%d')
+    select target_user.gender.name, from: 'gender'
     fill_in 'email', with: random_email if find('#email').value.blank?
 
-    execute_script('document.getElementById("sns_auth_process").value = "true";') if has_selector?('#sns_auth_process',
-                                                                                                   visible: false)
+    execute_script('document.getElementById("sns_auth_process").value = "true";') if has_selector?('#sns_auth_process', visible: false)
   end
 
   def submit_and_expect_success(selector, count_change, flash_message)
@@ -80,7 +75,7 @@ module UserSupport
     expect(page).to have_no_selector('.log-in-menu-text', text: 'ログイン')
 
     # ヘッダーに登録したニックネームと画像が表示されていることを確認する
-    expect(page).to have_selector('.user-nickname', text: @user.nickname, visible: false)
+    expect(page).to have_selector('.user-nickname', text: user.nickname, visible: false)
     if latest_user.image.attached?
       expect(page).to have_selector('.user-image')
     else
@@ -132,7 +127,7 @@ module UserSupport
     # ページが遷移していない（＝ログイン後のトップページにいない）ことを確認する
     # トップページにユーザーのニックネームが表示されていないことを確認する
     expect(page).to have_current_path(root_path)
-    expect(page).to have_no_content(@user.nickname)
+    expect(page).to have_no_content(user.nickname)
   end
 
   def create_log_in_mock_data(provider)
@@ -141,8 +136,8 @@ module UserSupport
                                                                           provider: provider.to_s,
                                                                           uid: '123456',
                                                                           info: {
-                                                                            name: @user.nickname,
-                                                                            email: @user.email
+                                                                            name: user.nickname,
+                                                                            email: user.email
                                                                           }
                                                                         })
   end
@@ -150,21 +145,21 @@ module UserSupport
   def get_token_and_visit_edit_password_page
     # メール送信によってDBに保存された「生のトークン」を直接取得する
     raw_token, hashed_token = Devise.token_generator.generate(User, :reset_password_token)
-    @user.update(reset_password_token: hashed_token, reset_password_sent_at: Time.now.utc)
+    user.update(reset_password_token: hashed_token, reset_password_sent_at: Time.now.utc)
     # トークンを使って編集ページへ直接行く
     visit edit_user_password_path(reset_password_token: raw_token)
   end
 
   def log_in_and_show_modal
     # 最初からログイン状態にし、トップページに遷移する
-    login_as(@user)
+    login_as(user)
     visit root_path
 
     # 初期状態ではモーダルが表示されていないことを確認する
     expect(page).to have_no_selector('.modal.log-in-user', visible: true)
 
     # ページ内にログインユーザーのニックネームが表示されていることを確認する
-    login_user_target = find('.user-nickname', text: @user.nickname, visible: :all)
+    login_user_target = find('.user-nickname', text: user.nickname, visible: :all)
 
     # 画面をスクロールさせる
     execute_script('arguments[0].scrollIntoView({block: "center"});', login_user_target)
@@ -183,15 +178,15 @@ module UserSupport
 
   def show_account_info
     # マイページにアカウント情報が表示されていることを確認する
-    expect(page).to have_selector('.user-nickname', text: @user.nickname, visible: false)
+    expect(page).to have_selector('.user-nickname', text: user.nickname, visible: false)
     expect(page).to have_selector('.current-user-image')
-    expect(page).to have_content(@user.birth_date.strftime('%Y/%m/%d'))
-    expect(page).to have_content(@user.gender.name)
+    expect(page).to have_content(user.birth_date.strftime('%Y/%m/%d'))
+    expect(page).to have_content(user.gender.name)
   end
 
   def show_log_in_info
     # マイページにログイン情報が表示されていることを確認する
-    expect(page).to have_content(@user.masked_email)
+    expect(page).to have_content(user.masked_email)
     expect(page).to have_content('********')
   end
 
@@ -201,48 +196,48 @@ module UserSupport
     expect(page).to have_selector('.log-in-menu-text', text: 'ログイン', visible: false)
     expect(page).to have_selector('.sign-up-menu-text', text: '新規登録', visible: false)
     # トップページにユーザーのニックネームが表示されていないことを確認する
-    expect(page).to have_no_content(@user.nickname)
+    expect(page).to have_no_content(user.nickname)
   end
 
   def click_btn_and_visit_my_page_and_show_flash_message(btn_text)
     # ボタンを押す
     click_on(btn_text)
     # マイページに遷移し、フラッシュメッセージが表示されていることを確認する
-    expect(page).to have_current_path(user_path(@user), wait: 10)
+    expect(page).to have_current_path(user_path(user), wait: 10)
     expect(page).to have_selector('.flash-message', text: '更新しました')
   end
 
   def click_btn_and_check_account_info
     # 編集ボタンを押すとプロフィール編集ページに遷移することを確認する
     click_on('プロフィールを編集する')
-    expect(page).to have_current_path(edit_profile_user_path(@user))
+    expect(page).to have_current_path(edit_profile_user_path(user))
 
     # すでに登録済みのアカウント情報がフォームに入っていることを確認する
     expect(
       find('#nickname').value
-    ).to eq(@user.nickname)
+    ).to eq(user.nickname)
     expect(
       find('#birth_date').value
-    ).to eq(@user.birth_date.to_s)
+    ).to eq(user.birth_date.to_s)
     expect(
       find('#gender').value
-    ).to eq(@user.gender_id.to_s)
+    ).to eq(user.gender_id.to_s)
   end
 
   def click_btn_and_check_email
     # 変更ボタンを押すとメールアドレス変更ページに遷移することを確認する
     click_on('メールアドレスを変更する')
-    expect(page).to have_current_path(edit_email_user_path(@user))
+    expect(page).to have_current_path(edit_email_user_path(user))
 
     # すでに登録済みのアカウント情報がフォームに入っていることを確認する
     expect(
       find('#email').value
-    ).to eq(@user.email)
+    ).to eq(user.email)
   end
 
   def click_btn_and_visit_edit_password_page
     # 変更ボタンを押すとパスワード変更ページに遷移することを確認する
     click_on('パスワードを変更する')
-    expect(page).to have_current_path(edit_password_user_path(@user))
+    expect(page).to have_current_path(edit_password_user_path(user))
   end
 end
