@@ -1,12 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe '新規投稿', type: :system do
-  before do
-    @user = FactoryBot.create(:user)
-    @book = FactoryBot.build(:book)
-    @book_content = FactoryBot.build(:book_content)
-  end
-
+  let(:user)         { FactoryBot.create(:user) }
+  let(:book)         { FactoryBot.build(:book) }
+  let(:book_content) { FactoryBot.build(:book_content) }
+  
   context '新規投稿ができる時' do
     it '正しい情報を入力すれば新規投稿ができ、トップページに移動する' do
       visit_new_book_path
@@ -95,7 +93,7 @@ RSpec.describe '新規投稿', type: :system do
     end
 
     it 'ジャンルは最大3つまで選択できる' do
-      @book = FactoryBot.build(:book, category_id: 1)
+      book = FactoryBot.build(:book, category_id: 1)
       visit_new_book_path
 
       # 項目を入力・選択し、ジャンルは最大3つまで選択する
@@ -204,10 +202,9 @@ RSpec.describe '新規投稿', type: :system do
 end
 
 RSpec.describe '投稿詳細', type: :system do
-  before do
-    @user = FactoryBot.create(:user)
-    @book = FactoryBot.create(:book, user: @user)
-  end
+  let(:user)         { FactoryBot.create(:user) }
+  let(:book)         { FactoryBot.create(:book, user: user) }
+  let(:book_content) { book.book_contents.first }
 
   context '投稿詳細を閲覧できる時' do
     it '全ユーザーは投稿詳細ページで投稿内容をチェックできる' do
@@ -216,19 +213,19 @@ RSpec.describe '投稿詳細', type: :system do
 
       # 投稿詳細ページに投稿したユーザーの情報と投稿内容の各項目が表示されていることを確認する
       expect(page).to have_selector('.user-image.posted-by')
-      expect(page).to have_content(@user.nickname)
+      expect(page).to have_content(user.nickname)
 
-      expect(page).to have_content(@book.title)
+      expect(page).to have_content(book.title)
       # src属性にActiveStorageのファイル名が含まれているかを確認する
       expect(find('.book-posted-image')[:src]).to include('Momose-Akira-no-firstLove-failing')
 
-      expect(page).to have_content("# #{@book.category.name}")
+      expect(page).to have_content("# #{book.category.name}")
 
-      @book.genres.each do |genre|
+      book.genres.each do |genre|
         expect(page).to have_content("# #{genre.name}")
       end
 
-      @book.book_contents.each do |content|
+      book.book_contents.each do |content|
         expect(page).to have_content(content.content)
       end
     end
@@ -247,42 +244,41 @@ RSpec.describe '投稿詳細', type: :system do
 end
 
 RSpec.describe '投稿編集', type: :system do
-  before do
-    @user1 = FactoryBot.create(:user)
-    @user2 = FactoryBot.create(:user)
-    @book = FactoryBot.create(:book, user: @user1)
-  end
+  let(:user1) { FactoryBot.create(:user) }
+  let(:user2) { FactoryBot.create(:user) }
+  let(:book)  { FactoryBot.create(:book, user: user1) }
+  let(:user)  { user1 }
 
   context '投稿を編集できる時' do
     it 'ログインユーザーは自身の投稿を編集できる' do
       # user1でログインする
-      login_as @user1
+      login_as user1
 
       visit_book_path
 
       # 編集ボタンを押し、投稿編集ページに遷移する
       expect(page).to have_selector('#post-edit-btn', text: '編集', wait: 5)
       click_on('編集')
-      expect(page).to have_current_path(edit_book_path(@book))
+      expect(page).to have_current_path(edit_book_path(book))
       expect(page).to have_content('投稿編集')
 
       # すでに保存済みのアカウント情報がフォームに入っていることを確認する
       expect(
         find('#title').value
-      ).to eq(@book.title)
+      ).to eq(book.title)
 
       expect(
         find('#category').value
-      ).to eq(@book.category_id.to_s)
+      ).to eq(book.category_id.to_s)
 
-      @book.genres.each do |genre|
+      book.genres.each do |genre|
         expect(
           # ラベルのテキストから対応するチェックボックスを探し、それがチェックされているか確認する
           page.has_checked_field?(genre.name)
         ).to be_truthy
       end
 
-      @book.book_contents.each_with_index do |content, i|
+      book.book_contents.each_with_index do |content, i|
         expect(
           find("#book_content_#{i}").value
         ).to eq(content.content)
@@ -322,7 +318,7 @@ RSpec.describe '投稿編集', type: :system do
       # 編集ボタンを押し、詳細ページに遷移していることを確認する
       click_on('更新する')
       expect(page).to have_content('更新しました', wait: 5)
-      expect(page).to have_current_path(book_path(@book))
+      expect(page).to have_current_path(book_path(book))
 
       # 詳細ページで内容が更新されていることを確認する
       expect(page).to have_content(new_title)
@@ -345,12 +341,12 @@ RSpec.describe '投稿編集', type: :system do
       # 投稿詳細ページに編集ボタンが存在しないことを確認する
       expect(page).to have_no_selector('#post-edit-btn', wait: 5)
 
-      not_log_in_user_access_denied(edit_book_path(@book), '投稿編集')
+      not_log_in_user_access_denied(edit_book_path(book), '投稿編集')
     end
 
     it 'ログインユーザーであっても他人の投稿を編集できない' do
       # user2でログインする
-      login_as @user2
+      login_as user2
       # user1が作成した投稿の詳細ページに遷移する
       visit_book_path
 
@@ -358,21 +354,20 @@ RSpec.describe '投稿編集', type: :system do
       expect(page).to have_no_selector('#post-edit-btn', wait: 5)
 
       # URLで編集ページへ移動しようとするとトップページに遷移することを確認する
-      log_in_user_access_denied(edit_book_path(@book), '投稿編集')
+      log_in_user_access_denied(edit_book_path(book), '投稿編集')
     end
   end
 end
 
 RSpec.describe '投稿削除', type: :system do
-  before do
-    @user1 = FactoryBot.create(:user)
-    @user2 = FactoryBot.create(:user)
-    @book = FactoryBot.create(:book, user: @user1)
-  end
+  let(:user1) { FactoryBot.create(:user) }
+  let(:user2) { FactoryBot.create(:user) }
+  let(:book)  { FactoryBot.create(:book, user: user1) }
+  let(:user)  { user1 }
 
   context '投稿を削除できる時' do
     it 'ログインユーザーは自身の投稿を削除できる' do
-      login_as @user1
+      login_as user1
       visit_book_path
 
       # 最初の削除ボタンを押し、投稿削除用のモーダルを開く
@@ -391,7 +386,7 @@ RSpec.describe '投稿削除', type: :system do
       # トップページに遷移し、投稿が削除されていることを確認する
       expect(page).to have_current_path(root_path)
       expect(page).to have_no_selector('.book-posted-image')
-      expect(page).to have_no_content(@book.title)
+      expect(page).to have_no_content(book.title)
     end
   end
 
@@ -406,7 +401,7 @@ RSpec.describe '投稿削除', type: :system do
 
     it 'ログインユーザーであっても他者の投稿を削除できない' do
       # user2でログインする
-      login_as @user2
+      login_as user2
       # user1が作成した投稿の詳細ページに遷移する
       visit_book_path
 
@@ -415,7 +410,7 @@ RSpec.describe '投稿削除', type: :system do
     end
 
     it '自身の投稿であっても｢削除しない｣ボタンや閉じるボタン、投稿削除用モーダル以外の要素を押すと削除できない' do
-      login_as @user1
+      login_as user1
       visit_book_path
 
       # 最初の削除ボタンを押し、投稿削除用のモーダルを開く
@@ -427,7 +422,12 @@ RSpec.describe '投稿削除', type: :system do
         find('#destroy-post-btn').click
         expect(page).to have_selector('.modal.final-action.destroy-post', visible: true, wait: 5)
         expect do
-          find(_selector).click
+          if _selector == '#modal-overlay'
+            page.execute_script("document.querySelector('#modal-overlay').click();")
+          else
+            find(_selector).click
+          end
+          
           expect(page).to have_no_selector('.modal.final-action.destroy-post', wait: 5)
         end.not_to(change { Book.count })
       end

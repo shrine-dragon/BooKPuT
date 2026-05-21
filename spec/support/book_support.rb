@@ -3,7 +3,7 @@ module BookSupport
 
   def visit_new_book_path
     # ログインし、トップページに遷移する
-    login_as(@user)
+    login_as(user)
     visit root_path
     # トップページに｢投稿する｣ボタンがあることを確認する
     expect(page).to have_selector('.right-bottom-btn-text.post', text: '投稿する', visible: false)
@@ -13,20 +13,20 @@ module BookSupport
   end
 
   def fill_in_new_post_form
-    fill_in 'title', with: @book.title
+    fill_in 'title', with: book.title
     image_test('Momose-Akira-no-firstLove-failing.png', 'book[image]')
-    select @book.category.name, from: 'category'
-    @book.genres.each do |genre|
+    select book.category.name, from: 'category'
+    book.genres.each do |genre|
       check genre.name
     end
-    fill_in 'book_content_0', with: @book_content.content
+    fill_in 'book_content_0', with: book_content.content
   end
 
   def show_posted_contents
     scroll_to(find('.card-content-wrapper'), align: :center)
     # 投稿した画像とタイトルが表示されていることを確認する
     expect(page).to have_selector('.book-posted-image', wait: 10)
-    expect(page).to have_content(@book.title)
+    expect(page).to have_content(book.title)
   end
 
   def visit_book_path

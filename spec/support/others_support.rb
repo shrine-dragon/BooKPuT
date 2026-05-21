@@ -26,9 +26,6 @@ module OtherSupport
   end
 
   def log_in_user_access_denied(path, no_exist_text)
-    # ログインし、トップページへ移動する
-    login_as(user)
-    visit root_path
     # URLを入力して、@userが移動できないpathへ直接アクセスしようとする
     visit path
     # トップページへ戻されていることを確認する
