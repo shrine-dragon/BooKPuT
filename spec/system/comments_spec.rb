@@ -166,6 +166,8 @@ RSpec.describe 'コメント削除', type: :system do
   context 'コメントを削除できる時' do
     it 'コメント投稿者は自身のコメントを削除できる', js: true do
       login_as user2
+      visit_book_path
+      check_comment_info
 
       final_action_of_comment_operation(
         "destroy-comment",
@@ -174,7 +176,8 @@ RSpec.describe 'コメント削除', type: :system do
         "削除する",
         Comment,
         -1,
-        "コメントを削除しました"
+        "コメントを削除しました",
+        comment_index: :first
       )
       # 投稿詳細ページにコメントが存在せず、｢コメントはありません｣と表示されていることを確認する
       expect(page).to have_no_content(comment.text)
@@ -217,6 +220,8 @@ RSpec.describe 'コメント非表示', type: :system do
   context 'コメントを非表示にできる時' do
     it 'コメント投稿者以外のログインユーザーは、他者のコメントを非表示にできる' do
       login_as user1
+      visit_book_path
+      check_comment_info
 
       final_action_of_comment_operation(
         "hide-comment",
@@ -225,7 +230,8 @@ RSpec.describe 'コメント非表示', type: :system do
         "非表示にする",
         HiddenComment,
         1,
-        "コメントを非表示にしました"
+        "コメントを非表示にしました",
+        comment_index: :first
       )
 
       # 投稿詳細ページでコメントが非表示になっていることを確認する
@@ -278,6 +284,8 @@ RSpec.describe 'コメント通報', type: :system do
   context 'コメントを通報できる時' do
     it 'コメント投稿者以外のログインユーザーは、他者のコメントを通報できる' do
       login_as user1
+      visit_book_path
+      check_comment_info
 
       final_action_of_comment_operation(
         "report-comment",
@@ -286,7 +294,8 @@ RSpec.describe 'コメント通報', type: :system do
         "通報する",
         ReportedComment,
         1,
-        "コメントを通報しました"
+        "コメントを通報しました",
+        comment_index: :first
       )
       # 再度通報ボタンを押すと｢通報済みのコメントです｣と表示され、ReportedCommentモデルのカウントは変わらないことを確認する
       expect do
@@ -327,6 +336,96 @@ RSpec.describe 'コメント通報', type: :system do
 
         close_modal_final_action("report-comment", "通報")
       end
+    end
+  end
+end
+
+RSpec.describe 'その他', type: :system do
+  context 'コメントの一部表示・非表示機能' do
+    it 'コメントが10件以下の場合、｢もっと見る｣ボタンが表示されない' do
+      login_as user2
+      visit_book_path
+
+      # 最初はコメントが0件で｢コメントはありません｣と表示されていることを確認する
+      expect(page).to have_selector('.empty-message.none-comment', text: 'コメントはありません')
+      expect(page).to have_no_selector('.posted-comment-number')
+
+      increase_comments(10)
+    end
+
+    it 'コメントが11件以上存在すると、｢もっと見る｣ボタンが表示される' do
+      login_as user2
+      visit_book_path
+
+      increase_comments(11)
+    end
+
+    it 'コメントが11件存在している時、｢もっと見る｣ボタンを押すと｢折りたたむ｣ボタンが表示される' do
+      login_as user2
+      visit_book_path
+
+      increase_comments(11)
+
+      # ｢もっと見る｣ボタンを押す
+      find('.view-more-comments-text').click
+
+      # ｢折りたたむ｣ボタンが表示されていることを確認する
+      expect(page).to have_selector('.hide-comments-text', text: '折りたたむ')
+      # ｢折りたたむ｣ボタンを押すと表示中のコメントが10件に戻り、再度｢もっと見る｣ボタンが表示されることを確認する
+      find('.hide-comments-text').click
+      expect(page).to have_selector('.posted-comment-contents', count: 10)
+      expect(page).to have_selector('.view-more-comments-text', text: 'コメントをもっと見る', visible: true)
+    end
+
+    it 'コメントが11件存在している状態でコメントを1件削除すると｢もっと見る｣ボタンは非表示になる' do
+      login_as user2
+      visit_book_path
+  
+      increase_comments(11)
+
+      final_action_of_comment_operation(
+        "destroy-comment",
+        "削除",
+        "このコメントを削除しますか？",
+        "削除する",
+        Comment,
+        -1,
+        "コメントを削除しました",
+        comment_index: :first
+      )
+
+      expect(page).to have_no_selector('.view-more-comments-text', text: 'コメントをもっと見る')
+    end
+
+    it 'コメントが11件存在し、かつ｢折りたたむ｣ボタンが表示されている状態でコメントを1件削除すると、｢折りたたむ｣ボタンは非表示になる' do
+      login_as user2
+      visit_book_path
+
+      increase_comments(11)
+
+      # ｢もっと見る｣ボタンを押して｢折りたたむ｣ボタンを表示させる
+      find('.view-more-comments-text').click
+      expect(page).to have_selector('.hide-comments-text', text: '折りたたむ')
+
+      final_action_of_comment_operation(
+        "destroy-comment",
+        "削除",
+        "このコメントを削除しますか？",
+        "削除する",
+        Comment,
+        -1,
+        "コメントを削除しました",
+        comment_index: :first
+      )
+
+      expect(page).to have_no_selector('.hide-comments-text', text: '折りたたむ')
+    end
+
+    it 'コメントが21件以上存在している状態で｢コメントをもっと見る｣ボタンを押すと、コメントは10件ずつ表示される' do
+      login_as user2
+      visit_book_path
+      
+      increase_comments(21)
     end
   end
 end
