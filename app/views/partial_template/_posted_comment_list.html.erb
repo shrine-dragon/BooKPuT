@@ -1,0 +1,61 @@
+<div class="posted-comment-contents js-comment" id="comment-<%= comment.id %>">
+  <% is_mine = (current_user == comment.user) %>
+
+  <div class="posted-comment-upper">
+    <div class="posted-comment-user-field">
+      <% img_class = "user-image posted-comment #{'hovers' if is_mine}" %>
+      <% if comment.user.image.attached? %>
+        <%= image_tag comment.user.image, class: img_class %>
+      <% else %>
+        <%= image_tag "no-image.png", class: "#{img_class} no-exist" %>
+      <% end %>
+
+      <% if is_mine %>
+        <%# 自分の時はリンクあり ＋ hovers %>
+        <%= link_to user_path(comment.user), class: 'comment-user-text' do %>
+          <span class="user-nickname posted-comment hovers"><%= comment.user.nickname %></span>
+        <% end %>
+      <% else %>
+        <%# 他人の時はただのテキスト（aタグを生成しない） %>
+        <span class="user-nickname posted-comment"><%= comment.user.nickname %></span>
+      <% end %>
+    </div>
+    <p class="posted-comment-time">
+      <%= comment.created_at.strftime('%Y/%m/%d %H:%M:%S') %>
+    </p>
+  </div>
+  <div class="posted-comment-center">
+    <p class="posted-comment-text">
+      <%= comment.text %>
+    </p>
+  </div>
+  <div class="posted-comment-lower">
+    <ul class="posted-comment-btn-field">
+      <% if user_signed_in? %>
+        <% if current_user == comment.user %>
+          <li class="posted-comment-btn-text hovers js-edit-comment-trigger" 
+            data-url="<%= edit_book_comment_path(comment.book, comment) %>">
+            編集
+          </li>
+          <li class="posted-comment-btn-text hovers js-destroy-comment-trigger" 
+            data-url="<%= book_comment_path(comment.book, comment) %>">
+            削除
+          </li>
+        <% else %>
+          <li class="posted-comment-btn-text hovers js-hide-comment-trigger"
+            data-url="<%=  hide_book_comment_path(comment.book, comment) %>">
+            非表示
+          </li>
+          <li class="posted-comment-btn-text hovers js-report-comment-trigger"
+              data-url="<%= report_book_comment_path(comment.book, comment) %>"
+              data-comment-id="<%= comment.id %>"
+              data-reported="<%= ReportedComment.exists?(user_id: current_user.id, comment_id: comment.id) %>">
+            通報
+          </li>
+          <i class="fa-regular fa-thumbs-up posted-comment hovers"></i>
+          <i class="fa-regular fa-thumbs-down posted-comment hovers"></i>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,87 @@
+class CommentsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_comment,          only: %i[edit update destroy hide report]
+  before_action :ensure_correct_user,  only: %i[edit update destroy]
+
+  def create
+    @book = Book.find(params[:book_id])
+    @comment = current_user.comments.build(comment_params)
+    @comment.book_id = @book.id
+
+    if @comment.save
+      flash.now[:notice] = 'コメントしました'
+      respond_to do |format|
+        format.html { redirect_to book_path(@book), notice: 'コメントしました' }
+        format.js
+      end
+    else
+      @comments = @book.comments.includes(:user)
+      render 'books/show'
+    end
+  end
+
+  def edit
+    @book = @comment.book
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def update
+    if @comment.update(comment_params)
+      flash.now[:notice] = 'コメントを編集しました'
+      respond_to do |format|
+        format.html { redirect_to book_path(@comment.book), notice: 'コメントを編集しました' }
+        format.js
+      end
+    else
+      respond_to do |format|
+        format.js { render :edit }
+      end
+    end
+  end
+
+  def destroy
+    @comment.destroy
+    respond_to do |format|
+      format.html { redirect_to book_path(@comment.book), notice: 'コメントを削除しました' }
+      format.js
+    end
+  end
+
+  def hide
+    HiddenComment.find_or_create_by(user_id: current_user.id, comment_id: @comment.id)
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def report
+    @report = ReportedComment.where(user_id: current_user.id, comment_id: @comment.id).first_or_initialize
+
+    if @report.new_record?
+      @report.save
+      @status = :created   # 初めての通報
+    else
+      @status = :exists    # 既に通報済み
+    end
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  private
+
+  def set_comment
+    @comment = Comment.find(params[:id])
+  end
+
+  def comment_params
+    params.require(:comment).permit(:text)
+  end
+
+  def ensure_correct_user
+    redirect_to root_path if current_user != @comment.user
+  end
+end

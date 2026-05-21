@@ -33,9 +33,9 @@ module BookSupport
     visit root_path
     # 既存の投稿の詳細ページに遷移する
     expect(page).to have_selector('.book-posted-image')
-    expect(page).to have_content(@book.title)
+    expect(page).to have_content(book.title)
     find('.book-card-link').click
-    expect(page).to have_current_path(book_path(@book))
+    expect(page).to have_current_path(book_path(book))
     expect(page).to have_content('投稿詳細')
   end
 

@@ -20,18 +20,20 @@
   </head>
 
   <body class="<%= controller_name %>" data-flash-alert="<%= flash[:alert] %>">
-    <% flash.each do |key, value| %>
-      <% # 「ログインが必要です」というメッセージは、JSのトリガーにするだけで表示はしない %>
-      <% if value == "ログインが必要です" %>
-        <div class="flash-message <%= key %>" style="display: none;" data-auth-trigger="true">
-          <%= value %>
-        </div>
-      <% else %>
-        <div class="flash-message <%= key %>">
-          <%= value %>
-        </div>
+    <div id="flash-container">
+      <% flash.each do |key, value| %>
+        <% # 「ログインが必要です」というメッセージは、JSのトリガーにするだけで表示はしない %>
+        <% if value == "ログインが必要です" %>
+          <div class="flash-message <%= key %>" style="display: none;" data-auth-trigger="true">
+            <%= value %>
+          </div>
+        <% else %>
+          <div class="flash-message <%= key %>">
+            <%= value %>
+          </div>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
 
     <div class="site-wrapper">
       <%= yield %>

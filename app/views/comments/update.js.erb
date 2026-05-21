@@ -1,0 +1,9 @@
+var commentId = "<%= @comment.id %>";
+var container = $("#comment-" + commentId + " .posted-comment-center");
+
+// フォームを消し、中身を新しいテキストの<p>タグに完全に入れ替える
+container.html('<p class="posted-comment-text"><%= j(@comment.text) %></p>');
+
+// フラッシュメッセージの表示
+$('#flash-container').html('<div class="flash-message notice">コメントを更新しました</div>');
+if (typeof window.fadeOutFlash === 'function') { window.fadeOutFlash(); }

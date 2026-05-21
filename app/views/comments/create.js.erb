@@ -1,0 +1,15 @@
+// 1. 「コメントはありません」を消す
+$('#js-comment-list .none-comment').remove();
+
+// 2. コメントを追加
+var newCommentHtml = '<%= j render partial: "partial_template/posted_comment_list", locals: { comment: @comment } %>';
+$('#js-comment-list').prepend(newCommentHtml);
+
+// 3. フォームの初期化
+$('.comment-form-text').val('');
+$('.submit-comment-btn').prop('disabled', false).removeAttr('data-disable-with');
+$('.comment-btn').removeClass('is-show');
+
+// 4. フラッシュメッセージ
+$('#flash-container').html('<div class="flash-message notice">コメントを投稿しました</div>');
+if (typeof window.fadeOutFlash === 'function') { window.fadeOutFlash(); }

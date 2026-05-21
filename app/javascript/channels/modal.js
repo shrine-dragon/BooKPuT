@@ -23,10 +23,10 @@ $(document).on(loadEvent, function() {
 
   $(document).on('mouseover', function(e) {
     const $logInModal = $(".modal.log-in");
-    const $destroyModal = $(".modal.final-destroy-post");
+    const $finalActionModal = $(".modal.final-action");
   
     // ★追加：中央表示モード(.is-center)の時は、マウス移動で消さないようにする
-    if ($logInModal.hasClass('is-center') || $destroyModal.is(':visible')) return;
+    if ($logInModal.hasClass('is-center') || $finalActionModal.is(':visible')) return;
 
     const isInsideSignUp = $(e.target).closest('.modal.sign-up, .sign-up-menu').length;
     const isInsideLogIn = $(e.target).closest('.modal.log-in, .log-in-menu').length;
@@ -49,7 +49,7 @@ $(document).on(loadEvent, function() {
       $(".modal.sign-up").fadeOut(200);
       $(".modal.log-in").fadeOut(200);
       $(".modal.log-in-user").fadeOut(200);
-      $(".modal.final-destroy-post").fadeOut(200);
+      $(".modal.final-action").fadeOut(200);
     }
   });
   // 新規登録ページのモーダルの開閉処理(clickイベント)
@@ -90,7 +90,7 @@ $(document).on(loadEvent, function() {
     $("#modal-overlay").fadeOut(200);
     $(".modal.sign-up").fadeOut(200);
     $(".modal.log-in-user").fadeOut(200);
-    $(".modal.final-destroy-post").fadeOut(200);
+    $(".modal.final-action").fadeOut(200);
     
     $logInModal.fadeOut(200, function() {
       if ($logInModal.hasClass('is-center')) {
@@ -113,13 +113,63 @@ $(document).on(loadEvent, function() {
     }
   }
 
-  $('#post-destroy-btn').on('click', function() {
-    $("#modal-overlay").fadeIn(200);
-    $(".modal.final-destroy-post").fadeIn(200);
+  // 閉じるボタンやno_actionボタンを押した時の挙動
+  $(document).on('click', '.no-action, .close-modal', function() {
+    $("#modal-overlay").fadeOut(200);
+    $(".modal.final-action").fadeOut(200);
   });
 
-  $('.not-destroy-post, .modal.final-destroy-post .close-modal').on('click', function() {
-    $("#modal-overlay").fadeOut(200);
-    $(".modal.final-destroy-post").fadeOut(200);
+  // 投稿そのものの削除ボタン
+  $(document).on('click', '#destroy-post-btn', function() {
+    const bookDeleteUrl = $(this).data('url'); 
+    
+    // 削除用モーダルの中にあるリンクを書き換え
+    const $modal = $(".modal.final-action.destroy-post");
+    $modal.find('#js-destroy-post-link').attr('href', bookDeleteUrl).attr('data-remote', 'false');
+
+    $("#modal-overlay").fadeIn(200);
+    $modal.fadeIn(200);
+  });
+
+  // コメントの削除ボタン
+  $(document).on('click', '.js-destroy-comment-trigger', function() {
+    const deleteUrl = $(this).data('url');
+    const $modal = $(".modal.final-action.destroy-comment");
+    
+    $modal.find('#js-destroy-comment-link').attr('href', deleteUrl).attr('data-remote', 'true');
+    
+    $("#modal-overlay").fadeIn(200);
+    $modal.fadeIn(200);
+  });
+
+  // コメントの非表示ボタン
+  $(document).on('click', '.js-hide-comment-trigger', function() {
+    const hideUrl = $(this).data('url');
+    const $modal = $(".modal.final-action.hide-comment");
+    
+    $modal.find('#js-hide-comment-link').attr('href', hideUrl);
+    
+    $("#modal-overlay").fadeIn(200);
+    $modal.fadeIn(200);
+  });
+
+  // コメントの通報ボタン
+  $(document).on('click', '.js-report-comment-trigger', function() {
+    const $btn = $(this);
+    const isReported = $btn.attr('data-reported'); // 通報済みかチェック
+
+    if (isReported === 'true') {
+      // 【二度目以降】モーダルを出さずにメッセージだけ表示
+      $('#flash-container').html('<div class="flash-message alert">通報済みのコメントです</div>');
+      if (typeof window.fadeOutFlash === 'function') {
+        window.fadeOutFlash();
+      }
+    } else {
+      // 【初めて】モーダルを表示する既存の処理
+      const reportUrl = $btn.data('url');
+      $('#js-report-comment-link').attr('href', reportUrl);
+      $('#modal-overlay').fadeIn(200);
+      $('.modal.final-action.report-comment').fadeIn(200);
+    }
   });
 });

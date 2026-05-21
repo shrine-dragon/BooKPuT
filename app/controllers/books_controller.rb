@@ -36,7 +36,17 @@ class BooksController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    @comment = Comment.new
+    if user_signed_in?
+      # 現在のユーザーが非表示にしたcomment_idのリストを取得
+      hidden_comment_ids = current_user.hidden_comments.pluck(:comment_id)
+      # そのID以外のコメントを表示
+      @comments = @book.comments.where.not(id: hidden_comment_ids).includes(:user).order(created_at: :desc)
+    else
+      @comments = @book.comments.includes(:user).order(created_at: :desc)
+    end
+  end
 
   def edit; end
 
@@ -51,7 +61,7 @@ class BooksController < ApplicationController
   def destroy
     return unless @book.destroy
 
-    redirect_to root_path, notice: '削除しました'
+    redirect_to root_path, notice: '投稿を削除しました'
   end
 
   private

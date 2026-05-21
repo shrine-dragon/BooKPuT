@@ -28,6 +28,8 @@ class Book < ApplicationRecord
 
   before_validation :compact_book_contents
 
+  has_many :comments, dependent: :destroy
+
   private
 
   def genre_selection_limit

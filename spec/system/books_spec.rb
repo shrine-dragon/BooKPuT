@@ -16,7 +16,7 @@ RSpec.describe '新規投稿', type: :system do
       expect do
         scroll_display('.orange-submit-btn')
       end.to change { Book.count }.by(1)
-        .and change { BookContent.count }.by(1)
+                                  .and change { BookContent.count }.by(1)
 
       # トップページに遷移し、フラッシュメッセージが表示されていることを確認する
       expect(page).to have_current_path(root_path)
@@ -97,7 +97,7 @@ RSpec.describe '新規投稿', type: :system do
     it 'ジャンルは最大3つまで選択できる' do
       @book = FactoryBot.build(:book, category_id: 1)
       visit_new_book_path
-      
+
       # 項目を入力・選択し、ジャンルは最大3つまで選択する
       fill_in_new_post_form
 
@@ -108,13 +108,13 @@ RSpec.describe '新規投稿', type: :system do
       uncheck_boxes.each do |cb|
         expect(cb).to be_disabled
       end
-      
+
       # 投稿ボタンを押し、ジャンルが3つ保存されていることを確認する
-      expect {
+      expect do
         click_on '投稿する'
         expect(page).to have_content('投稿しました')
-      }.to change { Book.count }.by(1)
-      .and change { BookContent.count }.by(1)
+      end.to change { Book.count }.by(1)
+                                  .and change { BookContent.count }.by(1)
 
       last_book = Book.last
       expect(last_book.genre_ids.length).to eq 3
@@ -149,7 +149,7 @@ RSpec.describe '新規投稿', type: :system do
           # そのオプションの中にある input と label を探す
           checkbox = option.find('input[type="checkbox"]', visible: :all)
           label_text = option.text
-          
+
           if label_text == '回答しない'
             expect(checkbox).not_to be_disabled
           else
@@ -187,20 +187,18 @@ RSpec.describe '新規投稿', type: :system do
 
       # 内容項目を最大7つまで増やす
       (0..6).each do |i|
-        if i > 0
-          find('#add-content-btn').click
-        end
+        find('#add-content-btn').click if i > 0
 
-        fill_in "book_content_#{i}", with: "#{i+1}つ目の内容項目です"
-        expect(page).to have_content("(残り#{6-i}項目)") if i < 6
+        fill_in "book_content_#{i}", with: "#{i + 1}つ目の内容項目です"
+        expect(page).to have_content("(残り#{6 - i}項目)") if i < 6
       end
       expect(all('.input-main-part').count).to eq 7
 
       # ｢投稿する｣ボタンを押すとBookContentモデルのカウントが7上がることを確認する
-      expect {
+      expect do
         click_on '投稿する'
         expect(page).to have_content('投稿しました')
-      }.to change { BookContent.count }.by(7)
+      end.to change { BookContent.count }.by(7)
     end
   end
 end
@@ -216,7 +214,7 @@ RSpec.describe '投稿詳細', type: :system do
       # トップページに遷移し、投稿済みの内容をクリックする
       visit_book_path
 
-      #投稿詳細ページに投稿したユーザーの情報と投稿内容の各項目が表示されていることを確認する
+      # 投稿詳細ページに投稿したユーザーの情報と投稿内容の各項目が表示されていることを確認する
       expect(page).to have_selector('.user-image.posted-by')
       expect(page).to have_content(@user.nickname)
 
@@ -229,7 +227,7 @@ RSpec.describe '投稿詳細', type: :system do
       @book.genres.each do |genre|
         expect(page).to have_content("# #{genre.name}")
       end
-      
+
       @book.book_contents.each do |content|
         expect(page).to have_content(content.content)
       end
@@ -276,7 +274,7 @@ RSpec.describe '投稿編集', type: :system do
       expect(
         find('#category').value
       ).to eq(@book.category_id.to_s)
-      
+
       @book.genres.each do |genre|
         expect(
           # ラベルのテキストから対応するチェックボックスを探し、それがチェックされているか確認する
@@ -296,7 +294,7 @@ RSpec.describe '投稿編集', type: :system do
       # 編集内容を定義する
       new_title = 'anotherTitle'
       new_category_name = '雑誌'
-      new_genres = ['漫画', 'アニメ', 'ファッション']
+      new_genres = %w[漫画 アニメ ファッション]
 
       # 各項目を編集する
       fill_in 'title', with: new_title
@@ -311,7 +309,7 @@ RSpec.describe '投稿編集', type: :system do
 
       (0..6).each do |i|
         # ループの中で「その番号用のテキスト」を作り、即座に fill_in する
-        new_content = "編集後の#{i+1}つ目の内容項目です"
+        new_content = "編集後の#{i + 1}つ目の内容項目です"
         fill_in "book_content_#{i}", with: new_content
       end
 
@@ -329,11 +327,11 @@ RSpec.describe '投稿編集', type: :system do
       # 詳細ページで内容が更新されていることを確認する
       expect(page).to have_content(new_title)
       expect(page).to have_content(new_category_name)
-      new_genres.each  do |genre_name|
+      new_genres.each do |genre_name|
         expect(page).to have_content(genre_name)
       end
       (0..6).each do |i|
-        expect(page).to have_content("編集後の#{i+1}つ目の内容項目です")
+        expect(page).to have_content("編集後の#{i + 1}つ目の内容項目です")
       end
 
       expect(page).to have_selector('.book-posted-image')
@@ -350,7 +348,7 @@ RSpec.describe '投稿編集', type: :system do
       not_log_in_user_access_denied(edit_book_path(@book), '投稿編集')
     end
 
-    it 'ログインユーザーであっても他者の投稿を編集できない' do
+    it 'ログインユーザーであっても他人の投稿を編集できない' do
       # user2でログインする
       login_as @user2
       # user1が作成した投稿の詳細ページに遷移する
@@ -359,7 +357,7 @@ RSpec.describe '投稿編集', type: :system do
       # 投稿詳細ページに編集ボタンが存在しないことを確認する
       expect(page).to have_no_selector('#post-edit-btn', wait: 5)
 
-      # URLで編集ページへ移動しようとするとトップページへ遷移することを確認する
+      # URLで編集ページへ移動しようとするとトップページに遷移することを確認する
       log_in_user_access_denied(edit_book_path(@book), '投稿編集')
     end
   end
@@ -378,17 +376,17 @@ RSpec.describe '投稿削除', type: :system do
       visit_book_path
 
       # 最初の削除ボタンを押し、投稿削除用のモーダルを開く
-      expect(page).to have_selector('#post-destroy-btn', text: '削除', wait: 5)
-      find('#post-destroy-btn').click
-      expect(page).to have_selector('.modal.final-destroy-post', visible: true, wait: 5)
-      expect(page).to have_content('本当に削除しますか？')
-      
+      expect(page).to have_selector('#destroy-post-btn', text: '削除', wait: 5)
+      find('#destroy-post-btn').click
+      expect(page).to have_selector('.modal.final-action.destroy-post', visible: true, wait: 5)
+      expect(page).to have_content('この投稿を削除しますか？')
+
       # ｢本当に削除する｣ボタンを押すと、BookモデルとBookContentモデルのカウントが1下がることを確認する
       expect do
-        find('#destroy-post-really').click
-        expect(page).to have_content('削除しました')
+        find('.final-action.btn-text').click
+        expect(page).to have_content('投稿を削除しました')
       end.to change { Book.count }.by(-1)
-        .and change { BookContent.count }.by(-7)
+                                  .and change { BookContent.count }.by(-7)
 
       # トップページに遷移し、投稿が削除されていることを確認する
       expect(page).to have_current_path(root_path)
@@ -403,7 +401,7 @@ RSpec.describe '投稿削除', type: :system do
       visit_book_path
 
       # 投稿詳細ページに削除ボタンが存在しないことを確認する
-      expect(page).to have_no_selector('#post-destroy-btn', wait: 5)
+      expect(page).to have_no_selector('#destroy-post-btn', wait: 5)
     end
 
     it 'ログインユーザーであっても他者の投稿を削除できない' do
@@ -413,7 +411,7 @@ RSpec.describe '投稿削除', type: :system do
       visit_book_path
 
       # 投稿詳細ページに削除ボタンが存在しないことを確認する
-      expect(page).to have_no_selector('#post-destroy-btn', wait: 5)
+      expect(page).to have_no_selector('#destroy-post-btn', wait: 5)
     end
 
     it '自身の投稿であっても｢削除しない｣ボタンや閉じるボタン、投稿削除用モーダル以外の要素を押すと削除できない' do
@@ -421,15 +419,17 @@ RSpec.describe '投稿削除', type: :system do
       visit_book_path
 
       # 最初の削除ボタンを押し、投稿削除用のモーダルを開く
-      expect(page).to have_selector('#post-destroy-btn', text: '削除', wait: 5)
+      expect(page).to have_selector('#destroy-post-btn', text: '削除', wait: 5)
 
-      ['.not-destroy-post.btn-text', '.fa-xmark', '#modal-overlay'].each do |selector|
-        find('#post-destroy-btn').click
-        expect(page).to have_selector('.modal.final-destroy-post', visible: true, wait: 5)
-        expect {
-          find('.not-destroy-post.btn-text').click
-          expect(page).to have_no_selector('.modal.final-destroy-post', wait: 5)
-        }.not_to change { Book.count }
+      selectors = ['.no-action.btn-text', '.fa-xmark', '#modal-overlay']
+
+      selectors.each do |_selector|
+        find('#destroy-post-btn').click
+        expect(page).to have_selector('.modal.final-action.destroy-post', visible: true, wait: 5)
+        expect do
+          find(_selector).click
+          expect(page).to have_no_selector('.modal.final-action.destroy-post', wait: 5)
+        end.not_to(change { Book.count })
       end
     end
   end

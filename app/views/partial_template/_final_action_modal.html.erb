@@ -1,0 +1,19 @@
+<div class="modal final-action <%= modal_class %>">
+  <div class="modal-wrapper final-action <%= modal_class %>">
+    <div class="close-modal"><i class="fa-solid fa-xmark"></i></div>
+    
+    <p class="warning-text"><%= message.html_safe %></p>
+    
+    <div class="final-action btn-on-center">
+      <%= link_to "#", method: method, remote: true, 
+          class: "final-action-btn #{btn_class}", 
+          id: link_id do %>
+        <span class="final-action btn-text"><%= btn_text %></span>
+      <% end %>
+    </div>
+    
+    <div class="no-action btn-on-center">
+      <span class="no-action btn-text"><%= no_action_text %></span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+// 1. モーダルを閉じる
+$("#modal-overlay").fadeOut(200);
+$(".modal.final-action.destroy-comment").fadeOut(200);
+
+// 2. 要素を削除（これによって MutationObserver が発動します）
+$('#comment-<%= @comment.id %>').remove();
+
+// 3. フラッシュメッセージ
+$('#flash-container').html('<div class="flash-message notice">コメントを削除しました</div>');
+if (typeof window.fadeOutFlash === 'function') {
+  window.fadeOutFlash();
+}

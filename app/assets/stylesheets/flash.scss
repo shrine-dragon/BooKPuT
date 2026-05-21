@@ -1,12 +1,22 @@
+#flash-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; // 親要素で子要素を中央に寄せる
+  width: 100%;
+}
+
 .flash-message {
-  width: 20%;
+  max-width: 80%;       // 画面端までくっつかないように制限
+  width: fit-content;   // 文字量に合わせて幅を伸縮させる
+  text-align: left;
   padding: 12px;
-  text-align: center;
   font-weight: bold;
   position: fixed;
   top: 80px;
   left: 80px;
   z-index: 1000; /* 特にかぶっていないため、ヘッダーと同じ設定 */
+  opacity: 1;
+  transition: opacity 0.5s ease;
 }
 
 /* 成功時の色（シアン系） */

@@ -31,6 +31,7 @@ RSpec.configure do |config|
   config.include UserSupport, type: :system
   config.include BookSupport, type: :system
   config.include OtherSupport, type: :system
+  config.include CommentSupport, type: :system
   config.include Warden::Test::Helpers
 
   config.before(:each, type: :system) do

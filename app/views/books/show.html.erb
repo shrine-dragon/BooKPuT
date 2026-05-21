@@ -11,16 +11,16 @@
     <div class="detail-container">
       <div class="detail-left">
         <% if current_user == @book.user %>
-          <%= link_to user_path(current_user), class: "user-mypage-link" do %>
-            <div class="posted-by-field is-mypage">
+          <div class="posted-by-field is-mypage">
+            <%= link_to user_path(current_user), class: "user-mypage-link" do %>
               <% if current_user.image.attached? %>
                 <%= image_tag current_user.image, class: 'user-image posted-by hovers' %>
               <% else %>
                 <%= image_tag "no-image.png", class: 'user-image posted-by no-exist hovers' %>
               <% end %>
               <span class="user-nickname posted-by hovers"><%= current_user.nickname %></span>
-            </div>
-          <% end %>
+            <% end %>
+          </div>
         <% else %>
           <div class="posted-by-field">
             <% if @book.user.image.attached? %>
@@ -32,7 +32,7 @@
           </div>
         <% end %>
 
-        <div class="content-item-field vertical-text fade-in-up">
+        <div class="content-item-field left-side vertical-text fade-in-up">
           <% [3, 5].each do |i| %>
             <% if @contents[i]&.content.present? %>
               <div class="content-item"><%= @contents[i].content %></div>
@@ -59,7 +59,7 @@
           <div class="genre-hashtags-area">
             <% if @book.genres.present? %>
               <% @book.genres.each do |genre| %>
-                <% unless [900, 901].include?(genre.id) %>
+                <% unless [901].include?(genre.id) %>
                   <span class="genre-tag"># <%= genre.name %></span>
                 <% end %>
               <% end %>
@@ -77,32 +77,39 @@
       </div>
 
       <div class="detail-right">
-        <ul class="btn-field">
-          <% if current_user == @book.user %>
-            <li class="detail-right-btn hovers", , id='post-edit-btn'>
-              <%= link_to "編集", edit_book_path(@book), class: 'detail-right-btn-text' %>
-            </li>
-            <li class="detail-right-btn hovers", id='post-destroy-btn'>
-              <span class="detail-right-btn-text">削除</span>
-            </li>
-          <% else %>
-            <li class="detail-right-btn hovers">
-              <%= link_to "報告", root_path, class: 'detail-right-btn-text' %>
-            </li>
+        <div class="detail-right-upper">
+          <% if user_signed_in? %>
+            <ul class="detail-right-btn-field">
+              <% if current_user == @book.user %>
+                <li class="detail-right-btn hovers" id='post-edit-btn'>
+                  <%= link_to "編集", edit_book_path(@book), class: 'detail-right-btn-text' %>
+                </li>
+                <li class="detail-right-btn hovers" id='destroy-post-btn' data-url="<%= book_path(@book) %>">
+                  <span class="detail-right-btn-text">削除</span>
+                </li>
+              <% else %>
+                <li class="detail-right-btn hovers">
+                  <%= link_to "通報", root_path, class: 'detail-right-btn-text' %>
+                </li>
+              <% end %>
+            </ul>
+            <ul class="reaction-icon-field">
+              <% unless current_user == @book.user %>
+                <li>
+                  <i class="fa-regular fa-thumbs-up hovers"></i>
+                </li>
+                <li>
+                  <i class="fa-regular fa-thumbs-down hovers"></i>
+                </li>
+                <li>
+                  <i class="fa-regular fa-star hovers"></i>
+                </li>
+              <% end %>
+            </ul>
           <% end %>
-        </ul>
-        <ul class="reaction-icon-field">
-          <% unless current_user == @book.user %>
-            <li>
-              <i class="fa-regular fa-thumbs-up"></i>
-            </li>
-            <li>
-              <i class="fa-regular fa-star"></i>
-            <li>
-          <% end %>
-        </ul>
+        </div>
 
-        <div class="content-item-field vertical-text fade-in-up">
+        <div class="content-item-field right-side vertical-text fade-in-up">
           <% [4, 6].each do |i| %>
             <% if @contents[i]&.content.present? %>
               <div class="content-item"><%= @contents[i].content %></div>
@@ -111,25 +118,99 @@
         </div>
       </div>
     </div>
+
+    <div class="comment-wrapper">
+      <% if user_signed_in? && current_user != @book.user %>
+        <%= form_with model: [@book, @comment], local: false, class: "post-comment-wrapper" do |f| %>
+          <div class="post-comment-container">
+            <div class="post-comment-user-field">
+              <% if current_user.image.attached? %>
+               <%= image_tag current_user.image, class: 'user-image post-comment hovers' %>
+              <% else %>
+                <%= image_tag "no-image.png", class: 'user-image post-comment no-exist hovers' %>
+              <% end %>
+              <%= link_to user_path(current_user), class: 'comment-user-text' do %>
+                <span class="user-nickname post-comment hovers"><%= current_user.nickname %></span>
+              <% end %>
+            </div>
+            <div class="post-comment-field">
+              <div class="comment-form">
+                <%= f.text_field :text, class: "comment-form-text", id: 'text', maxlength: "100", placeholder: "コメントを100文字以内で入力" %>
+                <p class="comment-caution-text">※批判的な意見はご遠慮ください</p>
+              </div>
+              <div class="comment-btn">
+                <%= f.button type: "submit", class: "submit-comment-btn hovers" do %>
+                  <i class="fa-solid fa-paper-plane"></i>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+
+      <div class="posted-comment-list-container">
+        <p class="posted-comment-number" style="display: none;"></p>
+        
+        <div class="posted-comment-list" id="js-comment-list">
+          <% if @comments.any? %>
+            <%= render partial: 'partial_template/posted_comment_list', collection: @comments, as: :comment %>
+          <% else %>
+            <div class="empty-message none-comment">
+              <p>コメントはありません</p>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="view-more-comments-container" style="display: none;">
+          <p class="view-more-comments-text hovers" id="view-more-comments">コメントをもっと見る</p>
+          <p class="hide-comments-text hovers" id="hide-comments" style="display: none;">折りたたむ</p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
 <div id="modal-overlay"></div>
 
-<div class="modal final-destroy-post">
-  <div class="modal-wrapper final-destroy">
-    <div class="close-modal"><i class="fa-solid fa-xmark"></i></div>
-    <p class="warning-text">本当に削除しますか？<br>一度削除すると復元できません。</p>
-    <div class="destroy-post-really btn-on-center">
-      <%= link_to(book_path(@book), method: :delete, class: "destroy-post-really-btn final-destroy-link") do %>
-        <span class="destroy-post-really btn-text" id="destroy-post-really">本当に削除する</span>
-      <% end %>
-    </div>
-    <div class="not-destroy-post btn-on-center">
-      <span class="not-destroy-post btn-text">削除しない</span>
-    </div>
-  </div>
-</div>
+<%# 1. 投稿削除用モーダル %>
+<%= render 'partial_template/final_action_modal', 
+    modal_class: 'destroy-post',
+    message: 'この投稿を削除しますか？',
+    method: :delete,
+    btn_text: '削除する',
+    btn_class: 'finally-destroy-post',
+    link_id: 'js-destroy-post-link',
+    no_action_text: '削除しない' %>
+
+<%# 2. コメント削除用モーダル %>
+<%= render 'partial_template/final_action_modal', 
+    modal_class: 'destroy-comment',
+    message: 'このコメントを削除しますか？',
+    method: :delete,
+    btn_text: '削除する',
+    btn_class: 'finally-destroy-comment',
+    link_id: 'js-destroy-comment-link',
+    no_action_text: '削除しない' %>
+
+<%# 3. 非表示用モーダル %>
+<%= render 'partial_template/final_action_modal', 
+    modal_class: 'hide-comment',
+    message: 'このコメントを非表示にしますか？',
+    method: :post,
+    btn_text: '非表示にする',
+    btn_class: 'finally-hide-comment',
+    link_id: 'js-hide-comment-link',
+    no_action_text: '戻る' %>
+
+<%# 4. 通報用モーダル %>
+<%= render 'partial_template/final_action_modal', 
+    modal_class: 'report-comment',
+    message: 'このコメントを不適切な内容として通報しますか？',
+    method: :post,
+    btn_text: '通報する',
+    btn_class: 'finally-report-comment',
+    link_id: 'js-report-comment-link',
+    no_action_text: 'キャンセル' %>
 
 <%= render 'partial_template/return_btn' %>
 

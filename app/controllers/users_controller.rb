@@ -3,7 +3,8 @@ class UsersController < ApplicationController
   skip_before_action :authenticate_user!, only: [:cancel_completion]
   before_action :set_user, except: [:cancel_completion]
   # show以外は本人しかアクセスできないようにする
-  before_action :ensure_correct_user, only: %i[show update destroy cancel]
+  before_action :ensure_correct_user,
+                only: %i[show edit_profile edit_email edit_password update destroy cancel cancel_completion]
 
   def show
     @my_books = @user.books.order(created_at: :desc)

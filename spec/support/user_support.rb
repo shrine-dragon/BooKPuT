@@ -25,6 +25,13 @@ module UserSupport
     expect(page).to have_selector(".modal.#{selector_type}", visible: true)
   end
 
+  def close_modal(selector_type, _header_menu_text, not_modal_selector)
+    # モーダル以外の部分にカーソルを置く
+    find(not_modal_selector).hover
+    # モーダルが非表示になってしまうことを確認する
+    expect(page).to have_no_selector(".modal.#{selector_type}", wait: 5)
+  end
+
   def visit_sign_up_page
     # 新規登録用モーダルに｢メールアドレスでアカウント作成｣のボタンがあることを確認する
     expect(page).to have_content('メールアドレスでアカウント作成')
@@ -34,22 +41,6 @@ module UserSupport
     # 新規登録ページに遷移したことを確認する
     expect(page).to have_current_path(new_user_registration_path)
     expect(page).to have_content '新規登録フォーム'
-  end
-
-  def scroll_display(selector_or_text)
-    # セレクタ（#や.）でなければテキストとして探す
-    element = if selector_or_text.start_with?('#', '.')
-                find(selector_or_text, wait: 10, visible: :all)
-              else
-                # text: selector_or_text を match: :first にするか、
-                # リンク内のテキストが含まれているものを探すように変更
-                find('a', text: selector_or_text, wait: 10, visible: :all)
-              end
-
-    execute_script('arguments[0].scrollIntoView({block: "center"});', element)
-    sleep 0.5
-    # 強制的にクリック
-    execute_script('arguments[0].click();', element)
   end
 
   def input_info_and_sign_up(provider)
@@ -165,7 +156,7 @@ module UserSupport
   end
 
   def log_in_and_show_modal
-    # 最初からログイン状態にし、トップページへ遷移する
+    # 最初からログイン状態にし、トップページに遷移する
     login_as(@user)
     visit root_path
 
@@ -222,7 +213,7 @@ module UserSupport
   end
 
   def click_btn_and_check_account_info
-    # 編集ボタンを押すとプロフィール編集ページへ遷移することを確認する
+    # 編集ボタンを押すとプロフィール編集ページに遷移することを確認する
     click_on('プロフィールを編集する')
     expect(page).to have_current_path(edit_profile_user_path(@user))
 
@@ -239,7 +230,7 @@ module UserSupport
   end
 
   def click_btn_and_check_email
-    # 変更ボタンを押すとメールアドレス変更ページへ遷移することを確認する
+    # 変更ボタンを押すとメールアドレス変更ページに遷移することを確認する
     click_on('メールアドレスを変更する')
     expect(page).to have_current_path(edit_email_user_path(@user))
 
@@ -250,7 +241,7 @@ module UserSupport
   end
 
   def click_btn_and_visit_edit_password_page
-    # 変更ボタンを押すとパスワード変更ページへ遷移することを確認する
+    # 変更ボタンを押すとパスワード変更ページに遷移することを確認する
     click_on('パスワードを変更する')
     expect(page).to have_current_path(edit_password_user_path(@user))
   end

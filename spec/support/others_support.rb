@@ -34,6 +34,8 @@ module OtherSupport
   def log_in_user_access_denied(path, no_exist_text)
     # ログインし、トップページへ移動する
     login_as(@user)
+    visit root_path
+    # URLを入力して、@userが移動できないpathへ直接アクセスしようとする
     visit path
     # トップページへ戻されていることを確認する
     expect(page).to have_current_path(root_path)
@@ -43,7 +45,7 @@ module OtherSupport
   def not_log_in_user_access_denied(path, no_exist_text)
     # トップページへ移動する
     visit root_path
-    # URLを入力して、未ログインユーザーが移動できないpathで直接アクセスしようとする
+    # URLを入力して、未ログインユーザーが移動できないpathへ直接アクセスしようとする
     visit path
     # トップページへ戻されていることを確認する
     expect(page).to have_current_path(root_path)
@@ -53,8 +55,24 @@ module OtherSupport
     expect(page).to have_selector('.modal.log-in')
   end
 
+  def scroll_display(selector_or_text)
+    # セレクタ（#や.）でなければテキストとして探す
+    element = if selector_or_text.start_with?('#', '.')
+                find(selector_or_text, wait: 10, visible: :all)
+              else
+                # text: selector_or_text を match: :first にするか、
+                # リンク内のテキストが含まれているものを探すように変更
+                find('a', text: selector_or_text, wait: 10, visible: :all)
+              end
+
+    execute_script('arguments[0].scrollIntoView({block: "center"});', element)
+    sleep 0.5
+    # 強制的にクリック
+    execute_script('arguments[0].click();', element)
+  end
+
   def visit_my_page
-    # ｢マイページ｣ボタンをクリックし、マイページへ遷移していることを確認する
+    # ｢マイページ｣ボタンをクリックし、マイページに遷移していることを確認する
     click_on('マイページ')
     expect(page).to have_current_path(user_path(@user), wait: 15)
   end
