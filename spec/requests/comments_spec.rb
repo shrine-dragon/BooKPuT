@@ -29,7 +29,7 @@ RSpec.describe 'Comments', type: :request do
         expect do
           post book_comments_path(book), params: { comment: { text: 'テスト' } }
         end.not_to change(Comment, :count)
-        
+         
         expect(response).to redirect_to(root_path) 
       end
     end
