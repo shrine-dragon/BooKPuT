@@ -1,52 +1,54 @@
-.book-cards.slick-slider{
-  display: block;
-  padding: 0;
-  margin: 0;
-}
-
-.book-cards {
-  &.is-sliding {
-    .book-card {
-      pointer-events: none !important;
-      opacity: 1 !important; // スライド中に薄くならないように固定      
-    }
-  }
-}
-
-// スライド中のガード
-.is-sliding .book-card {
-  pointer-events: none !important;
-}
-
+// 1. スライダー全体・状態管理（親要素）
 .book-cards {
   margin: 10px 15px; 
   outline: none;
   position: relative;
   display: flex;
   flex-direction: column;
+
+  &.slick-slider {
+    display: block;
+    padding: 0;
+    margin: 0;
+  }
+
+  // スライド中のガード（JSのis-slidingクラスと連動）
+  &.is-sliding {
+    .book-card {
+      pointer-events: none !important;
+      transform: scale(1) !important; 
+      transition: none !important;    
+      opacity: 1 !important;          
+    }
+  }
 }
 
+// 2. カード本体 & ホバーアニメーション（統合・修正版）
 .book-card {
+  display: block;
   height: 100%;
   position: relative;
-  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
-  display: block;
   backface-visibility: hidden;
   will-change: transform;
+  /* 👈 拡大（scale）はさせず、影や背景の変化だけを滑らかにする */
+  transition: box-shadow 0.3s ease, background-color 0.3s ease; 
+
+  // 🔥 JSでホバー判定（is-hovered）がついた時の挙動
   &.is-hovered {
-    transform: scale(1.1) !important;
-    z-index: 9999 !important;
-    height: 360px;
+    z-index: 10; /* 前後関係を手前に */
+
+    // ① 額縁（フレーム）の演出：サイズを変えずに立体感を出す
     .frame {
-      height: auto !important; /* 額縁も伸びる */
-      box-shadow: 0 15px 45px rgba(0,0,0,0.4);
-      padding-bottom: 15px; /* 下部に少し余裕を持たせる */
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3) !important;
+      background: #fcfcfc !important; 
     }
 
-    .info-area {
-      justify-content: flex-start; /* 中央寄せを解除して上詰めに */
+    // ② キラリと光るエフェクトを起動
+    .frame::before {
+      left: 150%;
     }
 
+    // ③ 隠れていた詳細情報（ハッシュタグやテキスト）を下部にすっと表示
     .hover-details {
       display: block !important;
       opacity: 1 !important;
@@ -58,23 +60,41 @@
   }
 }
 
-.is-sliding .book-card {
-  transform: scale(1) !important;
-  transition: none !important;
-}
-
+// ==========================================
+// 3. カードの内部コンポーネント（額縁・画像・情報）
+// ==========================================
 .frame {
+  display: flex;
+  flex-direction: column;
   height: 100%;
+  padding: 10px;
+  background: #FFF;
+  box-sizing: border-box;
   border: 12px solid;
   border-image: linear-gradient(to right bottom, #e0d9b6, #b4983a) 1;
   outline: 4px outset #efe9cc;
-  background: #FFF;
-  padding: 10px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  transition: all 0.3s ease; // 伸びる動きをスムーズに
-  overflow: visible !important;
+  position: relative; /* 光のエフェクトの基準位置 */
+  overflow: hidden !important; /* 👈 光が額縁の外にはみ出さないように今回はhiddenにする */
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+
+  // ✨ 【光のライティング・エフェクト仕込み】
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%; /* スタートは左側の見えない場所 */
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.5) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: skewX(-25deg); /* 斜めにする */
+    transition: left 0.6s ease; /* 光が通り過ぎるスピード */
+    pointer-events: none;
+  }
 }
 
 .card-content-wrapper {
@@ -85,63 +105,67 @@
 }
 
 .image-area {
-  flex-shrink: 0; /* 画像が潰れないように固定 */
   height: 350px;
   overflow: hidden;
+  flex-shrink: 0; 
+
   .book-posted-image, 
-  .book-posted-image.no-exist{
+  .book-posted-image.no-exist {
     width: 100%;
     height: 100%;
   }
 }
 
 .info-area {
-  flex-grow: 1; /* 残りのスペースを埋める */
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  background: #fff;
+  justify-content: center;
+  flex-grow: 1; 
   padding: 10px 0;
+  background: #fff;
   overflow: visible !important;
 }
 
+// ==========================================
+// 4. テキスト情報・タグ関連
+// ==========================================
 .title-plate {
+  max-width: 90%;
+  padding: 6px 8px;
   background: #f0f0f0;
   border: 1px solid #ccc;
-  padding: 6px 8px;
-  box-shadow: inset 1px 1px 2px rgba(0,0,0,0.1);
-  max-width: 90%;
+  box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .book-title {
+  display: block;
+  font-size: 18px;
   font-weight: bold;
   color: #333;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  display: block;
-  font-size: 18px;
 }
 
 .hover-details {
-  display: none; /* 念のため物理的に消しておく */
+  display: none; 
+  width: 100%;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+  position: relative !important;
   opacity: 0;
   visibility: hidden;
-  width: 100%;
-  border-top: 1px solid #eee;
-  padding-top: 10px;
   transform: translateY(-5px);
   transition: opacity 0.3s ease, transform 0.3s ease;
-  position: relative !important;
 }
 
 .category-tag {
+  display: block;
+  margin-bottom: 4px;
   color: #f93;
   font-size: 14px;
   font-weight: bold;
-  margin-bottom: 4px;
-  display: block;
 }
 
 .genre-hashtags-area {
@@ -157,16 +181,17 @@
 }
 
 .content-list {
-  list-style: none !important;
-  padding: 0;
   margin: 0;
+  padding: 0;
+  list-style: none !important;
+
   li {
+    max-width: 100%;
     font-size: 18px;
     font-weight: bold;
     line-height: 1.4;
-    white-space: nowrap;      /* 改行させない */
-    overflow: hidden;         /* はみ出しを隠す */
-    text-overflow: ellipsis;  /* 三点リーダーを表示 */
-    max-width: 100%;
+    white-space: nowrap;      
+    overflow: hidden;         
+    text-overflow: ellipsis;  
   }
 }
