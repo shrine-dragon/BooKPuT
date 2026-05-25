@@ -72,7 +72,7 @@
           <%= render "partial_template/error_messages", model: model, attribute: :category_id %>
         </div>
 
-        <div class="form-contents book-genre" id="genre-section" style="display: <%= model.category_id.present? && ![0, 10, 11, 12].include?(model.category_id) ? 'flex' : 'none' %>; flex-direction: column; align-items: center; margin: 0 auto;">
+        <div class="form-contents book-genre" id="genre-section" style="display: <%= model.category_id.present? && ![0, 10, 11].include?(model.category_id) ? 'flex' : 'none' %>; flex-direction: column; align-items: center; margin: 0 auto;">
           <div class="form-text">
             <label>本のジャンル(3つまで選択可・必須)</label>
           </div>
