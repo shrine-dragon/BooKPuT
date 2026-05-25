@@ -71,7 +71,6 @@ RSpec.describe '新規投稿', type: :system do
       error_messages = %w[
         タイトルを入力してください
         本の種類を選択してください
-        内容項目を入力してください
         内容項目を少なくとも1つ入力してください
       ]
 

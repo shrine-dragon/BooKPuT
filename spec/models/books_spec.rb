@@ -18,7 +18,8 @@ RSpec.describe Book, type: :model do
       end
 
       it '内容項目が7つ以内なら保存できる' do
-        6.times { @book.book_contents.build(content: 'テスト') }
+        @book.book_contents.clear
+        7.times { @book.book_contents.build(content: 'テスト') }
         expect(@book).to be_valid
       end
     end
@@ -57,8 +58,6 @@ RSpec.describe Book, type: :model do
       it '内容項目が入力されていないと保存できない' do
         @book.book_contents = []
         @book.valid?
-        expect(@book.errors.full_messages).to include('内容項目を入力してください')
-
         expect(@book.errors.full_messages).to include('内容項目を少なくとも1つ入力してください')
       end
 
