@@ -22,13 +22,6 @@ module BookSupport
     fill_in 'book_content_0', with: book_content.content
   end
 
-  def show_posted_contents
-    scroll_to(find('.card-content-wrapper'), align: :center)
-    # 投稿した画像とタイトルが表示されていることを確認する
-    expect(page).to have_selector('.book-posted-image', wait: 10)
-    expect(page).to have_content(book.title)
-  end
-
   def visit_book_path
     visit root_path
     # 既存の投稿の詳細ページに遷移する

@@ -20,7 +20,36 @@ RSpec.describe '新規投稿', type: :system do
       expect(page).to have_current_path(root_path)
       expect(page).to have_content('投稿しました')
 
-      show_posted_contents
+      latest_book = Book.last
+      target_card = find('.book-card')
+      scroll_to(target_card, align: :center)
+
+      # カードにカーソルを合わせる（ホバー状態にする）
+      target_card.hover
+
+      # 隠れている要素が表示されることを確認する
+      expect(page).to have_selector('.hover-details', wait: 5)
+
+      # 投稿した画像とタイトル、カテゴリーとジャンルが表示されていることを確認する
+      expect(page).to have_selector('.book-posted-image', wait: 10)
+      expect(page).to have_content(latest_book.title)
+      expect(page).to have_content(latest_book.category.name)
+      book.genres.each do |genre|
+        expect(page).to have_content(genre.name)
+      end
+
+      first_content = latest_book.book_contents.first.content
+
+      # 内容項目の内、「最初の1文字」が含まれていることを確認する
+      expect(page).to have_content(first_content[0])
+
+      # 内容項目は2行までしか表示されないことを確認する
+      if latest_book.book_contents.count > 2
+        expect(target_card).to have_selector('.content-list li', count: 3)
+        expect(target_card).to have_content('…')
+      else
+        expect(target_card).to have_selector('.content-list li', count: latest_book.book_contents.count)
+      end
     end
   end
 
