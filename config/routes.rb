@@ -37,6 +37,10 @@ Rails.application.routes.draw do
   end
 
   resources :books do
+    member do
+      post 'report'
+    end
+    
     resources :comments, only: %i[create edit update destroy] do
       member do
         post 'hide'
