@@ -3,12 +3,6 @@
 module OtherSupport
   extend ActiveSupport::Concern
 
-  included do
-    before do
-      @user = FactoryBot.create(:user)
-    end
-  end
-
   def image_test(file_name, image_text)
     # 任意項目である画像をアップロードできることを確認する
     image_path = Rails.root.join('spec/fixtures/' + file_name)
@@ -32,9 +26,6 @@ module OtherSupport
   end
 
   def log_in_user_access_denied(path, no_exist_text)
-    # ログインし、トップページへ移動する
-    login_as(@user)
-    visit root_path
     # URLを入力して、@userが移動できないpathへ直接アクセスしようとする
     visit path
     # トップページへ戻されていることを確認する
@@ -74,6 +65,6 @@ module OtherSupport
   def visit_my_page
     # ｢マイページ｣ボタンをクリックし、マイページに遷移していることを確認する
     click_on('マイページ')
-    expect(page).to have_current_path(user_path(@user), wait: 15)
+    expect(page).to have_current_path(user_path(user), wait: 15)
   end
 end

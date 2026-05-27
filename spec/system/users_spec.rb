@@ -4,26 +4,27 @@
 require 'rails_helper'
 
 RSpec.describe 'ユーザー新規登録', type: :system do
-  before do
-    @user = FactoryBot.build(:user)
-  end
-
+  let(:user) { FactoryBot.create(:user) }
+  
   context 'メールアドレスでユーザー新規登録ができる時' do
     it '正しい情報を入力すれば新規登録ができ、トップページに移動する' do
+      new_user = FactoryBot.build(:user)
       open_modal(:'sign-up', '新規登録')
       visit_sign_up_page
 
       # 必須事項を入力または選択する
-      fill_in 'nickname',   with: @user.nickname
-      fill_in 'birth_date', with: @user.birth_date.to_s
+      fill_in 'nickname',   with: new_user.nickname
+      fill_in 'birth_date', with: new_user.birth_date.to_s
       select  '男性', from: 'gender'
-      fill_in 'email',      with: @user.email
-      fill_in 'password',   with: @user.password
-      fill_in 'password_confirmation', with: @user.password_confirmation
+      fill_in 'email',      with: new_user.email
+      fill_in 'password',   with: new_user.password
+      fill_in 'password_confirmation', with: new_user.password_confirmation
 
       image_test('Zakky.png', 'user[image]')
 
-      toggle_password(@user.password, @user.password_confirmation)
+      toggle_password(new_user.password, new_user.password_confirmation)
+
+      allow(self).to receive(:user).and_return(new_user)
 
       submit_and_expect_success('.orange-submit-btn', 1, '登録が完了しました')
     end
@@ -72,28 +73,31 @@ RSpec.describe 'ユーザー新規登録', type: :system do
 
   ['Google', 'X(Twitter)', 'Facebook', 'LINE'].each do |sns|
     it "#{sns}連携後に必要な情報を入力すれば登録でき、トップページに移動する" do
-      # 1. プロバイダー名をシンボルに変換（google_oauth2, twitter, facebook, line）
+      # プロバイダー名をシンボルに変換（google_oauth2, twitter, facebook, line）
       provider = case sns
                  when 'Google'     then :google_oauth2
                  when 'X(Twitter)' then :twitter
                  else sns.downcase.to_sym
                  end
 
-      # 2. 以前の it ブロックに書いていた共通処理
       OmniAuth.config.mock_auth[provider] = nil
-      @user = FactoryBot.build(:user, password: nil, password_confirmation: nil)
+
+      # 完全なデータを1つのみ生成
+      valid_user = FactoryBot.build(:user)
+
+      allow(self).to receive(:user).and_return(valid_user)
 
       auth_hash = OmniAuth::AuthHash.new({
                                            provider: provider.to_s,
                                            uid: SecureRandom.uuid,
-                                           info: { nickname: @user.nickname, email: @user.email }
+                                           info: { nickname: valid_user.nickname, email: valid_user.email }
                                          })
       OmniAuth.config.mock_auth[provider] = auth_hash
 
       open_modal(:'sign-up', '新規登録')
       click_link sns
 
-      input_info_and_sign_up(provider.to_s)
+      input_info_and_sign_up(provider.to_s, valid_user)
       submit_and_expect_success('.orange-submit-btn', 1, '登録が完了しました')
     end
 
@@ -116,18 +120,16 @@ RSpec.describe 'ユーザー新規登録', type: :system do
 end
 
 RSpec.describe 'ログイン', type: :system do
-  before do
-    @user = FactoryBot.create(:user)
-  end
+  let!(:user) { FactoryBot.create(:user) }
 
   context 'メールアドレスでログインができる時' do
     it '正しい情報を入力すればログインでき、トップページに移動する' do
       open_modal(:'log-in', 'ログイン')
       # 必須事項を入力する
-      fill_in 'email',      with: @user.email
-      fill_in 'password',   with: @user.password
+      fill_in 'email',      with: user.email
+      fill_in 'password',   with: user.password
 
-      toggle_password(@user.password, @user.password_confirmation)
+      toggle_password(user.password, user.password_confirmation)
 
       submit_and_expect_success('.log-in-submit-btn', 0, 'ログインしました')
     end
@@ -150,7 +152,7 @@ RSpec.describe 'ログイン', type: :system do
     it '入力情報が登録情報と異なる状態でボタンを押してもログインできず、エラーメッセージが表示される' do
       open_modal('log-in', 'ログイン')
       # 異なる情報を入力する
-      fill_in 'email',    with: "wrong_#{@user.email}"
+      fill_in 'email',    with: "wrong_#{user.email}"
       fill_in 'password', with: 'wrong_password'
       click_btn_and_no_change
       expect(page).to have_content('メールアドレスまたはパスワードが違います')
@@ -190,9 +192,7 @@ RSpec.describe 'ログイン', type: :system do
 end
 
 RSpec.describe 'ログアウト', type: :system do
-  before do
-    @user = FactoryBot.create(:user)
-  end
+  let!(:user) { FactoryBot.create(:user) }
 
   context 'ログアウトができる時' do
     it 'ログインユーザーはモーダルからログアウトでき、トップページの表示が変わる' do
@@ -203,7 +203,7 @@ RSpec.describe 'ログアウト', type: :system do
       return_to_top_page_and_show_flash_message('ログアウトしました')
 
       # トップページにユーザーのニックネームが表示されていないことを確認する
-      expect(page).to have_no_content(@user.nickname)
+      expect(page).to have_no_content(user.nickname)
     end
   end
 
@@ -214,15 +214,13 @@ RSpec.describe 'ログアウト', type: :system do
 
     it 'モーダルを閉じてしまうとログアウトできない' do
       log_in_and_show_modal
-      close_modal(:'log-in-user', @user.nickname, '.header')
+      close_modal(:'log-in-user', user.nickname, '.header')
     end
   end
 end
 
 RSpec.describe 'パスワード変更', type: :system do
-  before do
-    @user = FactoryBot.create(:user)
-  end
+  let!(:user) { FactoryBot.create(:user) }
 
   context 'パスワードの変更ができる時' do
     it '未ログインの状態でパスワード再設定ページに遷移し、正しい情報を入力すればパスワードを変更できる' do
@@ -235,9 +233,9 @@ RSpec.describe 'パスワード変更', type: :system do
       expect(page).to have_field('email', wait: 5)
 
       # 登録済みのメールアドレスを入力する
-      fill_in 'email', with: @user.email
+      fill_in 'email', with: user.email
       # 入力されたメールアドレスが正しいか、送信前にチェックを入れる
-      expect(page).to have_field('email', with: @user.email, wait: 5)
+      expect(page).to have_field('email', with: user.email, wait: 5)
       click_on('送信する')
 
       # メール送信完了ページに遷移していることを確認する
@@ -271,16 +269,16 @@ RSpec.describe 'パスワード変更', type: :system do
       # トップページへ戻り、ログインできている（＝ニックネームがある）ことを確認する
       click_on 'トップページへ戻る'
       expect(page).to have_current_path(root_path)
-      expect(page).to have_selector('.user-nickname', text: @user.nickname, visible: false)
+      expect(page).to have_selector('.user-nickname', text: user.nickname, visible: false)
     end
   end
 
   context 'パスワードの変更ができない時' do
     it 'ログインユーザーはログインモーダル経由でパスワード再設定ページに遷移して、パスワードを変更できない' do
-      login_as(@user)
+      login_as(user)
       visit root_path
       # トップページにユーザーのニックネームが存在し、ログイン状態であることを確認する
-      expect(page).to have_selector('.user-nickname', text: @user.nickname, visible: false)
+      expect(page).to have_selector('.user-nickname', text: user.nickname, visible: false)
       # トップページに｢ログイン｣の文字がないことを確認する
       expect(page).to have_no_content('ログイン')
     end
@@ -338,9 +336,7 @@ RSpec.describe 'パスワード変更', type: :system do
 end
 
 RSpec.describe 'マイページ', type: :system do
-  before do
-    @user = FactoryBot.create(:user)
-  end
+  let!(:user) { FactoryBot.create(:user) }
 
   context 'マイページに遷移できる時' do
     it 'ログインユーザーはモーダルからマイページに遷移し、さまざまな情報を閲覧できる' do
@@ -357,7 +353,7 @@ RSpec.describe 'マイページ', type: :system do
   context 'マイページに遷移ができない時' do
     it 'モーダルを閉じてしまうとマイページに遷移できない' do
       log_in_and_show_modal
-      close_modal(:'log-in-user', @user.nickname, '.header')
+      close_modal(:'log-in-user', user.nickname, '.header')
     end
 
     it '未ログインユーザーはマイページに遷移して、アカウント情報やログイン情報を閲覧できない' do
@@ -405,7 +401,7 @@ RSpec.describe 'マイページ', type: :system do
       expect(page).to have_selector('#no-image')
       # 編集ボタンを押すとプロフィール編集ページに遷移することを確認する
       click_on('プロフィールを編集する')
-      expect(page).to have_current_path(edit_profile_user_path(@user))
+      expect(page).to have_current_path(edit_profile_user_path(user))
 
       # 画像を添付する
       image_path = Rails.root.join('spec/fixtures/Zakky.png')
@@ -423,7 +419,7 @@ RSpec.describe 'マイページ', type: :system do
     it '設定済みのプロフィール画像を削除してデフォルトに戻すことができる' do
       # あらかじめ画像を持たせた状態でテストを開始する
       image_path = Rails.root.join('spec/fixtures/Zakky.png')
-      @user.image.attach(io: File.open(image_path), filename: 'Zakky.png')
+      user.image.attach(io: File.open(image_path), filename: 'Zakky.png')
 
       log_in_and_visit_my_page
 
@@ -433,7 +429,7 @@ RSpec.describe 'マイページ', type: :system do
 
       # 編集ボタンを押すとプロフィール編集ページに遷移することを確認する
       click_on('プロフィールを編集する')
-      expect(page).to have_current_path(edit_profile_user_path(@user))
+      expect(page).to have_current_path(edit_profile_user_path(user))
 
       # 削除ボタンを押すとプレビューが消えることを確認する
       find('.delete-image-btn', text: '削除').click
@@ -457,7 +453,7 @@ RSpec.describe 'マイページ', type: :system do
       # 更新ボタンを押す
       click_on('更新する')
       # エラーメッセージが表示され、編集ページに戻されることを確認する
-      expect(page).to have_current_path(user_path(@user))
+      expect(page).to have_current_path(user_path(user))
       expect(page).to have_content('ニックネームを入力してください')
       expect(page).to have_content('ニックネームを3文字以上で入力してください')
       expect(page).to have_content('生年月日を入力してください')
@@ -481,7 +477,7 @@ RSpec.describe 'マイページ', type: :system do
   end
 
   context 'メールアドレスを変更できる時' do
-    it '@を含んだメールアドレスを入力していれば変更できる' do
+    it 'を含んだメールアドレスを入力していれば変更できる' do
       log_in_and_visit_my_page
       show_log_in_info
       click_btn_and_check_email
@@ -505,7 +501,7 @@ RSpec.describe 'マイページ', type: :system do
       fill_in 'email', with: ''
       click_on('変更する')
       # エラーメッセージが表示され、編集ページに戻されることを確認する
-      expect(page).to have_current_path(user_path(@user))
+      expect(page).to have_current_path(user_path(user))
       expect(page).to have_content('メールアドレスを入力してください')
       expect(page).to have_content('メールアドレスは不正な形式です')
       # 編集画面の項目がまだ存在することを確認する
@@ -557,7 +553,7 @@ RSpec.describe 'マイページ', type: :system do
       click_on '変更する'
 
       # マイページに遷移せず、エラーメッセージが表示されていることを確認する
-      expect(page).to have_current_path(user_path(@user), wait: 10)
+      expect(page).to have_current_path(user_path(user), wait: 10)
       expect(page).to have_selector('.error-item', text: 'パスワードを入力してください')
       # 編集画面の項目がまだ存在することを確認する
       expect(page).to have_content('新しいパスワード(必須)')
@@ -581,7 +577,7 @@ RSpec.describe 'マイページ', type: :system do
       click_on '変更する'
 
       # パスワード変更完了ページに遷移せず、エラーメッセージが表示されていることを確認する
-      expect(page).to have_current_path(user_path(@user), wait: 10)
+      expect(page).to have_current_path(user_path(user), wait: 10)
       expect(page).to have_selector('.error-item', text: 'パスワード（確認用）とパスワードが一致しません')
       # 編集画面の項目がまだ存在することを確認する
       expect(page).to have_content('新しいパスワード(必須)')
@@ -607,7 +603,7 @@ RSpec.describe 'マイページ', type: :system do
       expect(page).to have_content('アカウントを解約する')
       # ボタンを押し、アカウント解約ページに遷移していることを確認する
       click_on('アカウントを解約する')
-      expect(page).to have_current_path(cancel_user_path(@user), wait: 10)
+      expect(page).to have_current_path(cancel_user_path(user), wait: 10)
       expect(page).to have_content('アカウント解約')
 
       # アカウント解約ページに最初の解約ボタンがあることを確認する
@@ -630,7 +626,7 @@ RSpec.describe 'マイページ', type: :system do
       expect(page).to have_current_path(root_path)
       expect(page).to have_selector('.log-in-menu-text', text: 'ログイン', visible: false)
       expect(page).to have_content('新規登録')
-      expect(page).to have_no_content(@user.nickname)
+      expect(page).to have_no_content(user.nickname)
     end
   end
 
@@ -649,8 +645,8 @@ RSpec.describe 'マイページ', type: :system do
 
     it 'ユーザー本人であっても｢利用を継続する｣ボタンを押すとトップページに遷移し、アカウントを解約できない' do
       # ログインし、直接アカウント解約ページに遷移する
-      login_as(@user)
-      visit cancel_user_path(@user)
+      login_as(user)
+      visit cancel_user_path(user)
 
       # ｢利用を継続する｣ボタンを押す
 

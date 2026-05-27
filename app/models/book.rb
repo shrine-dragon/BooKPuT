@@ -20,11 +20,9 @@ class Book < ApplicationRecord
   validates :title, presence: true, length: { maximum: 100 }
   validates :category_id, presence: true, numericality: { other_than: 0, message: 'を選択してください' }
   validates :genre_ids, presence: { message: 'を選択してください' }
-  validates :book_contents, length: { minimum: 1, maximum: 7 }
 
   validate :genre_selection_limit
-
-  validate :at_least_one_content
+  validate :validate_book_contents_count
 
   before_validation :compact_book_contents
 
@@ -42,10 +40,15 @@ class Book < ApplicationRecord
     end
   end
 
-  def at_least_one_content
-    return unless book_contents.reject { |c| c.content.blank? || c.marked_for_destruction? }.empty?
+  def validate_book_contents_count
+    # 空白ではなく、かつ削除対象（_destroy=1）になっていない有効なコンテンツだけを抽出
+    valid_contents = book_contents.reject { |c| c.content.blank? || c.marked_for_destruction? }
 
-    errors.add(:book_contents, 'を少なくとも1つ入力してください')
+    if valid_contents.empty?
+      errors.add(:book_contents, 'を少なくとも1つ入力してください')
+    elsif valid_contents.length > 7
+      errors.add(:book_contents, 'を7項目以内で入力してください')
+    end
   end
 
   def compact_book_contents

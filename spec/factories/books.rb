@@ -25,7 +25,7 @@ FactoryBot.define do
       # まだ内容項目がない場合のみ、7つ作成する
       if book.book_contents.empty?
         7.times do |i|
-          book.book_contents << build(:book_content, content: "#{i + 1}番目の内容項目", book: book)
+          book.book_contents.build(content: "#{i + 1}番目の内容項目")
         end
       end
     end

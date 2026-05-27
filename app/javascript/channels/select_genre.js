@@ -15,7 +15,6 @@ document.addEventListener('turbolinks:load', () => {
       genreSection.style.display = 'none';
       // 手動でカテゴリーを変えた時だけチェックを消す
       if (!isInitialLoad) clearAllChecks();
- n
     } else {
       genreSection.style.display = 'flex';
       
@@ -43,7 +42,7 @@ document.addEventListener('turbolinks:load', () => {
     // 今回クリックされた要素（イベントが発生した場合のみ）
     const target = e ? e.target : null;
 
-    // 「その他(900)」「回答しない(901)」のID定義
+    // 「回答しない(901)」のID定義
     const exclusiveIds = ['901'];
 
     // もし今回クリックされたのが排他項目（回答しない等）で、かつチェックを入れた場合
@@ -73,8 +72,7 @@ document.addEventListener('turbolinks:load', () => {
       // スタイル反映
       const parent = cb.parentElement;
       if (cb.disabled) {
-        // 「その他(900)」だけは無効時も不透明度を下げない
-        parent.style.opacity = (cb.value === '900') ? '1' : '0.5';
+        parent.style.opacity = '0.5';
         parent.style.pointerEvents = 'none';
       } else {
         parent.style.opacity = '1';
