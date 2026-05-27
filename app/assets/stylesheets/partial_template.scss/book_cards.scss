@@ -30,6 +30,8 @@
   position: relative;
   backface-visibility: hidden;
   will-change: transform;
+  padding-bottom: 60px;
+  box-sizing: border-box;
   /* 👈 拡大（scale）はさせず、影や背景の変化だけを滑らかにする */
   transition: box-shadow 0.3s ease, background-color 0.3s ease; 
 
@@ -156,8 +158,8 @@
   position: relative !important;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-5px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(5px);
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.3s;
 }
 
 .category-tag {
