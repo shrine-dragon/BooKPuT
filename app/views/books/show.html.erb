@@ -88,7 +88,11 @@
                   <span class="detail-right-btn-text">削除</span>
                 </li>
               <% else %>
-                <li class="detail-right-btn hovers" id='destroy-report-btn' data-url="<%= book_path(@book) %>">
+                <li class="detail-right-btn hovers js-report-post-trigger"
+                 id='destroy-report-btn'
+                 data-url="<%= report_book_path(@book) %>"
+                 data-book-id="<%= @book.id %>"
+                 data-reported="<%= ReportedBook.exists?(user_id: current_user.id, book_id: @book.id) %>">
                   <span class="detail-right-btn-text">通報</span>
                 </li>
               <% end %>

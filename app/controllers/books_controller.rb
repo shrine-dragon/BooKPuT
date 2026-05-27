@@ -70,8 +70,10 @@ class BooksController < ApplicationController
     if @report.new_record?
       @report.save
       @status = :created   # 初めての通報
+      @message = '投稿を通報しました'
     else
       @status = :exists    # 既に通報済み
+      @message = '通報済みの投稿です'
     end
 
     respond_to do |format|
