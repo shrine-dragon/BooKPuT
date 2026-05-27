@@ -89,7 +89,7 @@
                 </li>
               <% else %>
                 <li class="detail-right-btn hovers js-report-post-trigger"
-                 id='destroy-report-btn'
+                 id='report-post-btn'
                  data-url="<%= report_book_path(@book) %>"
                  data-book-id="<%= @book.id %>"
                  data-reported="<%= ReportedBook.exists?(user_id: current_user.id, book_id: @book.id) %>">
