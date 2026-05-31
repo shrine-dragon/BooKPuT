@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     member do
       post 'report'
     end
+    resources :book_goods, only: [:create, :destroy]
     
     resources :comments, only: %i[create edit update destroy] do
       member do
