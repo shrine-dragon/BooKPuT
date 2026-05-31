@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :sns_credentials,   dependent: :destroy
   has_many :books,             dependent: :destroy
   has_many :reported_books,    dependent: :destroy
+  has_many :book_goods,        dependent: :destroy
   has_many :comments,          dependent: :destroy
   has_many :hidden_comments,   dependent: :destroy
   has_many :reported_comments, dependent: :destroy
