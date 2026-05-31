@@ -99,8 +99,8 @@
             </ul>
             <ul class="reaction-icon-field">
               <% if user_signed_in? && current_user.id != @book.user_id %>
-                <li>
-                  <i class="fa-regular fa-thumbs-up hovers"></i>
+                <li id="good-<%= @book.id %>">
+                  <%= render 'partial_template/book_good_btn', book: @book %>
                 </li>
                 <li>
                   <i class="fa-regular fa-thumbs-down hovers"></i>
