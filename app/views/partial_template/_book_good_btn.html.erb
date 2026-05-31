@@ -1,9 +1,11 @@
 <% if BookGood.exists?(user_id: current_user.id, book_id: book.id) %>
     <%= link_to book_good_path(book), method: :delete, remote: true, class: "good-link" do %>
-    <i class="fa-solid fa-thumbs-up hovers" style="color: #ff9f00;"></i> <% end %>
+    <i class="fa-solid fa-thumbs-up hovers posted-book" style="color: #ff9f00;"></i> <% end %>
 <% else %>
   <%= link_to book_goods_path(book), method: :post, remote: true, class: "good-link" do %>
-    <i class="fa-regular fa-thumbs-up hovers"></i> <% end %>
+    <i class="fa-regular fa-thumbs-up hovers posted-book"></i> <% end %>
 <% end %>
 
-<span class="good-count"><%= book.book_goods.count %></span>
+<% unless book.book_goods.count == 0 %>
+  <span class="good-count"><%= book.book_goods.count %></span>
+<% end %>

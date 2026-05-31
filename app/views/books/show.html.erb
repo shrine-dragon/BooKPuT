@@ -79,26 +79,37 @@
       <div class="detail-right">
         <div class="detail-right-upper">
           <% if user_signed_in? %>
-            <ul class="detail-right-btn-field">
-              <% if current_user == @book.user %>
+            <% if current_user == @book.user %>
+              <ul class="detail-right-btn-field">
                 <li class="detail-right-btn hovers" id='post-edit-btn'>
                   <%= link_to "編集", edit_book_path(@book), class: 'detail-right-btn-text' %>
                 </li>
                 <li class="detail-right-btn hovers" id='destroy-post-btn' data-url="<%= book_path(@book) %>">
                   <span class="detail-right-btn-text">削除</span>
                 </li>
-              <% else %>
+              </ul>
+              <ul class="reaction-icon-field">
+                <li>
+                  <i class="fa-regular fa-thumbs-up posted-book disabled-icon"></i>
+                  <% unless @book.book_goods.count == 0 %>
+                    <span class="good-count"><%= @book.book_goods.count %></span>
+                  <% end %>
+                </li>
+                <li>
+                  <i class="fa-regular fa-thumbs-down disabled-icon"></i>
+                </li>
+              </ul>
+            <% else %>
+              <ul class="detail-right-btn-field">
                 <li class="detail-right-btn hovers js-report-post-trigger"
-                 id='report-post-btn'
-                 data-url="<%= report_book_path(@book) %>"
-                 data-book-id="<%= @book.id %>"
-                 data-reported="<%= ReportedBook.exists?(user_id: current_user.id, book_id: @book.id) %>">
+                id='report-post-btn'
+                data-url="<%= report_book_path(@book) %>"
+                data-book-id="<%= @book.id %>"
+                data-reported="<%= ReportedBook.exists?(user_id: current_user.id, book_id: @book.id) %>">
                   <span class="detail-right-btn-text">通報</span>
                 </li>
-              <% end %>
-            </ul>
-            <ul class="reaction-icon-field">
-              <% if user_signed_in? && current_user.id != @book.user_id %>
+              </ul>
+              <ul class="reaction-icon-field">
                 <li id="good-<%= @book.id %>">
                   <%= render 'partial_template/book_good_btn', book: @book %>
                 </li>
@@ -108,7 +119,20 @@
                 <li>
                   <i class="fa-regular fa-star hovers"></i>
                 </li>
-              <% end %>
+              </ul>
+            <% end %>
+            </ul>
+          <% else %>
+            <ul class="reaction-icon-field">
+              <li>
+                <i class="fa-regular fa-thumbs-up posted-book disabled-icon"></i>
+                <% unless @book.book_goods.count == 0 %>
+                  <span class="good-count"><%= @book.book_goods.count %></span>
+                <% end %>
+              </li>
+              <li>
+                <i class="fa-regular fa-thumbs-down disabled-icon"></i>
+              </li>
             </ul>
           <% end %>
         </div>
