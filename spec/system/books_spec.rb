@@ -538,4 +538,58 @@ RSpec.describe '投稿機能', type: :system do
       end
     end
   end
+
+  describe '投稿高評価' do
+    let!(:book)  { FactoryBot.create(:book, user: user1) }
+    let(:user)   { user1 }
+
+    context '投稿を高評価できる時' do
+      it 'book投稿者以外のログインユーザーは投稿を高評価できる' do
+        login_as user2
+        visit_book_path
+
+        # 投稿詳細ページに高評価ボタンが存在していることを確認する
+        expect(page).to have_selector('.fa-regular.fa-thumbs-up.hovers.posted-book', visible: true)
+
+        # 高評価ボタンを押すと、BookGoodモデルのカウントが1上がることを確認する
+        expect do
+          find('.fa-regular.fa-thumbs-up.hovers.posted-book').click
+          sleep 0.5
+        end.to change { BookGood.count }.by(1)
+
+        # 高評価済みであることと、高評価数が｢1｣と表示されていることを確認する
+        expect(page).to have_selector('.fa-solid.fa-thumbs-up.hovers.posted-book')
+        expect(page).to have_selector('.good-count', text: '1', wait: 5)
+
+        # マイページの高評価リストに高評価した投稿が追加されていることを確認する
+        # 未実装
+      end
+    end
+
+    context '投稿を高評価できない時' do
+      it '未ログインユーザーは投稿の高評価自体ができない' do
+        not_log_in_user
+        visit_book_path
+
+        # 高評価ボタン自体は存在するが、カーソルを合わせてもポインターにならないことを確認する
+        expect(page).to have_selector('.fa-regular.fa-thumbs-up.posted-book.disabled-icon')
+        expect(page).to have_no_selector('.fa-regular.fa-thumbs-up.hovers.posted-book')
+      end
+
+      it 'book投稿者本人は自身の投稿を高評価できない' do
+        login_as user1
+        visit_book_path
+
+        # 投稿詳細ページにuser1のニックネームが表示されていることを確認する
+        expect(page).to have_content(user1.nickname)
+        # 高評価ボタン自体は存在するが、カーソルを合わせてもポインターにならないことを確認する
+        expect(page).to have_selector('.fa-regular.fa-thumbs-up.posted-book.disabled-icon')
+        expect(page).to have_no_selector('.fa-regular.fa-thumbs-up.hovers.posted-book')
+      end
+
+      it '一度高評価しても低評価ボタンを押すと高評価は取り消されてしまう' do
+        
+      end
+    end
+  end
 end
