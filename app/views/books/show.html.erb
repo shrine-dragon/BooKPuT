@@ -98,7 +98,7 @@
               <% end %>
             </ul>
             <ul class="reaction-icon-field">
-              <% unless current_user == @book.user %>
+              <% if user_signed_in? && current_user.id != @book.user_id %>
                 <li>
                   <i class="fa-regular fa-thumbs-up hovers"></i>
                 </li>
