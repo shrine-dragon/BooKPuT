@@ -588,7 +588,7 @@ RSpec.describe '投稿機能', type: :system do
       end
 
       it '一度高評価しても低評価ボタンを押すと高評価は取り消されてしまう' do
-        
+        # 未実装
       end
     end
   end

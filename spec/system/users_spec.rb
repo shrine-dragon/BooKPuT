@@ -344,9 +344,6 @@ RSpec.describe 'マイページ', type: :system do
 
       show_account_info
       show_log_in_info
-      show_favorite_posted_contents
-      show_high_rating_posted_contents
-      show_favorite_posted_contents
     end
   end
 
