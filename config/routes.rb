@@ -52,6 +52,9 @@ Rails.application.routes.draw do
         post 'hide'
         post 'report'
       end
+
+      post 'comment_goods',   to: 'comment_goods#create',  as: :goods
+      delete 'comment_goods', to: 'comment_goods#destroy', as: :good
     end
   end
 end
