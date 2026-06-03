@@ -4,7 +4,9 @@ class BookBadsController < ApplicationController
 
   def create
     current_user.book_goods.find_by(book_id: @book.id)&.destroy
+
     @book_bad = BookBad.create(user_id: current_user.id, book_id: @book.id)
+    
     respond_to do |format|
       format.js
     end
@@ -13,6 +15,7 @@ class BookBadsController < ApplicationController
   def destroy
     @book_bad = BookBad.find_by(user_id: current_user.id, book_id: @book.id)
     @book_bad.destroy
+
     respond_to do |format|
       format.js
     end
