@@ -562,7 +562,15 @@ RSpec.describe '投稿機能', type: :system do
         expect(page).to have_selector('.good-count', text: '1', wait: 5)
 
         # マイページの高評価リストに高評価した投稿が追加されていることを確認する
-        # 未実装
+        visit user_path(user2)
+
+        scroll_to(find('.my-page-contents.good-books-list'), align: :center)
+
+        sleep 0.5
+
+        expect(page).to have_content('高評価リスト：1件')
+        expect(page).to have_selector('.book-posted-image')
+        expect(page).to have_content(book.title)
       end
     end
 
