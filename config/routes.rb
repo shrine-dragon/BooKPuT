@@ -40,8 +40,12 @@ Rails.application.routes.draw do
     member do
       post 'report'
     end
-    post 'book_goods', to: 'book_goods#create', as: :goods
+
+    post 'book_goods',   to: 'book_goods#create',  as: :goods
     delete 'book_goods', to: 'book_goods#destroy', as: :good
+
+    post 'book_bads',   to: 'book_bads#create',  as: :bads
+    delete 'book_bads', to: 'book_bads#destroy', as: :bad
     
     resources :comments, only: %i[create edit update destroy] do
       member do
