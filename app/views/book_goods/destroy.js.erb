@@ -1,1 +1,2 @@
 $('#good-<%= @book.id %>').html("<%= j(render 'partial_template/book_good_btn', book: @book) %>");
+$('#bad-<%= @book.id %>').html("<%= j(render 'partial_template/book_bad_btn', book: @book) %>");
