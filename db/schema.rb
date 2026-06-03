@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2026_05_31_001538) do
+ActiveRecord::Schema.define(version: 2026_06_03_021756) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -31,6 +31,16 @@ ActiveRecord::Schema.define(version: 2026_05_31_001538) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "book_bads", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "book_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_book_bads_on_book_id"
+    t.index ["user_id", "book_id"], name: "index_book_bads_on_user_id_and_book_id", unique: true
+    t.index ["user_id"], name: "index_book_bads_on_user_id"
   end
 
   create_table "book_contents", force: :cascade do |t|
@@ -129,6 +139,8 @@ ActiveRecord::Schema.define(version: 2026_05_31_001538) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "book_bads", "books"
+  add_foreign_key "book_bads", "users"
   add_foreign_key "book_contents", "books"
   add_foreign_key "book_goods", "books"
   add_foreign_key "book_goods", "users"
