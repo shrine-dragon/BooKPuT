@@ -30,9 +30,9 @@
     </p>
   </div>
   <div class="posted-comment-lower">
-    <ul class="posted-comment-btn-field">
-      <% if user_signed_in? %>
-        <% if current_user == comment.user %>
+    <% if user_signed_in? %>
+      <% if current_user == comment.user %>
+        <ul class="posted-comment-btn-field">
           <li class="posted-comment-btn-text hovers js-edit-comment-trigger" 
             data-url="<%= edit_book_comment_path(comment.book, comment) %>">
             編集
@@ -41,7 +41,11 @@
             data-url="<%= book_comment_path(comment.book, comment) %>">
             削除
           </li>
-        <% else %>
+          <li><i class="fa-regular fa-thumbs-up posted-comment disabled-icon"></i></li>
+          <li><i class="fa-regular fa-thumbs-down posted-comment disabled-icon"></i></li>
+        </ul>
+      <% else %>
+        <ul class="posted-comment-btn-field">
           <li class="posted-comment-btn-text hovers js-hide-comment-trigger"
             data-url="<%=  hide_book_comment_path(comment.book, comment) %>">
             非表示
@@ -52,10 +56,17 @@
               data-reported="<%= ReportedComment.exists?(user_id: current_user.id, comment_id: comment.id) %>">
             通報
           </li>
-          <i class="fa-regular fa-thumbs-up posted-comment hovers"></i>
-          <i class="fa-regular fa-thumbs-down posted-comment hovers"></i>
-        <% end %>
+          <li id="good-<%= comment.id %>">
+            <%= render 'partial_template/comment_good_btn', comment: comment %></li>
+          <li><i class="fa-regular fa-thumbs-down posted-comment hovers"></i></li>
+        </ul>
       <% end %>
+    <% else %>
+      <ul class="posted-comment-btn-field">
+        <li><i class="fa-regular fa-thumbs-up posted-comment disabled-icon"></i></li>
+        <li><i class="fa-regular fa-thumbs-down posted-comment disabled-icon"></i></li>
+      </ul>
+    <% end %>
     </ul>
   </div>
 </div>

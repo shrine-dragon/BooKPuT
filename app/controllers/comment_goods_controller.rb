@@ -21,7 +21,7 @@ class CommentGoodsController < ApplicationController
   private
 
   def set_comment
-    @comment = Comment.find(params[:id])
+    @comment = Comment.find(params[:comment_id])
   end
 
   def ensure_correct_user

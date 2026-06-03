@@ -5,7 +5,6 @@ class CreateCommentGoods < ActiveRecord::Migration[6.0]
       t.references :comment, null: false, foreign_key: true
       t.index [:user_id, :comment_id], unique: true
       t.timestamps
-      t.timestamps
     end
   end
 end

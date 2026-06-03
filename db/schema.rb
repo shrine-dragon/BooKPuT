@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2026_06_03_021756) do
+ActiveRecord::Schema.define(version: 2026_06_03_052037) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -70,6 +70,16 @@ ActiveRecord::Schema.define(version: 2026_06_03_021756) do
     t.integer "genre_id"
     t.json "genre_ids"
     t.index ["user_id"], name: "index_books_on_user_id"
+  end
+
+  create_table "comment_goods", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "comment_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["comment_id"], name: "index_comment_goods_on_comment_id"
+    t.index ["user_id", "comment_id"], name: "index_comment_goods_on_user_id_and_comment_id", unique: true
+    t.index ["user_id"], name: "index_comment_goods_on_user_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -145,6 +155,8 @@ ActiveRecord::Schema.define(version: 2026_06_03_021756) do
   add_foreign_key "book_goods", "books"
   add_foreign_key "book_goods", "users"
   add_foreign_key "books", "users"
+  add_foreign_key "comment_goods", "comments"
+  add_foreign_key "comment_goods", "users"
   add_foreign_key "comments", "books"
   add_foreign_key "comments", "users"
   add_foreign_key "hidden_comments", "comments"
