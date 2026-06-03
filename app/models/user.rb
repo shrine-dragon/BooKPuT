@@ -17,6 +17,7 @@ class User < ApplicationRecord
   has_many :reported_comments, dependent: :destroy
   has_many :comment_goods,     dependent: :destroy
   has_many :good_comments,     through:   :comment_goods, source: :comment
+  has_many :comment_bads,      dependent: :destroy
 
   after_validation :report_errors, if: -> { errors.any? }
 
