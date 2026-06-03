@@ -16,6 +16,14 @@
   padding: 0 60px 30px;
 }
 
+.book-post-list-heading h2{
+  text-align: center;
+  padding: 30px 0 15px;
+  font-weight: bold;
+  font-size: 25px;
+  color: orange;
+}
+
 .book-cards-container{
   width: 90%;
   margin: 0 auto;
@@ -37,14 +45,6 @@
   z-index: 1;
 }
 
-.book-post-list-heading h2{
-  text-align: center;
-  padding: 30px 0 15px;
-  font-weight: bold;
-  font-size: 25px;
-  color: orange;
-}
-
 .slick-prev, .slick-next{
   top: 35% !important;
   transform: translateY(-50%);
@@ -63,6 +63,22 @@
 .slick-prev:before, .slick-next:before {
   color: #333 !important;
   font-size: 30px;
+}
+
+.empty-message{
+  /* Flexboxを有効にする */
+  display: flex;
+  /* 上下左右中央揃え */
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+}
+
+.empty-message.top-page p{
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+  letter-spacing: 0.05em;
 }
 
 .app-description{

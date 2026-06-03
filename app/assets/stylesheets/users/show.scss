@@ -121,12 +121,13 @@
   justify-content: center;
   align-items: center;
   height: 300px;
-  p{
-    color: #888;
-    font-size: 1.1rem;
-    font-weight: bold;
-    letter-spacing: 0.05em;
-  }
+}
+
+.empty-message.my-page p{
+  color: #888;
+  font-size: 1.1rem;
+  font-weight: bold;
+  letter-spacing: 0.05em;
 }
 
 .account-cancellation{
