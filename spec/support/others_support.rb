@@ -68,14 +68,14 @@ module OtherSupport
     expect(page).to have_current_path(user_path(user), wait: 15)
   end
 
-  def cannot_click_valuation_btn(selector, model)
+  def cannot_click_valuation_btn(selector_name_one, selector_name_two, model)
     # ボタン自体は存在するが、カーソルを合わせてもポインターにならないことを確認する
-    expect(page).to have_selector(".fa-regular.fa-thumbs-#{selector}.posted-book.disabled-icon")
-    expect(page).to have_no_selector(".fa-regular.fa-thumbs-#{selector}.hovers.posted-book")
+    expect(page).to have_selector(".fa-regular.fa-thumbs-#{selector_name_one}.posted-#{selector_name_two}.disabled-icon")
+    expect(page).to have_no_selector(".fa-regular.fa-thumbs-#{selector_name_one}.hovers.posted-#{selector_name_two}")
 
     # ボタンを押してもモデルのカウントは変化しないことを確認する
     expect do
-      find(".fa-regular.fa-thumbs-#{selector}.posted-book.disabled-icon").click
+      find(".fa-regular.fa-thumbs-#{selector_name_one}.posted-#{selector_name_two}.disabled-icon").click
       sleep 0.5
     end.to change { model.count }.by(0)
   end

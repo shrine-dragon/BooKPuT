@@ -559,7 +559,7 @@ RSpec.describe '投稿機能', type: :system do
 
         # 高評価済みであることと、高評価数が｢1｣と表示されていることを確認する
         expect(page).to have_selector('.fa-solid.fa-thumbs-up.hovers.posted-book')
-        expect(page).to have_selector('.good-count', text: '1', wait: 5)
+        expect(page).to have_selector('.book-good-count', text: '1', wait: 5)
 
         # マイページの高評価リストに高評価した投稿が追加されていることを確認する
         visit user_path(user2)
@@ -579,7 +579,7 @@ RSpec.describe '投稿機能', type: :system do
         not_log_in_user
         visit_book_path
 
-        cannot_click_valuation_btn("up", BookGood)
+        cannot_click_valuation_btn("up", "book", BookGood)
       end
 
       it 'book投稿者本人は自身の投稿を高評価できない' do
@@ -589,7 +589,7 @@ RSpec.describe '投稿機能', type: :system do
         # 投稿詳細ページにuser1（book投稿者本人）のニックネームが表示されていることを確認する
         expect(page).to have_content(user1.nickname)
 
-        cannot_click_valuation_btn("up", BookGood)
+        cannot_click_valuation_btn("up", "book", BookGood)
       end
 
       it '一度高評価しても低評価ボタンを押すと高評価は取り消されてしまう' do
@@ -605,7 +605,7 @@ RSpec.describe '投稿機能', type: :system do
 
         # 高評価済みであることと、高評価数が｢1｣と表示されていることを確認する
         expect(page).to have_selector('.fa-solid.fa-thumbs-up.hovers.posted-book')
-        expect(page).to have_selector('.good-count', text: '1', wait: 5)
+        expect(page).to have_selector('.book-good-count', text: '1', wait: 5)
 
         expect(page).to have_selector('.fa-regular.fa-thumbs-down.hovers.posted-book', visible: true)
 
@@ -617,7 +617,7 @@ RSpec.describe '投稿機能', type: :system do
 
         # 高評価が取り消され、高評価数が非表示になっていることを確認する
         expect(page).to have_no_selector('.fa-solid.fa-thumbs-up.hovers.posted-book')
-        expect(page).to have_no_selector('.good-count')
+        expect(page).to have_no_selector('.book-good-count')
       end
     end
   end
@@ -650,7 +650,7 @@ RSpec.describe '投稿機能', type: :system do
         not_log_in_user
         visit_book_path
 
-        cannot_click_valuation_btn("down", BookBad)
+        cannot_click_valuation_btn("down", "book", BookBad)
       end
 
       it 'book投稿者本人は自身の投稿を低評価できない' do
@@ -659,7 +659,7 @@ RSpec.describe '投稿機能', type: :system do
 
         # 投稿詳細ページにuser1（book投稿者本人）のニックネームが表示されていることを確認する
         expect(page).to have_content(user1.nickname)
-        cannot_click_valuation_btn("down", BookBad)
+        cannot_click_valuation_btn("down", "book", BookBad)
       end
 
       it '一度低評価しても高評価ボタンを押すと低評価は取り消されてしまう' do

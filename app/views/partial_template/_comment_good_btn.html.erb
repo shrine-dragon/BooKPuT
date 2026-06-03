@@ -1,0 +1,13 @@
+<% if CommentGood.exists?(user_id: current_user.id, comment_id: comment.id) %>
+  <%= link_to book_comment_good_path(@book, comment), method: :delete, remote: true, class: "good-link" do %>
+    <i class="fa-solid fa-thumbs-up hovers posted-comment" style="color: #ff9f00;"></i>
+  <% end %>
+<% else %>
+  <%= link_to book_comment_goods_path(@book, comment), method: :post, remote: true, class: "good-link" do %>
+    <i class="fa-regular fa-thumbs-up hovers posted-comment"></i>
+  <% end %>
+<% end %>
+
+<% unless comment.comment_goods.count == 0 %>
+  <span class="comment-good-count"><%= comment.comment_goods.count %></span>
+<% end %>

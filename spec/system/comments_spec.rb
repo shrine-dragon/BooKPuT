@@ -350,6 +350,58 @@ RSpec.describe 'コメント機能', type: :system do
     end
   end
 
+  describe 'コメント高評価' do
+    let!(:book)     { FactoryBot.create(:book, user: user1) }
+    let!(:comment)  { FactoryBot.create(:comment, user: user2, book: book) }
+
+    context 'コメントを高評価できる時' do
+      it 'コメント投稿者以外のログインユーザーは投稿を高評価できる' do
+        login_as user3
+        visit_book_path
+
+        scroll_to(find('.posted-comment-upper'), align: :center)
+
+        check_comment_info
+
+        # 投稿詳細ページにコメントの高評価ボタンが存在していることを確認する
+        expect(page).to have_selector('.fa-regular.fa-thumbs-up.hovers.posted-comment', visible: true)
+
+        # 高評価ボタンを押すと、BookGoodモデルのカウントが1上がることを確認する
+        expect do
+          find('.fa-regular.fa-thumbs-up.hovers.posted-comment').click
+          sleep 0.5
+        end.to change { CommentGood.count }.by(1)
+
+        # 高評価済みであることと、高評価数が｢1｣と表示されていることを確認する
+        expect(page).to have_selector('.fa-solid.fa-thumbs-up.hovers.posted-comment')
+        expect(page).to have_selector('.comment-good-count', text: '1', wait: 5)
+      end
+    end
+
+    context 'コメントを高評価できない時' do
+      it '未ログインユーザーはコメントの高評価自体ができない' do
+        not_log_in_user
+        visit_book_path
+        check_comment_info
+
+        cannot_click_valuation_btn("up", "comment", CommentGood)
+      end
+
+      it 'コメント投稿者本人は自身のコメントを高評価できない' do
+        login_as user2
+        visit_book_path
+        # 投稿済のコメントの中にuser2（コメント投稿者本人）のニックネームが表示されていることを確認する
+        expect(page).to have_content(user2.nickname)
+
+        cannot_click_valuation_btn("up", "comment", CommentGood)
+      end
+
+      it '一度コメントを高評価しても、低評価ボタンを押すとコメントの高評価は取り消されてしまう' do
+        
+      end
+    end
+  end
+
   describe 'その他' do
     context 'コメントの一部表示・非表示機能' do
       it 'コメントが10件以下の場合、｢もっと見る｣ボタンが表示されない' do
