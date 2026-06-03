@@ -31,14 +31,4 @@ module BookSupport
     expect(page).to have_current_path(book_path(book))
     expect(page).to have_content('投稿詳細')
   end
-
-  def show_high_rating_posted_contents
-    # 高評価した投稿内容が保存されていることを確認する
-    # 未実装
-  end
-
-  def show_favorite_posted_contents
-    # お気に入りに追加した投稿内容が保存されていることを確認する
-    # 未実装
-  end
 end
