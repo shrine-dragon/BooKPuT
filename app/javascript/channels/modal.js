@@ -119,7 +119,7 @@ $(document).on(loadEvent, function() {
     $(".modal.final-action").fadeOut(200);
   });
 
-  // 投稿そのものの削除ボタン
+  // 投稿の削除ボタン
   $(document).on('click', '#destroy-post-btn', function() {
     const bookDeleteUrl = $(this).data('url'); 
     
@@ -129,6 +129,31 @@ $(document).on(loadEvent, function() {
 
     $("#modal-overlay").fadeIn(200);
     $modal.fadeIn(200);
+  });
+
+  // 投稿の通報ボタン
+  $(document).on('click', '.js-report-post-trigger', function(e) { // 💡 引数に e を追加
+    const $btn = $(this);
+    const isReported = $btn.attr('data-reported');
+
+    if (isReported === true || isReported === 'true') {
+      // 💡 他の `mouseover` や `click` イベントが連動して暴発するのをストップさせる
+      e.preventDefault();
+      e.stopPropagation();
+
+      // 【二度目以降】モーダルを出さずにメッセージだけ表示
+      $('#flash-container').html('<div class="flash-message alert">通報済みの投稿です</div>');
+      
+      if (typeof window.fadeOutFlash === 'function') {
+        window.fadeOutFlash();
+      }
+    } else {
+      // 【初めて】モーダルを表示する既存の処理
+      const reportUrl = $btn.data('url');
+      $('#js-report-post-link').attr('href', reportUrl);
+      $("#modal-overlay").fadeIn(200);
+      $('.modal.final-action.report-post').fadeIn(200);
+    }
   });
 
   // コメントの削除ボタン
@@ -154,11 +179,16 @@ $(document).on(loadEvent, function() {
   });
 
   // コメントの通報ボタン
-  $(document).on('click', '.js-report-comment-trigger', function() {
+  $(document).on('click', '.js-report-comment-trigger', function(e) { // 💡 引数 e を追加
     const $btn = $(this);
-    const isReported = $btn.attr('data-reported'); // 通報済みかチェック
+    // 💡 .data() に統一
+    const isReported = $btn.attr('data-reported');
 
-    if (isReported === 'true') {
+    if (isReported === true || isReported === 'true') {
+      // 💡 イベントの暴発を差し止める
+      e.preventDefault();
+      e.stopPropagation();
+
       // 【二度目以降】モーダルを出さずにメッセージだけ表示
       $('#flash-container').html('<div class="flash-message alert">通報済みのコメントです</div>');
       if (typeof window.fadeOutFlash === 'function') {
@@ -168,7 +198,7 @@ $(document).on(loadEvent, function() {
       // 【初めて】モーダルを表示する既存の処理
       const reportUrl = $btn.data('url');
       $('#js-report-comment-link').attr('href', reportUrl);
-      $('#modal-overlay').fadeIn(200);
+      $("#modal-overlay").fadeIn(200);
       $('.modal.final-action.report-comment').fadeIn(200);
     }
   });

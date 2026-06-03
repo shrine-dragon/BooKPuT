@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
-  before_action :set_book, only: %i[show edit update destroy]
+  before_action :set_book, only: %i[show edit update destroy report]
   before_action :ensure_correct_user, only: %i[edit update destroy]
 
   def index
@@ -62,6 +62,23 @@ class BooksController < ApplicationController
     return unless @book.destroy
 
     redirect_to root_path, notice: '投稿を削除しました'
+  end
+
+  def report
+    @report = ReportedBook.where(user_id: current_user.id, book_id: @book.id).first_or_initialize
+
+    if @report.new_record?
+      @report.save
+      @status = :created   # 初めての通報
+      @message = '投稿を通報しました'
+    else
+      @status = :exists    # 既に通報済み
+      @message = '通報済みの投稿です'
+    end
+
+    respond_to do |format|
+      format.js
+    end
   end
 
   private

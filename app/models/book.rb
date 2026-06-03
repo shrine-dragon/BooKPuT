@@ -14,7 +14,9 @@ class Book < ApplicationRecord
     Genre.where(id: genre_ids)
   end
 
-  has_many :book_contents, dependent: :destroy
+  has_many :book_contents,  dependent: :destroy
+  has_many :reported_books, dependent: :destroy
+  has_many :book_goods,     dependent: :destroy
   accepts_nested_attributes_for :book_contents, allow_destroy: true
 
   validates :title, presence: true, length: { maximum: 100 }

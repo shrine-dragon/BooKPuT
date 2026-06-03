@@ -338,7 +338,7 @@ RSpec.describe 'コメント機能', type: :system do
         expect(page).to have_no_selector('.js-report-comment-trigger', text: '通報')
       end
 
-      it 'コメント投稿者以外のログインユーザーでも｢通報する｣ボタン以外の要素を押すとモーダルは閉じてしまい、コメントを非表示にできない｣' do
+      it 'コメント投稿者以外のログインユーザーでも｢通報する｣ボタン以外の要素を押すとモーダルは閉じてしまい、コメントを通報できない｣' do
         [user1, user3].each do |one_user|
           login_as one_user
           visit_book_path

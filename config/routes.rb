@@ -37,6 +37,12 @@ Rails.application.routes.draw do
   end
 
   resources :books do
+    member do
+      post 'report'
+    end
+    post 'book_goods', to: 'book_goods#create', as: :goods
+    delete 'book_goods', to: 'book_goods#destroy', as: :good
+    
     resources :comments, only: %i[create edit update destroy] do
       member do
         post 'hide'

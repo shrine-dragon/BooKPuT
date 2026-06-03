@@ -79,24 +79,39 @@
       <div class="detail-right">
         <div class="detail-right-upper">
           <% if user_signed_in? %>
-            <ul class="detail-right-btn-field">
-              <% if current_user == @book.user %>
+            <% if current_user == @book.user %>
+              <ul class="detail-right-btn-field">
                 <li class="detail-right-btn hovers" id='post-edit-btn'>
                   <%= link_to "編集", edit_book_path(@book), class: 'detail-right-btn-text' %>
                 </li>
                 <li class="detail-right-btn hovers" id='destroy-post-btn' data-url="<%= book_path(@book) %>">
                   <span class="detail-right-btn-text">削除</span>
                 </li>
-              <% else %>
-                <li class="detail-right-btn hovers">
-                  <%= link_to "通報", root_path, class: 'detail-right-btn-text' %>
-                </li>
-              <% end %>
-            </ul>
-            <ul class="reaction-icon-field">
-              <% unless current_user == @book.user %>
+              </ul>
+              <ul class="reaction-icon-field">
                 <li>
-                  <i class="fa-regular fa-thumbs-up hovers"></i>
+                  <i class="fa-regular fa-thumbs-up posted-book disabled-icon"></i>
+                  <% unless @book.book_goods.count == 0 %>
+                    <span class="good-count"><%= @book.book_goods.count %></span>
+                  <% end %>
+                </li>
+                <li>
+                  <i class="fa-regular fa-thumbs-down disabled-icon"></i>
+                </li>
+              </ul>
+            <% else %>
+              <ul class="detail-right-btn-field">
+                <li class="detail-right-btn hovers js-report-post-trigger"
+                id='report-post-btn'
+                data-url="<%= report_book_path(@book) %>"
+                data-book-id="<%= @book.id %>"
+                data-reported="<%= ReportedBook.exists?(user_id: current_user.id, book_id: @book.id) %>">
+                  <span class="detail-right-btn-text">通報</span>
+                </li>
+              </ul>
+              <ul class="reaction-icon-field">
+                <li id="good-<%= @book.id %>">
+                  <%= render 'partial_template/book_good_btn', book: @book %>
                 </li>
                 <li>
                   <i class="fa-regular fa-thumbs-down hovers"></i>
@@ -104,7 +119,20 @@
                 <li>
                   <i class="fa-regular fa-star hovers"></i>
                 </li>
-              <% end %>
+              </ul>
+            <% end %>
+            </ul>
+          <% else %>
+            <ul class="reaction-icon-field">
+              <li>
+                <i class="fa-regular fa-thumbs-up posted-book disabled-icon"></i>
+                <% unless @book.book_goods.count == 0 %>
+                  <span class="good-count"><%= @book.book_goods.count %></span>
+                <% end %>
+              </li>
+              <li>
+                <i class="fa-regular fa-thumbs-down disabled-icon"></i>
+              </li>
             </ul>
           <% end %>
         </div>
@@ -172,7 +200,7 @@
 
 <div id="modal-overlay"></div>
 
-<%# 1. 投稿削除用モーダル %>
+<%# 投稿削除用モーダル %>
 <%= render 'partial_template/final_action_modal', 
     modal_class: 'destroy-post',
     message: 'この投稿を削除しますか？',
@@ -182,7 +210,17 @@
     link_id: 'js-destroy-post-link',
     no_action_text: '削除しない' %>
 
-<%# 2. コメント削除用モーダル %>
+<%# 投稿通報用モーダル %>
+<%= render 'partial_template/final_action_modal', 
+    modal_class: 'report-post',
+    message: 'この投稿を不適切な内容として通報しますか？',
+    method: :post,
+    btn_text: '通報する',
+    btn_class: 'finally-report-post',
+    link_id: 'js-report-post-link',
+    no_action_text: 'キャンセル' %>
+
+<%# コメント削除用モーダル %>
 <%= render 'partial_template/final_action_modal', 
     modal_class: 'destroy-comment',
     message: 'このコメントを削除しますか？',
@@ -192,7 +230,7 @@
     link_id: 'js-destroy-comment-link',
     no_action_text: '削除しない' %>
 
-<%# 3. 非表示用モーダル %>
+<%# コメント非表示用モーダル %>
 <%= render 'partial_template/final_action_modal', 
     modal_class: 'hide-comment',
     message: 'このコメントを非表示にしますか？',
@@ -202,7 +240,7 @@
     link_id: 'js-hide-comment-link',
     no_action_text: '戻る' %>
 
-<%# 4. 通報用モーダル %>
+<%# コメント通報用モーダル %>
 <%= render 'partial_template/final_action_modal', 
     modal_class: 'report-comment',
     message: 'このコメントを不適切な内容として通報しますか？',
