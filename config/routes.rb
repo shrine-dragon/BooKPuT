@@ -55,6 +55,9 @@ Rails.application.routes.draw do
 
       post 'comment_goods',   to: 'comment_goods#create',  as: :goods
       delete 'comment_goods', to: 'comment_goods#destroy', as: :good
+
+      post 'comment_bads',    to: 'comment_bads#create',  as: :bads
+      delete 'comment_bads',  to: 'comment_bads#destroy', as: :bad
     end
   end
 end
