@@ -96,7 +96,7 @@
                   <% end %>
                 </li>
                 <li>
-                  <i class="fa-regular fa-thumbs-down disabled-icon"></i>
+                  <i class="fa-regular fa-thumbs-down posted-book disabled-icon"></i>
                 </li>
               </ul>
             <% else %>
@@ -113,8 +113,8 @@
                 <li id="good-<%= @book.id %>">
                   <%= render 'partial_template/book_good_btn', book: @book %>
                 </li>
-                <li>
-                  <i class="fa-regular fa-thumbs-down hovers"></i>
+                <li id="bad-<%= @book.id %>">
+                  <%= render 'partial_template/book_bad_btn', book: @book %>
                 </li>
                 <li>
                   <i class="fa-regular fa-star hovers"></i>

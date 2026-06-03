@@ -540,8 +540,8 @@ RSpec.describe '投稿機能', type: :system do
   end
 
   describe '投稿高評価' do
-    let!(:book)  { FactoryBot.create(:book, user: user1) }
-    let(:user)   { user1 }
+    let!(:book)     { FactoryBot.create(:book, user: user1) }
+    let(:user)      { user1 }
 
     context '投稿を高評価できる時' do
       it 'book投稿者以外のログインユーザーは投稿を高評価できる' do
@@ -579,24 +579,113 @@ RSpec.describe '投稿機能', type: :system do
         not_log_in_user
         visit_book_path
 
-        # 高評価ボタン自体は存在するが、カーソルを合わせてもポインターにならないことを確認する
-        expect(page).to have_selector('.fa-regular.fa-thumbs-up.posted-book.disabled-icon')
-        expect(page).to have_no_selector('.fa-regular.fa-thumbs-up.hovers.posted-book')
+        cannot_click_valuation_btn("up", BookGood)
       end
 
       it 'book投稿者本人は自身の投稿を高評価できない' do
         login_as user1
         visit_book_path
 
-        # 投稿詳細ページにuser1のニックネームが表示されていることを確認する
+        # 投稿詳細ページにuser1（book投稿者本人）のニックネームが表示されていることを確認する
         expect(page).to have_content(user1.nickname)
-        # 高評価ボタン自体は存在するが、カーソルを合わせてもポインターにならないことを確認する
-        expect(page).to have_selector('.fa-regular.fa-thumbs-up.posted-book.disabled-icon')
-        expect(page).to have_no_selector('.fa-regular.fa-thumbs-up.hovers.posted-book')
+
+        cannot_click_valuation_btn("up", BookGood)
       end
 
       it '一度高評価しても低評価ボタンを押すと高評価は取り消されてしまう' do
-        # 未実装
+        book_good = FactoryBot.create(:book_good, user: user2, book: book)
+
+        login_as user2
+        visit_book_path
+
+        sleep 0.5
+
+        # 投稿詳細ページにuser1（book投稿者本人）のニックネームが表示されていることを確認する
+        expect(page).to have_content(user1.nickname)
+
+        # 高評価済みであることと、高評価数が｢1｣と表示されていることを確認する
+        expect(page).to have_selector('.fa-solid.fa-thumbs-up.hovers.posted-book')
+        expect(page).to have_selector('.good-count', text: '1', wait: 5)
+
+        expect(page).to have_selector('.fa-regular.fa-thumbs-down.hovers.posted-book', visible: true)
+
+        # 低評価ボタンを押すと、BookGoodモデルのカウントが1下がることを確認する
+        expect do
+          find('.fa-regular.fa-thumbs-down.hovers.posted-book').click
+          sleep 0.5
+        end.to change { BookGood.count }.by(-1)
+
+        # 高評価が取り消され、高評価数が非表示になっていることを確認する
+        expect(page).to have_no_selector('.fa-solid.fa-thumbs-up.hovers.posted-book')
+        expect(page).to have_no_selector('.good-count')
+      end
+    end
+  end
+
+  describe '投稿低評価' do
+    let!(:book)     { FactoryBot.create(:book, user: user1) }
+    let(:user)      { user1 }
+
+    context '投稿を低評価できる時' do
+      it 'book投稿者以外のログインユーザーは投稿を低評価できる' do
+        login_as user2
+        visit_book_path
+
+        # 投稿詳細ページに低評価ボタンが存在していることを確認する
+        expect(page).to have_selector('.fa-regular.fa-thumbs-down.hovers.posted-book', visible: true)
+
+        # 低評価ボタンを押すと、BookBadモデルのカウントが1上がることを確認する
+        expect do
+          find('.fa-regular.fa-thumbs-down.hovers.posted-book').click
+          sleep 0.5
+        end.to change { BookBad.count }.by(1)
+
+        # 低評価済みであることを確認する
+        expect(page).to have_selector('.fa-solid.fa-thumbs-down.hovers.posted-book')
+      end
+    end
+
+    context '投稿を低評価できない時' do
+      it '未ログインユーザーは投稿の低評価自体ができない' do
+        not_log_in_user
+        visit_book_path
+
+        cannot_click_valuation_btn("down", BookBad)
+      end
+
+      it 'book投稿者本人は自身の投稿を低評価できない' do
+        login_as user1
+        visit_book_path
+
+        # 投稿詳細ページにuser1（book投稿者本人）のニックネームが表示されていることを確認する
+        expect(page).to have_content(user1.nickname)
+        cannot_click_valuation_btn("down", BookBad)
+      end
+
+      it '一度低評価しても高評価ボタンを押すと低評価は取り消されてしまう' do
+        book_bad = FactoryBot.create(:book_bad, user: user2, book: book)
+
+        login_as user2
+        visit_book_path
+
+        sleep 0.5
+
+        # 投稿詳細ページにuser1（book投稿者本人）のニックネームが表示されていることを確認する
+        expect(page).to have_content(user1.nickname)
+
+        # 低評価済みであることとを確認する
+        expect(page).to have_selector('.fa-solid.fa-thumbs-down.hovers.posted-book')
+
+        expect(page).to have_selector('.fa-regular.fa-thumbs-up.hovers.posted-book', visible: true)
+
+        # 高評価ボタンを押すと、BookBadモデルのカウントが1下がることを確認する
+        expect do
+          find('.fa-regular.fa-thumbs-up.hovers.posted-book').click
+          sleep 0.5
+        end.to change { BookBad.count }.by(-1)
+
+        # 低評価が取り消されていることを確認する
+        expect(page).to have_no_selector('.fa-solid.fa-thumbs-down.hovers.posted-book')
       end
     end
   end

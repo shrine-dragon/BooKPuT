@@ -1,18 +1,18 @@
-class BookGoodsController < ApplicationController
+class BookBadsController < ApplicationController
   before_action :set_book
   before_action :ensure_correct_user
 
   def create
-    current_user.book_bads.find_by(book_id: @book.id)&.destroy
-    @book_good = BookGood.create(user_id: current_user.id, book_id: @book.id)
+    current_user.book_goods.find_by(book_id: @book.id)&.destroy
+    @book_bad = BookBad.create(user_id: current_user.id, book_id: @book.id)
     respond_to do |format|
       format.js
     end
   end
 
   def destroy
-    @book_good = BookGood.find_by(user_id: current_user.id, book_id: @book.id)
-    @book_good.destroy
+    @book_bad = BookBad.find_by(user_id: current_user.id, book_id: @book.id)
+    @book_bad.destroy
     respond_to do |format|
       format.js
     end
