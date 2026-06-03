@@ -11,9 +11,12 @@ class User < ApplicationRecord
   has_many :book_goods,        dependent: :destroy
   has_many :good_books,        through:   :book_goods, source: :book
   has_many :book_bads,         dependent: :destroy
+
   has_many :comments,          dependent: :destroy
   has_many :hidden_comments,   dependent: :destroy
   has_many :reported_comments, dependent: :destroy
+  has_many :comment_goods,     dependent: :destroy
+  has_many :good_comments,     through:   :comment_goods, source: :comment
 
   after_validation :report_errors, if: -> { errors.any? }
 
