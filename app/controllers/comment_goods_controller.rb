@@ -6,7 +6,8 @@ class CommentGoodsController < ApplicationController
   def create
     return if @comment.user_id == current_user.id
 
-    current_user.comment_bads.find_by(comment_id: @comment.id)&.destroy
+    @comment_bad = current_user.comment_bads.find_by(comment_id: @comment.id)
+    @comment_bad&.destroy
 
     @comment_good = CommentGood.create(user_id: current_user.id, comment_id: @comment.id)
     
@@ -18,8 +19,9 @@ class CommentGoodsController < ApplicationController
   def destroy
     return if @comment.user_id == current_user.id
 
-    @comment_good = CommentGood.find_by(user_id: current_user.id, comment_id: @comment.id)
-    
+    @comment_good = current_user.comment_goods.find_by(comment_id: @comment.id)
+    @comment_good&.destroy
+
     respond_to do |format|
       format.js
     end

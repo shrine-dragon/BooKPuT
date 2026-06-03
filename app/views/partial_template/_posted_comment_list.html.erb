@@ -64,8 +64,8 @@
             <%= render 'partial_template/comment_good_btn', comment: comment %>
           </li>
           
-          <li>
-            <i class="fa-regular fa-thumbs-down posted-comment disabled-icon"></i>
+          <li id="bad-<%= comment.id %>">
+            <%= render 'partial_template/comment_bad_btn', comment: comment %>
           </li>
         </ul>
       <% end %>
