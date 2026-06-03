@@ -92,7 +92,7 @@
                 <li>
                   <i class="fa-regular fa-thumbs-up posted-book disabled-icon"></i>
                   <% unless @book.book_goods.count == 0 %>
-                    <span class="good-count"><%= @book.book_goods.count %></span>
+                    <span class="book-good-count"><%= @book.book_goods.count %></span>
                   <% end %>
                 </li>
                 <li>
@@ -127,7 +127,7 @@
               <li>
                 <i class="fa-regular fa-thumbs-up posted-book disabled-icon"></i>
                 <% unless @book.book_goods.count == 0 %>
-                  <span class="good-count"><%= @book.book_goods.count %></span>
+                  <span class="book-good-count"><%= @book.book_goods.count %></span>
                 <% end %>
               </li>
               <li>
