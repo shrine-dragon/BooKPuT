@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 
   def show
     @my_books = @user.books.order(created_at: :desc)
+    @my_good_books = @user.good_books.order(created_at: :desc)
   end
 
   def edit_profile; end

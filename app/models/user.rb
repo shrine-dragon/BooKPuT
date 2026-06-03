@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :books,             dependent: :destroy
   has_many :reported_books,    dependent: :destroy
   has_many :book_goods,        dependent: :destroy
+  has_many :good_books,        through: :book_goods, source: :book
   has_many :comments,          dependent: :destroy
   has_many :hidden_comments,   dependent: :destroy
   has_many :reported_comments, dependent: :destroy
