@@ -618,6 +618,17 @@ RSpec.describe '投稿機能', type: :system do
         # 高評価が取り消され、高評価数が非表示になっていることを確認する
         expect(page).to have_no_selector('.fa-solid.fa-thumbs-up.hovers.posted-book')
         expect(page).to have_no_selector('.book-good-count')
+
+        # マイページの高評価リストに投稿が削除されていることを確認する
+        visit user_path(user2)
+        scroll_to(find('.my-page-contents.good-books-list'), align: :center)
+
+        sleep 0.5
+
+        expect(page).to have_content('高評価リスト：0件')
+        expect(page).to have_content('高評価した投稿はありません')
+        expect(page).to have_no_selector('.book-posted-image')
+        expect(page).to have_no_content(book.title)
       end
     end
   end
