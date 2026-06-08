@@ -3,14 +3,19 @@ class User < ApplicationRecord
   # アソシエーション
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :omniauthable, omniauth_providers: %i[twitter facebook google_oauth2 line]
+
   has_one_attached :image
   belongs_to_active_hash :gender
+
   has_many :sns_credentials,   dependent: :destroy
+
   has_many :books,             dependent: :destroy
   has_many :reported_books,    dependent: :destroy
   has_many :book_goods,        dependent: :destroy
   has_many :good_books,        through:   :book_goods, source: :book
   has_many :book_bads,         dependent: :destroy
+
+  has_many :favorites,         dependent: :destroy
 
   has_many :comments,          dependent: :destroy
   has_many :hidden_comments,   dependent: :destroy
@@ -19,14 +24,6 @@ class User < ApplicationRecord
   has_many :good_comments,     through:   :comment_goods, source: :comment
   has_many :comment_bads,      dependent: :destroy
 
-  after_validation :report_errors, if: -> { errors.any? }
-
-  def report_errors
-    puts '--- ❌ バリデーションエラーが発生しました ❌ ---'
-    p errors.full_messages
-  end
-
-  # バリデーション
   validates :password, presence: true, on: :create, unless: :sns_auth_process?
 
   validates :password, length: { minimum: 8, maximum: 20 },

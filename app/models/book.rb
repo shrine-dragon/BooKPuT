@@ -2,34 +2,35 @@ class Book < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
 
   belongs_to :user
-  belongs_to :category
+
+  validates :title, presence: true, length: { maximum: 100 }
+
   has_one_attached :image
   # attr_accessor：外部から変数を参照したり、変更したりできるようになる
   attr_accessor :remote_image_url
   attr_accessor :delete_image
 
+  belongs_to :category
+  validates :category_id, presence: true, numericality: { other_than: 0, message: 'を選択してください' }
+
   attribute :genre_ids, :json, default: []
+  validates :genre_ids, presence: { message: 'を選択してください' }
+  validate  :genre_selection_limit
 
   def genres
     Genre.where(id: genre_ids)
   end
 
   has_many :book_contents,  dependent: :destroy
+  validate :validate_book_contents_count
+  before_validation :compact_book_contents  
+  accepts_nested_attributes_for :book_contents, allow_destroy: true
+  
   has_many :reported_books, dependent: :destroy
   has_many :book_goods,     dependent: :destroy
   has_many :book_bads,      dependent: :destroy
-  accepts_nested_attributes_for :book_contents, allow_destroy: true
-
-  validates :title, presence: true, length: { maximum: 100 }
-  validates :category_id, presence: true, numericality: { other_than: 0, message: 'を選択してください' }
-  validates :genre_ids, presence: { message: 'を選択してください' }
-
-  validate :genre_selection_limit
-  validate :validate_book_contents_count
-
-  before_validation :compact_book_contents
-
-  has_many :comments, dependent: :destroy
+  has_many :favorites,      dependent: :destroy
+  has_many :comments,       dependent: :destroy
 
   private
 
