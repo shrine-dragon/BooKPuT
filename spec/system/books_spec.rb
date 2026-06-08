@@ -689,4 +689,95 @@ RSpec.describe '投稿機能', type: :system do
       end
     end
   end
+
+  describe '投稿お気に入り追加' do
+    let!(:book)     { FactoryBot.create(:book, user: user1) }
+    let(:user)      { user1 }
+    
+    context '投稿をお気に入りに追加できる時' do
+      it 'book投稿者以外のログインユーザーは他者の投稿をお気に入りに追加できる' do
+        login_as user2
+        visit_book_path
+
+        # 投稿詳細ページにお気に入りボタンが存在していることを確認する
+        expect(page).to have_selector('.fa-regular.fa-star.hovers', visible: true)
+
+        # お気に入りボタンを押すと、Favoriteモデルのカウントが1上がることを確認する
+        expect do
+          find('.fa-regular.fa-star.hovers').click
+          sleep 0.5
+        end.to change { Favorite.count }.by(1)
+
+        # お気に入りに追加済みであることを確認する
+        expect(page).to have_selector('.fa-solid.fa-star.hovers')
+
+        # マイページのお気に入りリストに投稿が追加されていることを確認する
+        visit user_path(user2)
+        scroll_to(find('.my-page-contents.favorite-books-list'), align: :center)
+
+        sleep 0.5
+
+        expect(page).to have_content('お気に入りリスト：1件')
+        expect(page).to have_selector('.book-posted-image')
+        expect(page).to have_content(book.title)
+      end
+    end
+
+    context '投稿をお気に入りに追加できない時' do
+      it '未ログインユーザーは投稿のお気に入り追加自体ができない' do
+        not_log_in_user
+        visit_book_path
+
+        # 投稿詳細ページにお気に入りボタン自体が存在していないことを確認する
+        expect(page).to have_no_selector(".fa-regular.fa-star.hovers")
+      end
+
+      it 'book投稿者本人は自身の投稿をお気に入りに追加できない' do
+        login_as user1
+        visit_book_path
+
+        # 投稿詳細ページにuser1（book投稿者本人）のニックネームが表示されていることを確認する
+        expect(page).to have_content(user1.nickname)
+
+        expect(page).to have_no_selector(".fa-regular.fa-star.hovers")
+      end
+
+      it '一度投稿をお気に入りに追加しても、再度お気に入りボタンを押すと取り消されてしまう' do
+        favorite = FactoryBot.create(:favorite, user: user2, book: book)
+
+        login_as user2
+        visit_book_path
+
+        sleep 0.5
+
+        # 投稿詳細ページにuser1（book投稿者本人）のニックネームが表示されていることを確認する
+        expect(page).to have_content(user1.nickname)
+
+        # お気に入りに追加済みであることを確認する
+        expect(page).to have_selector('.fa-solid.fa-star.hovers')
+
+        # 再度お気に入りボタンを押すと、Favoriteモデルのカウントが1下がることを確認する
+        expect do
+          find('.fa-solid.fa-star.hovers').click
+          sleep 0.5
+        end.to change { Favorite.count }.by(-1)
+
+        # お気に入り追加が取り消されていることを確認する
+        expect(page).to have_no_selector('fa-solid.fa-star.hovers')
+        sleep 0.5
+        expect(page).to have_selector('.fa-regular.fa-star.hovers', visible: true)
+
+        # マイページのお気に入りリストに投稿が削除されていることを確認する
+        visit user_path(user2)
+        scroll_to(find('.my-page-contents.favorite-books-list'), align: :center)
+
+        sleep 0.5
+
+        expect(page).to have_content('お気に入りリスト：0件')
+        expect(page).to have_content('お気に入りに追加した投稿はありません')
+        expect(page).to have_no_selector('.book-posted-image')
+        expect(page).to have_no_content(book.title)
+      end
+    end
+  end
 end

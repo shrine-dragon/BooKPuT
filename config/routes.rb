@@ -43,6 +43,8 @@ Rails.application.routes.draw do
 
     resources :book_goods, only: [:create, :destroy]
     resources :book_bads,  only: [:create, :destroy]
+
+    resources :favorites, only: [:create, :destroy]
     
     resources :comments, only: %i[create edit update destroy] do
       member do
@@ -50,8 +52,8 @@ Rails.application.routes.draw do
         post 'report'
       end
 
-      resources :comment_goods, only: [:create, :destroy]
-      resources :comment_bads, only:  [:create, :destroy]
+      resources :comment_goods, only:  [:create, :destroy]
+      resources :comment_bads,  only:  [:create, :destroy]
     end
   end
 end

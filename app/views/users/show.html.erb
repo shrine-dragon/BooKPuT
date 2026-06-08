@@ -95,11 +95,21 @@
 
       <div class="my-page-contents favorite-books-list">
         <h1 class="contents-heading">
-          お気に入りリスト：？件
+          お気に入りリスト：<%= @my_favorite_books.length %>件
         </h1>
-        <div class="empty-message my-page">
-          <p>お気に入りに追加した投稿はありません</p>
-        </div>
+        <% if @my_favorite_books.any? %>
+          <div class="book-post-images-container">
+            <ul class="book-post-images slick-slider">
+              <% @my_favorite_books.each do |favorite_book| %>
+                <%= render 'partial_template/book_cards', book: favorite_book, path_id: favorite_book.id, frame_color: 'white', is_mini: true %>
+              <% end %>
+            </ul>
+          </div>
+        <% else %>
+          <div class="empty-message my-page">
+            <p>お気に入りに追加した投稿はありません</p>
+          </div>
+        <% end %>
       </div>
       <div class="account-cancellation">
         <p id="underline-text"><%= link_to "アカウントを解約する", cancel_user_path(@user), class: "cancel-account-text" %></p>
