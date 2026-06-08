@@ -116,8 +116,8 @@
                 <li id="bad-<%= @book.id %>">
                   <%= render 'partial_template/book_bad_btn', book: @book %>
                 </li>
-                <li>
-                  <i class="fa-regular fa-star hovers"></i>
+                <li id="favorite-<%= @book.id %>">
+                  <%= render 'partial_template/favorite_btn', book: @book %>
                 </li>
               </ul>
             <% end %>

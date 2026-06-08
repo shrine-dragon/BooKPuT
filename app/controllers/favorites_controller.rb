@@ -1,9 +1,10 @@
 class FavoritesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_book
-  before_action :redirect_to_root_path
 
   def create
+    return if @book.user_id == current_user.id
+
     @favorite = Favorite.create(user_id: current_user.id, book_id: @book.id)
 
     respond_to do |format|
@@ -12,6 +13,8 @@ class FavoritesController < ApplicationController
   end
 
   def destroy
+    return if @book.user_id == current_user.id
+    
     @favorite = Favorite.find_by(user_id: current_user.id, book_id: @book.id)
     @favorite&.destroy
 
