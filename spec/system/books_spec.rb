@@ -55,6 +55,16 @@ RSpec.describe '投稿機能', type: :system do
         else
           expect(target_card).to have_selector('.content-list li', count: latest_book.book_contents.count)
         end
+
+        # マイページのマイ投稿内に投稿内容が存在していることを確認する
+        visit user_path(user)
+        scroll_to(find('.my-page-contents.books-list'), align: :center)
+
+        sleep 0.5
+
+        expect(page).to have_content('マイ投稿：1件')
+        expect(page).to have_selector('.book-posted-image')
+        expect(page).to have_content(book.title)
       end
     end
 
@@ -422,6 +432,17 @@ RSpec.describe '投稿機能', type: :system do
 
         # トップページに遷移し、投稿が削除されていることを確認する
         expect(page).to have_current_path(root_path)
+        expect(page).to have_no_selector('.book-posted-image')
+        expect(page).to have_no_content(book.title)
+
+        # マイページに遷移し、投稿が存在しないことを確認する
+        visit user_path(user)
+        scroll_to(find('.my-page-contents.books-list'), align: :center)
+
+        sleep 0.5
+
+        expect(page).to have_content('マイ投稿：0件')
+        expect(page).to have_content('投稿はありません')
         expect(page).to have_no_selector('.book-posted-image')
         expect(page).to have_no_content(book.title)
       end
