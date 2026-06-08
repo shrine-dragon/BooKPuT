@@ -19,7 +19,7 @@ class CommentBadsController < ApplicationController
     return if @comment.user_id == current_user.id
 
     @comment_bad = CommentBad.find_by(user_id: current_user.id, comment_id: @comment.id)
-    @comment_bad.destroy
+    @comment_bad&.destroy
     
     respond_to do |format|
       format.js

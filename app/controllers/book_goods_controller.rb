@@ -19,7 +19,7 @@ class BookGoodsController < ApplicationController
 
     @book_good = BookGood.find_by(user_id: current_user.id, book_id: @book.id)
 
-    @book_good.destroy
+    @book_good&.destroy
 
     respond_to do |format|
       format.js
