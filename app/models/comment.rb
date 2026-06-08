@@ -5,4 +5,5 @@ class Comment < ApplicationRecord
   has_many :hidden_comments,   dependent: :destroy
   has_many :reported_comments, dependent: :destroy
   has_many :comment_goods,     dependent: :destroy
+  has_many :comment_bads,      dependent: :destroy
 end

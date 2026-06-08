@@ -1,4 +1,4 @@
-class CommentGoodsController < ApplicationController
+class CommentBadsController < ApplicationController
   before_action :authenticate_user! 
   before_action :set_comment
   before_action :set_book
@@ -6,10 +6,9 @@ class CommentGoodsController < ApplicationController
   def create
     return if @comment.user_id == current_user.id
 
-    @comment_bad = current_user.comment_bads.find_by(comment_id: @comment.id)
-    @comment_bad&.destroy
+    current_user.comment_goods.find_by(comment_id: @comment.id)&.destroy
 
-    @comment_good = CommentGood.create(user_id: current_user.id, comment_id: @comment.id)
+    @comment_bad = CommentBad.create(user_id: current_user.id, comment_id: @comment.id)
     
     respond_to do |format|
       format.js
@@ -19,9 +18,9 @@ class CommentGoodsController < ApplicationController
   def destroy
     return if @comment.user_id == current_user.id
 
-    @comment_good = current_user.comment_goods.find_by(comment_id: @comment.id)
-    @comment_good&.destroy
-
+    @comment_bad = CommentBad.find_by(user_id: current_user.id, comment_id: @comment.id)
+    @comment_bad&.destroy
+    
     respond_to do |format|
       format.js
     end

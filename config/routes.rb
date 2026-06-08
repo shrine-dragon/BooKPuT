@@ -41,11 +41,8 @@ Rails.application.routes.draw do
       post 'report'
     end
 
-    post 'book_goods',   to: 'book_goods#create',  as: :goods
-    delete 'book_goods', to: 'book_goods#destroy', as: :good
-
-    post 'book_bads',   to: 'book_bads#create',  as: :bads
-    delete 'book_bads', to: 'book_bads#destroy', as: :bad
+    resources :book_goods, only: [:create, :destroy]
+    resources :book_bads,  only: [:create, :destroy]
     
     resources :comments, only: %i[create edit update destroy] do
       member do
@@ -53,8 +50,8 @@ Rails.application.routes.draw do
         post 'report'
       end
 
-      post 'comment_goods',   to: 'comment_goods#create',  as: :goods
-      delete 'comment_goods', to: 'comment_goods#destroy', as: :good
+      resources :comment_goods, only: [:create, :destroy]
+      resources :comment_bads, only:  [:create, :destroy]
     end
   end
 end

@@ -592,7 +592,7 @@ RSpec.describe '投稿機能', type: :system do
         cannot_click_valuation_btn("up", "book", BookGood)
       end
 
-      it '一度高評価しても低評価ボタンを押すと高評価は取り消されてしまう' do
+      it '一度投稿を高評価しても、低評価ボタンを押すとコメントの高評価は取り消されてしまう' do
         book_good = FactoryBot.create(:book_good, user: user2, book: book)
 
         login_as user2
@@ -662,7 +662,7 @@ RSpec.describe '投稿機能', type: :system do
         cannot_click_valuation_btn("down", "book", BookBad)
       end
 
-      it '一度低評価しても高評価ボタンを押すと低評価は取り消されてしまう' do
+      it '一度投稿を低評価しても、高評価ボタンを押すと投稿の低評価は取り消されてしまう' do
         book_bad = FactoryBot.create(:book_bad, user: user2, book: book)
 
         login_as user2

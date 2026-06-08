@@ -396,8 +396,100 @@ RSpec.describe 'コメント機能', type: :system do
         cannot_click_valuation_btn("up", "comment", CommentGood)
       end
 
-      it '一度コメントを高評価しても、低評価ボタンを押すとコメントの高評価は取り消されてしまう' do
-        
+      xit '一度コメントを高評価しても、低評価ボタンを押すとコメントの高評価は取り消されてしまう' do
+        comment_good = FactoryBot.create(:comment_good, user: user3, comment_id: comment.id)
+
+        login_as user3
+        visit_book_path
+
+        # 投稿詳細ページにuser3（コメントの高評価をした本人）のニックネームが表示されていることを確認する
+        expect(page).to have_content(user3.nickname)
+
+        expect(page).to have_selector('.fa-solid.fa-thumbs-up.hovers.posted-comment')
+        expect(page).to have_selector('.comment-good-count', text: '1', wait: 5)
+
+        expect(page).to have_selector('.fa-regular.fa-thumbs-down.hovers.posted-comment', visible: true)
+
+        # 1. 低評価ボタンをクリック
+        find('.fa-regular.fa-thumbs-down.hovers.posted-comment').click
+
+        # 2. 画面から高評価アイコンとカウントが消えるのを自動待機
+        expect(page).to have_no_selector('.fa-solid.fa-thumbs-up.hovers.posted-comment', wait: 5)
+        expect(page).to have_no_selector('.comment-good-count', wait: 5)
+
+        # 3. DBのカウントが減っているか確認
+        expect(CommentGood.count).to eq 0
+      end
+    end
+  end
+
+  describe 'コメント低評価' do
+    let!(:book)     { FactoryBot.create(:book, user: user1) }
+    let!(:comment)  { FactoryBot.create(:comment, user: user2, book: book) }
+
+    context 'コメントを低評価できる時' do
+      it 'コメント投稿者以外のログインユーザーは投稿を低評価できる' do
+        login_as user3
+        visit_book_path
+
+        scroll_to(find('.posted-comment-upper'), align: :center)
+
+        check_comment_info
+
+        # 投稿詳細ページにコメントの低評価ボタンが存在していることを確認する
+        expect(page).to have_selector('.fa-regular.fa-thumbs-down.hovers.posted-comment', visible: true)
+
+        # 低評価ボタンを押すと、BookBadモデルのカウントが1上がることを確認する
+        expect do
+          find('.fa-regular.fa-thumbs-down.hovers.posted-comment').click
+          sleep 0.5
+        end.to change { CommentBad.count }.by(1)
+
+        # 低評価済みであることを確認する
+        expect(page).to have_selector('.fa-solid.fa-thumbs-down.hovers.posted-comment')
+      end
+    end
+
+    context 'コメントを低評価できない時' do
+      it '未ログインユーザーはコメントの低評価自体ができない' do
+        not_log_in_user
+        visit_book_path
+        check_comment_info
+
+        cannot_click_valuation_btn("down", "comment", CommentBad)
+      end
+
+      it 'コメント投稿者本人は自身のコメントを低評価できない' do
+        login_as user2
+        visit_book_path
+        # 投稿済のコメントの中にuser2（コメント投稿者本人）のニックネームが表示されていることを確認する
+        expect(page).to have_content(user2.nickname)
+
+        cannot_click_valuation_btn("down", "comment", CommentBad)
+      end
+
+      xit '一度コメントを低評価しても、高評価ボタンを押すとコメントの低評価は取り消されてしまう' do
+        comment_bad = FactoryBot.create(:comment_bad, user: user3, comment_id: comment.id)
+
+        login_as user3
+        visit_book_path
+
+        # 投稿詳細ページにuser3（コメントの低評価をした本人）のニックネームが表示されていることを確認する
+        expect(page).to have_content(user3.nickname)
+
+        # 低評価済みであることとを確認する
+        expect(page).to have_selector('.fa-solid.fa-thumbs-down.hovers.posted-comment')
+        expect(page).to have_selector('.fa-regular.fa-thumbs-up.hovers.posted-comment', visible: true)
+
+        # まずボタンをクリックする（expectブロックの外に出す）
+        find('.fa-regular.fa-thumbs-up.hovers.posted-comment').click
+
+        # 【最重要】画面から低評価アイコンが消えるのを Capybara に「待たせる」
+        # これにより、Ajax通信 ➔ コントローラー処理 ➔ DB削除 ➔ JSでの画面書き換え が完了するまで自動で待機する
+        expect(page).to have_no_selector('.fa-solid.fa-thumbs-down.hovers.posted-comment', wait: 5)
+
+        # 画面の書き換え（＝DBの処理）が完全に終わった状態で、初めてカウントを確認する
+        expect(CommentBad.count).to eq 0
       end
     end
   end

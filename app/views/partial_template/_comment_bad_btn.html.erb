@@ -1,0 +1,10 @@
+<% if CommentBad.exists?(user_id: current_user.id, comment_id: comment.id) %>
+  <% current_comment_bad = comment.comment_bads.find_by(user_id: current_user.id) %>
+  <%= link_to book_comment_comment_bad_path(@book, comment, current_comment_bad), method: :delete, remote: true, class: "bad-link" do %>
+    <i class="fa-solid fa-thumbs-down hovers posted-comment" style="color: #ff9f00;"></i>
+  <% end %>
+<% else %>
+  <%= link_to book_comment_comment_bads_path(@book, comment), method: :post, remote: true, class: "bad-link" do %>
+    <i class="fa-regular fa-thumbs-down hovers posted-comment"></i>
+  <% end %>
+<% end %>
