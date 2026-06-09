@@ -4,7 +4,17 @@
       <%# indexはgolden、showはwhite %>
       <div class="frame <%= frame_color %>">
         <div class="card-content-wrapper">
-          <div class="image-area">
+          <div class="image-area" style="position: relative;">
+            <% if local_assigns[:badge_type] == 'good' %>
+              <div class="card-badge good">
+                <i class="fa-solid fa-thumbs-up" style="color: orange;"></i>
+              </div>
+            <% elsif local_assigns[:badge_type] == 'favorite' %>
+              <div class="card-badge favorite">
+                <i class="fa-solid fa-star" style="color: gold; filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.2));"></i>
+              </div>
+            <% end %>
+            
             <% if book.image.attached? %>
               <%= image_tag book.image, class: "book-posted-image" %>
             <% else %>
