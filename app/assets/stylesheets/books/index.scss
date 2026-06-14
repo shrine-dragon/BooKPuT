@@ -1,6 +1,7 @@
 .book-post-list {
   background-image: 
-  linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1)), asset-url("bookshelves.png");
+    linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    asset-url("bookshelves.png");
   background-size: cover;
   background-position: center; /* 中央に合わせると綺麗 */
   background-repeat: no-repeat;
@@ -52,16 +53,13 @@
 }
 
 .slick-prev {
-  left: -40px;
-}
-
-.slick-next {
-  right: -40px;
+  left: -45px !important;
 }
 
 .slick-prev:before, .slick-next:before {
-  color: #333 !important;
-  font-size: 30px;
+  color: orange !important;
+  font-size: 35px !important;
+  font-weight: bold;
 }
 
 .empty-message{
