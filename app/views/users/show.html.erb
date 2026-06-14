@@ -57,7 +57,7 @@
         </div>
       </div>
 
-      <div class="my-page-contents book-posts">
+      <div class="my-page-contents books-list">
         <h1 class="contents-heading">
           マイ投稿：<%= @my_books.length %>件
         </h1>
@@ -82,7 +82,7 @@
           <div class="book-post-images-container">
             <ul class="book-post-images slick-slider">
               <% @my_good_books.each do |good_book| %>
-                <%= render 'partial_template/book_cards', book: good_book, path_id: good_book.id, frame_color: 'white', is_mini: true %>
+                <%= render 'partial_template/book_cards', book: good_book, path_id: good_book.id, frame_color: 'white', is_mini: true, badge_type: 'good' %>
               <% end %>
             </ul>
           </div>
@@ -101,7 +101,7 @@
           <div class="book-post-images-container">
             <ul class="book-post-images slick-slider">
               <% @my_favorite_books.each do |favorite_book| %>
-                <%= render 'partial_template/book_cards', book: favorite_book, path_id: favorite_book.id, frame_color: 'white', is_mini: true %>
+                <%= render 'partial_template/book_cards', book: favorite_book, path_id: favorite_book.id, frame_color: 'white', is_mini: true, badge_type: 'favorite' %>
               <% end %>
             </ul>
           </div>

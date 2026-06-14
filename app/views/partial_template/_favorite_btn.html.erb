@@ -1,7 +1,7 @@
 <% if Favorite.exists?(user_id: current_user.id, book_id: book.id) %>
   <% current_favorite = book.favorites.find_by(user_id: current_user.id) %>
   <%= link_to book_favorite_path(book_id: book.id, id: current_favorite.id), method: :delete, remote: true, class: "favorite-link" do %>
-    <i class="fa-solid fa-star hovers" style="color: yellow;"></i>
+    <i class="fa-solid fa-star hovers" style="color: gold; filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.2));""></i>
   <% end %>
 <% else %>
   <%= link_to book_favorites_path(@book), method: :post, remote: true, class: "favorite-link" do %>
