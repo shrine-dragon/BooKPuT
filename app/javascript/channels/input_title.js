@@ -50,7 +50,15 @@ document.addEventListener('turbolinks:load', () => {
 
         sortedItems.forEach(item => {
           const info = item.volumeInfo;
-          const thumbnail = info.imageLinks.thumbnail.replace('http:', 'https:');
+          
+          /* 🔴 高画質化の処理を追加 */
+          // 1. https に置換
+          // 2. zoom=5 などの低画質指定を zoom=3 に強制上書き
+          // 3. 本のめくれエフェクト（&edge=curl）を除去
+          const thumbnail = info.imageLinks.thumbnail
+            .replace('http:', 'https:')
+            .replace(/zoom=\d/, 'zoom=3')
+            .replace('&edge=curl', '');
 
           const card = document.createElement('div');
           card.className = 'result-card';
@@ -62,6 +70,8 @@ document.addEventListener('turbolinks:load', () => {
           card.addEventListener('click', () => {
             const remoteField = document.getElementById('remote-image-url');
             const previewCont = document.getElementById('preview-image-container');
+            
+            /* 🔴 ここでセットされる thumbnail はすでに高画質化されています */
             if (remoteField) remoteField.value = thumbnail;
             if (previewCont) {
               previewCont.innerHTML = `
@@ -85,5 +95,45 @@ document.addEventListener('turbolinks:load', () => {
 
   document.getElementById('close-modal')?.addEventListener('click', () => {
     if (modal) modal.style.display = "none";
+  });
+});
+
+
+document.addEventListener('turbolinks:load', () => {
+  const fileInput = document.querySelector('.upload-image');
+  const previewContainer = document.getElementById('preview-image-container');
+
+  if (!fileInput || !previewContainer) return;
+
+  fileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    
+    // 選択されたら、Railsが出した「再選択メッセージ」をJSで消すとより親切
+    const msg = document.querySelector('.image-re-select-message');
+    if (msg) msg.style.display = 'none';
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        previewContainer.innerHTML = `
+          <div class="preview-image-wrapper">
+            <img src="${event.target.result}" class="preview-image">
+            <span class="delete-image-btn">削除</span>
+          </div>`;
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  previewContainer.addEventListener('click', (e) => {
+    console.log('画像のプレビュー')
+    if (e.target.classList.contains('delete-image-btn')) {
+      previewContainer.innerHTML = "";
+      fileInput.value = "";
+      
+      // もし削除フラグ（hidden_field）がある場合はここもリセット
+      const deleteFlag = document.getElementById('delete-image-flag');
+      if (deleteFlag) deleteFlag.value = '1'; 
+    }
   });
 });
