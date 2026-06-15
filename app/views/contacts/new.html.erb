@@ -1,37 +1,58 @@
 <%= render 'partial_template/header' %>
 
-<div class="contact-page">
-  <div class="static-page-wrapper">
-    <h1 class="static-page-heading">お問い合わせ</h1>
-
-    <div class="static-page-container">
-      <%= form_with url: contacts_path, local: true do |f| %>
-        
-        <div class="form-group">
-          <%= f.label :name, "氏名" %>
-          <%= f.text_field :name, required: true %>
+<%= form_with url: contacts_path, local: true, html: { novalidate: true } do |f| %>
+  <div class="contact-form">
+    <div class="form-wrapper contact">
+      <div class="form-heading">
+        お問い合わせ
+      </div>
+      <div class="form-container contact">
+        <div class="form-contents">
+          <div class="form-text">
+            <label>氏名(必須)</label>
+          </div>
+          <%= f.text_field :name, value: @name, class:"input-text", id:"name", required: true %>
+          <% if @errors && @errors[:name] %>
+            <p class="field-error-text"><%= @errors[:name] %></p>
+          <% end %>
         </div>
 
-        <div class="form-group">
-          <%= f.label :email, "メールアドレス(任意)" %>
-          <%= f.email_field :email %>
+        <div class="form-contents">
+          <div class="form-text">
+            <label>メールアドレス(必須)</label>
+          </div>
+          <%= f.email_field :email, value: @email, class:"input-text", id:"email", required: true %>
+          <% if @errors && @errors[:email] %>
+            <p class="field-error-text"><%= @errors[:email] %></p>
+          <% end %>
         </div>
 
-        <div class="form-group">
-          <%= f.label :subject, "題名(任意)" %>
-          <%= f.text_field :subject %>
+        <div class="form-contents">
+          <div class="form-text">
+            <label>件名(任意)</label>
+          </div>
+          <%= f.text_field :subject, class:"input-text", id:"subject" %>
         </div>
 
-        <div class="form-group">
-          <%= f.label :message, "メッセージ本文" %>
-          <%= f.text_area :message, required: true %>
+        <div class="form-contents">
+          <div class="form-text">
+            <label>メッセージ本文(必須)</label>
+          </div>
+          <%= f.text_area :message, class: "input-textarea", id: "message", rows: 10, placeholder: "1000文字以内", maxlength: "1000", required: true do %>
+            <%= @message %>
+          <% end %>
+          <% if @errors && @errors[:message] %>
+            <p class="field-error-text"><%= @errors[:message] %></p>
+          <% end %>
         </div>
 
-        <%= f.submit "送信" %>
-      <% end %>
-    </div>
+        <div class="form-btn-container">
+          <%= f.submit "送信", class: "orange-submit-btn hovers" %>
+        </div>
+      </div>
+    </div>  
   </div>
-</div>
+<% end %>
 
 <%= render 'partial_template/return_btn' %>
 <%= render 'partial_template/footer' %>

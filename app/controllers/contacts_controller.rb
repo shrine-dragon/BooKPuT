@@ -8,15 +8,18 @@ class ContactsController < ApplicationController
     @subject = params[:subject]
     @message = params[:message]
 
-    # バリデーション（空チェックなど）を簡易的に行う場合
-    if @name.blank? || @message.blank?
-      flash.now[:alert] = "氏名とメッセージ本文は必須入力です。"
+    @errors = {}
+    @errors[:name]    = "氏名を入力してください" if @name.blank?
+    @errors[:email]   = "メールアドレスを入力してください" if @email.blank?
+    @errors[:message] = "メッセージ本文を入力してください" if @message.blank?
+
+    # 🔴 エラーが1つでもあれば、flashを使わずにそのまま再描画
+    if @errors.any?
       render :new and return
     end
 
-    # 💡 ここでメール送信処理を呼び出す（パターン②なら、この1行を消すだけでOK！）
-    # ContactMailer.send_mail(@name, @email, @subject, @message).deliver_now
+    ContactMailer.send_mail(@name, @email, @subject, @message).deliver_now
 
-    redirect_to root_path, notice: "お問い合わせを送信しました。"
+    redirect_to root_path
   end
 end
