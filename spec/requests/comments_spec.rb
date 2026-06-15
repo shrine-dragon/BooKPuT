@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe 'Comments', type: :request do
   let(:user)   { FactoryBot.create(:user) }
-  let(:other_user)  { FactoryBot.create(:user) }
-  let!(:book)  { FactoryBot.create(:book, user: other_user) }
-  
+  let(:other_user) { FactoryBot.create(:user) }
+  let!(:book) { FactoryBot.create(:book, user: other_user) }
+
   let!(:my_comment)    { FactoryBot.create(:comment, user: user, book: book) }
   let!(:other_comment) { FactoryBot.create(:comment, user: other_user, book: book) }
 
@@ -29,8 +29,8 @@ RSpec.describe 'Comments', type: :request do
         expect do
           post book_comments_path(book), params: { comment: { text: 'テスト' } }
         end.not_to change(Comment, :count)
-         
-        expect(response).to redirect_to(root_path) 
+
+        expect(response).to redirect_to(root_path)
       end
     end
   end
@@ -50,7 +50,7 @@ RSpec.describe 'Comments', type: :request do
         expect do
           delete book_comment_path(book, other_comment), xhr: true
         end.not_to change(Comment, :count)
-        
+
         expect(response).to redirect_to(root_path)
       end
     end

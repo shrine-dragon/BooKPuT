@@ -1,5 +1,5 @@
 class CommentGoodsController < ApplicationController
-  before_action :authenticate_user! 
+  before_action :authenticate_user!
   before_action :set_comment
   before_action :set_book
 
@@ -10,7 +10,7 @@ class CommentGoodsController < ApplicationController
     @comment_bad&.destroy
 
     @comment_good = CommentGood.create(user_id: current_user.id, comment_id: @comment.id)
-    
+
     respond_to do |format|
       format.js
     end

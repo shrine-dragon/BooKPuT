@@ -91,16 +91,16 @@ module CommentSupport
         # 「もっと見る」ボタンが表示されていることを確認する
         expect(page).to have_selector('.view-more-comments-text', text: 'コメントをもっと見る', visible: true)
         # コメントの表示件数は10件に制限されていることを確認する
-        expect(page).to have_selector('.posted-comment-contents', count: 10) 
+        expect(page).to have_selector('.posted-comment-contents', count: 10)
         if current_count >= 21
           [20, 21].each do |num|
             find('.view-more-comments-text').click
             # コメントの表示件数は20件、21件と増えていることを確認する
-            expect(page).to have_selector('.posted-comment-contents', count: num) 
+            expect(page).to have_selector('.posted-comment-contents', count: num)
           end
           # コメントが21件表示されている状態で｢折りたたむ｣ボタンを押すと、コメントの表示件数が10件とデフォルトに戻っていることを確認する
           find('.hide-comments-text').click
-          expect(page).to have_selector('.posted-comment-contents', count: 10) 
+          expect(page).to have_selector('.posted-comment-contents', count: 10)
         end
       end
     end

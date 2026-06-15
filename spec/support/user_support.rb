@@ -40,7 +40,7 @@ module UserSupport
     expect(page).to have_content '新規登録フォーム'
   end
 
-  def input_info_and_sign_up(provider, target_user = user)
+  def input_info_and_sign_up(_provider, target_user = user)
     expect(page).to have_content('新規登録フォーム', wait: 10)
 
     # 必須事項を入力または選択する
@@ -50,7 +50,8 @@ module UserSupport
     select target_user.gender.name, from: 'gender'
     fill_in 'email', with: random_email if find('#email').value.blank?
 
-    execute_script('document.getElementById("sns_auth_process").value = "true";') if has_selector?('#sns_auth_process', visible: false)
+    execute_script('document.getElementById("sns_auth_process").value = "true";') if has_selector?('#sns_auth_process',
+                                                                                                   visible: false)
   end
 
   def submit_and_expect_success(selector, count_change, flash_message)

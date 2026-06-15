@@ -5,9 +5,9 @@ RSpec.describe 'コメント機能', type: :system do
   let(:user2) { FactoryBot.create(:user) }
   let(:user3) { FactoryBot.create(:user) }
   let!(:book) { FactoryBot.create(:book, user: user1) }
-  
+
   let(:user)  { user1 }
-  
+
   describe 'コメント投稿' do
     let(:comment) { FactoryBot.build(:comment, user: user2, book: book) }
 
@@ -33,7 +33,7 @@ RSpec.describe 'コメント機能', type: :system do
         expect(page).to have_content('コメントを投稿しました')
         expect(page).to have_content('コメント 1')
         expect(page).to have_no_content('コメントはありません')
-        
+
         check_comment_info
       end
     end
@@ -46,7 +46,7 @@ RSpec.describe 'コメント機能', type: :system do
         # 投稿詳細ページにコメントフォームが存在していないことを確認する
         expect(page).to have_no_selector('.comment-form-text')
       end
-      
+
       it 'book投稿者本人は自身の投稿に対してコメントできない' do
         login_as user1
         visit_book_path
@@ -80,17 +80,17 @@ RSpec.describe 'コメント機能', type: :system do
         check_comment_info
 
         # 投稿詳細ページに｢編集｣ボタンが表示されていることを確認する
-        expect(page).to have_selector(".js-edit-comment-trigger", text: "編集")
+        expect(page).to have_selector('.js-edit-comment-trigger', text: '編集')
         # ｢編集｣ボタンを押す
-        find(".js-edit-comment-trigger", text: "編集").click
+        find('.js-edit-comment-trigger', text: '編集').click
 
         within('.edit-comment-form') do
           # コメントフォームと、フォームの中にコメントテキストが表示されていることを確認する
-          expect(page).to have_selector(".comment-form-text")
+          expect(page).to have_selector('.comment-form-text')
           expect(page).to have_field('comment[text]', with: comment.text)
 
           # 編集用のテキストを用意してフォームを更新する
-          new_text = "anotherText"
+          new_text = 'anotherText'
           fill_in 'comment[text]', with: new_text
 
           # コメント更新ボタンが表示されていることを確認する
@@ -105,7 +105,7 @@ RSpec.describe 'コメント機能', type: :system do
         expect(page).to have_current_path(book_path(book))
 
         # 投稿詳細ページに編集したコメントが表示されていることを確認する
-        expect(page).to have_content("anotherText")
+        expect(page).to have_content('anotherText')
       end
     end
 
@@ -133,11 +133,11 @@ RSpec.describe 'コメント機能', type: :system do
         visit_book_path
         check_comment_info
 
-        expect(page).to have_selector(".js-edit-comment-trigger", text: "編集")
-        find(".js-edit-comment-trigger", text: "編集").click
+        expect(page).to have_selector('.js-edit-comment-trigger', text: '編集')
+        find('.js-edit-comment-trigger', text: '編集').click
 
         within('.edit-comment-form') do
-          expect(page).to have_selector(".comment-form-text")
+          expect(page).to have_selector('.comment-form-text')
           expect(page).to have_field('comment[text]', with: comment.text)
 
           # コメントフォームを空にする
@@ -152,17 +152,17 @@ RSpec.describe 'コメント機能', type: :system do
         visit_book_path
         check_comment_info
 
-        expect(page).to have_selector(".js-edit-comment-trigger", text: "編集")
-        find(".js-edit-comment-trigger", text: "編集").click
+        expect(page).to have_selector('.js-edit-comment-trigger', text: '編集')
+        find('.js-edit-comment-trigger', text: '編集').click
 
         within('.edit-comment-form') do
-          expect(page).to have_selector(".comment-form-text")
+          expect(page).to have_selector('.comment-form-text')
           expect(page).to have_field('comment[text]', with: comment.text)
         end
 
         # コメントフォームとコメント更新ボタン以外の部分を押すとフォームが消えてしまうことを確認する
         find('.detail-container').click
-        expect(page).to have_no_selector(".edit-comment-form", wait: 5)
+        expect(page).to have_no_selector('.edit-comment-form', wait: 5)
 
         # データベースのコメント件数が変わっていない（削除も更新もされていない）ことを確認する
         expect(comment.reload.text).to eq(comment.text)
@@ -180,13 +180,13 @@ RSpec.describe 'コメント機能', type: :system do
         check_comment_info
 
         final_action_of_comment_operation(
-          "destroy-comment",
-          "削除",
-          "このコメントを削除しますか？",
-          "削除する",
+          'destroy-comment',
+          '削除',
+          'このコメントを削除しますか？',
+          '削除する',
           Comment,
           -1,
-          "コメントを削除しました",
+          'コメントを削除しました',
           comment_index: :first
         )
         # 投稿詳細ページにコメントが存在せず、｢コメントはありません｣と表示されていることを確認する
@@ -219,7 +219,7 @@ RSpec.describe 'コメント機能', type: :system do
         visit_book_path
         check_comment_info
 
-        close_modal_final_action("destroy-comment", "削除")
+        close_modal_final_action('destroy-comment', '削除')
       end
     end
   end
@@ -234,13 +234,13 @@ RSpec.describe 'コメント機能', type: :system do
         check_comment_info
 
         final_action_of_comment_operation(
-          "hide-comment",
-          "非表示",
-          "このコメントを非表示にしますか？",
-          "非表示にする",
+          'hide-comment',
+          '非表示',
+          'このコメントを非表示にしますか？',
+          '非表示にする',
           HiddenComment,
           1,
-          "コメントを非表示にしました",
+          'コメントを非表示にしました',
           comment_index: :first
         )
 
@@ -282,7 +282,7 @@ RSpec.describe 'コメント機能', type: :system do
           visit_book_path
           check_comment_info
 
-          close_modal_final_action("hide-comment", "非表示")
+          close_modal_final_action('hide-comment', '非表示')
         end
       end
     end
@@ -298,20 +298,20 @@ RSpec.describe 'コメント機能', type: :system do
         check_comment_info
 
         final_action_of_comment_operation(
-          "report-comment",
-          "通報",
-          "このコメントを不適切な内容として通報しますか？",
-          "通報する",
+          'report-comment',
+          '通報',
+          'このコメントを不適切な内容として通報しますか？',
+          '通報する',
           ReportedComment,
           1,
-          "コメントを通報しました",
+          'コメントを通報しました',
           comment_index: :first
         )
         # 再度通報ボタンを押すと｢通報済みのコメントです｣と表示され、ReportedCommentモデルのカウントは変わらないことを確認する
         expect do
-          find(".js-report-comment-trigger").click
+          find('.js-report-comment-trigger').click
           sleep 0.5
-          expect(page).to have_content("通報済みのコメントです")
+          expect(page).to have_content('通報済みのコメントです')
         end.to change { ReportedComment.count }.by(0)
       end
     end
@@ -344,7 +344,7 @@ RSpec.describe 'コメント機能', type: :system do
           visit_book_path
           check_comment_info
 
-          close_modal_final_action("report-comment", "通報")
+          close_modal_final_action('report-comment', '通報')
         end
       end
     end
@@ -384,7 +384,7 @@ RSpec.describe 'コメント機能', type: :system do
         visit_book_path
         check_comment_info
 
-        cannot_click_valuation_btn("up", "comment", CommentGood)
+        cannot_click_valuation_btn('up', 'comment', CommentGood)
       end
 
       it 'コメント投稿者本人は自身のコメントを高評価できない' do
@@ -393,11 +393,11 @@ RSpec.describe 'コメント機能', type: :system do
         # 投稿済のコメントの中にuser2（コメント投稿者本人）のニックネームが表示されていることを確認する
         expect(page).to have_content(user2.nickname)
 
-        cannot_click_valuation_btn("up", "comment", CommentGood)
+        cannot_click_valuation_btn('up', 'comment', CommentGood)
       end
 
       xit '一度コメントを高評価しても、低評価ボタンを押すとコメントの高評価は取り消されてしまう' do
-        comment_good = FactoryBot.create(:comment_good, user: user3, comment_id: comment.id)
+        FactoryBot.create(:comment_good, user: user3, comment_id: comment.id)
 
         login_as user3
         visit_book_path
@@ -456,7 +456,7 @@ RSpec.describe 'コメント機能', type: :system do
         visit_book_path
         check_comment_info
 
-        cannot_click_valuation_btn("down", "comment", CommentBad)
+        cannot_click_valuation_btn('down', 'comment', CommentBad)
       end
 
       it 'コメント投稿者本人は自身のコメントを低評価できない' do
@@ -465,11 +465,11 @@ RSpec.describe 'コメント機能', type: :system do
         # 投稿済のコメントの中にuser2（コメント投稿者本人）のニックネームが表示されていることを確認する
         expect(page).to have_content(user2.nickname)
 
-        cannot_click_valuation_btn("down", "comment", CommentBad)
+        cannot_click_valuation_btn('down', 'comment', CommentBad)
       end
 
       xit '一度コメントを低評価しても、高評価ボタンを押すとコメントの低評価は取り消されてしまう' do
-        comment_bad = FactoryBot.create(:comment_bad, user: user3, comment_id: comment.id)
+        FactoryBot.create(:comment_bad, user: user3, comment_id: comment.id)
 
         login_as user3
         visit_book_path
@@ -534,17 +534,17 @@ RSpec.describe 'コメント機能', type: :system do
       it 'コメントが11件存在している状態でコメントを1件削除すると｢もっと見る｣ボタンは非表示になる' do
         login_as user2
         visit_book_path
-    
+
         increase_comments(11)
 
         final_action_of_comment_operation(
-          "destroy-comment",
-          "削除",
-          "このコメントを削除しますか？",
-          "削除する",
+          'destroy-comment',
+          '削除',
+          'このコメントを削除しますか？',
+          '削除する',
           Comment,
           -1,
-          "コメントを削除しました",
+          'コメントを削除しました',
           comment_index: :first
         )
 
@@ -562,13 +562,13 @@ RSpec.describe 'コメント機能', type: :system do
         expect(page).to have_selector('.hide-comments-text', text: '折りたたむ')
 
         final_action_of_comment_operation(
-          "destroy-comment",
-          "削除",
-          "このコメントを削除しますか？",
-          "削除する",
+          'destroy-comment',
+          '削除',
+          'このコメントを削除しますか？',
+          '削除する',
           Comment,
           -1,
-          "コメントを削除しました",
+          'コメントを削除しました',
           comment_index: :first
         )
 
@@ -578,7 +578,7 @@ RSpec.describe 'コメント機能', type: :system do
       it 'コメントが21件以上存在している状態で｢コメントをもっと見る｣ボタンを押すと、コメントは10件ずつ表示される' do
         login_as user2
         visit_book_path
-        
+
         increase_comments(21)
       end
     end

@@ -21,11 +21,11 @@ class Book < ApplicationRecord
     Genre.where(id: genre_ids)
   end
 
-  has_many :book_contents,  dependent: :destroy
+  has_many :book_contents, dependent: :destroy
   validate :validate_book_contents_count
-  before_validation :compact_book_contents  
+  before_validation :compact_book_contents
   accepts_nested_attributes_for :book_contents, allow_destroy: true
-  
+
   has_many :reported_books, dependent: :destroy
   has_many :book_goods,     dependent: :destroy
   has_many :book_bads,      dependent: :destroy

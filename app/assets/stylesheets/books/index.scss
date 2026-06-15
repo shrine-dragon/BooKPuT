@@ -48,7 +48,7 @@
   top: 35% !important;
   transform: translateY(-50%);
   z-index: 10; /* 最小の設定 */
-  filter: drop-shadow(0px 0px 5px rgba(255, 255, 255, 0.5));
+  filter: brightness(100%);//明るくする  
 }
 
 .slick-prev {

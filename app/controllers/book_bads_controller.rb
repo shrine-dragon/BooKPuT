@@ -15,7 +15,8 @@ class BookBadsController < ApplicationController
   end
 
   def destroy
-    @book.user_id == current_user.id
+    @book.user_id
+    current_user.id
 
     @book_bad = BookBad.find_by(user_id: current_user.id, book_id: @book.id)
     @book_bad.destroy
