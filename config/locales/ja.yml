@@ -3,6 +3,7 @@ ja:
     models:
       book:         "本"
       book_content: "内容項目"
+      contact:      "お問い合わせ"
     attributes:
       user:
         nickname:              "ニックネーム"
@@ -23,7 +24,8 @@ ja:
       contact:
         name:    "氏名"
         email:   "メールアドレス"
-        message: "メッセージ"
+        subject: "件名"
+        message: "メッセージ本文"
     errors:
       messages:
         too_long:       "を%{count}文字以内で入力してください"

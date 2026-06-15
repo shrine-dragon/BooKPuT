@@ -13,12 +13,3 @@
   resize: vertical;
   /* 💡 ユーザーが斜めに引き伸ばしてデザインを崩すのを防ぎ、上下のみリサイズ可能にする */
 }
-
-.field-error-text {
-  color: red;
-  font-size: 14px;
-  font-weight: bold;
-  margin-top: 5px;
-  margin-bottom: 0;
-  text-align: left !important;
-}

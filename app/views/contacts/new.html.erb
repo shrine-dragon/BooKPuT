@@ -1,6 +1,6 @@
 <%= render 'partial_template/header' %>
 
-<%= form_with url: contacts_path, local: true, html: { novalidate: true } do |f| %>
+<%= form_with model: @contact, local: true, html: { novalidate: true } do |f| %>
   <div class="contact-form">
     <div class="form-wrapper contact">
       <div class="form-heading">
@@ -11,20 +11,16 @@
           <div class="form-text">
             <label>氏名(必須)</label>
           </div>
-          <%= f.text_field :name, value: @name, class:"input-text", id:"name", required: true %>
-          <% if @errors && @errors[:name] %>
-            <p class="field-error-text"><%= @errors[:name] %></p>
-          <% end %>
+          <%= f.text_field :name, class:"input-text", id:"name", required: true %>
+          <%= render "partial_template/error_messages", model: @contact, attribute: :name %>
         </div>
 
         <div class="form-contents">
           <div class="form-text">
             <label>メールアドレス(必須)</label>
           </div>
-          <%= f.email_field :email, value: @email, class:"input-text", id:"email", required: true %>
-          <% if @errors && @errors[:email] %>
-            <p class="field-error-text"><%= @errors[:email] %></p>
-          <% end %>
+          <%= f.email_field :email, class:"input-text", id:"email", required: true %>
+          <%= render "partial_template/error_messages", model: @contact, attribute: :email %>
         </div>
 
         <div class="form-contents">
@@ -38,12 +34,8 @@
           <div class="form-text">
             <label>メッセージ本文(必須)</label>
           </div>
-          <%= f.text_area :message, class: "input-textarea", id: "message", rows: 10, placeholder: "1000文字以内", maxlength: "1000", required: true do %>
-            <%= @message %>
-          <% end %>
-          <% if @errors && @errors[:message] %>
-            <p class="field-error-text"><%= @errors[:message] %></p>
-          <% end %>
+          <%= f.text_area :message, class: "input-textarea", id: "message", rows: 10, placeholder: "1000文字以内", maxlength: "1000", required: true %>
+          <%= render "partial_template/error_messages", model: @contact, attribute: :message %>
         </div>
 
         <div class="form-btn-container">
