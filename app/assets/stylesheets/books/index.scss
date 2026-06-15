@@ -1,6 +1,7 @@
 .book-post-list {
   background-image: 
-  linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1)), asset-url("bookshelves.png");
+    linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    asset-url("bookshelves.png");
   background-size: cover;
   background-position: center; /* 中央に合わせると綺麗 */
   background-repeat: no-repeat;
@@ -52,16 +53,13 @@
 }
 
 .slick-prev {
-  left: -40px;
-}
-
-.slick-next {
-  right: -40px;
+  left: -45px !important;
 }
 
 .slick-prev:before, .slick-next:before {
-  color: #333 !important;
-  font-size: 30px;
+  color: orange !important;
+  font-size: 35px !important;
+  font-weight: bold;
 }
 
 .empty-message{
@@ -131,25 +129,19 @@
 }
 
 .app-feature {
-  min-height: 700px;
-  height: auto;
-  width: 100%;
   background-color: linen;
   padding: 50px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  height: auto;
 }
 
 .app-feature-outer {
   position: relative;
-  width: 800px;       /*矢印を外に出す分、widthをapp-featureよりも長くする必要がある */
+  width: 800px;
   margin: 0 auto;
-}
-
-.app-feature-wrapper {
-  width: 100%;
-  overflow: hidden; /* スライドを隠す */
 }
 
 .app-feature-heading h2{
@@ -159,23 +151,34 @@
   font-size: 25px;
 }
 
-.app-feature-container{
+.app-feature-wrapper.swiper {
+  width: 100%;
+  height: auto;
+  overflow: hidden; /* 隣のスライドが見えなくなる */
+}
+
+.app-feature-container.swiper-wrapper {
+  display: flex;
+  width: 100%;
+  height: auto;
+}
+
+.app-feature-contents{
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; /* 左右中央揃え */
+  justify-content: center; /* 上下中央揃え */
   text-align: center;
-  width: 100%;
+  width: 100% !important;
+  box-sizing: border-box;
 }
 
 .feature-image{
   display: block;
-  width: 100%;       /* 親要素の幅いっぱいに */
-  max-width: 700px;  /* ただし最大700pxまで */
-  height: 400px;
-  object-fit: cover; /* 画像を枠にフィットさせる */
-  border: 1px solid black;
-  margin-bottom: 30px; /* 画像と文字の間の余白 */
-  margin-top: 25px;
+  width: 100%;
+  max-width: 650px;
+  height: auto;
+  margin: 25px auto 30px;
   flex-shrink: 0;
   border: 5px solid #FFF;
   box-shadow: 0 0 5px #999;
@@ -183,9 +186,12 @@
 
 .app-feature-sentence{
   display: block !important;
-  text-align: left;
   font-size: 30px;
   font-weight: bold;
+  width: 100%;
+  max-width: 700px;
+  text-align: center;
+  margin: 0 auto;
 }
 
 .pagination {
@@ -262,18 +268,6 @@
   margin: 0 auto 30px;
   display: flex;
   align-items: center;
-}
-
-.swiper {
-  width: 100%;
-  height: 300px;
-}
-
-.swiper-wrapper {
-  /* wrapperのサイズを調整 */
-  width: 100%;
-  height: 300px;
-  margin: 0 50px !important;
 }
 
 .swiper-slide {

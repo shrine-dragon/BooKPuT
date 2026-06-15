@@ -25,7 +25,7 @@ $(document).on('turbolinks:load', function() {
     centeredSlides: true, // 中央寄せ
     spaceBetween: 0, // スライド間の隙間
     autoplay: {
-      delay: 4000,
+      delay: 7000,
       disableOnInteraction: false,
     },
     pagination: {

@@ -21,7 +21,7 @@ Rails.application.routes.draw do
 
   root to: 'books#index'
 
-  get 'management_company', to: 'static_pages#management_company'
+  get 'company_detail', to: 'static_pages#company_detail'
   get 'terms_of_service',   to: 'static_pages#terms_of_service'
   get 'privacy_policy',     to: 'static_pages#privacy_policy'
   get 'contact_form',       to: 'static_pages#contact_form'

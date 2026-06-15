@@ -14,8 +14,8 @@ class Book < ApplicationRecord
   validates :category_id, presence: true, numericality: { other_than: 0, message: 'を選択してください' }
 
   attribute :genre_ids, :json, default: []
-  validates :genre_ids, presence: { message: 'を選択してください' }
-  validate  :genre_selection_limit
+  validates :genre_ids, presence: { message: 'を選択してください' }, unless: :skip_genre_validation?
+  validate  :genre_selection_limit, unless: :skip_genre_validation?
 
   def genres
     Genre.where(id: genre_ids)
@@ -42,6 +42,10 @@ class Book < ApplicationRecord
     elsif genre_ids.reject(&:blank?).length > 3
       errors.add(:genre_ids, 'は3つまで選択してください')
     end
+  end
+
+  def skip_genre_validation?
+    [10, 11].include?(category_id)
   end
 
   def validate_book_contents_count

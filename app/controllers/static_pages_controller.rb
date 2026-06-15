@@ -1,5 +1,5 @@
 class StaticPagesController < ApplicationController
-  def management_company; end
+  def company_detail; end
 
   def terms_of_service; end
 
