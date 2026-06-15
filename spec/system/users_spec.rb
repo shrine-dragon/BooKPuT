@@ -5,7 +5,7 @@ require 'rails_helper'
 
 RSpec.describe 'ユーザー新規登録', type: :system do
   let(:user) { FactoryBot.create(:user) }
-  
+
   context 'メールアドレスでユーザー新規登録ができる時' do
     it '正しい情報を入力すれば新規登録ができ、トップページに移動する' do
       new_user = FactoryBot.build(:user)

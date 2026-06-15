@@ -9,7 +9,7 @@ RSpec.describe '投稿機能', type: :system do
   describe '新規投稿' do
     let(:book)         { FactoryBot.build(:book) }
     let(:book_content) { FactoryBot.build(:book_content) }
-    
+
     context '新規投稿ができる時' do
       it '正しい情報を入力すれば新規投稿ができ、トップページに移動する' do
         visit_new_book_path
@@ -136,7 +136,7 @@ RSpec.describe '投稿機能', type: :system do
       end
 
       it 'ジャンルは最大3つまで選択できる' do
-        book = FactoryBot.build(:book, category_id: 1)
+        FactoryBot.build(:book, category_id: 1)
         visit_new_book_path
 
         # 項目を入力・選択し、ジャンルは最大3つまで選択する
@@ -253,9 +253,9 @@ RSpec.describe '投稿機能', type: :system do
         [user1, user2, user3, nil].each do |one_user|
           if one_user
             login_as one_user
-          else
+          elsif respond_to?(:logout)
             # 未ログイン状態を作るためのヘルパー（Wardenのログアウト処理、または独自メソッド）
-            logout if respond_to?(:logout) 
+            logout
           end
 
           visit_book_path
@@ -505,7 +505,7 @@ RSpec.describe '投稿機能', type: :system do
         # 最初の通報ボタンを押し、投稿通報用のモーダルを開く
         expect(page).to have_selector('#report-post-btn', text: '通報', wait: 5)
 
-        find("#report-post-btn").click
+        find('#report-post-btn').click
         expect(page).to have_selector('.modal.final-action.report-post', visible: true, wait: 5)
         expect(page).to have_content('この投稿を不適切な内容として通報しますか？')
 
@@ -520,9 +520,9 @@ RSpec.describe '投稿機能', type: :system do
 
         # 再度通報ボタンを押すと｢通報済みの投稿です｣と表示され、ReportedBookモデルのカウントは変わらないことを確認する
         expect do
-          find("#report-post-btn").click
+          find('#report-post-btn').click
           sleep 0.5
-          expect(page).to have_content("通報済みの投稿です")
+          expect(page).to have_content('通報済みの投稿です')
           expect(page).to have_no_selector('.modal.final-action.report-post', visible: true, wait: 5)
         end.to change { ReportedBook.count }.by(0)
       end
@@ -534,7 +534,7 @@ RSpec.describe '投稿機能', type: :system do
         visit_book_path
 
         # 投稿詳細ページに｢通報｣ボタンが存在しないことを確認する
-        expect(page).to have_no_selector('#report-post-btn', text:'通報')
+        expect(page).to have_no_selector('#report-post-btn', text: '通報')
       end
 
       it 'book投稿者本人は自身の投稿を通報できない' do
@@ -545,7 +545,7 @@ RSpec.describe '投稿機能', type: :system do
         expect(page).to have_content(user1.nickname)
 
         # 投稿詳細ページに｢通報｣ボタンが存在しないことを確認する
-        expect(page).to have_no_selector('#report-post-btn', text:'通報')
+        expect(page).to have_no_selector('#report-post-btn', text: '通報')
       end
 
       it 'book投稿者以外のログインユーザーでも｢通報する｣ボタン以外の要素を押すとモーダルは閉じてしまい、投稿を通報できない｣' do
@@ -554,7 +554,7 @@ RSpec.describe '投稿機能', type: :system do
           visit_book_path
           expect(page).to have_content(one_user.nickname)
 
-          close_modal_final_action("report-post", "通報")
+          close_modal_final_action('report-post', '通報')
         end
       end
     end
@@ -600,7 +600,7 @@ RSpec.describe '投稿機能', type: :system do
         not_log_in_user
         visit_book_path
 
-        cannot_click_valuation_btn("up", "book", BookGood)
+        cannot_click_valuation_btn('up', 'book', BookGood)
       end
 
       it 'book投稿者本人は自身の投稿を高評価できない' do
@@ -610,11 +610,11 @@ RSpec.describe '投稿機能', type: :system do
         # 投稿詳細ページにuser1（book投稿者本人）のニックネームが表示されていることを確認する
         expect(page).to have_content(user1.nickname)
 
-        cannot_click_valuation_btn("up", "book", BookGood)
+        cannot_click_valuation_btn('up', 'book', BookGood)
       end
 
       it '一度投稿を高評価しても、低評価ボタンを押すとコメントの高評価は取り消されてしまう' do
-        book_good = FactoryBot.create(:book_good, user: user2, book: book)
+        FactoryBot.create(:book_good, user: user2, book: book)
 
         login_as user2
         visit_book_path
@@ -671,7 +671,7 @@ RSpec.describe '投稿機能', type: :system do
         not_log_in_user
         visit_book_path
 
-        cannot_click_valuation_btn("down", "book", BookBad)
+        cannot_click_valuation_btn('down', 'book', BookBad)
       end
 
       it 'book投稿者本人は自身の投稿を低評価できない' do
@@ -680,11 +680,11 @@ RSpec.describe '投稿機能', type: :system do
 
         # 投稿詳細ページにuser1（book投稿者本人）のニックネームが表示されていることを確認する
         expect(page).to have_content(user1.nickname)
-        cannot_click_valuation_btn("down", "book", BookBad)
+        cannot_click_valuation_btn('down', 'book', BookBad)
       end
 
       it '一度投稿を低評価しても、高評価ボタンを押すと投稿の低評価は取り消されてしまう' do
-        book_bad = FactoryBot.create(:book_bad, user: user2, book: book)
+        FactoryBot.create(:book_bad, user: user2, book: book)
 
         login_as user2
         visit_book_path
@@ -714,7 +714,7 @@ RSpec.describe '投稿機能', type: :system do
   describe '投稿お気に入り追加' do
     let!(:book)     { FactoryBot.create(:book, user: user1) }
     let(:user)      { user1 }
-    
+
     context '投稿をお気に入りに追加できる時' do
       it 'book投稿者以外のログインユーザーは他者の投稿をお気に入りに追加できる' do
         login_as user2
@@ -750,7 +750,7 @@ RSpec.describe '投稿機能', type: :system do
         visit_book_path
 
         # 投稿詳細ページにお気に入りボタン自体が存在していないことを確認する
-        expect(page).to have_no_selector(".fa-regular.fa-star.hovers")
+        expect(page).to have_no_selector('.fa-regular.fa-star.hovers')
       end
 
       it 'book投稿者本人は自身の投稿をお気に入りに追加できない' do
@@ -760,11 +760,11 @@ RSpec.describe '投稿機能', type: :system do
         # 投稿詳細ページにuser1（book投稿者本人）のニックネームが表示されていることを確認する
         expect(page).to have_content(user1.nickname)
 
-        expect(page).to have_no_selector(".fa-regular.fa-star.hovers")
+        expect(page).to have_no_selector('.fa-regular.fa-star.hovers')
       end
 
       it '一度投稿をお気に入りに追加しても、再度お気に入りボタンを押すと取り消されてしまう' do
-        favorite = FactoryBot.create(:favorite, user: user2, book: book)
+        FactoryBot.create(:favorite, user: user2, book: book)
 
         login_as user2
         visit_book_path

@@ -21,7 +21,15 @@ Rails.application.routes.draw do
 
   root to: 'books#index'
 
-  get 'privacy_policy', to: 'static_pages#privacy_policy'
+  get 'company_detail', to: 'static_pages#company_detail'
+  get 'terms_of_service',   to: 'static_pages#terms_of_service'
+  get 'privacy_policy',     to: 'static_pages#privacy_policy'
+
+  resources :contacts, only: [:new, :create] do
+    collection do
+      get 'submit_completion'
+    end
+  end
 
   resources :users, only: %i[show update destroy] do
     member do
@@ -41,19 +49,19 @@ Rails.application.routes.draw do
       post 'report'
     end
 
-    resources :book_goods, only: [:create, :destroy]
-    resources :book_bads,  only: [:create, :destroy]
+    resources :book_goods, only: %i[create destroy]
+    resources :book_bads,  only: %i[create destroy]
 
-    resources :favorites, only: [:create, :destroy]
-    
+    resources :favorites, only: %i[create destroy]
+
     resources :comments, only: %i[create edit update destroy] do
       member do
         post 'hide'
         post 'report'
       end
 
-      resources :comment_goods, only:  [:create, :destroy]
-      resources :comment_bads,  only:  [:create, :destroy]
+      resources :comment_goods, only:  %i[create destroy]
+      resources :comment_bads,  only:  %i[create destroy]
     end
   end
 end

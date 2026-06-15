@@ -1,0 +1,50 @@
+<%= render 'partial_template/header' %>
+
+<%= form_with model: @contact, local: true, html: { novalidate: true } do |f| %>
+  <div class="contact-form">
+    <div class="form-wrapper contact">
+      <div class="form-heading">
+        お問い合わせフォーム
+      </div>
+      <div class="form-container contact">
+        <div class="form-contents">
+          <div class="form-text">
+            <label>氏名(必須)</label>
+          </div>
+          <%= f.text_field :name, class:"input-text", id:"name", required: true %>
+          <%= render "partial_template/error_messages", model: @contact, attribute: :name %>
+        </div>
+
+        <div class="form-contents">
+          <div class="form-text">
+            <label>メールアドレス(必須)</label>
+          </div>
+          <%= f.email_field :email, class:"input-text", id:"email", required: true %>
+          <%= render "partial_template/error_messages", model: @contact, attribute: :email %>
+        </div>
+
+        <div class="form-contents">
+          <div class="form-text">
+            <label>件名(任意)</label>
+          </div>
+          <%= f.text_field :subject, class:"input-text", id:"subject" %>
+        </div>
+
+        <div class="form-contents">
+          <div class="form-text">
+            <label>メッセージ本文(必須)</label>
+          </div>
+          <%= f.text_area :message, class: "input-textarea", id: "message", rows: 10, placeholder: "1000文字以内", maxlength: "1000", required: true %>
+          <%= render "partial_template/error_messages", model: @contact, attribute: :message %>
+        </div>
+
+        <div class="form-btn-container">
+          <%= f.submit "送信", class: "orange-submit-btn hovers" %>
+        </div>
+      </div>
+    </div>  
+  </div>
+<% end %>
+
+<%= render 'partial_template/return_btn' %>
+<%= render 'partial_template/footer' %>

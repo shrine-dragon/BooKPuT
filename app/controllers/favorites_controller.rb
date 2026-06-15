@@ -14,7 +14,7 @@ class FavoritesController < ApplicationController
 
   def destroy
     return if @book.user_id == current_user.id
-    
+
     @favorite = Favorite.find_by(user_id: current_user.id, book_id: @book.id)
     @favorite&.destroy
 
@@ -30,8 +30,8 @@ class FavoritesController < ApplicationController
   end
 
   def redirect_to_root_path
-    if @book.user_id == current_user.id
-      redirect_to root_path
-    end
+    return unless @book.user_id == current_user.id
+
+    redirect_to root_path
   end
 end

@@ -3,7 +3,7 @@ class CreateBookBads < ActiveRecord::Migration[6.0]
     create_table :book_bads do |t|
       t.references :user, null: false, foreign_key: true
       t.references :book, null: false, foreign_key: true
-      t.index [:user_id, :book_id], unique: true
+      t.index %i[user_id book_id], unique: true
       t.timestamps
     end
   end
