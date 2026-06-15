@@ -24,7 +24,8 @@ Rails.application.routes.draw do
   get 'company_detail', to: 'static_pages#company_detail'
   get 'terms_of_service',   to: 'static_pages#terms_of_service'
   get 'privacy_policy',     to: 'static_pages#privacy_policy'
-  get 'contact_form',       to: 'static_pages#contact_form'
+
+  resources :contacts, only: [:new, :create]
 
   resources :users, only: %i[show update destroy] do
     member do
