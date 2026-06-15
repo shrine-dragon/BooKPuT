@@ -25,7 +25,11 @@ Rails.application.routes.draw do
   get 'terms_of_service',   to: 'static_pages#terms_of_service'
   get 'privacy_policy',     to: 'static_pages#privacy_policy'
 
-  resources :contacts, only: [:new, :create]
+  resources :contacts, only: [:new, :create] do
+    collection do
+      get 'submit_completion'
+    end
+  end
 
   resources :users, only: %i[show update destroy] do
     member do
