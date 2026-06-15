@@ -7,7 +7,7 @@ RSpec.describe Contact, type: :model do
 
   describe 'お問い合わせ機能' do
     context 'お問い合わせ内容を送信できる時' do
-      it '必須項目が全て正しく入力・選択されていれば保存できる' do
+      it '必須項目が全て正しく入力されていれば保存できる' do
         expect(@contact).to be_valid
       end
 
