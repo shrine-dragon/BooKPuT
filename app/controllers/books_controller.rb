@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_user!, except: %i[index show :search]
   before_action :set_book, only: %i[show edit update destroy report]
   before_action :ensure_correct_user, only: %i[edit update destroy]
 
@@ -79,6 +79,12 @@ class BooksController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  def search
+    @keyword = params[:keyword]
+    @books = Book.search(params[:keyword])
+    @all_books = @books.length
   end
 
   private
