@@ -1,0 +1,41 @@
+.search-result {
+  min-height: calc(100vh - 200px); /* 💡 画面縦100%からヘッダー・フッター分を引いた最小高さを確保 */
+  display: flex;
+  flex-direction: column;
+}
+
+.search-result-wrapper {
+  flex: 1; /* 💡 中身が少なくても、このエリアが縦方向に自動で最大まで伸びる */
+  display: flex;
+  flex-direction: column;
+}
+
+.no-post-result {
+  width: 90%;
+  margin: 0 auto;
+  flex: 1; /* 縦いっぱいにエリアを広げる */
+  padding-bottom: 60px; /* フッターとの間に適度な余白を作る */
+}
+
+.no-post-text{
+  margin: 30px 0;
+  font-size: 25px;
+  span{
+    font-weight: bold;
+  }
+}
+
+.hint-text{
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.hint-actions{
+  line-height: 2.0;
+  padding-left: 20px; /* 💡 デフォルトの広い左余白を削り、黒丸が「検索のヒント」の文字の真下に揃うよう微調整 */
+}
+
+.hint-action{
+  list-style: disc;
+  font-size: 18px;
+}

@@ -32,6 +32,16 @@ class Book < ApplicationRecord
   has_many :favorites,      dependent: :destroy
   has_many :comments,       dependent: :destroy
 
+  def self.search(keyword)
+    if keyword.present?
+      # タイトル(title)からキーワードが含まれるものを探す（部分一致検索）
+      where('title LIKE ?', "%#{keyword}%")
+    else
+      # キーワードが空欄の状態で検索された場合は、全件表示する
+      all
+    end
+  end
+
   private
 
   def genre_selection_limit
