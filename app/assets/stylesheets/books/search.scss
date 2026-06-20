@@ -26,7 +26,7 @@
   width: 90%;
   margin: 0 auto;
   flex: 1; /* 縦いっぱいにエリアを広げる */
-  padding-bottom: 60px; /* フッターとの間に適度な余白を作る */
+  padding-bottom: 30px; /* フッターとの間に適度な余白を作る */
 }
 
 .no-post-text{
@@ -50,4 +50,10 @@
 .hint-action{
   list-style: disc;
   font-size: 18px;
+}
+
+.no-post-result-image{
+  margin-top: 20px;
+  height: 250px;
+  width: 400px;
 }

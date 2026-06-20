@@ -17,8 +17,18 @@
               </ul>
             </div>
           <% else %>
-            <div class="empty-message top-page">
-              <p>投稿はありません</p>
+            <div class="no-post-result">
+              <p class="no-post-text">
+                <span>「<%= @keyword %>」</span>に一致する投稿は見つかりませんでした。
+              </p>
+              <div class="hint-of-search">
+                <p class="hint-text">検索のヒント:</p>
+                <ul class="hint-actions">
+                  <li class="hint-action">キーワードに誤字・脱字がないか確認します。</li>
+                  <li class="hint-action">別のキーワードを試してみます。</li>
+                  <li class="hint-action">もっと一般的なキーワードに変えてみます。</li>
+                </ul>
+              </div>
             </div>
           <% end %>
         </div>
@@ -35,6 +45,7 @@
             <li class="hint-action">別のキーワードを試してみます。</li>
             <li class="hint-action">もっと一般的なキーワードに変えてみます。</li>
           </ul>
+          <%= image_tag "apology-man.png", class: "no-post-result-image" %>
         </div>
       </div>
     <% end %>
