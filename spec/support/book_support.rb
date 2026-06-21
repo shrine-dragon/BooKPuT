@@ -33,12 +33,32 @@ module BookSupport
   end
 
   def find_search_form
+    # トップページに遷移し、検索フォームが存在していることを確認する
     visit root_path
     expect(page).to have_selector(".search-form")
   end
 
   def visit_search_books_path
-    find(".search-button").click
-    expect(current_path).to eq search_books_path
+    # 検索ボタンを押すと検索結果ページに遷移することを確認する
+    find(".search-btn").click
+    has_current_path?(search_books_path, wait: 5)
+  end
+
+  def show_search_result
+    expect(page).to have_content("検索結果")
+    expect(page).to have_content(book.title)
+    expect(page).to have_selector(".book-posted-image")
+
+    target_card = find('.book-card')
+    scroll_to(target_card, align: :center)
+    target_card.hover
+
+    expect(page).to have_selector('.hover-details', wait: 5)
+    expect(page).to have_content(book.category.name)
+    book.genres.each do |genre|
+      expect(page).to have_content(genre.name)
+    end
+    first_content = book.book_contents.first.content
+    expect(page).to have_content(first_content[0])
   end
 end

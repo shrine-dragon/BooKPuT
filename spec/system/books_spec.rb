@@ -804,19 +804,57 @@ RSpec.describe '投稿機能', type: :system do
 
   describe "投稿検索", type: :system do
     let!(:book) { FactoryBot.create(:book, user: user1) }
-    book.title = "百瀬アキラの初恋破綻中。"
+    let(:book2) { FactoryBot.create(:book, user: user1) }
+    let(:book3) { FactoryBot.create(:book, user: user1) }
+
+    before do
+      visit root_path
+    end
 
     context '投稿検索ができる時' do
-      it 'キーワードをbook投稿のタイトルにして検索した場合' do
-        
+      it 'キーワードをbook投稿のタイトル・カテゴリー名・ジャンル名・内容項目、そしてユーザー名のいずれかで検索した場合' do
+        find_search_form
+        # 検索ワードを配列にする
+        matched_keywords = [
+          book.title, 
+          book.category.name, 
+          book.genres.first.name, 
+          book.book_contents.first.content, 
+          book.user.nickname
+        ]
+        # 検索ワードでそれぞれ検索し、同じbook投稿がヒットすることを確認する
+        matched_keywords.each do |matched_keyword|
+          fill_in 'keyword', with: matched_keyword
+          visit_search_books_path
+
+          show_search_result
+        end
       end
 
       it 'キーワードを空にして検索した場合' do
-        
+        find_search_form
+        # キーワードを空にして検索する
+        keyword = ''
+        fill_in 'keyword', with: keyword
+        visit_search_books_path
+        # 検索結果に全ての投稿がヒットすることを確認する
+        show_search_result
       end
 
-      it 'キーワードをbook投稿のタイトルに一致しない' do
-        
+      it 'キーワードをbook投稿のタイトル・カテゴリー名・ジャンル名、そしてユーザー名のいずれとも一致しないものにして検索した場合' do
+        find_search_form
+        # キーワードを適当な文字にして検索する
+        keyword = 'あab1い234cうえ56defお78かgきhiく9けこ0j'
+        fill_in 'keyword', with: keyword
+        visit_search_books_path
+
+        sleep 0.5
+        # 検索結果が0件を表すテキストが表示されていることを確認する
+        expect(page).to have_content(keyword && '「」' && 'に一致する投稿は見つかりませんでした。')
+        expect(page).to have_no_content("検索結果")
+
+        expect(page).to have_no_content(book.title)
+        expect(page).to have_no_selector(".book-posted-image")
       end
     end
   end
