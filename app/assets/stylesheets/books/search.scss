@@ -1,7 +1,7 @@
 .search-result {
-  flex: 1;
   display: flex;
   flex-direction: column;
+  min-height: calc(100% - 200px); /* 💡 画面縦100%からヘッダー・フッター分を引いた最小高さを確保 */
 }
 
 .search-result-wrapper {

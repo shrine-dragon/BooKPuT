@@ -83,7 +83,9 @@ class BooksController < ApplicationController
 
   def search
     @keyword = params[:keyword]
-    @books = Book.search(params[:keyword])
+    @books = Book.left_outer_joins(:user, :book_contents)
+                 .search(params[:keyword])
+                 .distinct # 重複した本が検索結果に出るのを防ぐ
     @all_books = @books.length
   end
 
