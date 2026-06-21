@@ -1,7 +1,6 @@
 .search-result {
   display: flex;
   flex-direction: column;
-  min-height: calc(100% - 200px); /* 💡 画面縦100%からヘッダー・フッター分を引いた最小高さを確保 */
 }
 
 .search-result-wrapper {
@@ -10,12 +9,18 @@
   flex-direction: column;
 
   .book-post-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
     background-image: 
       linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
       asset-url("bookshelves-search-result.png");
     background-size: cover;
     background-position: center; /* 中央に合わせると綺麗 */
     background-repeat: no-repeat;
+
+    padding-bottom: 40px;
   }
   .book-post-list-heading.search-result h2{
     color: white;
@@ -26,7 +31,7 @@
   width: 90%;
   margin: 0 auto;
   flex: 1; /* 縦いっぱいにエリアを広げる */
-  padding-bottom: 30px; /* フッターとの間に適度な余白を作る */
+  padding: 30px 0; /* フッターとの間に適度な余白を作る */
 }
 
 .no-post-text{
