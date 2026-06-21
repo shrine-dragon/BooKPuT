@@ -31,4 +31,14 @@ module BookSupport
     expect(page).to have_current_path(book_path(book))
     expect(page).to have_content('投稿詳細')
   end
+
+  def find_search_form
+    visit root_path
+    expect(page).to have_selector(".search-form")
+  end
+
+  def visit_search_books_path
+    find(".search-button").click
+    expect(current_path).to eq search_books_path
+  end
 end

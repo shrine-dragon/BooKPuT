@@ -801,4 +801,23 @@ RSpec.describe '投稿機能', type: :system do
       end
     end
   end
+
+  describe "投稿検索", type: :system do
+    let!(:book) { FactoryBot.create(:book, user: user1) }
+    book.title = "百瀬アキラの初恋破綻中。"
+
+    context '投稿検索ができる時' do
+      it 'キーワードをbook投稿のタイトルにして検索した場合' do
+        
+      end
+
+      it 'キーワードを空にして検索した場合' do
+        
+      end
+
+      it 'キーワードをbook投稿のタイトルに一致しない' do
+        
+      end
+    end
+  end
 end
