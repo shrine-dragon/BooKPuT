@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_user!, except: %i[index show search]
   before_action :set_book, only: %i[show edit update destroy report]
   before_action :ensure_correct_user, only: %i[edit update destroy]
 
@@ -79,6 +79,14 @@ class BooksController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  def search
+    @keyword = params[:keyword]
+    @books = Book.left_outer_joins(:user, :book_contents)
+                 .search(params[:keyword])
+                 .distinct # 重複した本が検索結果に出るのを防ぐ
+    @all_books = @books.length
   end
 
   private

@@ -49,6 +49,10 @@ Rails.application.routes.draw do
       post 'report'
     end
 
+    collection do
+      get "search"
+    end
+
     resources :book_goods, only: %i[create destroy]
     resources :book_bads,  only: %i[create destroy]
 

@@ -1,0 +1,57 @@
+<%= render 'partial_template/header' %>
+
+<div class="search-result">
+  <div class="search-result-wrapper">
+    <% if @all_books > 0 %>
+      <div class='book-post-list'>
+        <div class="book-post-list-wrapper">
+          <div class="book-post-list-heading search-result">
+            <h2>検索結果</h2>
+          </div>
+          <% if @books.any? %>
+            <div class="book-cards-container">
+              <ul class="book-cards slick-slider">
+                <% @books.each do |book| %>
+                  <%= render 'partial_template/book_cards', book: book, path_id: book.user_id, frame_color: 'golden' %>
+                <% end %>
+              </ul>
+            </div>
+          <% else %>
+            <div class="no-post-result">
+              <p class="no-post-text">
+                <span>「<%= @keyword %>」</span>に一致する投稿は見つかりませんでした。
+              </p>
+              <div class="hint-of-search">
+                <p class="hint-text">検索のヒント:</p>
+                <ul class="hint-actions">
+                  <li class="hint-action">キーワードに誤字・脱字がないか確認します。</li>
+                  <li class="hint-action">別のキーワードを試してみます。</li>
+                  <li class="hint-action">もっと一般的なキーワードに変えてみます。</li>
+                </ul>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% else %>
+      <div class="no-post-result">
+        <p class="no-post-text">
+          <span>「<%= @keyword %>」</span>に一致する投稿は見つかりませんでした。
+        </p>
+        <div class="hint-of-search">
+          <p class="hint-text">検索のヒント:</p>
+          <ul class="hint-actions">
+            <li class="hint-action">キーワードに誤字・脱字がないか確認します。</li>
+            <li class="hint-action">別のキーワードを試してみます。</li>
+            <li class="hint-action">もっと一般的なキーワードに変えてみます。</li>
+          </ul>
+          <%= image_tag "apology-man.png", class: "no-post-result-image" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= render 'partial_template/return_btn' %>
+
+<%= render 'partial_template/footer' %>

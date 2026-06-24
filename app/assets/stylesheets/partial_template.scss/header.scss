@@ -45,15 +45,25 @@
 .search{
   display: flex;
   align-items: center;
-  margin-right: auto;
+  margin: 0 auto;
+}
+
+.search-form {
+  display: flex;
+  width: 100%;
+  max-width: 600px; 
 }
 
 .search-bar {
-  width: 500px;
+  width: 600px;
   height: 35px;
+  flex: 1;
   padding: 5px 10px;
   border: 1px solid #ccc;
-  border-radius: 4px 0 0 4px; /* 左側だけ丸める */
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+  outline: none;
+  box-sizing: border-box;
 }
 
 .search-bar:focus {
@@ -71,6 +81,15 @@
   border: 1px solid #ccc;
   border-left: none; /* 検索バーとの境目を消す */
   border-radius: 0 4px 4px 0; /* 右側だけ丸める */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+
+  i {
+    color: #666;
+    font-size: 16px;
+  }
 }
 
 .header-menus {

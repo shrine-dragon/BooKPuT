@@ -32,6 +32,41 @@ class Book < ApplicationRecord
   has_many :favorites,      dependent: :destroy
   has_many :comments,       dependent: :destroy
 
+  def self.search(keyword)
+    if keyword.present?
+      # キーワードに一致する「ジャンルのID」を先に取得する
+      matched_genre_ids = Genre.all.select { |g| g.name.include?(keyword) }.map(&:id)
+      # キーワードに一致する「カテゴリーのID」を先に取得する（ActiveHash対策）
+      matched_category_ids = Category.all.select { |c| c.name.include?(keyword) }.map(&:id)
+
+      # メインの検索クエリを組み立てる
+      query = where(
+        'books.title LIKE :kw OR ' \
+        'book_contents.content LIKE :kw OR ' \
+        'users.nickname LIKE :kw',
+        kw: "%#{keyword}%"
+      )
+
+      # ジャンルIDやカテゴリーIDに一致するものがあれば OR 条件で追加する
+      if matched_genre_ids.present?
+        # JSON形式の配列内に、一致したジャンルIDが1つでも含まれているかを判定
+        # ※ SQLiteやMySQL/PostgreSQLなど環境に合わせて柔軟に引っかかるようにする
+        matched_genre_ids.each do |genre_id|
+          # jsonのカラム内に文字列や数値として含まれているか部分一致で追記
+          query = query.or(where('books.genre_ids LIKE ?', "%#{genre_id}%"))
+        end
+      end
+
+      if matched_category_ids.present?
+        query = query.or(where(category_id: matched_category_ids))
+      end
+
+      query
+    else
+      all
+    end
+  end
+
   private
 
   def genre_selection_limit
