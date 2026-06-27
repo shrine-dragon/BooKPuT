@@ -12,26 +12,10 @@
   font-weight: bold;
 }
 
-.book-post{
-  .error-message{
-    width: 100% !important;
-  }
-}
-
-.error-message.is-full-with{
-  width: 100% !important;
-  margin-bottom: 15px;
-}
-
-.edit-password, .edit-email {
-  .error-message {
-    width: 300px !important;
-    max-width: 360px;
-  }
-}
-
 .error-wrapper {
-  align-self: flex-start;
+  width: 100%;
+  max-width: 100%;
+  display: flex;
 }
 
 .error-list {
@@ -42,8 +26,19 @@
 }
 
 .error-item {
+  width: 100%;
   color: red;
   font-size: 14px;
   text-align: left;
   font-weight: bold;
+}
+
+.error-message.is-full-with{
+  margin-bottom: 15px;
+}
+
+.edit-email {
+  .error-item {
+    width: 300px !important;
+  }
 }

@@ -19,7 +19,7 @@
                 <% if book.user.image.attached? %>
                   <%= image_tag book.user.image, class: 'user-image', style: "filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.2));" %>
                 <% else%>
-                  <%= image_tag "no-image.png", class: 'user-image no-exist', style: "filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.2));" %>
+                  <%= image_tag "no-image.png", class: 'user-image no-exist' %>
                 <% end %>
               </div>
             <% end %>
