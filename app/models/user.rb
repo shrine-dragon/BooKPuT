@@ -45,7 +45,8 @@ class User < ApplicationRecord
             unless: :sns_auth_process?
 
   validates :email, presence: true, uniqueness: true,
-                    format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i, message: 'は不正な形式です' }
+                    format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.(com|net|org|jp|co\.jp|ne\.jp)\z/i, message: 'は不正な形式です' }
+  validate  :email_domain_typo_check
 
   validates :gender_id, presence: true, numericality: { other_than: 0, message: 'を選択してください' }
 
@@ -120,6 +121,17 @@ class User < ApplicationRecord
   end
 
   private
+
+  def email_domain_typo_check
+    return if email.blank?
+
+    domain = email.split('@').last.to_s.downcase
+
+    # gmail.com の打ち間違いっぽいパターンを弾く
+    if domain.start_with?('gm') && domain != 'gmail.com'
+      errors.add(:email, 'のドメイン（@以降）が正しくありません（例: gmail.com）')
+    end
+  end
 
   def birth_date_cannot_be_in_the_future
     # birth_dateが存在し、かつ今日より後の日付であればエラーを追加

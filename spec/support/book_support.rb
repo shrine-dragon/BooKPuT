@@ -45,9 +45,10 @@ module BookSupport
   end
 
   def show_search_result
+    # 「検索結果」の文字やbook投稿の画像・タイトル・カテゴリー名・ジャンル名・投稿者の画像がそれぞれ表示されていることを確認する
     expect(page).to have_content("検索結果")
-    expect(page).to have_content(book.title)
     expect(page).to have_selector(".book-posted-image")
+    expect(page).to have_content(book.title)
 
     target_card = find('.book-card')
     scroll_to(target_card, align: :center)
@@ -58,6 +59,7 @@ module BookSupport
     book.genres.each do |genre|
       expect(page).to have_content(genre.name)
     end
+    expect(page).to have_selector('.card-badge.book-poster')
     first_content = book.book_contents.first.content
     expect(page).to have_content(first_content[0])
   end

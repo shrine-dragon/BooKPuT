@@ -66,6 +66,13 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include('メールアドレスは不正な形式です')
       end
 
+      it 'メールアドレスに@以降のドメイン表記が誤っていると登録できない' do
+        @user.email = 'aaaaaa.@gmeil.coma'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('メールアドレスは不正な形式です')
+        expect(@user.errors.full_messages).to include('メールアドレスのドメイン（@以降）が正しくありません（例: gmail.com）')
+      end
+
       it '同じメールアドレスは登録できない' do
         @user.save
         another_user = FactoryBot.build(:user, email: @user.email)

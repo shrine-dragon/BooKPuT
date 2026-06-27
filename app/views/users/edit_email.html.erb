@@ -7,14 +7,14 @@
       <%= hidden_field_tag :edit_type, 'email' %>
 
       <div class="edit-user-info-text">
-        <p>新しいメールアドレスを入力し、<br>｢更新する｣ボタンを押してください。</p>
+        <p>新しいメールアドレスを入力し、<br>｢変更する｣ボタンを押してください。</p>
       </div>
 
       <div class="form-contents">
         <div class="form-text">
-          <label>メールアドレス(必須)</label>
+          <label>新しいメールアドレス(必須)</label>
         </div>
-        <%= f.email_field :email, class:"input-text", id:"email", placeholder:"例：bookput@gmail.com" %>
+        <%= f.email_field :email, value: "", class:"input-text", id:"email", placeholder:"例：bookput@gmail.com" %>
         <%= render "partial_template/error_messages", model: @user, attribute: :email %>
       </div>
 

@@ -10,7 +10,7 @@
         <div class="book-cards-container">
           <ul class="book-cards slick-slider">
             <% @books.shuffle.each do |book| %>
-              <%= render 'partial_template/book_cards', book: book, path_id: book.user_id, frame_color: 'golden' %>
+              <%= render 'partial_template/book_cards', book: book, path_id: book.user_id, frame_color: 'golden', badge_type: 'book-poster' %>
             <% end %>
           </ul>
         </div>

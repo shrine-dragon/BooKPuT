@@ -384,7 +384,7 @@ RSpec.describe 'マイページ', type: :system do
       select new_gender_name, from: 'gender'
 
       # 更新ボタンを押すとマイページに遷移し、フラッシュメッセージが表示されることを確認する
-      click_btn_and_visit_my_page_and_show_flash_message('更新する')
+      click_btn_and_visit_my_page_and_show_flash_message('更新する', 'プロフィールを更新しました')
 
       # マイページには変更した内容が反映されていることを確認する
       expect(page).to have_content(new_nickname)
@@ -406,7 +406,7 @@ RSpec.describe 'マイページ', type: :system do
       # プレビューが表示されることを確認する
       expect(page).to have_selector('.upload-image-list img')
 
-      click_btn_and_visit_my_page_and_show_flash_message('更新する')
+      click_btn_and_visit_my_page_and_show_flash_message('更新する', 'プロフィールを更新しました')
 
       # デフォルト画像が消え、新しくアップロードした画像が表示されていることを確認
       expect(page).to have_no_selector('#no-image')
@@ -432,7 +432,7 @@ RSpec.describe 'マイページ', type: :system do
       find('.delete-image-btn', text: '削除').click
       expect(page).to have_no_selector('.upload-image-list img')
 
-      click_btn_and_visit_my_page_and_show_flash_message('更新する')
+      click_btn_and_visit_my_page_and_show_flash_message('更新する', 'プロフィールを更新しました')
 
       # ユーザー画像がデフォルト（no-image）になっていることを確認する
       expect(page).to have_selector('#no-image')
@@ -481,7 +481,7 @@ RSpec.describe 'マイページ', type: :system do
 
       # 別のメールアドレスを入力し、変更ボタンを押す
       fill_in 'email', with: 'anotherEmail@example.com'
-      click_btn_and_visit_my_page_and_show_flash_message('変更する')
+      click_btn_and_visit_my_page_and_show_flash_message('変更する', 'メールアドレスを変更しました')
 
       # 変更したメールアドレス(伏せ字つき)が表示されていることを確認する
       expect(page).to have_content('a********@example.com')
@@ -532,7 +532,7 @@ RSpec.describe 'マイページ', type: :system do
       expect(page).to have_field('password', with: new_pw)
       expect(page).to have_field('password_confirmation', with: new_pw)
 
-      click_btn_and_visit_my_page_and_show_flash_message('変更する')
+      click_btn_and_visit_my_page_and_show_flash_message('変更する', 'パスワードを変更しました')
     end
   end
 
