@@ -5,6 +5,13 @@
         <%= image_tag("BooKPuT-logo.png", class: "bookput-header-logo") %>
       <% end %>
     </div>
+
+    <input type="checkbox" id="search-toggle" class="search-toggle-checkbox">
+    <label for="search-toggle" class="smp-search-trigger-btn">
+      <i class="fas fa-search open-icon"></i>
+      <i class="fas fa-times close-icon"></i>
+    </label>
+
     <div class="header-list">
       <div class="search">
         <%= form_with(url: search_books_path, local: true, method: :get, class: "search-form") do |form| %>

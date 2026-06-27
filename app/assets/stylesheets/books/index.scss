@@ -1,22 +1,24 @@
+@import "config";
+
 .book-post-list {
   background-image: 
     linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
     asset-url("bookshelves.png");
   background-size: cover;
-  background-position: center; /* 中央に合わせると綺麗 */
+  background-position: center;
   background-repeat: no-repeat;
 }
 
 .book-post-list-wrapper,
-.book-cards-container{
+.book-cards-container {
   position: relative;
 }
 
-.book-post-list-wrapper{
+.book-post-list-wrapper {
   padding: 0 60px 30px;
 }
 
-.book-post-list-heading h2{
+.book-post-list-heading h2 {
   text-align: center;
   padding: 30px 0 15px;
   font-weight: bold;
@@ -24,20 +26,18 @@
   color: orange;
 }
 
-.book-cards-container{
+.book-cards-container {
   width: 90%;
   margin: 0 auto;
   position: relative;
 }
 
-/* スライド中（is-sliding）は拡大を強制解除して事故を防ぐ */
 .book-cards.is-sliding .book-card {
   transform: scale(1) !important;
   transition: none !important;
 }
 
 .slick-list {
-  /* 左右は見切れてほしいので基本は hidden */
   overflow: hidden !important;
   padding-bottom: 180px !important;
   margin-bottom: -180px !important; 
@@ -45,11 +45,11 @@
   z-index: 1;
 }
 
-.slick-prev, .slick-next{
+.slick-prev, .slick-next {
   top: 35% !important;
   transform: translateY(-50%);
-  z-index: 10; /* 最小の設定 */
-  filter: brightness(100%);//明るくする  
+  z-index: 10;
+  filter: brightness(100%);
 }
 
 .slick-prev {
@@ -62,31 +62,33 @@
   font-weight: bold;
 }
 
-.empty-message{
-  /* Flexboxを有効にする */
+.empty-message {
   display: flex;
-  /* 上下左右中央揃え */
   justify-content: center;
   align-items: center;
   height: 300px;
 }
 
-.empty-message.top-page p{
+.empty-message.top-page p {
   color: white;
   font-size: 1.1rem;
   font-weight: bold;
   letter-spacing: 0.05em;
 }
 
-.app-description{
+.smp-only {
+  display: none; /* 通常時は非表示 */
+}
+
+.app-description {
   height: 550px;
   width: 100%;
-  aspect-ratio: 16 / 9; /* 画像の縦横比を保つ */
+  aspect-ratio: 16 / 9;
   background-image: 
     linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
     asset-url("app-description.png");
   background-size: cover;
-  background-position: center; /* 中央に合わせると綺麗 */
+  background-position: center;
   background-repeat: no-repeat;
   display: flex;
   justify-content: center;
@@ -94,36 +96,36 @@
   text-align: center;
 }
 
-.app-description-wrapper{
+.app-description-wrapper {
   max-width: 1280px;
   color: white;
-  /* 文字にぼかした影をつける（右に2px、下に2px、ぼかし4px、黒の透明度0.8） */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-  h2{
+
+  h2 {
     text-align: center;
     font-weight: bold;
     font-size: 60px;
     margin-bottom: 25px;
   }
-  p{
+  p {
     text-align: left;
     font-size: 40px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     line-height: 1.8;
   }
-  .app-download-text{
+  .app-download-text {
     text-align: left;
     font-size: 20px;
     margin-bottom: 5px;
   }
 }
 
-.store-btns{
+.store-btns {
   display: flex;
   gap: 15px;
 }
 
-.store-btn{
+.store-btn {
   height: 60px;
   width: 180px;
 }
@@ -135,16 +137,14 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: auto;
 }
 
 .app-feature-outer {
-  position: relative;
   width: 800px;
   margin: 0 auto;
 }
 
-.app-feature-heading h2{
+.app-feature-heading h2 {
   text-align: center;
   padding-top: 30px;
   font-weight: bold;
@@ -154,7 +154,7 @@
 .app-feature-wrapper.swiper {
   width: 100%;
   height: auto;
-  overflow: hidden; /* 隣のスライドが見えなくなる */
+  overflow: hidden;
 }
 
 .app-feature-container.swiper-wrapper {
@@ -163,28 +163,28 @@
   height: auto;
 }
 
-.app-feature-contents{
+.app-feature-contents {
   display: flex;
   flex-direction: column;
-  align-items: center; /* 左右中央揃え */
-  justify-content: center; /* 上下中央揃え */
+  align-items: center;
+  justify-content: center;
   text-align: center;
   width: 100% !important;
   box-sizing: border-box;
 }
 
-.feature-image{
+.feature-image {
   display: block;
   width: 100%;
   max-width: 650px;
   height: auto;
-  margin: 25px auto 30px;
+  margin: 30px auto;
   flex-shrink: 0;
   border: 5px solid #FFF;
   box-shadow: 0 0 5px #999;
 }
 
-.app-feature-sentence{
+.app-feature-sentence {
   display: block !important;
   font-size: 30px;
   font-weight: bold;
@@ -203,35 +203,43 @@
   }
 }
 
-.faq-wrapper{
+.faq {
+  width: 100%;
+}
+
+.faq-wrapper {
   width: 65%;
   margin: 0 auto;
   padding-bottom: 20px;
 }
 
-.faq-heading h2{
+.faq-heading h2 {
   text-align: center;
   padding: 60px 0;
   font-weight: bold;
   font-size: 25px;
- }
-
-.question-and-answer{
-  padding-bottom: 10px;
-  margin: 0 0 40px 50px;
-  border-bottom:1px solid #ccc;
-  position:relative;
-  cursor:pointer;
-  text-align: left;
-  font-size: 18px;
 }
 
-.question-and-answer span{
-  position: absolute;
-  top:0;
-  right:5px;
-  color:#ccc;
-  font-size: 30px;
+.question-and-answer {
+  padding-bottom: 10px;
+  margin-bottom: 40px;
+  justify-content: center;
+  border-bottom: 1px solid #ccc;
+  position: relative;
+  cursor: pointer;
+  text-align: left;
+  
+  span {
+    position: absolute;
+    top: 0;
+    right: 5px;
+    color: #ccc;
+    font-size: 30px;
+  }
+}
+
+.question, .answer {
+  font-size: 18px;
 }
 
 .answer {
@@ -244,16 +252,20 @@
   text-align: center;
   right: 30px;
   position: fixed;
-  z-index: 1001 /* headerより1多い設定 */;
+  z-index: 1001;
   border-radius: 8px;
   text-decoration: none;
   font-weight: bold;
 }
 
-.right-bottom-btn.post{
+.right-bottom-btn.post {
   background-color: #F93;
   padding: 15px;
   bottom: 30px;
+}
+
+.pc-only {
+  display: block;
 }
 
 .right-bottom-btn-text {
@@ -263,15 +275,14 @@
 }
 
 .swiper-outer-container {
-  position: relative; /* 矢印の基準点にする */
-  width: 80%;         /* スライダー自体の幅 */
+  position: relative;
+  width: 80%;
   margin: 0 auto 30px;
   display: flex;
   align-items: center;
 }
 
 .swiper-slide {
-  /* スライドのサイズを調整、中身のテキスト配置調整、背景色 */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -282,10 +293,10 @@
 .swiper-button-prev,
 .swiper-button-next {
   position: absolute;
-  color: #000 !important; /* 黒色 */
-  width: 50px !important;  /* クリックエリアを広げる */
+  color: #000 !important;
+  width: 50px !important;
   height: 50px !important;
-  z-index: 10; /* 最小の設定 */
+  z-index: 10;
 }
 
 .swiper-button-prev {
@@ -299,4 +310,109 @@
 .swiper-button-next:after {
   font-size: 40px !important;
   font-weight: bold;
+}
+
+/* スマホ（768px以下）のレスポンシブスタイル集約 */
+@include mobile {
+  .pc-only {
+    display: none !important;
+  }
+
+  .smp-only {
+    display: block !important;
+  }
+
+  .book-post-list-wrapper {
+    padding: 0 60px 15px;
+  }
+
+  .book-post-list-heading h2 {
+    font-size: 20px;
+  }
+
+  .smp-post-btn-container {
+    text-align: center;
+    margin: 10px 0;
+    width: 100%;
+  }
+
+  .smp-post-btn {
+    display: inline-block;
+    background-color: orange;
+    color: black;
+    padding: 12px 0;
+    width: 80%;
+    max-width: 300px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  }
+
+  .smp-post-btn-text {
+    font-size: 16px;
+  }
+
+  .app-description {
+    height: 350px;
+  }
+
+  .app-description-wrapper {
+    width: 95%;
+    h2 {
+      font-size: 23px;
+    }
+    p {
+      font-size: 20px;
+    }
+    .app-download-text {
+      font-size: 15px;
+    }
+  }
+
+  .store-btn {
+    height: 50px;
+    width: 140px;
+  }
+
+  .app-feature {
+    height: 400px;
+    padding: 0;
+  }
+
+  .app-feature-outer {
+    width: 95% !important;
+  }
+
+  .app-feature-heading h2 {
+    font-size: 20px;
+  }
+
+  .app-feature-sentence {
+    font-size: 15px;
+  }
+
+  .faq {
+    width: 100% !important;
+    padding: 10px;
+  }
+
+  .faq-wrapper {
+    width: 90%;
+    padding-bottom: 0px;
+  }
+
+  .faq-heading h2 {
+    font-size: 20px;
+    padding: 30px 0;
+  }
+
+  .question-and-answer span {
+    font-size: 18px;
+  }
+
+  .question, .answer {
+    font-size: 15px;
+    width: 90%;
+  }
 }
