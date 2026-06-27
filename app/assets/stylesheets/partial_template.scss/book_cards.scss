@@ -124,7 +124,6 @@
   z-index: 10;
   font-size: 1.2rem;
   
-  background: rgba(255, 255, 255, 0.7); 
   padding: 4px;
   border-radius: 50%;
   width: 28px;
@@ -132,7 +131,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
 }
 
 .card-badge.book-poster{
@@ -141,6 +139,11 @@
   .user-image{
     width: 60px !important;
     height: 60px !important;
+  }
+  .user-image.no-exist{
+    background: rgba(255, 255, 255, 0.8); 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    color: #666; 
   }
 }
 

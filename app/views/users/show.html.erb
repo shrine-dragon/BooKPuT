@@ -65,7 +65,7 @@
           <div class="book-post-images-container">
             <ul class="book-post-images slick-slider">
               <% @my_books.each do |my_book| %>
-                <%= render 'partial_template/book_cards', book: my_book, path_id: my_book.id, frame_color: 'white', is_mini: true %>
+                <%= render 'partial_template/book_cards', book: my_book, path_id: my_book.id, frame_color: 'white', is_mini: true, badge_type: 'book-poster' %>
               <% end %>
             </ul>
           </div>
@@ -82,7 +82,7 @@
           <div class="book-post-images-container">
             <ul class="book-post-images slick-slider">
               <% @my_good_books.each do |good_book| %>
-                <%= render 'partial_template/book_cards', book: good_book, path_id: good_book.id, frame_color: 'white', is_mini: true, badge_type: 'good', badge_type: 'book-poster' %>
+                <%= render 'partial_template/book_cards', book: good_book, path_id: good_book.id, frame_color: 'white', is_mini: true, badge_type: 'good' %>
               <% end %>
             </ul>
           </div>
