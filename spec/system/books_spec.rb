@@ -35,13 +35,14 @@ RSpec.describe '投稿機能', type: :system do
         # 隠れている要素が表示されることを確認する
         expect(page).to have_selector('.hover-details', wait: 5)
 
-        # 投稿した画像とタイトル、カテゴリーとジャンルが表示されていることを確認する
+        # book投稿の画像・タイトル・カテゴリー名・ジャンル名・投稿者の画像がそれぞれ表示されていることを確認する
         expect(page).to have_selector('.book-posted-image', wait: 10)
         expect(page).to have_content(latest_book.title)
         expect(page).to have_content(latest_book.category.name)
         book.genres.each do |genre|
           expect(page).to have_content(genre.name)
         end
+        expect(page).to have_selector('.card-badge.book-poster')
 
         first_content = latest_book.book_contents.first.content
 
