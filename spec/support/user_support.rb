@@ -200,12 +200,12 @@ module UserSupport
     expect(page).to have_no_content(user.nickname)
   end
 
-  def click_btn_and_visit_my_page_and_show_flash_message(btn_text)
+  def click_btn_and_visit_my_page_and_show_flash_message(btn_text, flash_message)
     # ボタンを押す
     click_on(btn_text)
     # マイページに遷移し、フラッシュメッセージが表示されていることを確認する
     expect(page).to have_current_path(user_path(user), wait: 10)
-    expect(page).to have_selector('.flash-message', text: '更新しました')
+    expect(page).to have_selector('.flash-message', text: flash_message)
   end
 
   def click_btn_and_check_account_info
