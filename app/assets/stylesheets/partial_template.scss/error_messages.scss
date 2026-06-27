@@ -23,15 +23,24 @@
   margin-bottom: 15px;
 }
 
-.edit-password, .edit-email {
-  .error-message {
+.edit-email {
+  .error-item {
     width: 300px !important;
     max-width: 360px;
   }
 }
 
+.edit-password {
+  .error-item {
+    width: 380px !important;
+    max-width: 380px;
+  }
+}
+
 .error-wrapper {
-  align-self: flex-start;
+  width: 100%;
+  max-width: 100%;
+  display: flex;
 }
 
 .error-list {
