@@ -19,6 +19,13 @@
           <p>投稿はありません</p>
         </div>
       <% end %>
+
+      <div class="smp-post-btn-container smp-only">
+        <%= link_to(new_book_path, class: "smp-post-btn hovers") do %>
+          <span class="smp-post-btn-text">投稿する</span>
+        <% end %>
+      </div>
+
     </div>
   </div>
 
@@ -121,7 +128,7 @@
   </div>
 </main>
 
-<%= link_to(new_book_path, class: "right-bottom-btn post hovers") do %>
+<%= link_to(new_book_path, class: "right-bottom-btn post hovers pc-only") do %>
   <span class="right-bottom-btn-text post">投稿する</span>
 <% end %>
 

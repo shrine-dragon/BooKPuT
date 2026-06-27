@@ -1,48 +1,55 @@
+@import "config";
+
 * {
   box-sizing: border-box;
 }
 
-.header{
+.header {
   background-color: #fffafa;
-  position: relative;
-  position: fixed;
-  top: 0;           /* 画面の最上部に張り付くように指定 */
-  left: 0;          /* 左端から開始 */
-  width: 100%;      /* ★重要：これがないと横幅が縮んで崩れる */
-  z-index: 1000;     /* スライドの矢印(20)などより高い数字に設定 */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 浮いている感じを出す */
+  position: fixed; /* 固定配置に一本化 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.header-wrapper{
+.header-wrapper {
   max-width: 1500px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0px 20px;
+  padding: 0 20px;
   height: 70px;
 }
 
-.header-logo{
+.header-logo {
   display: flex;
   padding-top: 5px;
   margin-left: 10px;
 }
 
-.bookput-header-logo{
+.bookput-header-logo {
   height: 50px;
   width: 250px;
-  object-fit: contain; /* 画像の比率を保つ */
+  object-fit: contain;
   cursor: pointer;
 }
 
-.header-list{
+/* PC版ではスマホ用の要素を完全に隠す */
+.search-toggle-checkbox,
+.smp-search-trigger-btn {
+  display: none;
+}
+
+.header-list {
   display: flex;
   align-items: center;
   width: 100%;
 }
 
-.search{
+.search {
   display: flex;
   align-items: center;
   margin: 0 auto;
@@ -64,12 +71,11 @@
   border-radius: 4px 0 0 4px;
   outline: none;
   box-sizing: border-box;
-}
 
-.search-bar:focus {
-  outline: none;             /* デフォルトの青い枠線を消す */
-  border-color: orange;    /* ログインボタンと同じオレンジにする */
-  box-shadow: 0 0 5px rgba(255, 165, 0, 0.3);
+  &:focus {
+    border-color: orange;
+    box-shadow: 0 0 5px rgba(255, 165, 0, 0.3);
+  }
 }
 
 .search-btn {
@@ -79,8 +85,8 @@
   background-color: #eee;
   color: #666;
   border: 1px solid #ccc;
-  border-left: none; /* 検索バーとの境目を消す */
-  border-radius: 0 4px 4px 0; /* 右側だけ丸める */
+  border-left: none;
+  border-radius: 0 4px 4px 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -106,10 +112,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  white-space: nowrap;  /* 改行を防ぐ */
+  white-space: nowrap;
 }
 
-.user-menu{
+.user-menu {
   padding: 13px 10px;
 }
 
@@ -118,18 +124,18 @@
   color: #333;
 }
 
-.user-nickname{
+.user-nickname {
   margin-right: 10px;
   white-space: nowrap;
   display: block;
   text-align: right;
 }
 
-.user-image{
+.user-image {
   width: 45px;
   height: 45px;
   border-radius: 50%;
-  object-fit: cover; //画像の歪み防止
+  object-fit: cover;
 }
 
 .log-in-menu {
@@ -137,7 +143,7 @@
   margin-right: 30px;
 }
 
-.sign-up-menu{
+.sign-up-menu {
   padding: 23px 10px;
   margin-right: 20px;
 }
@@ -150,22 +156,21 @@
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999; // headerの1000より小さく設定
+  z-index: 999;
 }
 
-.modal{
+.modal {
   background-color: whitesmoke;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   display: none;
-  position: absolute;
-  position: fixed;
+  position: fixed; /* 一本化 */
   top: 64px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* 浮いている感じを出す影 */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
-.modal-wrapper{
+.modal-wrapper {
   width: 80%;
 }
 
@@ -174,7 +179,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px; /* これだけで小要素の間に隙間ができる */
+  gap: 10px;
 }
 
 .modal-btn {
@@ -200,19 +205,21 @@
 
 .two-columns-layout {
   display: grid;
-  grid-template-columns: 1fr 1fr; // 均等に2分割
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
   width: 100%;
   max-width: 360px;
-  .modal-btn{
+
+  .modal-btn {
     padding: 10px 5px;
     font-size: 13px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
   i {
-    margin-right: 5px;  /* アイコンと文字の距離を詰める */
+    margin-right: 5px;
     font-size: 1rem;
   }
 }
@@ -223,31 +230,31 @@
 .fa-facebook { color: #1877F2; }
 .fa-envelope { color: #666666; }
 
-.modal.sign-up{
+.modal.sign-up {
   height: 220px;
   width: 420px;
   right: 40px;
-  z-index: 1002 /* 投稿するボタンより1多い設定 */;
+  z-index: 1002;
 }
 
-.modal.log-in-user{
+.modal.log-in-user {
   height: auto;
   min-height: 160px;
   width: 200px;
   right: 20px;
-  top: 70px; /* ★ヘッダーの height と合わせる */
+  top: 70px;
   background-color: whitesmoke;
-  z-index: 1002 ; /* 投稿するボタンより1多い設定 */
+  z-index: 1002;
 }
 
-.log-in-user-container{
+.log-in-user-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px; /* これだけで小要素の間に隙間ができる */
+  gap: 15px;
 }
 
-.my-page-btn, .log-out-btn{
+.my-page-btn, .log-out-btn {
   border-radius: 6px;
   padding: 12px 25px;
   display: flex;
@@ -257,11 +264,89 @@
   transition: all 0.3s;
 }
 
-.my-page-btn-text, .log-out-btn-text{
+.my-page-btn-text, .log-out-btn-text {
   font-size: 16px;
   font-weight: bold;
 }
 
-.fa-solid.fa-user, .fa-right-from-bracket{
+.fa-solid.fa-user, .fa-right-from-bracket {
   cursor: pointer;
+}
+
+/* スマホ（768px以下）のレスポンシブ対応 */
+@include mobile {
+  .header-wrapper {
+    position: relative;
+    justify-content: space-between;
+    padding: 0 15px;
+  }
+
+  .bookput-header-logo {
+    width: 140px;
+    height: auto;
+  }
+
+  .header-menus {
+    margin-left: auto;
+    
+    .user-nickname {
+      display: none;
+    }
+    .log-in-menu {
+      margin-right: 15px;
+    }
+    .sign-up-menu {
+      margin-right: 0;
+    }
+  }
+
+  .smp-search-trigger-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin-left: 15px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #333;
+    z-index: 1001;
+    
+    .close-icon { display: none; }
+  }
+
+  .header-list {
+    position: absolute;
+    top: -70px;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #fffafa;
+    padding: 0 15px;
+    box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+    transition: top 0.3s ease;
+    display: flex;
+    align-items: center;
+    z-index: 999;
+  }
+
+  .search {
+    width: 100%;
+  }
+  .search-form {
+    max-width: 100%;
+  }
+  .search-bar {
+    width: 100%;
+  }
+
+  /* チェックが入った時の動き */
+  .search-toggle-checkbox:checked ~ .header-list {
+    top: 70px;
+  }
+
+  .search-toggle-checkbox:checked ~ .smp-search-trigger-btn {
+    .open-icon { display: none; }
+    .close-icon { display: block; color: orange; }
+  }
 }
