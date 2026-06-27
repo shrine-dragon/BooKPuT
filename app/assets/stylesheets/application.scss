@@ -28,3 +28,9 @@ body {
   flex-direction: column;
   min-height: 100vh; /* 画面の高さを最低100%確保 */
 }
+
+@mixin mobile {
+  @media screen and (max-width: 768px) {
+    @content;
+  }
+}
