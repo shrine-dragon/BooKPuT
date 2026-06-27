@@ -1,0 +1,29 @@
+@import "config";
+
+.completion-text{
+  margin-bottom: 20px;
+  p{
+    font-size: 18px;
+  }
+}
+
+.return-to-top-page{
+  width: 220px;
+  background-color: #ccc;
+}
+
+.return-to-top-page.btn-on-center{
+  margin-bottom: 20px;
+}
+
+@include mobile{
+  .completion-text{
+    p{
+      font-size: 15px;
+    }
+  }
+
+  .return-to-top-page{
+    width: 100%;
+  }
+}
