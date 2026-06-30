@@ -1,0 +1,19 @@
+@import "config";
+
+.pc-only {
+  display: block;
+}
+
+.smp-only {
+  display: none;
+}
+
+@include mobile {
+  .pc-only {
+    display: none !important;
+  }
+
+  .smp-only {
+    display: block !important;
+  }
+}

@@ -1,3 +1,5 @@
+@import "config";
+
 .error-message, .image-re-select-message{
   color: #ff0000;
   font-size: 14px;
@@ -40,5 +42,12 @@
 .edit-email {
   .error-item {
     width: 300px !important;
+  }
+}
+
+@include mobile {
+  .error-item{
+    width: 100%;
+    font-size: 12px;
   }
 }

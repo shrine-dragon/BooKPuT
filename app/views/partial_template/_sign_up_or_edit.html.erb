@@ -1,8 +1,8 @@
 <%= form_with model: model, url: url, class: 'sign-up -or-edit', local: true do |f| %>
   <div class="form-wrapper">
-    <h1 class="form-heading">
+    <h2 class="form-heading">
       <%= title %>
-    </h1>
+    </h2>
     <div class="form-container">
       <div class="form-contents">
         <div class="form-text">
@@ -91,6 +91,13 @@
       <div class="form-btn-container">
         <%= f.submit btn_text, class: "orange-submit-btn hovers" %>
       </div>
+      <div class="smp-only">
+        <p class="urge-log-in">ログインは<span><%= link_to 'こちら', root_path, class: "log-in-here" %></span></p>
+      </div>
     </div>
   </div>
 <% end %>
+
+<div class="smp-only">
+  <%= render 'partial_template/footer' %>
+</div>

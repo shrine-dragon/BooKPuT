@@ -62,3 +62,9 @@ $btn-padding: 5px 15px;
   width: fit-content;    /* 文字幅に合わせる */
   transition: background-color 0.2s;
 }
+
+.input-birth-date, .select-pull-down {
+  height: 40px;
+  width: 35%;
+  min-width: 120px;
+}
