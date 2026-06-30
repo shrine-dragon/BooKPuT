@@ -18,7 +18,7 @@
   padding: 0 60px 30px;
 }
 
-.book-post-list-heading h2 {
+.book-post-list-heading {
   text-align: center;
   padding: 30px 0 15px;
   font-weight: bold;
@@ -93,7 +93,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
 }
 
 .app-description-wrapper {
@@ -136,6 +135,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
 }
 
@@ -144,9 +144,8 @@
   margin: 0 auto;
 }
 
-.app-feature-heading h2 {
+.app-feature-heading {
   text-align: center;
-  padding-top: 30px;
   font-weight: bold;
   font-size: 25px;
 }
@@ -189,7 +188,6 @@
   font-size: 30px;
   font-weight: bold;
   width: 100%;
-  max-width: 700px;
   text-align: center;
   margin: 0 auto;
 }
@@ -213,7 +211,7 @@
   padding-bottom: 20px;
 }
 
-.faq-heading h2 {
+.faq-heading {
   text-align: center;
   padding: 60px 0;
   font-weight: bold;
@@ -326,7 +324,7 @@
     padding: 0 60px 15px;
   }
 
-  .book-post-list-heading h2 {
+  .book-post-list-heading {
     font-size: 20px;
   }
 
@@ -354,16 +352,16 @@
   }
 
   .app-description {
-    height: 350px;
+    height: 320px;
   }
 
   .app-description-wrapper {
     width: 95%;
     h2 {
-      font-size: 23px;
+      font-size: 22px;
     }
     p {
-      font-size: 20px;
+      font-size: 18px;
     }
     .app-download-text {
       font-size: 15px;
@@ -376,20 +374,30 @@
   }
 
   .app-feature {
-    height: 450px;
+    height: 350px;
     padding: 0;
   }
 
   .app-feature-outer {
-    width: 95% !important;
+    width: 90% !important;
   }
 
-  .app-feature-heading h2 {
+  .app-feature-heading {
     font-size: 20px;
+    padding: 0;
+  }
+
+  .feature-image{
+    box-shadow: none;
   }
 
   .app-feature-sentence {
     font-size: 15px;
+    text-align: left;
+  }
+
+  .pagination {
+    margin-top: 10px;
   }
 
   .faq {
@@ -399,20 +407,25 @@
 
   .faq-wrapper {
     width: 90%;
-    padding-bottom: 0px;
+    padding: 0;
   }
 
-  .faq-heading h2 {
+  .faq-heading {
     font-size: 20px;
-    padding: 30px 0;
+    padding: 20px 0 30px;
+  }
+
+  .question-and-answer{
+    padding-bottom: 5px;
+    margin-bottom: 20px;
   }
 
   .question-and-answer span {
-    font-size: 18px;
+    font-size: 15px;
   }
 
   .question, .answer {
-    font-size: 15px;
+    font-size: 12px;
     width: 90%;
   }
 }
