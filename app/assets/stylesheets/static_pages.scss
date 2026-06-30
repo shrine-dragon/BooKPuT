@@ -6,7 +6,7 @@
   background-color: aliceblue;
 }
 
-.static-page-heading h2{
+.static-page-heading{
   text-align: center;
   padding: 30px 0 20px;
   font-weight: bold;
@@ -124,8 +124,9 @@
     width: 90%;
   }
 
-  .static-page-heading h2{
+  .static-page-heading {
     font-size: 20px;
+    padding: 20px 0;
   }
 
   .first-sentence{
@@ -149,12 +150,12 @@
 
   .company_detail {
     .static-page-wrapper {
-      padding-bottom: 20px;
+      padding-bottom: 5px;
     }
 
     table{
       width: 95%;
-      margin: 20px auto;
+      margin: 0 auto 20px;
     }
 
     tr, td{
@@ -163,7 +164,7 @@
     }
 
     th, td:first-child {
-      width: 35%;
+      width: 40%;
     }
 
     ul{
