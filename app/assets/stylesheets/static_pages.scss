@@ -15,7 +15,8 @@
 
 .static-page-container{
   padding-bottom: 2px;
-  margin: 0 40px;
+  margin: 0 auto;
+  width: 80%;
 }
 
 .static-page-contents{
@@ -64,6 +65,7 @@
 
 .that-is-all{
   text-align: right;
+  margin-bottom: 10px;
 }
 
 /* 会社概要 */
@@ -133,8 +135,9 @@
     font-size: 15px;
   }
 
-  .static-page-chapter{
-    font-size: 18px;
+  .static-page-container{
+    width: 90%;
+    margin: 0 auto;
   }
 
   .static-page-contents{
@@ -146,6 +149,10 @@
     margin-bottom: 4px;
     line-height: 1.2;
     }
+  }
+
+  .static-page-chapter{
+    font-size: 18px;
   }
 
   .company_detail {
