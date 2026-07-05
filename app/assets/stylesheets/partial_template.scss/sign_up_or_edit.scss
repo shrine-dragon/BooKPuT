@@ -1,3 +1,5 @@
+@import "config";
+
 /* ボタンの共通デザイン */
 $btn-bg: #f0f0f0;      /* 背景色（薄いグレー） */
 $btn-border: #ccc;    /* 境界線 */
@@ -6,6 +8,9 @@ $btn-padding: 5px 15px;
 
 .sign-up-page{
   padding-bottom: 5px;
+  .urge-log-in{
+    display: block;
+  }
 }
 
 .form-text,
@@ -67,4 +72,26 @@ $btn-padding: 5px 15px;
   height: 40px;
   width: 35%;
   min-width: 120px;
+}
+
+@include mobile{
+  .urge-log-in{
+    font-size: 14px;
+    text-align: center;
+    padding-bottom: 10px;
+  }
+
+  .edit-profile-page{
+    .urge-log-in{
+      display: none;
+  }
+  
+  .log-in-here{
+    font-weight: bold;
+  }
+  }
+  
+  .log-in-here{
+    font-weight: bold;
+  }
 }

@@ -1,5 +1,9 @@
 @import "config";
 
+.class{
+  height: 100%;
+}
+
 .register-password{
   position: relative;
   width: 100%;
@@ -18,15 +22,5 @@
       right: 4%;
       top: 40px;
     }
-  }
-
-  .urge-log-in{
-    font-size: 14px;
-    text-align: center;
-    padding: 15px 0 10px;
-  }
-
-  .log-in-here{
-    font-weight: bold;
   }
 }
