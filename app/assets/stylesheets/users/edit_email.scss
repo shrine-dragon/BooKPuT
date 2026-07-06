@@ -1,6 +1,19 @@
-.edit-email{
+@import "config";
+
+.edit-email-page{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   .form-text, .input-text{
     width: 300px !important;
     max-width: 360px;
+  }
+}
+
+@include mobile{
+  .edit-email-page{
+    .form-btn-container {
+      margin-top: -10px;
+    }
   }
 }
