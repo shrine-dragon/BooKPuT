@@ -4,9 +4,6 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  form.sign-up.-or-edit {
-    flex: 1; 
-  }
   .form-wrapper{
     background-color: lavender;
   }
@@ -14,6 +11,10 @@
 
 @include mobile{
   .edit-profile-page{
+    .form-btn-container {
+      margin-top: -25px;
+    }
+    
     .urge-log-in{
       display: none;
     }
