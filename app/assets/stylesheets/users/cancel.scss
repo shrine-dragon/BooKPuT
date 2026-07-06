@@ -1,9 +1,9 @@
+@import "config";
+
 .select-reason-destroy-account{
   color: red;
-  padding: 10px;
   font-size: 22px;
   font-weight: bold;
-  margin-bottom: 15px;
 }
 
 .reasons-to-destroy-account{
@@ -73,4 +73,8 @@
 
 #final-confirm-area {
   animation: fadeIn 0.5s ease;
+}
+
+@include mobile{
+
 }
