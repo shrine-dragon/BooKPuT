@@ -9,6 +9,7 @@
     TODO with the prefix, should I group by selector or property for weight savings?
 */
 html{
+  height: 100%;
   color:#000;
   background:#fff;
   /* 文字サイズの自動調整・強制拡大を無効化する*/

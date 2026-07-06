@@ -1,17 +1,14 @@
 @import "config";
 
+form.sign-up.-or-edit {
+  flex: 1; 
+}
+
 /* ボタンの共通デザイン */
 $btn-bg: #f0f0f0;      /* 背景色（薄いグレー） */
 $btn-border: #ccc;    /* 境界線 */
 $btn-radius: 4px;     /* 角丸 */
 $btn-padding: 5px 15px;
-
-.sign-up-page{
-  padding-bottom: 5px;
-  .urge-log-in{
-    display: block;
-  }
-}
 
 .form-text,
 .upload-image,
@@ -81,17 +78,23 @@ $btn-padding: 5px 15px;
     padding-bottom: 10px;
   }
 
+  .log-in-here{
+    font-weight: bold;
+  }
+
+  .sign-up-page{
+    .form-wrapper{
+      margin: 0 auto !important;
+    }
+  }
+
   .edit-profile-page{
+    .form-wrapper{
+      margin: 0 auto !important;
+    }
+
     .urge-log-in{
       display: none;
-  }
-  
-  .log-in-here{
-    font-weight: bold;
-  }
-  }
-  
-  .log-in-here{
-    font-weight: bold;
+    }
   }
 }
