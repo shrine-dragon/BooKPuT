@@ -1,5 +1,5 @@
 document.addEventListener('turbolinks:load', () => {
-  const triggerBtn = document.getElementById('first-destroy-btn');
+  const triggerBtn = document.getElementById('first-cancel-btn');
   const confirmArea = document.getElementById('final-confirm-area');
 
   if (!triggerBtn || !confirmArea) return;

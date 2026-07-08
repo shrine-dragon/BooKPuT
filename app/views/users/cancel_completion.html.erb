@@ -1,16 +1,18 @@
 <%= render 'partial_template/header' %>
 
-<%= render layout: 'partial_template/cancel_account', locals: { title: 'アカウント解約完了' } do %>
-  <div class="completion-text">
-    <p>アカウントを解約しました。</p>
-    <p>またのご利用をお待ちしております。</p>
-  </div>
-  <div class="return-to-top-page btn-on-center">
-    <%= link_to(root_path, class: "return-to-top-page-btn") do %>
-      <span class="return-to-top-page btn-text">トップページへ戻る</span>
-    <% end %>
-  </div>
-<% end %>
+<div class="cancel-account-page">
+  <%= render layout: 'partial_template/cancel_account', locals: { title: 'アカウント解約完了' } do %>
+    <div class="completion-text">
+      <p>アカウントを解約しました。</p>
+      <p>またのご利用をお待ちしております。</p>
+    </div>
+    <div class="return-to-top-page btn-on-center">
+      <%= link_to(root_path, class: "return-to-top-page-btn") do %>
+        <span class="return-to-top-page btn-text">トップページへ戻る</span>
+      <% end %>
+    </div>
+  <% end %>
+</div>
 
 <%= render 'partial_template/return_btn' %>
 

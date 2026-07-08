@@ -1,9 +1,9 @@
 <%= render 'partial_template/header' %>
 
-<div class="destroy-account">
+<div class="cancel-account-page">
   <%= render layout: 'partial_template/cancel_account', locals: { title: 'アカウント解約' } do %>
-    <h2 class="select-reason-destroy-account">※解約理由を以下から選択してください(複数可)。</h2>
-    <ul class="reasons-to-destroy-account">
+    <h3 class="select-reason-cancel-account">※解約理由を以下から選択してください(複数可)。</h3>
+    <ul class="reasons-to-cancel-account">
       <li>
         <label><%= check_box_tag :reason1 %>間違えて登録した</label>
       </li>
@@ -26,17 +26,17 @@
         <span class="continue-account btn-text">利用を継続する</span>
       <% end %>
     </div>
-    <div class="destroy-account btn-on-center">
-      <div class="destroy-account-btn trigger-confirm" id="first-destroy-btn">
-        <span class="destroy-account btn-text">解約する</span>
+    <div class="cancel-account btn-on-center">
+      <div class="cancel-account-btn trigger-confirm" id="first-cancel-btn">
+        <span class="cancel-account btn-text">解約する</span>
       </div>
     </div>
 
     <div id="final-confirm-area" style="display: none;">
       <p class="warning-text">アカウントを本当に解約しますか？<br>一度解約すると復元できません。</p>
-      <div class="destroy-account btn-on-center">
-        <%= link_to(user_path(@user), method: :delete, class: "destroy-account-btn finally-destroy-link") do %>
-          <span class="destroy-account btn-text" id="destroy-account">本当に解約する</span>
+      <div class="cancel-account btn-on-center">
+        <%= link_to(user_path(@user), method: :delete, class: "cancel-account-btn finally-cancel-link") do %>
+          <span class="cancel-account btn-text" id="cancel-account">本当に解約する</span>
         <% end %>
       </div>
     </div>
