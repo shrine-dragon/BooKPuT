@@ -1,8 +1,14 @@
+@import "config";
+
 .detail-wrapper.book-post-detail{
   /* form-wrapperの本来のwidthは55% */
   width: 80%;
   background-color: bisque;
   margin: 0 auto;
+
+  .smp-only {
+    display: none !important;
+  }
 
   .post-detail-heading{
     text-align: center;
@@ -151,6 +157,11 @@
     display: flex;
     justify-content: flex-end;
     gap: 15px;
+  }
+
+  .reaction-icon-field{
+    position: relative;
+    z-index: 100;
   }
 
   .detail-right-btn-field{
@@ -356,4 +367,157 @@
 
 .view-more-comments-container{
   margin: 10px 0;
+}
+
+@include mobile {
+  .detail-wrapper.book-post-detail {
+    width: 90%;
+    margin: 0 auto 20px;
+    box-sizing: border-box;
+
+    .post-detail-heading {
+      font-size: 20px;
+      padding: 20px 0 10px;
+    }
+
+    // 3カラムから1カラム（縦並び）へ
+    .detail-container {
+      flex-direction: column;
+      align-items: center;
+      width: 90%;
+      margin: 0 auto;
+    }
+
+    .detail-center {
+      width: 100%;
+      max-width: 450px;
+      box-sizing: border-box;
+    }
+
+    .posted-by-field.smp-only {
+      display: flex !important;
+      align-items: center;
+      height: auto;
+      margin-bottom: 15px;
+      
+      .user-image.posted-by {
+        width: 45px;
+        height: 45px;
+      }
+      .user-nickname.posted-by {
+        font-size: 16px;
+        padding: 0 10px;
+      }
+    }
+
+    .smp-action-area {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 15px;
+      padding: 0 5px;
+
+      .smp-btn-field, .reaction-icon-field {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .detail-right-btn {
+        padding: 6px 12px;
+      }
+      .detail-right-btn-text {
+        font-size: 14px;
+      }
+      .fa-regular, .fa-solid {
+        font-size: 22px;
+      }
+    }
+
+    .hashtags-area {
+      margin-left: 5px;
+      margin-top: 10px;
+    }
+
+    .book-title {
+      font-size: 18px;
+    }
+
+    .category-tag {
+      font-size: 15px;
+    }
+
+    .content-item-field.horizontal-text.smp-only {
+      padding: 10px 5px 15px;
+      
+      .content-item {
+        font-size: 16px;
+        padding: 12px 0;
+        line-height: 1.5;
+      }
+    }
+  }
+
+  // コメント入力欄
+  .post-comment-wrapper {
+    width: 95%;
+    margin-bottom: 25px;
+
+    .post-comment-container {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .post-comment-user-field {
+      margin-bottom: 10px;
+      align-items: center;
+      
+      .user-image.post-comment {
+        margin-left: 5px;
+        width: 35px;
+        height: 35px;
+      }
+      .user-nickname.post-comment {
+        font-size: 14px;
+        padding: 0 10px;
+      }
+    }
+
+    .post-comment-field {
+      margin-top: 0;
+      width: 100%;
+    }
+
+    .comment-form {
+      width: 100%;
+    }
+
+    .submit-comment-btn{
+      .fa-solid{
+        font-size: 1.0rem;
+      }
+    }
+
+    .comment-form-text {
+      width: 100% !important; 
+      font-size: 14px;
+    }
+    
+    .comment-caution-text {
+      font-size: 11px;
+      margin-top: 5px;
+    }
+  }
+
+   .posted-comment-list-container {
+    width: 90%;
+  }
+
+  .posted-comment-number{
+    font-size: 16px;
+    margin: 5px 0 0 5px;
+  }
+
+  .view-more-comments-text, .hide-comments-text{
+    font-size: 14px;
+  }
 }

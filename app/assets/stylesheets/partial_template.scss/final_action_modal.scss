@@ -1,3 +1,5 @@
+@import "config";
+
 .modal.final-action{
   display: none;
   position: fixed;
@@ -31,4 +33,15 @@
 
 .no-action.btn-on-center{
   background-color: orange;
+}
+
+@include mobile{
+  .modal.final-action{
+    width: 330px;
+    padding: 20px;
+  }
+
+  .final-action.btn-text, .no-action.btn-text{
+    font-size: 15px;
+  }
 }
