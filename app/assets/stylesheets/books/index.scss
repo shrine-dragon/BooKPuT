@@ -306,16 +306,7 @@
   font-weight: bold;
 }
 
-/* スマホ（768px以下）のレスポンシブスタイル集約 */
 @include mobile {
-  .pc-only {
-    display: none !important;
-  }
-
-  .smp-only {
-    display: block !important;
-  }
-
   .book-post-list-wrapper {
     padding: 0 60px 15px;
   }
@@ -328,6 +319,8 @@
     text-align: center;
     margin: 10px 0;
     width: 100%;
+    position: relative;
+    z-index: 10;
   }
 
   .smp-post-btn {

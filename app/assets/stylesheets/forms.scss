@@ -2,7 +2,7 @@
 
 .form-wrapper{
   width: 55%;
-  margin: 0 auto 55px;
+  margin: 0px auto 55px;
   background-color: ghostwhite;
 }
 
@@ -80,6 +80,7 @@
 @include mobile{
   .form-wrapper{
     width: 90%;
+    margin: 0 auto 20px;
   }
 
   .form-container{
