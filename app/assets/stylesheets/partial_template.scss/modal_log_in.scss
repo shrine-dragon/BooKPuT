@@ -111,7 +111,7 @@
 
 @include mobile{
   .modal.log-in.is-center{
-    width: 85%;
-    max-width: 300px;
+    width: 80%;
+    min-width: 300px;
   }
 }
