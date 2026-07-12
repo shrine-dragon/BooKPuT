@@ -101,7 +101,6 @@
 
 /* バツボタンの基本設定（通常は隠しておく） */
 .close-modal {
-  display: none;
   position: absolute;
   top: 10px;
   right: 15px;
@@ -110,8 +109,33 @@
 }
 
 @include mobile{
+  .modal.log-in {
+    position: fixed;
+    top: 50px;
+    left: 1px;
+    transform: none;
+    width: 250px;
+    min-height: auto;
+    padding: 50px 20px 25px;
+    border-radius: 8px;
+    z-index: 1002;
+    
+    .modal-btn {
+      font-size: 12px;
+      padding: 8px;
+    }
+    .two-columns-layout {
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+    .log-in-modal-footer {
+      display: none;
+    }
+  }
+  
   .modal.log-in.is-center{
     width: 80%;
     min-width: 300px;
+    top: 55% !important;
   }
 }

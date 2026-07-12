@@ -14,7 +14,9 @@
  *= require_self
  */
  /* ヘッダーの高さが変わるたびにCSSを書き直すのを防ぐため、CSS変数を使用 */
-:root {
+@import "config";
+
+ :root {
   --header-height: 70px;
 }
 
@@ -32,4 +34,10 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh; /* 画面の高さを最低100%確保 */
+}
+
+@include mobile{
+  :root {
+    --header-height: 100px;
+  }
 }

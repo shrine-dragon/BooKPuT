@@ -2,11 +2,6 @@
   <div class="close-modal"><i class="fa-solid fa-xmark"></i></div>
 
   <div class="modal-wrapper log-in">
-    <% if flash[:alert] %>
-      <p class="error-message is-full-with">
-        <%= flash[:alert] %>
-      </p>
-    <% end %>
     <%= form_with scope: :user, url: user_session_path, local: true do |f| %>
       <div class="modal-btn-container log-in">
         <div class="log-in-form">
