@@ -1,3 +1,5 @@
+@import "config";
+
 .modal.log-in{
   height: auto;
   min-height: 450px;
@@ -105,4 +107,11 @@
   right: 15px;
   cursor: pointer;
   font-size: 20px;
+}
+
+@include mobile{
+  .modal.log-in.is-center{
+    width: 85%;
+    max-width: 300px;
+  }
 }
