@@ -225,7 +225,7 @@ RSpec.describe 'パスワード変更', type: :system do
   context 'パスワードの変更ができる時' do
     it '未ログインの状態でパスワード再設定ページに遷移し、正しい情報を入力すればパスワードを変更できる' do
       open_modal('log-in', 'ログイン')
-      scroll_display('.forget-password')
+      scroll_display('パスワードをお忘れですか？')
 
       # パスワード再設定ページに遷移していることを確認する
       expect(page).to have_current_path(new_user_password_path, wait: 5)
@@ -474,7 +474,7 @@ RSpec.describe 'マイページ', type: :system do
   end
 
   context 'メールアドレスを変更できる時' do
-    it 'を含んだメールアドレスを入力していれば変更できる' do
+    it '@を含んだメールアドレスを入力していれば変更できる' do
       log_in_and_visit_my_page
       show_log_in_info
       click_btn_and_check_email
@@ -606,7 +606,7 @@ RSpec.describe 'マイページ', type: :system do
       # アカウント解約ページに最初の解約ボタンがあることを確認する
       expect(page).to have_content('解約する')
       # ボタンを押すと、最終確認のメッセージと最後の解約ボタンがあることを確認する
-      find('#first-destroy-btn').click
+      find('#first-cancel-btn').click
       expect(page).to have_content("アカウントを本当に解約しますか？\n一度解約すると復元できません。")
       expect(page).to have_content('本当に解約する')
 

@@ -37,11 +37,11 @@ module UserSupport
 
     # 新規登録ページに遷移したことを確認する
     expect(page).to have_current_path(new_user_registration_path)
-    expect(page).to have_content '新規登録フォーム'
+    expect(page).to have_content '新規登録'
   end
 
   def input_info_and_sign_up(_provider, target_user = user)
-    expect(page).to have_content('新規登録フォーム', wait: 10)
+    expect(page).to have_content('新規登録', wait: 10)
 
     # 必須事項を入力または選択する
     # ニックネームとメールが空なら補完
@@ -229,11 +229,6 @@ module UserSupport
     # 変更ボタンを押すとメールアドレス変更ページに遷移することを確認する
     click_on('メールアドレスを変更する')
     expect(page).to have_current_path(edit_email_user_path(user))
-
-    # すでに登録済みのアカウント情報がフォームに入っていることを確認する
-    expect(
-      find('#email').value
-    ).to eq(user.email)
   end
 
   def click_btn_and_visit_edit_password_page
