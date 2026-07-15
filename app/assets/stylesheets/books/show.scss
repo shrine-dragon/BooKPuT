@@ -178,7 +178,7 @@
     font-size: 16px;
   }
 
-  .fa-regular, .fa-solid{
+  .fa-thumbs-up, .fa-thumbs-down{
     font-size: 25px;
   }
 
@@ -323,7 +323,7 @@
 }
 
 .comment-form-text{
-  width: 700px;
+  width: 100%;
   height: 30px;
   padding: 8px 12px;
   box-sizing: border-box; // paddingを含めた高さをheightにする
@@ -358,8 +358,8 @@
   width: 30px;
   height: 30px;
   padding: 0;
-  .fa-solid {
-    font-size: 1.2rem;
+  .fa-solid.fa-paper-plane {
+    font-size: 15px;
     line-height: 1;
     display: block;
   }
@@ -428,7 +428,7 @@
       .detail-right-btn-text {
         font-size: 14px;
       }
-      .fa-regular, .fa-solid {
+      .fa-thumbs-up, .fa-thumbs-down {
         font-size: 22px;
       }
     }
@@ -457,7 +457,6 @@
     }
   }
 
-  // コメント入力欄
   .post-comment-wrapper {
     width: 95%;
     margin-bottom: 25px;
@@ -483,7 +482,7 @@
     }
 
     .post-comment-field {
-      margin-top: 0;
+      margin: 0 0 0 6px;
       width: 100%;
     }
 
@@ -491,20 +490,24 @@
       width: 100%;
     }
 
-    .submit-comment-btn{
-      .fa-solid{
-        font-size: 1.0rem;
-      }
-    }
-
     .comment-form-text {
-      width: 100% !important; 
+      width: 100%;
       font-size: 14px;
     }
-    
+
     .comment-caution-text {
       font-size: 11px;
       margin-top: 5px;
+    }
+
+    .comment-btn{
+      margin-left: 3px;
+    }
+
+    .submit-comment-btn{
+      .fa-solid.fa-paper-plane{
+        font-size: 15px;
+      }
     }
   }
 
