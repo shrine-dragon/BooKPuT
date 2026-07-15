@@ -274,6 +274,14 @@
 }
 
 @include mobile {
+  .header-fixed-disable {
+    .header {
+      position: static;
+      margin-top: 0;
+      padding-top: 0;
+    }
+  }
+  
   .header-wrapper {
     position: relative;
     display: flex;

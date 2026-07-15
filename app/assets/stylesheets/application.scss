@@ -37,7 +37,16 @@ body {
 }
 
 @include mobile{
-  :root {
+ :root {
     --header-height: 100px;
+  }
+
+  body.books-search, 
+  body.users-edit_profile,
+  body.users-edit_email,
+  body.users-edit_password,
+  body.users-cancel_completion{
+    --header-height: 0px;
+    margin-top: 0;
   }
 }
