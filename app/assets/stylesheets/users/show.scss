@@ -16,14 +16,15 @@
 }
 
 .my-page-contents{
+  width: 100%;
   padding: 10px 0 10px 10px;
   background-color: ghostwhite;
   margin-bottom: 20px;
-  .swiper-button-prev {
-    left: -80px !important;
+  .slick-prev.slick-arrow{
+    left: -60px !important;
   }
-  .swiper-button-next {
-    right: -80px !important;
+  .slick-next.slick-arrow {
+    right: -30px !important;
   }
 }
 
@@ -142,6 +143,15 @@
 @include mobile{
   .my-page-heading{
     font-size: 20px;
+  }
+
+  .my-page-contents{
+    .slick-prev.slick-arrow{
+      left: -45px !important;
+    }
+    .slick-next.slick-arrow {
+      right: -20px !important;
+    }
   }
 
   .contents-heading{
