@@ -44,7 +44,7 @@
     height: 100px;
   }
 
-  .user-mypage-link{
+  .user-my-page-link{
     display: flex;
   }
 
@@ -398,7 +398,7 @@
       display: flex !important;
       align-items: center;
       height: auto;
-      margin-bottom: 15px;
+      margin-bottom: 5px;
       
       .user-image.posted-by {
         width: 45px;
@@ -406,12 +406,12 @@
       }
       .user-nickname.posted-by {
         font-size: 16px;
-        padding: 0 10px;
+        padding: 10px 0;
       }
     }
 
     .smp-action-area {
-      display: flex;
+      display: flex !important;
       justify-content: space-between;
       align-items: center;
       margin-top: 15px;
@@ -446,7 +446,8 @@
       font-size: 15px;
     }
 
-    .content-item-field.horizontal-text.smp-only {
+    .content-item-field.horizontal-text.fade-in-up.smp-only {
+      display: flex !important;
       padding: 10px 5px 15px;
       
       .content-item {

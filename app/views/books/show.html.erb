@@ -12,8 +12,8 @@
       <!-- 左カラム（PCのみ） -->
       <div class="detail-left pc-only">
         <% if current_user == @book.user %>
-          <div class="posted-by-field is-mypage">
-            <%= link_to user_path(current_user), class: "user-mypage-link" do %>
+          <div class="posted-by-field is-my-page">
+            <%= link_to user_path(current_user), class: "user-my-page-link" do %>
               <% if current_user.image.attached? %>
                 <%= image_tag current_user.image, class: 'user-image posted-by hovers' %>
               <% else %>
@@ -42,18 +42,30 @@
         </div>
       </div>
 
-      <!-- 中央カラム（PC・スマホ共通、スマホ時はここがメインになります） -->
+      <!-- 中央カラム（PC・スマホ共通、スマホ時はここがメイン-->
       <div class="detail-center">
-        
         <!-- 【追加】スマホ用：投稿者情報 -->
-        <div class="posted-by-field smp-only">
-          <% if @book.user.image.attached? %>
-            <%= image_tag @book.user.image, class: 'user-image posted-by' %>
-          <% else %>
-            <%= image_tag "no-image.png", class: 'user-image posted-by no-exist' %>
-          <% end %>
-          <span class="user-nickname posted-by"><%= @book.user.nickname %></span>
-        </div>
+        <% if current_user == @book.user %>
+          <div class="posted-by-field is-my-page smp-only">
+            <%= link_to user_path(current_user), class: "user-my-page-link" do %>
+              <% if current_user.image.attached? %>
+                <%= image_tag current_user.image, class: 'user-image posted-by hovers' %>
+              <% else %>
+                <%= image_tag "no-image.png", class: 'user-image posted-by no-exist hovers' %>
+              <% end %>
+              <span class="user-nickname posted-by hovers"><%= current_user.nickname %></span>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="posted-by-field is-my-page smp-only">
+            <% if @book.user.image.attached? %>
+              <%= image_tag @book.user.image, class: 'user-image posted-by' %>
+            <% else %>
+              <%= image_tag "no-image.png", class: 'user-image posted-by no-exist' %>
+            <% end %>
+            <span class="user-nickname posted-by"><%= @book.user.nickname %></span>
+          </div>
+        <% end %>
 
         <div class="book-card-static">
           <%= render 'partial_template/book_cards', book: @book, path_id: @book.user_id, frame_color: 'golden' %>
@@ -93,13 +105,13 @@
                 </li>
               </ul>
               <ul class="reaction-icon-field">
-                <li id="good-smp-<%= @book.id %>">
+                <li id="good-<%= @book.id %>">
                   <%= render 'partial_template/book_good_btn', book: @book %>
                 </li>
-                <li id="bad-smp-<%= @book.id %>">
+                <li id="bad-<%= @book.id %>">
                   <%= render 'partial_template/book_bad_btn', book: @book %>
                 </li>
-                <li id="favorite-smp-<%= @book.id %>">
+                <li id="favorite-<%= @book.id %>">
                   <%= render 'partial_template/favorite_btn', book: @book %>
                 </li>
               </ul>
