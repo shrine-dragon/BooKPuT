@@ -1,3 +1,5 @@
+@import "config";
+
 .edit-password-caution{
   color: red;
   font-size: 22px;
@@ -16,5 +18,23 @@
   padding-left: 0.5em;
   li{
     font-weight: bold;
+  }
+}
+
+@include mobile{
+  .edit-user-info-text{
+    .edit-password-caution{
+      font-size: 18px;
+    }
+
+    p{
+      font-size: 15px;
+    }
+    .email-not-submitted-case{
+      margin: 10px 0;
+      li{
+        font-size: 12px;
+      }
+    }
   }
 }
