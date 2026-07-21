@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  if Rails.env.development?
-    get 'preview/email_submitted', to: 'application#preview_email_submitted'
-  end
   # deviseを用いたユーザー管理機能
   devise_for :users, skip: [:sessions], controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks',
