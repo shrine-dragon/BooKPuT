@@ -12,7 +12,7 @@ $(document).on(loadEvent, function() {
     if (isMobileSize()) return; // スマホ時は何もしない
     $("#modal-overlay").stop(true, true).fadeIn(200);
     $(".modal.sign-up").stop(true, true).css("display", "flex").hide().fadeIn(200);
-    $(".modal.log-in").hide();
+    // $(".modal.log-in").hide();
   });
 
   // スマホ: タップ（click）で開閉（トグル）
@@ -31,7 +31,7 @@ $(document).on(loadEvent, function() {
       // 閉じている場合は開く（1回目のタップ）
       $("#modal-overlay").stop(true, true).fadeIn(200);
       $modal.stop(true, true).css("display", "flex").hide().fadeIn(200);
-      $(".modal.log-in").hide();
+      // $(".modal.log-in").hide();
     }
   });
 
