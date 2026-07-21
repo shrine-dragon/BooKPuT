@@ -3,112 +3,108 @@ import $ from 'jquery';
 const loadEvent = (typeof Turbo !== 'undefined') ? 'turbo:load' : 'turbolinks:load';
 
 $(document).on(loadEvent, function() {
-  // スマホ判定の基準値（scssの@include mobileと同期。一般的には767pxまたは480px等）
   const isMobileSize = () => window.innerWidth <= 767;
 
-  // 新規登録モーダルの制御
-  // PC: mouseover で開く
   $('.sign-up-menu').on('mouseover', function() {
-    if (isMobileSize()) return; // スマホ時は何もしない
+    if (isMobileSize()) return;
     $("#modal-overlay").stop(true, true).fadeIn(200);
     $(".modal.sign-up").stop(true, true).css("display", "flex").hide().fadeIn(200);
-    // $(".modal.log-in").hide();
   });
 
-  // スマホ: タップ（click）で開閉（トグル）
   $('.sign-up-menu').on('click', function(e) {
-    if (!isMobileSize()) return; // PC時は何もしない
+    if (!isMobileSize()) return;
     e.preventDefault();
-    e.stopPropagation(); // バブリング停止
+    e.stopPropagation();
 
     const $modal = $(".modal.sign-up");
-
-    // 💡 すでに開いている場合は閉じる（2回目のタップ）
     if ($modal.is(':visible')) {
       $("#modal-overlay").fadeOut(200);
       $modal.fadeOut(200);
     } else {
-      // 閉じている場合は開く（1回目のタップ）
       $("#modal-overlay").stop(true, true).fadeIn(200);
       $modal.stop(true, true).css("display", "flex").hide().fadeIn(200);
-      // $(".modal.log-in").hide();
     }
   });
 
-  // 【ログインメニュー】のアクション無効化（スマホのみ）
-  // PC: mouseover で開く
-  // $('.log-in-menu').on('mouseover', function() {
-  //   if (isMobileSize()) return; // スマホ時は別ページ遷移にするため無効化
-  //   $("#modal-overlay").stop(true, true).fadeIn(200);
-  //   $(".modal.log-in").stop(true, true).css("display", "flex").hide().fadeIn(200);
-  //   $(".modal.sign-up").hide();
-  // });
 
-  // スマホ: ログインメニューをクリックした場合は、モーダルを開かずそのまま通常のaタグ（別ページ遷移など）の挙動をさせる
-  // $('.log-in-menu').on('click', function(e) {
-  //   if (isMobileSize()) {
-  //     // ログインページを別で作成しているとのことですので、
-  //     // 必要に応じてここに `window.location.href = '/users/sign_in';` のように直接遷移させても良いです。
-  //     // モーダル処理は一切行いません。
-  //     return; 
-  //   }
-  // });
+  $('.log-in-menu').on('mouseover', function() {
+    if (isMobileSize()) return;
+    const $modal = $(".modal.log-in");
+    $modal.addClass('is-center'); 
+    $("#modal-overlay").stop(true, true).fadeIn(200);
+    $modal.stop(true, true).css("display", "flex").hide().fadeIn(200);
+    $(".modal.sign-up").hide();
+  });
 
-  // 【ユーザーメニューモーダル】の制御
-  // PC: mouseover で開く
+  $('.log-in-menu').on('click', function(e) {
+    e.preventDefault(); // aタグのページ遷移をキャンセルしてモーダルを開く
+    e.stopPropagation();
+
+    const $modal = $(".modal.log-in");
+
+    if ($modal.is(':visible')) {
+      $("#modal-overlay").fadeOut(200);
+      $modal.fadeOut(200, function() {
+        $modal.removeClass('is-center');
+      });
+    } else {
+      $modal.addClass('is-center'); // 中央寄せるクラスを付与
+      $("#modal-overlay").stop(true, true).fadeIn(200);
+      $modal.stop(true, true).css("display", "flex").hide().fadeIn(200);
+      $(".modal.sign-up").hide();
+    }
+  });
+
   $('.user-menu').on('mouseover', function() {
-    if (isMobileSize()) return; // スマホ時は何もしない
+    if (isMobileSize()) return;
     $("#modal-overlay").stop(true, true).fadeIn(200);
     $(".modal.log-in-user").stop(true, true).css("display", "flex").hide().fadeIn(200);
   });
 
-  // スマホ: タップ（click）で開閉（トグル）
   $('.user-menu').on('click', function(e) {
-    if (!isMobileSize()) return; // PC時は何もしない
+    if (!isMobileSize()) return;
     e.preventDefault();
     e.stopPropagation();
 
     const $modal = $(".modal.log-in-user");
-
-    // 💡 すでに開いている場合は閉じる（2回目のタップ）
     if ($modal.is(':visible')) {
       $("#modal-overlay").fadeOut(200);
       $modal.fadeOut(200);
     } else {
-      // 閉じている場合は開く（1回目のタップ）
       $("#modal-overlay").stop(true, true).fadeIn(200);
       $modal.stop(true, true).css("display", "flex").hide().fadeIn(200);
     }
   });
 
-  // 【PC用：マウスアウトで閉じる処理】の改良
-  $(document).on('mouseover', function(e) {
-    if (isMobileSize()) return; // スマホ時は画面移動で閉じないようにする
 
+  // ページ直アクセス時（/users/sign_in）やエラー時に中央表示させる
+  const currentPath = window.location.pathname;
+  if (currentPath === '/users/sign_in' || $('.modal.log-in .error-message').length > 0) {
     const $logInModal = $(".modal.log-in");
-    const $finalActionModal = $(".modal.final-action");
-  
-    if ($logInModal.hasClass('is-center') || $finalActionModal.is(':visible')) return;
+    $("#modal-overlay").show();
+    $logInModal.addClass('is-center').css("display", "flex");
+  }
 
-    const isInsideSignUp = $(e.target).closest('.modal.sign-up, .sign-up-menu').length;
-    const isInsideLogIn = $(e.target).closest('.modal.log-in, .log-in-menu').length;
-    const isInsideUserMenu = $(e.target).closest('.modal.log-in-user, .user-menu').length;
-
-    if (!isInsideSignUp && !isInsideLogIn && !isInsideUserMenu) {
-      $("#modal-overlay").fadeOut(200);
-      $(".modal.sign-up").fadeOut(200);
-      $logInModal.fadeOut(200);
-      $(".modal.log-in-user").fadeOut(200);
-    }
+  // 背景クリックやEscキーで閉じる処理
+  $(document).on('click', '.close-modal, #modal-overlay', function(e) {
+    if ($(e.target).closest('.modal-wrapper').length > 0) return; // モーダル内クリックは無視
+    
+    const $logInModal = $(".modal.log-in");
+    $("#modal-overlay").fadeOut(200);
+    $(".modal.sign-up").fadeOut(200);
+    $(".modal.log-in-user").fadeOut(200);
+    $(".modal.final-action").fadeOut(200);
+    
+    $logInModal.fadeOut(200, function() {
+      $logInModal.removeClass('is-center');
+    });
   });
 
   $(document).on('keydown', function(e) {
-    if (e.keyCode === 27) {
+    if (e.keyCode === 27) { // ESCキー
       $("#modal-overlay").fadeOut(200);
-      $(".modal.sign-up").fadeOut(200);
-      $(".modal.log-in").fadeOut(200);
-      $(".modal.log-in-user").fadeOut(200);
-      $(".modal.final-action").fadeOut(200);
+      $(".modal.log-in").fadeOut(200, function() { $(this).removeClass('is-center'); });
+      $(".modal.sign-up, .modal.log-in-user, .modal.final-action").fadeOut(200);
     }
   });
 
