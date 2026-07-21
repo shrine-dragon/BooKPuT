@@ -1,3 +1,5 @@
+@import "config";
+
 .btn-on-center, .hovers{
   cursor: pointer;
   font-weight: bold;
@@ -17,4 +19,13 @@
 .btn-text{
   font-size: 15px;
   margin-bottom: 10px;
+}
+
+@include mobile{
+  .btn-on-center, .hovers{
+    cursor: none;
+    &:hover{
+      opacity: 1.0;
+    }
+  }
 }
