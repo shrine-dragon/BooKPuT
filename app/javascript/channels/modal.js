@@ -106,8 +106,7 @@ $(document).on(loadEvent, function() {
   }
 
   // 背景・Escキー・閉じるボタン処理
-  $(document).on('click', '.close-modal, #modal-overlay', function(e) {
-    if ($(e.target).closest('.modal-wrapper').length > 0) return;
+  $(document).on('click', '.close-modal, #modal-overlay', function() {
     closeAllModals();
   });
 

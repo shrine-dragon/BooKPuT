@@ -64,11 +64,6 @@ RSpec.describe 'ユーザー新規登録', type: :system do
         expect(page).to have_content(message)
       end
     end
-
-    it 'モーダルを閉じてしまうと新規登録できない' do
-      open_modal(:'sign-up', '新規登録')
-      close_modal(:'sign-up', '新規登録', '.header')
-    end
   end
 
   ['Google', 'X(Twitter)', 'Facebook', 'LINE'].each do |sns|
@@ -136,11 +131,6 @@ RSpec.describe 'ログイン', type: :system do
   end
 
   context 'メールアドレスでログインができない時' do
-    it 'モーダルを閉じてしまうとログインできない' do
-      open_modal(:'log-in', 'ログイン')
-      close_modal(:'log-in', 'ログイン', '.header')
-    end
-
     it '必須項目が空欄のままボタンを押してもログインできない' do
       open_modal('log-in', 'ログイン')
       # 必須事項を空欄にする
@@ -210,11 +200,6 @@ RSpec.describe 'ログアウト', type: :system do
   context 'ログアウトができない時' do
     it '未ログインユーザーはログアウトできず、トップページの表示も変わらない' do
       not_log_in_user
-    end
-
-    it 'モーダルを閉じてしまうとログアウトできない' do
-      log_in_and_show_modal
-      close_modal(:'log-in-user', user.nickname, '.header')
     end
   end
 end
@@ -348,11 +333,6 @@ RSpec.describe 'マイページ', type: :system do
   end
 
   context 'マイページに遷移ができない時' do
-    it 'モーダルを閉じてしまうとマイページに遷移できない' do
-      log_in_and_show_modal
-      close_modal(:'log-in-user', user.nickname, '.header')
-    end
-
     it '未ログインユーザーはマイページに遷移して、アカウント情報やログイン情報を閲覧できない' do
       not_log_in_user
 

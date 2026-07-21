@@ -396,7 +396,7 @@ RSpec.describe 'コメント機能', type: :system do
         cannot_click_valuation_btn('up', 'comment', CommentGood)
       end
 
-      xit '一度コメントを高評価しても、低評価ボタンを押すとコメントの高評価は取り消されてしまう' do
+      it '一度コメントを高評価しても、低評価ボタンを押すとコメントの高評価は取り消されてしまう' do
         FactoryBot.create(:comment_good, user: user3, comment_id: comment.id)
 
         login_as user3
@@ -405,20 +405,24 @@ RSpec.describe 'コメント機能', type: :system do
         # 投稿詳細ページにuser3（コメントの高評価をした本人）のニックネームが表示されていることを確認する
         expect(page).to have_content(user3.nickname)
 
+        # 高評価済みであることを確認する
         expect(page).to have_selector('.fa-solid.fa-thumbs-up.hovers.posted-comment')
         expect(page).to have_selector('.comment-good-count', text: '1', wait: 5)
 
         expect(page).to have_selector('.fa-regular.fa-thumbs-down.hovers.posted-comment', visible: true)
 
-        # 1. 低評価ボタンをクリック
+        # 低評価ボタンを押す
         find('.fa-regular.fa-thumbs-down.hovers.posted-comment').click
 
-        # 2. 画面から高評価アイコンとカウントが消えるのを自動待機
+        # 画面から高評価アイコンとカウントが消えるのを自動待機する
         expect(page).to have_no_selector('.fa-solid.fa-thumbs-up.hovers.posted-comment', wait: 5)
         expect(page).to have_no_selector('.comment-good-count', wait: 5)
 
-        # 3. DBのカウントが減っているか確認
+        # CommentGoodのカウントが減っていることを確認する
         expect(CommentGood.count).to eq 0
+
+        # コメントが低評価に変わっていることを確認する
+        expect(page).to have_selector('.fa-solid.fa-thumbs-down.hovers.posted-comment', visible: true)
       end
     end
   end
@@ -428,7 +432,7 @@ RSpec.describe 'コメント機能', type: :system do
     let!(:comment)  { FactoryBot.create(:comment, user: user2, book: book) }
 
     context 'コメントを低評価できる時' do
-      it 'コメント投稿者以外のログインユーザーは投稿を低評価できる' do
+      it 'コメント投稿者以外のログインユーザーは投稿を低評価できる', js: true do
         login_as user3
         visit_book_path
 
@@ -468,7 +472,7 @@ RSpec.describe 'コメント機能', type: :system do
         cannot_click_valuation_btn('down', 'comment', CommentBad)
       end
 
-      xit '一度コメントを低評価しても、高評価ボタンを押すとコメントの低評価は取り消されてしまう' do
+      it '一度コメントを低評価しても、高評価ボタンを押すとコメントの低評価は取り消されてしまう' do
         FactoryBot.create(:comment_bad, user: user3, comment_id: comment.id)
 
         login_as user3
@@ -481,15 +485,16 @@ RSpec.describe 'コメント機能', type: :system do
         expect(page).to have_selector('.fa-solid.fa-thumbs-down.hovers.posted-comment')
         expect(page).to have_selector('.fa-regular.fa-thumbs-up.hovers.posted-comment', visible: true)
 
-        # まずボタンをクリックする（expectブロックの外に出す）
+        # 高評価ボタンを押す
         find('.fa-regular.fa-thumbs-up.hovers.posted-comment').click
 
-        # 【最重要】画面から低評価アイコンが消えるのを Capybara に「待たせる」
-        # これにより、Ajax通信 ➔ コントローラー処理 ➔ DB削除 ➔ JSでの画面書き換え が完了するまで自動で待機する
         expect(page).to have_no_selector('.fa-solid.fa-thumbs-down.hovers.posted-comment', wait: 5)
 
-        # 画面の書き換え（＝DBの処理）が完全に終わった状態で、初めてカウントを確認する
+        # CommentBadモデルのカウントが減っていることを確認する
         expect(CommentBad.count).to eq 0
+
+        # コメントが高評価に変わっていることを確認する
+        expect(page).to have_selector('.fa-solid.fa-thumbs-up.hovers.posted-comment', visible: true)
       end
     end
   end

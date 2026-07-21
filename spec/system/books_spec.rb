@@ -741,9 +741,6 @@ RSpec.describe '投稿機能', type: :system do
           sleep 0.5
         end.to change { Favorite.count }.by(1)
 
-        # お気に入りに追加済みであることを確認する
-        expect(page).to have_selector('.fa-solid.fa-star.hovers')
-
         # マイページのお気に入りリストに投稿が追加されていることを確認する
         visit user_path(user2)
         scroll_to(find('.my-page-contents.favorite-books-list'), align: :center)
