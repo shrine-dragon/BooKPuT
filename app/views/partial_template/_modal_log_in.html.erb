@@ -1,5 +1,5 @@
 <div class="modal log-in">
-  <div class="close-modal"><i class="fa-solid fa-xmark"></i></div>
+  <div class="close-modal hovers"><i class="fa-solid fa-xmark"></i></div>
 
   <div class="modal-wrapper log-in">
     <%= form_with scope: :user, url: user_session_path, local: true do |f| %>
@@ -32,7 +32,7 @@
           <i class="fa-brands fa-line"></i>LINE<span class="sns-log-in-text pc-only">で続ける</span>
         <% end %>
       </div>
-      <p class="urge-sign-up log-in-modal-footer">新規登録は<span><%= link_to 'こちら', new_user_registration_path, class: "sign-up-here", class: "underline-text" %></span></p>
+      <p class="urge-sign-up log-in-modal-footer">新規登録は<span><%= link_to 'こちら', new_user_registration_path, class: "sign-up-here hovers" %></span></p>
     <% end %>
   </div>
 </div>
