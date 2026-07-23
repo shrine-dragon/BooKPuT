@@ -274,12 +274,12 @@
 }
 
 @include tablet {
-  .header-wrapper{
-    padding: 0 20px;
-  }
-
   .bookput-header-logo {
     width: 180px; /* タブレット用にロゴを少し小さく */
+  }
+
+  .search{
+    margin: 0 30px;
   }
 
   .log-in-menu {

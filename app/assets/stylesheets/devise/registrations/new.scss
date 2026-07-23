@@ -15,9 +15,23 @@
   }
 }
 
+@include tablet{
+  .sign-up-page{
+    .modal.log-in {
+      top: 50.5%;
+    }
+  }
+
+  .register-password{
+    .toggle-password{
+      right: 4%;
+      top: 47px;
+    }
+  }
+}
+
 @include mobile {
   .register-password{
-    position: relative;
     .toggle-password{
       right: 4%;
       top: 40px;

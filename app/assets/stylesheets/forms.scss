@@ -77,6 +77,12 @@
   justify-content: center;
 }
 
+@include tablet{
+  .form-wrapper{
+    width: 85%;
+  }
+}
+
 @include mobile{
   .form-wrapper{
     width: 90%;

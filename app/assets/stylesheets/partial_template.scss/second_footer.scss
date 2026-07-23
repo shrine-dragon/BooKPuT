@@ -12,17 +12,19 @@
 .footer-list{
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  width: 60%;
-  margin: 10px auto;
-  font-weight: bold;
+  margin: 10px 0 10px 35%;
 }
 
-.log-in-btn.footer{
-  padding: 10px 20px;
-  background-color: darkorange;
-  border-radius: 50% / 80%;
+.log-in-btn.footer.underline-text{
+  padding: 10px 3px;
+  font-weight: bold;
   cursor: pointer;
+}
+
+@include tablet{
+  .footer-list{
+    margin: 10px 0 10px 25%;
+  }
 }
 
 @include mobile{
