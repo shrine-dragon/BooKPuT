@@ -37,13 +37,15 @@
   z-index: 1;
 }
 
-.slick-prev, .slick-next {
-  position: absolute;
-  top: 220px !important;
-  transform: translateY(-50%);
-  z-index: 10;
-  filter: brightness(100%);
-  cursor: pointer;
+.book-cards{
+  .slick-prev, .slick-next {
+    position: absolute;
+    top: 220px !important;
+    transform: translateY(-50%);
+    z-index: 10;
+    filter: brightness(100%);
+    cursor: pointer;
+  }
 }
 
 .slick-prev {
