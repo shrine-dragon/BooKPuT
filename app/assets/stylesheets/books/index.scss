@@ -163,7 +163,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  width: 100% !important;
+  width: 100%;
   box-sizing: border-box;
 }
 
@@ -305,6 +305,39 @@
   font-weight: bold;
 }
 
+@include tablet{
+  .app-description{
+    height: 500px;
+  }
+
+  .app-description-wrapper {
+    h2 {
+      font-size: 45px;
+    }
+    p {
+      font-size: 30px;
+    }
+    .app-download-text {
+      font-size: 15px;
+    }
+  }
+  
+  .app-feature{
+    height: auto;
+    min-height: 500px;
+    padding: 40px 0;
+  }
+
+  .app-feature-outer {
+    width: 90%;
+    max-width: 700px;
+  }
+
+  .feature-image {
+    max-width: 80%;
+  }
+}
+
 @include mobile {
   .book-post-list-wrapper {
     padding: 0 60px 15px;
@@ -362,8 +395,9 @@
   }
 
   .app-feature {
-    height: 350px;
-    padding: 0;
+    height: auto;
+    min-height: 350px;
+    padding: 30px 0 !important;
   }
 
   .app-feature-outer {
