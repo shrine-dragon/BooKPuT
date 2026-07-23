@@ -19,7 +19,6 @@
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   padding: 0 20px;
   height: 70px;
 }
@@ -275,7 +274,7 @@
 
 @include tablet {
   .bookput-header-logo {
-    width: 180px; /* タブレット用にロゴを少し小さく */
+    width: 180px;
   }
 
   .search{
