@@ -84,7 +84,7 @@
     background-color: #fff;       /* テーブル内の背景色を白にして見やすく */
   }
 
-  /* 🔴 リセットされた見出し(th)とデータセル(td)の枠線・余白を復活 */
+  /* リセットされた見出し(th)とデータセル(td)の枠線・余白を復活 */
   th, td {
     padding: 15px 20px;           /* 💡 ゼロにされた余白をしっかり確保（上下 15px、左右 20px） */
     border: 1px solid #ccc;       /* 💡 セルごとの区切り線を引く */
@@ -120,7 +120,12 @@
   }
 }
 
-/* スマホ（768px以下）のレスポンシブスタイル集約 */
+@include tablet{
+  .static-page-wrapper{
+    width: 90%;
+  }
+}
+
 @include mobile {
   .static-page-wrapper{
     width: 90%;
