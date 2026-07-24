@@ -1,13 +1,15 @@
-<%= render 'partial_template/header' %>
+<div class="header-fixed-disable">
+  <%= render 'partial_template/header' %>
+</div>
 
 <div class="search-result">
   <div class="search-result-wrapper">
     <% if @all_books > 0 %>
       <div class='book-post-list'>
         <div class="book-post-list-wrapper">
-          <div class="book-post-list-heading search-result">
-            <h2>検索結果</h2>
-          </div>
+          <h2 class="book-post-list-heading search-result">
+            検索結果
+          </h2>
           <% if @books.any? %>
             <div class="book-cards-container">
               <ul class="book-cards slick-slider">

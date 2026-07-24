@@ -1,3 +1,5 @@
+@import "config";
+
 #flash-container {
   display: flex;
   flex-direction: column;
@@ -12,8 +14,8 @@
   padding: 12px;
   font-weight: bold;
   position: fixed;
-  top: 80px;
-  left: 80px;
+  top: 12%;
+  left: 5%;
   z-index: 1000; /* 特にかぶっていないため、ヘッダーと同じ設定 */
   opacity: 1;
   transition: opacity 0.5s ease;
@@ -29,4 +31,17 @@
 .alert {
   background-color: red;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+@include tablet{
+  .flash-message{
+    top: 14%;
+  }
+}
+
+@include mobile{
+  .flash-message{
+    top: 18%;
+    left: 4%;
+  }
 }

@@ -1,12 +1,7 @@
 <div class="modal log-in">
-  <div class="close-modal"><i class="fa-solid fa-xmark"></i></div>
+  <div class="close-modal hovers"><i class="fa-solid fa-xmark"></i></div>
 
   <div class="modal-wrapper log-in">
-    <% if flash[:alert] %>
-      <p class="error-message is-full-with">
-        <%= flash[:alert] %>
-      </p>
-    <% end %>
     <%= form_with scope: :user, url: user_session_path, local: true do |f| %>
       <div class="modal-btn-container log-in">
         <div class="log-in-form">
@@ -25,19 +20,19 @@
       </div>
       <div class="two-columns-layout">
         <%= link_to(user_google_oauth2_omniauth_authorize_path, class: "modal-btn hovers", id:"google-log-in", method: :post) do %>
-          <i class="fa-brands fa-google"></i>Googleで続ける
+          <i class="fa-brands fa-google"></i>Google<span class="sns-log-in-text pc-only">で続ける</span>
         <% end %>
         <%= link_to(user_twitter_omniauth_authorize_path, class: "modal-btn hovers", id: "twitter-log-in", method: :post) do %>
-          <i class="fa-brands fa-x-twitter"></i>X(Twitter)で続ける
+          <i class="fa-brands fa-x-twitter"></i>X(Twitter)<span class="sns-log-in-text pc-only">で続ける</span>
         <% end %>
         <%= link_to(user_facebook_omniauth_authorize_path, class: "modal-btn hovers", id: "facebook-log-in", method: :post) do %>
-          <i class="fa-brands fa-facebook"></i>Facebookで続ける
+          <i class="fa-brands fa-facebook"></i>Facebook<span class="sns-log-in-text pc-only">で続ける</span>
         <% end %>
         <%= link_to(user_line_omniauth_authorize_path, class: "modal-btn hovers", id: "line-log-in", method: :post) do %>
-          <i class="fa-brands fa-line"></i>LINEで続ける
+          <i class="fa-brands fa-line"></i>LINE<span class="sns-log-in-text pc-only">で続ける</span>
         <% end %>
       </div>
-      <p class="urge-sign-up log-in-modal-footer">新規登録は<span><%= link_to 'こちら', new_user_registration_path, class: "sign-up-here", id: "underline-text" %></span></p>
+      <p class="urge-sign-up log-in-modal-footer">新規登録は<span><%= link_to 'こちら', new_user_registration_path, class: "sign-up-here hovers" %></span></p>
     <% end %>
   </div>
 </div>

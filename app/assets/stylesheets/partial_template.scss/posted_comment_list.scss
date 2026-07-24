@@ -1,3 +1,5 @@
+@import "config";
+
 .posted-comment-contents{
   border: 1px solid gainsboro;
   display: flex;
@@ -48,4 +50,42 @@
 .fa-thumbs-up.posted-comment, .fa-thumbs-down.posted-comment{
   font-size: 20px !important;
   color: darkgray;
+}
+
+@include mobile{
+  .posted-comment-time{
+    font-size: 11px;
+  }
+
+  .user-image.posted-comment{
+    width: 30px;
+    height: 30px
+  }
+
+  .user-nickname.posted-comment{
+    font-size: 12px;
+  }
+
+  .posted-comment-text{
+    font-size: 15px;
+  }
+
+  .edit-comment-form {
+    .submit-comment-btn {
+      width: 30px;
+      height: 30px;
+
+      .fa-solid.fa-paper-plane {
+        font-size: 15px;
+      }
+    }
+  }
+
+  .posted-comment-btn-text{
+    font-size: 14px;
+  }
+
+  .fa-thumbs-up.posted-comment, .fa-thumbs-down.posted-comment{
+    font-size: 16px !important;
+  }
 }

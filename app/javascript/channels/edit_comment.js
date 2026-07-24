@@ -22,7 +22,7 @@ $(document).on('click', '.js-edit-comment-trigger', function(e) {
   var $commentBox = $li.closest('.js-comment');
   var $form = $commentBox.find('.edit-comment-form');
   
-  // 【仕様①】すでに自分が編集フォームを開いている場合は、2回押し判定として閉じる
+  // すでに自分が編集フォームを開いている場合は、2回押し判定として閉じる
   if ($form.length > 0) {
     closeAllEditForms();
     return;
@@ -39,7 +39,7 @@ $(document).on('click', '.js-edit-comment-trigger', function(e) {
   });
 });
 
-// 【仕様②】フォームや送信ボタン以外の場所（document）をクリックしたらキャンセル
+// フォームや送信ボタン以外の場所（document）をクリックしたらキャンセル
 $(document).on('click', function(e) {
   // クリックされた場所が編集フォーム内、または編集トリガーでなければすべて閉じる
   if (!$(e.target).closest('.edit-comment-form, .js-edit-comment-trigger').length) {

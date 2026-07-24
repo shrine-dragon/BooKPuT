@@ -15,11 +15,10 @@
 }
 
 .header-wrapper {
-  max-width: 1500px;
+  width: 100%;
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   padding: 0 20px;
   height: 70px;
 }
@@ -58,11 +57,12 @@
 .search-form {
   display: flex;
   width: 100%;
-  max-width: 600px; 
+  max-width: 600px;
+  min-width: 150px;
 }
 
 .search-bar {
-  width: 600px;
+  width: 100%;
   height: 35px;
   flex: 1;
   padding: 5px 10px;
@@ -166,7 +166,7 @@
   justify-content: center;
   display: none;
   position: fixed; /* 一本化 */
-  top: 64px;
+  top: 70px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
@@ -233,7 +233,7 @@
 .modal.sign-up {
   height: 220px;
   width: 420px;
-  right: 40px;
+  right: 2%;
   z-index: 1002;
 }
 
@@ -241,8 +241,7 @@
   height: auto;
   min-height: 160px;
   width: 200px;
-  right: 20px;
-  top: 70px;
+  right: 2%;
   background-color: whitesmoke;
   z-index: 1002;
 }
@@ -273,80 +272,164 @@
   cursor: pointer;
 }
 
-/* スマホ（768px以下）のレスポンシブ対応 */
-@include mobile {
-  .header-wrapper {
-    position: relative;
-    justify-content: space-between;
-    padding: 0 15px;
+@include tablet {
+  .bookput-header-logo {
+    width: 180px;
   }
 
+  .search{
+    margin: 0 30px;
+  }
+
+  .log-in-menu {
+    margin-right: 10px;
+  }
+
+  .sign-up-menu {
+    margin-right: 0;
+  }
+}
+
+@include mobile {
+  .header-fixed-disable {
+    .header {
+      position: static;
+      margin-top: 0;
+      padding-top: 0;
+    }
+  }
+  
+  .header-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    padding: 10px 15px;
+  }
+
+  .header-logo {
+    margin-left: 0;
+  }
+  
   .bookput-header-logo {
-    width: 140px;
+    width: 130px;
     height: auto;
   }
 
   .header-menus {
-    margin-left: auto;
-    
-    .user-nickname {
-      display: none;
+    margin-left: 0;
+    height: auto;
+
+    .user-menu, .log-in-menu, .sign-up-menu {
+      height: auto;
     }
+
+    .user-menu{
+      position: absolute;
+      top: 10px;
+      right: 12px;
+    }
+
+    .user-menu{
+      padding: 3px 0;
+    }
+
+    .user-nickname {
+      display: none !important;
+    }
+
+    .user-image {
+      width: 45px;
+      height: 45px;
+    }
+
+    .log-in-menu, .sign-up-menu {
+      position: absolute;
+      top: 18px;
+      right: 20px;
+      padding: 5px 0;
+    }
+
     .log-in-menu {
-      margin-right: 15px;
+      position: absolute;
+      right: 80px;
     }
     .sign-up-menu {
       margin-right: 0;
     }
   }
 
-  .smp-search-trigger-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    margin-left: 15px;
-    cursor: pointer;
-    font-size: 20px;
-    color: #333;
-    z-index: 1001;
+  .modal-wrapper {
+    width: 90%;
+  }
+
+  .modal.sign-up {
+    position: fixed;
+    top: 50px;
+    right: 10px;
+    width: 280px !important;
+    height: auto;
+    padding: 18px 10px;
+    border-radius: 8px;
+    z-index: 1002;
     
-    .close-icon { display: none; }
+    .modal-btn {
+      font-size: 12px;
+      padding: 8px;
+    }
+    .two-columns-layout {
+      grid-template-columns: 1fr 1fr; /* 2列を維持 */
+      gap: 6px;
+    }
+  }
+
+  .modal.log-in-user {
+    position: fixed;
+    top: 60px;
+    right: 10px;
+    width: 180px;
+    min-height: auto;
+    padding: 15px;
+    border-radius: 8px;
+    z-index: 1002;
+
+    .log-in-user-container {
+      gap: 8px;
+    }
+    .my-page-btn, .log-out-btn {
+      padding: 8px 15px;
+      width: 100%;
+      justify-content: center;
+    }
+    .my-page-btn-text, .log-out-btn-text {
+      font-size: 14px;
+    }
   }
 
   .header-list {
-    position: absolute;
-    top: -70px;
-    left: 0;
+    position: static; /* PC版や以前の絶対配置（top: -70pxなど）を完全に解除 */
     width: 100%;
-    height: 60px;
-    background-color: #fffafa;
-    padding: 0 15px;
-    box-shadow: 0 3px 5px rgba(0,0,0,0.1);
-    transition: top 0.3s ease;
-    display: flex;
-    align-items: center;
-    z-index: 999;
+    height: auto;
+    background-color: transparent;
+    padding-top: 8px;
+    box-shadow: none;
+    display: block;
   }
 
   .search {
-    width: 100%;
+    width: 90%;
+    margin: 0;
   }
   .search-form {
     max-width: 100%;
+    width: 100%;
   }
   .search-bar {
     width: 100%;
+    height: 38px;
   }
-
-  /* チェックが入った時の動き */
-  .search-toggle-checkbox:checked ~ .header-list {
-    top: 70px;
-  }
-
-  .search-toggle-checkbox:checked ~ .smp-search-trigger-btn {
-    .open-icon { display: none; }
-    .close-icon { display: block; color: orange; }
+  .search-btn {
+    height: 38px;
   }
 }

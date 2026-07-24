@@ -3,9 +3,9 @@
 <main>
   <div class='book-post-list'>
     <div class="book-post-list-wrapper">
-      <div class="book-post-list-heading">
-        <h2>投稿一覧</h2>
-      </div>
+      <h2 class="book-post-list-heading">
+        投稿一覧
+      </h2>
       <% if @books.any? %>
         <div class="book-cards-container">
           <ul class="book-cards slick-slider">
@@ -31,7 +31,7 @@
 
   <div class='app-description'>
     <div class="app-description-wrapper">
-      <h2>本を読むと共に、発信する時代へ！</h2>
+      <h2>本を読むと共に、発信する時代へ</h2>
       <p>読書とSNSを融合させた近代的なアプリ</p>
       <p>50文字以内で本の内容をアウトプット可</p>
       <p>老若男女、どなたでも楽しめます。</p>
@@ -49,22 +49,22 @@
 
   <div class='app-feature'>
     <div class="app-feature-outer">
-      <div class="app-feature-heading">
-        <h2>アプリの特徴</h2>
-      </div>
+      <h2 class="app-feature-heading">
+        アプリの特徴
+      </h2>
       <div class="app-feature-wrapper swiper">
         <div class="app-feature-container swiper-wrapper">
           <div class="app-feature-contents swiper-slide">
             <%= image_tag("app_feature_1.png", class: "feature-image") %>
             <h2 class="app-feature-sentence">
-              読んだ本の内容や感想を50文字から投稿できます
+              読んだ本の内容や感想を50文字以内で投稿可
             </h2>
           </div>
 
           <div class="app-feature-contents swiper-slide">
             <%= image_tag("app_feature_2.png", class: "feature-image") %>
             <h2 class="app-feature-sentence">
-              新規登録はわずか3ステップで完了<br>SNS認証も可
+              新規登録はわずか3ステップで完了
             </h2>
           </div>
 
@@ -82,9 +82,9 @@
 
   <div class="faq">
     <div class='faq-wrapper'>
-      <div class="faq-heading">
-        <h2>よくある質問</h2>
-      </div>
+      <h2 class="faq-heading">
+        よくある質問
+      </h2>
       <ul class="faq-list">
         <li class="question-and-answer">
           <h3 class="question">

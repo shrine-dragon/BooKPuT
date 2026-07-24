@@ -1,4 +1,7 @@
-.select-reason-destroy-account{
+@import "config";
+
+
+.select-reason-cancel-account{
   color: red;
   padding: 10px;
   font-size: 22px;
@@ -6,12 +9,12 @@
   margin-bottom: 15px;
 }
 
-.reasons-to-destroy-account{
-  margin: 10px 0 20px;
+.reasons-to-cancel-account{
+  margin: 10px 0;
   li{
-    line-height: 40px;
     font-size: 18px;
     font-weight: bold;
+    margin-bottom: 10px;
     label {
       cursor: pointer;
       display: flex;
@@ -44,9 +47,12 @@
   }
 }
 
-.continue-account.btn-on-center, .destroy-account.btn-on-center{
+.continue-account.btn-on-center, .cancel-account.btn-on-center{
   width: 250px;
   max-width: 360px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .continue-account.btn-on-center{
@@ -54,11 +60,11 @@
   margin-bottom: 15px;
 }
 
-.destroy-account.btn-on-center{
+.cancel-account.btn-on-center{
   background-color: red;
 }
 
-.continue-account.btn-text, .destroy-account.btn-text{
+.continue-account.btn-text, .cancel-account.btn-text{
   font-size: 20px;
 }
 
@@ -73,4 +79,35 @@
 
 #final-confirm-area {
   animation: fadeIn 0.5s ease;
+}
+
+@include mobile{
+  .select-reason-cancel-account{
+    font-size: 17px;
+  }
+
+  .reasons-to-cancel-account li{
+    font-size: 15px;
+  }
+
+  .dummy-text-area{
+    margin-bottom: 15px;
+  }
+
+  .feedback-form{
+    width: 300px !important;
+  }
+
+  .continue-account.btn-on-center, .cancel-account.btn-on-center{
+    width: 100% !important;
+    height: 40px !important;
+  }
+
+  .continue-account.btn-text, .cancel-account.btn-text{
+    font-size: 15px;
+  }
+
+  .warning-text{
+    font-size: 12px;
+  }
 }

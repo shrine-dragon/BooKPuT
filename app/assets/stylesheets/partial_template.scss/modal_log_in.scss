@@ -1,16 +1,34 @@
-.modal.log-in{
+@import "config";
+
+.modal.log-in {
+  position: fixed;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  
+  width: 100%;
+  max-width: 420px;
   height: auto;
   min-height: 450px;
   padding: 25px 20px;
-  width: 420px;
-  right: 155px;
-  position: fixed;
-  z-index: 1002;
+  
   display: none;
+  flex-direction: column;
   background-color: whitesmoke;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+
+  .close-modal {
+    display: block;
+  }
 }
 
-.log-in-form{
+.modal-wrapper.log-in{
+  margin-top: 30px;
+}
+
+.log-in-form {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -24,11 +42,11 @@
   }
 }
 
-.log-in-form-text{
+.log-in-form-text {
   margin-bottom: 5px;
 }
 
-.input-mail-address, .input-password{
+.input-mail-address, .input-password {
   width: 100%;
   height: 45px;
   padding: 10px;
@@ -37,16 +55,16 @@
   margin: 5px 0 15px;
 }
 
-.log-in-password{
+.log-in-password {
   position: relative;
 
-  .toggle-password{
+  .toggle-password {
     right: 5%;
     top: 57%;
   }
 }
 
-.log-in-submit-btn{
+.log-in-submit-btn {
   width: 100%;
   height: 45px;
   cursor: pointer;
@@ -58,51 +76,39 @@
   margin-bottom: 10px;
 }
 
-.forget-password{
-  color: 	cornflowerblue;
+.forget-password {
+  color: cornflowerblue;
 }
 
-.urge-sign-up{
+.urge-sign-up.log-in-modal-footer{
   margin-top: 15px;
+  font-size: 16px;
 }
 
-.sign-up-here{
-  font-weight: bold;
-}
-
-/* .is-center クラスを付与した時だけ中央に配置 */
-.modal.log-in.is-center {
-  display: flex !important;
-  position: fixed !important;
-  width: 100%;
-  max-width: 400px;
-  height: auto !important;
-  flex-direction: column;
-  top: 50% !important;
-  left: 50% !important;
-  right: auto !important; /* ヘッダー用の右寄せをリセット */
-  transform: translate(-50%, -50%) !important;
-  position: fixed;
-  z-index: 9999; /* ヘッダーより上に表示 */
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-  
-  /* 中央モーダルの時だけバツボタンを表示 */
-  .close-modal {
-    display: block;
-  }
-  /* 中央モーダルの時だけ「新規登録はこちら」を隠すならここで制御 */
-  .log-in-modal-footer {
-    display: none;
-  }
-}
-
-/* バツボタンの基本設定（通常は隠しておく） */
 .close-modal {
-  display: none;
   position: absolute;
-  top: 10px;
+  top: 15px;
   right: 15px;
-  cursor: pointer;
   font-size: 20px;
+}
+
+/* モバイル対応 */
+@include mobile {
+  .modal.log-in {
+    width: 85%;
+    min-width: 290px;
+    padding: 35px 20px 20px;
+    .modal-wrapper.log-in{
+      margin-top: 20px;
+    }
+
+    .modal-btn {
+      font-size: 12px;
+      padding: 8px;
+    }
+    .two-columns-layout {
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+  }
 }

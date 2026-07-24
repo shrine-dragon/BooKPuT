@@ -9,8 +9,13 @@
     TODO with the prefix, should I group by selector or property for weight savings?
 */
 html{
+  height: 100%;
   color:#000;
   background:#fff;
+  /* 文字サイズの自動調整・強制拡大を無効化する*/
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  box-sizing: border-box;
 }
 /*
   TODO remove settings on BODY since we can't namespace it.
@@ -130,6 +135,6 @@ a{
   color: black;
 }
 
-#underline-text:hover{
+.underline-text:hover {
   text-decoration: underline;
 }

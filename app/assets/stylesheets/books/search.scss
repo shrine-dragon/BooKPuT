@@ -1,15 +1,16 @@
+@import "config";
+
 .search-result {
+  width: 100%;
   display: flex;
   flex-direction: column;
 }
 
 .search-result-wrapper {
-  flex: 1; /* 💡 中身が少なくても、このエリアが縦方向に自動で最大まで伸びる */
   display: flex;
   flex-direction: column;
 
   .book-post-list {
-    flex: 1;
     display: flex;
     flex-direction: column;
 
@@ -61,4 +62,26 @@
   margin-top: 20px;
   height: 250px;
   width: 400px;
+}
+
+@include mobile{
+  .no-post-text{
+    font-size: 20px;
+  }
+
+  .hint-text{
+    font-size: 18px;
+  }
+
+  .hint-action{
+    font-size: 15px;
+  }
+
+  .no-post-result-image {
+    width: 100%;
+    max-width: 300px;
+    height: 200px;
+    display: block;
+    margin: 20px auto 0;
+  }
 }

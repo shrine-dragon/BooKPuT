@@ -3,203 +3,187 @@ import $ from 'jquery';
 const loadEvent = (typeof Turbo !== 'undefined') ? 'turbo:load' : 'turbolinks:load';
 
 $(document).on(loadEvent, function() {
-  // トップページのモーダルの開閉処理(hoverイベント)
-  $('.sign-up-menu').on('mouseover', function(){
-    $("#modal-overlay").stop(true, true).fadeIn(200); // 背景を暗くする
-    $(".modal.sign-up").stop(true, true).css("display", "flex").hide().fadeIn(200);
-    $(".modal.log-in").hide(); // ログインが開いていれば隠す
-  });
+  const isMobileSize = () => window.innerWidth <= 767;
 
-  $('.log-in-menu').on('mouseover', function(){
+  // 他のモーダルをすべて閉じるヘルパー関数（排他制御）
+  function closeAllModals() {
+    $(".modal.sign-up").hide();
+    $(".modal.log-in").hide();
+    $(".modal.log-in-user").hide();
+    $(".modal.final-action").hide();
+    $("#modal-overlay").hide();
+  }
+
+  function openModal($modal, isCenter = true) {
+    // 既に開いている最中の場合は重複処理を行わない（チラツキ防止）
+    if ($modal.is(':visible')) return;
+
+    closeAllModals();
+
+    if (isCenter) {
+      $modal.addClass('is-center');
+    } else {
+      $modal.removeClass('is-center');
+    }
     $("#modal-overlay").stop(true, true).fadeIn(200);
-    $(".modal.log-in").stop(true, true).css("display", "flex").hide().fadeIn(200);
-    $(".modal.sign-up").hide(); // 新規登録が開いていれば隠す
+    $modal.stop(true, true).css("display", "flex").hide().fadeIn(200);
+  }
+
+  function closeModal($modal) {
+    $("#modal-overlay").fadeOut(200);
+    $modal.fadeOut(200);
+  }
+
+  // 【新規登録モーダル】（テキスト真下に表示 / ホバー＆クリック両対応）
+  $('.sign-up-menu').on('mouseover', function() {
+    if (isMobileSize()) return;
+    openModal($(".modal.sign-up"), false); // 第2引数 false でテキスト直下表示
   });
 
-  $('.user-menu').on('mouseover', function(){
-    $("#modal-overlay").stop(true, true).fadeIn(200);
-    $(".modal.log-in-user").stop(true, true).css("display", "flex").hide().fadeIn(200);
+  $('.sign-up-menu').on('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const $modal = $(".modal.sign-up");
+    if ($modal.is(':visible')) {
+      closeModal($modal);
+    } else {
+      openModal($modal, false); // 第2引数 false でテキスト直下表示
+    }
   });
 
-  $(document).on('mouseover', function(e) {
+  // 【ログインモーダル】（画面中央表示 / ホバー＆クリック両対応）
+  $('.log-in-menu').on('mouseover', function() {
+    if (isMobileSize()) return;
+    openModal($(".modal.log-in"), true); // 常に中央表示
+  });
+
+  $('.log-in-menu').on('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const $modal = $(".modal.log-in");
+    if ($modal.is(':visible')) {
+      closeModal($modal);
+    } else {
+      openModal($modal, true); // 常に中央表示
+    }
+  });
+
+
+  // 【ログイン済みユーザーメニューモーダル】
+  $('.user-menu').on('mouseover', function() {
+    if (isMobileSize()) return;
+    openModal($(".modal.log-in-user"), false);
+  });
+
+  $('.user-menu').on('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const $modal = $(".modal.log-in-user");
+    if ($modal.is(':visible')) {
+      closeModal($modal);
+    } else {
+      openModal($modal, false);
+    }
+  });
+
+  // 未ログイン時のアクセス制御（「投稿する」等）
+  const $authTrigger = $('[data-auth-trigger="true"]');
+  const currentPath = window.location.pathname;
+
+  if ($authTrigger.length > 0 || currentPath === '/users/sign_in') {
     const $logInModal = $(".modal.log-in");
-    const $finalActionModal = $(".modal.final-action");
-  
-    // ★追加：中央表示モード(.is-center)の時は、マウス移動で消さないようにする
-    if ($logInModal.hasClass('is-center') || $finalActionModal.is(':visible')) return;
 
-    const isInsideSignUp = $(e.target).closest('.modal.sign-up, .sign-up-menu').length;
-    const isInsideLogIn = $(e.target).closest('.modal.log-in, .log-in-menu').length;
-    const isInsideUserMenu = $(e.target).closest('.modal.log-in-user, .user-menu').length;
-
-    // どちらのエリアにもマウスが乗っていない場合のみ消す
-    if (!isInsideSignUp && !isInsideLogIn && !isInsideUserMenu) {
-      $("#modal-overlay").fadeOut(200);
-      $(".modal.sign-up").fadeOut(200);
-      $logInModal.fadeOut(200);
-      $(".modal.log-in-user").fadeOut(200);
+    if ($logInModal.find('.auth-warning-message').length === 0) {
+      $logInModal.find('.modal-wrapper').prepend(
+        '<div class="auth-warning-message" style="color: red; font-weight: bold; margin-bottom: 20px; text-align: center;">ログインが必要です</div>'
+      );
     }
-  });
 
-  $(document).on('keydown', function(e) {
-    // キーコード 27 == Escキー
-    if (e.keyCode === 27) {
-      // 全てのモーダルとオーバーレイを非表示にする
-      $("#modal-overlay").fadeOut(200);
-      $(".modal.sign-up").fadeOut(200);
-      $(".modal.log-in").fadeOut(200);
-      $(".modal.log-in-user").fadeOut(200);
-      $(".modal.final-action").fadeOut(200);
-    }
-  });
-  // 新規登録ページのモーダルの開閉処理(clickイベント)
+    openModal($logInModal, true);
+  }
+
+  // 新規登録ページでログインモーダルを開閉する処理(clickイベント)
   $('.log-in-btn.footer').on('click', function(e) {
     e.preventDefault();
     e.stopPropagation();
 
     const $modal = $(".modal.log-in");
-    
-    // 中央配置用のクラスを付与
     $modal.addClass('is-center');
     
-    // 背景とモーダルを表示
-    $("#modal-overlay").fadeIn(200);
-    $modal.fadeIn(200);
+    openModal($modal, true);
   });
 
-  // バツボタンで閉じる時の処理
-  $(document).on('click', '.close-modal', function() {
-    const $modal = $(".modal.log-in");
-    $("#modal-overlay").fadeOut(200);
-    $modal.fadeOut(200, function() {
-        // 閉じた後は中央用クラスを外して、ヘッダー用に戻しておく
-        $modal.removeClass('is-center');
-    });
+  // 背景・Escキー・閉じるボタン処理
+  $(document).on('click', '.close-modal, #modal-overlay', function() {
+    closeAllModals();
   });
 
-  // 背景（オーバーレイ）をクリックした時にモーダルを閉じる処理
-  $('#modal-overlay, .header, .footer.second').on('click', function(e) {
-    // モーダル本体や、その中身をクリックした時は閉じないようにする
-    if ($(e.target).closest('.modal').length > 0) {
-      return;
+  $(document).on('keydown', function(e) {
+    if (e.keyCode === 27) {
+      closeAllModals();
     }
-
-    const $logInModal = $(".modal.log-in");
-    
-    // 背景と全てのモーダルをフェードアウト
-    $("#modal-overlay").fadeOut(200);
-    $(".modal.sign-up").fadeOut(200);
-    $(".modal.log-in-user").fadeOut(200);
-    $(".modal.final-action").fadeOut(200);
-    
-    $logInModal.fadeOut(200, function() {
-      if ($logInModal.hasClass('is-center')) {
-        $logInModal.removeClass('is-center');
-      }
-    });
-  });
-  // ログインに失敗しエラーメッセージがあれば、ログインモーダルを再表示する処理
-  if ($('.modal.log-in .error-message').length > 0) {
-    const $logInModal = $(".modal.log-in");
-    $("#modal-overlay").show();
-    // 現在のURL（パス）を取得
-    const currentPath = window.location.pathname;
-
-    if (currentPath === '/users/sign_up') {
-      $logInModal.addClass('is-center').css("display", "flex");
-    } else {
-      // ヘッダー用として表示（is-centerを付けない）
-      $logInModal.css("display", "flex");
-    }
-  }
-
-  // 閉じるボタンやno_actionボタンを押した時の挙動
-  $(document).on('click', '.no-action, .close-modal', function() {
-    $("#modal-overlay").fadeOut(200);
-    $(".modal.final-action").fadeOut(200);
   });
 
-  // 投稿の削除ボタン
+  // その他既存処理
+  $(document).on('click', '.no-action', function() {
+    closeAllModals();
+  });
+
   $(document).on('click', '#destroy-post-btn', function() {
     const bookDeleteUrl = $(this).data('url'); 
-    
-    // 削除用モーダルの中にあるリンクを書き換え
     const $modal = $(".modal.final-action.destroy-post");
     $modal.find('#js-destroy-post-link').attr('href', bookDeleteUrl).attr('data-remote', 'false');
-
-    $("#modal-overlay").fadeIn(200);
-    $modal.fadeIn(200);
+    openModal($modal, true);
   });
 
-  // 投稿の通報ボタン
-  $(document).on('click', '.js-report-post-trigger', function(e) { // 💡 引数に e を追加
+  $(document).on('click', '.js-report-post-trigger', function(e) {
     const $btn = $(this);
     const isReported = $btn.attr('data-reported');
-
     if (isReported === true || isReported === 'true') {
-      // 💡 他の `mouseover` や `click` イベントが連動して暴発するのをストップさせる
       e.preventDefault();
       e.stopPropagation();
-
-      // 【二度目以降】モーダルを出さずにメッセージだけ表示
       $('#flash-container').html('<div class="flash-message alert">通報済みの投稿です</div>');
-      
       if (typeof window.fadeOutFlash === 'function') {
         window.fadeOutFlash();
       }
     } else {
-      // 【初めて】モーダルを表示する既存の処理
       const reportUrl = $btn.data('url');
       $('#js-report-post-link').attr('href', reportUrl);
-      $("#modal-overlay").fadeIn(200);
-      $('.modal.final-action.report-post').fadeIn(200);
+      openModal($('.modal.final-action.report-post'), true);
     }
   });
 
-  // コメントの削除ボタン
   $(document).on('click', '.js-destroy-comment-trigger', function() {
     const deleteUrl = $(this).data('url');
     const $modal = $(".modal.final-action.destroy-comment");
-    
     $modal.find('#js-destroy-comment-link').attr('href', deleteUrl).attr('data-remote', 'true');
-    
-    $("#modal-overlay").fadeIn(200);
-    $modal.fadeIn(200);
+    openModal($modal, true);
   });
 
-  // コメントの非表示ボタン
   $(document).on('click', '.js-hide-comment-trigger', function() {
     const hideUrl = $(this).data('url');
     const $modal = $(".modal.final-action.hide-comment");
-    
     $modal.find('#js-hide-comment-link').attr('href', hideUrl);
-    
-    $("#modal-overlay").fadeIn(200);
-    $modal.fadeIn(200);
+    openModal($modal, true);
   });
 
-  // コメントの通報ボタン
-  $(document).on('click', '.js-report-comment-trigger', function(e) { // 💡 引数 e を追加
+  $(document).on('click', '.js-report-comment-trigger', function(e) {
     const $btn = $(this);
-    // 💡 .data() に統一
     const isReported = $btn.attr('data-reported');
-
     if (isReported === true || isReported === 'true') {
-      // 💡 イベントの暴発を差し止める
       e.preventDefault();
       e.stopPropagation();
-
-      // 【二度目以降】モーダルを出さずにメッセージだけ表示
       $('#flash-container').html('<div class="flash-message alert">通報済みのコメントです</div>');
       if (typeof window.fadeOutFlash === 'function') {
         window.fadeOutFlash();
       }
     } else {
-      // 【初めて】モーダルを表示する既存の処理
       const reportUrl = $btn.data('url');
       $('#js-report-comment-link').attr('href', reportUrl);
-      $("#modal-overlay").fadeIn(200);
-      $('.modal.final-action.report-comment').fadeIn(200);
+      openModal($('.modal.final-action.report-comment'), true);
     }
   });
 });

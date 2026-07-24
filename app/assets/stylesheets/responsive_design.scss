@@ -1,0 +1,21 @@
+@import "config";
+
+.pc-only {
+  display: block;
+}
+
+.smp-only {
+  margin: 0;
+  padding: 0;
+  display: none;
+}
+
+@include mobile {
+  .pc-only {
+    display: none !important;
+  }
+
+  .smp-only {
+    display: block !important;
+  }
+}

@@ -1,8 +1,10 @@
-// 1. スライダー全体・状態管理（親要素）
+@import "config";
+
+// スライダー全体・状態管理（親要素）
 .book-cards {
-  margin: 10px 15px; 
+  padding: 10px 0;
+  margin: 10px 15px;
   outline: none;
-  position: relative;
   display: flex;
   flex-direction: column;
 
@@ -23,7 +25,7 @@
   }
 }
 
-// 2. カード本体 & ホバーアニメーション（統合・修正版）
+// カード本体 & ホバーアニメーション（統合・修正版）
 .book-card {
   display: block;
   height: 100%;
@@ -38,18 +40,18 @@
   &.is-hovered {
     z-index: 10; /* 前後関係を手前に */
 
-    // ① 額縁（フレーム）の演出：サイズを変えずに立体感を出す
+    // 額縁（フレーム）の演出：サイズを変えずに立体感を出す
     .frame {
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3) !important;
       background: #fcfcfc !important; 
     }
 
-    // ② キラリと光るエフェクトを起動
+    // キラリと光るエフェクトを起動
     .frame::before {
       left: 150%;
     }
 
-    // ③ 隠れていた詳細情報（ハッシュタグやテキスト）を下部にすっと表示
+    // 隠れていた詳細情報（ハッシュタグやテキスト）を下部にすっと表示
     .hover-details {
       display: block !important;
       opacity: 1 !important;
@@ -61,9 +63,7 @@
   }
 }
 
-// ==========================================
-// 3. カードの内部コンポーネント（額縁・画像・情報）
-// ==========================================
+// カードの内部コンポーネント（額縁・画像・情報）
 .frame {
   display: flex;
   flex-direction: column;
@@ -123,7 +123,8 @@
   right: 8px;
   z-index: 10;
   font-size: 1.2rem;
-  
+
+  background: white;
   padding: 4px;
   border-radius: 50%;
   width: 28px;
@@ -158,9 +159,7 @@
   overflow: visible !important;
 }
 
-// ==========================================
-// 4. テキスト情報・タグ関連
-// ==========================================
+// テキスト情報・タグ関連
 .title-plate {
   max-width: 90%;
   padding: 6px 8px;
@@ -224,5 +223,20 @@
     white-space: nowrap;      
     overflow: hidden;         
     text-overflow: ellipsis;  
+  }
+}
+
+@include mobile {
+  .image-area {
+    height: 200px;
+  }
+
+  .card-badge.book-poster{
+    top: 5px;
+    right: 5px;
+    .user-image{
+      width: 40px !important;
+      height: 40px !important;
+    }
   }
 }

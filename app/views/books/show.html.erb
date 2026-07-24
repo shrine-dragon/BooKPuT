@@ -2,17 +2,18 @@
 
 <div class="white-background-color">
   <div class="detail-wrapper book-post-detail">
-    <h1 class="post-detail-heading">
+    <h2 class="post-detail-heading">
       投稿詳細
-    </h1>
+    </h2>
 
     <% @contents = @book.book_contents.to_a %>
 
     <div class="detail-container">
-      <div class="detail-left">
+      <!-- 左カラム（PCのみ） -->
+      <div class="detail-left pc-only">
         <% if current_user == @book.user %>
-          <div class="posted-by-field is-mypage">
-            <%= link_to user_path(current_user), class: "user-mypage-link" do %>
+          <div class="posted-by-field is-my-page">
+            <%= link_to user_path(current_user), class: "user-my-page-link" do %>
               <% if current_user.image.attached? %>
                 <%= image_tag current_user.image, class: 'user-image posted-by hovers' %>
               <% else %>
@@ -41,10 +42,93 @@
         </div>
       </div>
 
+      <!-- 中央カラム（PC・スマホ共通、スマホ時はここがメイン-->
       <div class="detail-center">
+        <!-- 【追加】スマホ用：投稿者情報 -->
+        <% if current_user == @book.user %>
+          <div class="posted-by-field is-my-page smp-only">
+            <%= link_to user_path(current_user), class: "user-my-page-link" do %>
+              <% if current_user.image.attached? %>
+                <%= image_tag current_user.image, class: 'user-image posted-by hovers' %>
+              <% else %>
+                <%= image_tag "no-image.png", class: 'user-image posted-by no-exist hovers' %>
+              <% end %>
+              <span class="user-nickname posted-by hovers"><%= current_user.nickname %></span>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="posted-by-field is-my-page smp-only">
+            <% if @book.user.image.attached? %>
+              <%= image_tag @book.user.image, class: 'user-image posted-by' %>
+            <% else %>
+              <%= image_tag "no-image.png", class: 'user-image posted-by no-exist' %>
+            <% end %>
+            <span class="user-nickname posted-by"><%= @book.user.nickname %></span>
+          </div>
+        <% end %>
+
         <div class="book-card-static">
-          <%# 一覧で使っている共通パーツをそのまま呼び出す %>
           <%= render 'partial_template/book_cards', book: @book, path_id: @book.user_id, frame_color: 'golden' %>
+        </div>
+
+        <!-- 【追加】スマホ用：アクション・ボタンエリア -->
+        <div class="smp-action-area smp-only">
+          <% if user_signed_in? %>
+            <% if current_user == @book.user %>
+              <ul class="smp-btn-field">
+                <li class="detail-right-btn hovers" id='post-edit-btn'>
+                  <%= link_to "編集", edit_book_path(@book), class: 'detail-right-btn-text' %>
+                </li>
+                <li class="detail-right-btn hovers" id='destroy-post-btn' data-url="<%= book_path(@book) %>">
+                  <span class="detail-right-btn-text">削除</span>
+                </li>
+              </ul>
+              <ul class="reaction-icon-field">
+                <li>
+                  <i class="fa-regular fa-thumbs-up posted-book disabled-icon"></i>
+                  <% unless @book.book_goods.count == 0 %>
+                    <span class="book-good-count"><%= @book.book_goods.count %></span>
+                  <% end %>
+                </li>
+                <li>
+                  <i class="fa-regular fa-thumbs-down posted-book disabled-icon"></i>
+                </li>
+              </ul>
+            <% else %>
+              <ul class="smp-btn-field">
+                <li class="detail-right-btn hovers js-report-post-trigger"
+                    id='report-post-btn'
+                    data-url="<%= report_book_path(@book) %>"
+                    data-book-id="<%= @book.id %>"
+                    data-reported="<%= ReportedBook.exists?(user_id: current_user.id, book_id: @book.id) %>">
+                  <span class="detail-right-btn-text">通報</span>
+                </li>
+              </ul>
+              <ul class="reaction-icon-field">
+                <li class="good-<%= @book.id %>">
+                  <%= render 'partial_template/book_good_btn', book: @book %>
+                </li>
+                <li class="bad-<%= @book.id %>">
+                  <%= render 'partial_template/book_bad_btn', book: @book %>
+                </li>
+                <li class="favorite-<%= @book.id %>">
+                  <%= render 'partial_template/favorite_btn', book: @book %>
+                </li>
+              </ul>
+            <% end %>
+          <% else %>
+            <ul class="reaction-icon-field">
+              <li>
+                <i class="fa-regular fa-thumbs-up posted-book disabled-icon"></i>
+                <% unless @book.book_goods.count == 0 %>
+                  <span class="book-good-count"><%= @book.book_goods.count %></span>
+                <% end %>
+              </li>
+              <li>
+                <i class="fa-regular fa-thumbs-down posted-book disabled-icon"></i>
+              </li>
+            </ul>
+          <% end %>
         </div>
 
         <div class="hashtags-area">
@@ -67,8 +151,16 @@
           </div>
         </div>
 
-        <div class="content-item-field horizontal-text fade-in-up">
+        <div class="content-item-field horizontal-text fade-in-up pc-only">
           <% [0, 1, 2].each do |i| %>
+            <% if @contents[i]&.content.present? %>
+              <div class="content-item"><%= @contents[i].content %></div>
+            <% end %>
+          <% end %>
+        </div>
+
+        <div class="content-item-field horizontal-text fade-in-up smp-only">
+          <% [0, 1, 2, 3, 4, 5, 6].each do |i| %>
             <% if @contents[i]&.content.present? %>
               <div class="content-item"><%= @contents[i].content %></div>
             <% end %>
@@ -76,7 +168,8 @@
         </div>
       </div>
 
-      <div class="detail-right">
+      <!-- 右カラム（PCのみ） -->
+      <div class="detail-right pc-only">
         <div class="detail-right-upper">
           <% if user_signed_in? %>
             <% if current_user == @book.user %>
@@ -110,18 +203,17 @@
                 </li>
               </ul>
               <ul class="reaction-icon-field">
-                <li id="good-<%= @book.id %>">
+                <li class="good-<%= @book.id %>">
                   <%= render 'partial_template/book_good_btn', book: @book %>
                 </li>
-                <li id="bad-<%= @book.id %>">
+                <li class="bad-<%= @book.id %>">
                   <%= render 'partial_template/book_bad_btn', book: @book %>
                 </li>
-                <li id="favorite-<%= @book.id %>">
+                <li class="favorite-<%= @book.id %>">
                   <%= render 'partial_template/favorite_btn', book: @book %>
                 </li>
               </ul>
             <% end %>
-            </ul>
           <% else %>
             <ul class="reaction-icon-field">
               <li>

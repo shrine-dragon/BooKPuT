@@ -1,6 +1,22 @@
+@import "config";
+
 .edit-profile-page{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   .form-wrapper{
     background-color: lavender;
-    margin-bottom: 0px !important;
+  }
+}
+
+@include mobile{
+  .edit-profile-page{
+    .form-btn-container {
+      margin-top: -25px;
+    }
+    
+    .urge-log-in{
+      display: none;
+    }
   }
 }

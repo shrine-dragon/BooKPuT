@@ -6,7 +6,7 @@
   background-color: aliceblue;
 }
 
-.static-page-heading h2{
+.static-page-heading{
   text-align: center;
   padding: 30px 0 20px;
   font-weight: bold;
@@ -15,7 +15,8 @@
 
 .static-page-container{
   padding-bottom: 2px;
-  margin: 0 40px;
+  margin: 0 auto;
+  width: 80%;
 }
 
 .static-page-contents{
@@ -64,6 +65,7 @@
 
 .that-is-all{
   text-align: right;
+  margin-bottom: 10px;
 }
 
 /* 会社概要 */
@@ -82,7 +84,7 @@
     background-color: #fff;       /* テーブル内の背景色を白にして見やすく */
   }
 
-  /* 🔴 リセットされた見出し(th)とデータセル(td)の枠線・余白を復活 */
+  /* リセットされた見出し(th)とデータセル(td)の枠線・余白を復活 */
   th, td {
     padding: 15px 20px;           /* 💡 ゼロにされた余白をしっかり確保（上下 15px、左右 20px） */
     border: 1px solid #ccc;       /* 💡 セルごとの区切り線を引く */
@@ -118,22 +120,29 @@
   }
 }
 
-/* スマホ（768px以下）のレスポンシブスタイル集約 */
+@include tablet{
+  .static-page-wrapper{
+    width: 90%;
+  }
+}
+
 @include mobile {
   .static-page-wrapper{
     width: 90%;
   }
 
-  .static-page-heading h2{
+  .static-page-heading {
     font-size: 20px;
+    padding: 20px 0;
   }
 
   .first-sentence{
     font-size: 15px;
   }
 
-  .static-page-chapter{
-    font-size: 18px;
+  .static-page-container{
+    width: 90%;
+    margin: 0 auto;
   }
 
   .static-page-contents{
@@ -147,14 +156,18 @@
     }
   }
 
+  .static-page-chapter{
+    font-size: 18px;
+  }
+
   .company_detail {
     .static-page-wrapper {
-      padding-bottom: 20px;
+      padding-bottom: 5px;
     }
 
     table{
       width: 95%;
-      margin: 20px auto;
+      margin: 0 auto 20px;
     }
 
     tr, td{
@@ -163,7 +176,7 @@
     }
 
     th, td:first-child {
-      width: 35%;
+      width: 40%;
     }
 
     ul{

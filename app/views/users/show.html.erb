@@ -2,17 +2,18 @@
 
 <div class="my-page">
   <div class="my-page-wrapper">
-    <h1 class="my-page-heading">マイページ</h1>
+    <h2 class="my-page-heading">
+      マイページ
+    </h2>
     <div class="my-page-container">
       <div class="my-page-contents">
-        <h1 class="contents-heading">
+        <h3 class="contents-heading">
           プロフィール
-        </h1>
+        </h3>
         <p class="registered-info">ニックネーム</p>
         <p class="current-user-info">
           <%= @user.nickname %>
         </p>
-        <p class="registered-info">画像</p>
         <p class="current-user-info">
           <% if @user.image.attached? %>
             <%= image_tag @user.image, class: "current-user-image" %>
@@ -36,9 +37,9 @@
       </div>
 
       <div class="my-page-contents">
-        <h1 class="contents-heading">
+        <h3 class="contents-heading">
           ログイン情報
-        </h1>
+        </h3>
         <p class="registered-info">メールアドレス</p>
         <p class="current-user-info">
           <%= @user.masked_email %>
@@ -58,9 +59,9 @@
       </div>
 
       <div class="my-page-contents books-list">
-        <h1 class="contents-heading">
+        <h3 class="contents-heading">
           マイ投稿：<%= @my_books.length %>件
-        </h1>
+        </h3>
         <% if @my_books.any? %>
           <div class="book-post-images-container">
             <ul class="book-post-images slick-slider">
@@ -75,9 +76,9 @@
       </div>
 
       <div class="my-page-contents good-books-list">
-        <h1 class="contents-heading">
+        <h3 class="contents-heading">
           高評価リスト：<%= @my_good_books.length %>件
-        </h1>
+        </h3>
         <% if @my_good_books.any? %>
           <div class="book-post-images-container">
             <ul class="book-post-images slick-slider">
@@ -88,15 +89,15 @@
           </div>
         <% else %>
           <div class="empty-message my-page">
-            <p>高評価した投稿はありません</p>
+            <p>投稿はありません</p>
           </div>
         <% end %>
       </div>
 
       <div class="my-page-contents favorite-books-list">
-        <h1 class="contents-heading">
+        <h3 class="contents-heading">
           お気に入りリスト：<%= @my_favorite_books.length %>件
-        </h1>
+        </h3>
         <% if @my_favorite_books.any? %>
           <div class="book-post-images-container">
             <ul class="book-post-images slick-slider">
@@ -107,12 +108,12 @@
           </div>
         <% else %>
           <div class="empty-message my-page">
-            <p>お気に入りに追加した投稿はありません</p>
+            <p>投稿はありません</p>
           </div>
         <% end %>
       </div>
       <div class="account-cancellation">
-        <p id="underline-text"><%= link_to "アカウントを解約する", cancel_user_path(@user), class: "cancel-account-text" %></p>
+        <p class="underline-text"><%= link_to "アカウントを解約する", cancel_user_path(@user), class: "cancel-account-text" %></p>
       </div>
     </div>
   </div>

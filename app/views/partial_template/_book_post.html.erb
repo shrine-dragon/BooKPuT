@@ -1,9 +1,9 @@
 <%= form_with model: model, url: url, class: 'book-post', local: true do |f| %>
   <div class="white-background-color">
     <div class="form-wrapper book-post">
-      <h1 class="form-heading">
+      <h2 class="form-heading">
         <%= title %>
-      </h1>
+      </h2>
       <div class="form-container">
         <div class="form-contents">
           <div class="form-text">
@@ -46,7 +46,7 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <h3>検索結果から選択</h3>
-                  <span id="close-modal" class="close-btn">&times;</span>
+                  <span id="close-modal" class="close-btn hovers">&times;</span>
                 </div>
                 <div id="search-results-list" class="results-grid">
                 </div>
@@ -104,7 +104,7 @@
           <div id="contents-container">
             <%= f.fields_for :book_contents, model.book_contents do |content_form| %>
               <div class="content-field">
-                <div class="input-main-part" style="flex: 1;">
+                <div class="input-main-part">
                   <%= content_form.text_field :content, id: "book_content_#{content_form.index}", class:"input-text", placeholder:"50文字以内" %>
                 </div>
                 <span class="remove-content-btn hovers" >−</span>

@@ -7,7 +7,6 @@ class Users::PasswordsController < Devise::PasswordsController
     if resource.errors.added?(:email, :blank)
       render :new
     else
-      flash[:notice] = nil
       redirect_to email_submitted_path
     end
   end

@@ -21,7 +21,7 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
   </head>
 
-  <body class="<%= controller_name %>" data-flash-alert="<%= flash[:alert] %>">
+  <body class="<%= controller_name %>-<%= action_name %>" data-flash-alert="<%= flash[:alert] %>">
     <div id="flash-container">
       <% flash.each do |key, value| %>
         <% # 「ログインが必要です」というメッセージは、JSのトリガーにするだけで表示はしない %>

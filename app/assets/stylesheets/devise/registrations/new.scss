@@ -1,3 +1,9 @@
+@import "config";
+
+.class{
+  height: 100%;
+}
+
 .register-password{
   position: relative;
   width: 100%;
@@ -6,5 +12,29 @@
     right: 5%;
     top: 50px;
     z-index: 10;
+  }
+}
+
+@include tablet{
+  .sign-up-page{
+    .modal.log-in {
+      top: 50.5%;
+    }
+  }
+
+  .register-password{
+    .toggle-password{
+      right: 4%;
+      top: 47px;
+    }
+  }
+}
+
+@include mobile {
+  .register-password{
+    .toggle-password{
+      right: 4%;
+      top: 40px;
+    }
   }
 }

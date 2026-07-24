@@ -4,14 +4,14 @@
   <%= render 'partial_template/sign_up_or_edit', 
             model: @user, 
             url: user_registration_path, 
-            title: '新規登録フォーム', 
+            title: '新規登録', 
             btn_text: '登録する',
             is_edit: false %>
+
+  <%= render 'partial_template/return_btn' %>
+
+  <%= render 'partial_template/second_footer' %>
+
+  <div id="modal-overlay"></div>
+  <%= render 'partial_template/modal_log_in' %>
 </div>
-
-<%= render 'partial_template/return_btn' %>
-
-<%= render 'partial_template/second_footer' %>
-
-<div id="modal-overlay"></div>
-<%= render 'partial_template/modal_log_in' %>

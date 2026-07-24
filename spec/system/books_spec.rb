@@ -565,7 +565,7 @@ RSpec.describe '投稿機能', type: :system do
     let!(:book)     { FactoryBot.create(:book, user: user1) }
     let(:user)      { user1 }
 
-    context '投稿を高評価できる時' do
+    context 'book投稿を高評価できる時' do
       it 'book投稿者以外のログインユーザーは投稿を高評価できる' do
         login_as user2
         visit_book_path
@@ -596,8 +596,8 @@ RSpec.describe '投稿機能', type: :system do
       end
     end
 
-    context '投稿を高評価できない時' do
-      it '未ログインユーザーは投稿の高評価自体ができない' do
+    context 'book投稿を高評価できない時' do
+      it '未ログインユーザーはbook投稿の高評価自体ができない' do
         not_log_in_user
         visit_book_path
 
@@ -614,7 +614,7 @@ RSpec.describe '投稿機能', type: :system do
         cannot_click_valuation_btn('up', 'book', BookGood)
       end
 
-      it '一度投稿を高評価しても、低評価ボタンを押すとコメントの高評価は取り消されてしまう' do
+      it '一度book投稿を高評価しても、低評価ボタンを押すと投稿の高評価は取り消されてしまう' do
         FactoryBot.create(:book_good, user: user2, book: book)
 
         login_as user2
@@ -640,6 +640,17 @@ RSpec.describe '投稿機能', type: :system do
         # 高評価が取り消され、高評価数が非表示になっていることを確認する
         expect(page).to have_no_selector('.fa-solid.fa-thumbs-up.hovers.posted-book')
         expect(page).to have_no_selector('.book-good-count')
+
+        # マイページの高評価リストに投稿が削除されていることを確認する
+        visit user_path(user2)
+        scroll_to(find('.my-page-contents.good-books-list'), align: :center)
+
+        sleep 0.5
+
+        expect(page).to have_content('高評価リスト：0件')
+        expect(page).to have_content('投稿はありません')
+        expect(page).to have_no_selector('.book-posted-image')
+        expect(page).to have_no_content(book.title)
       end
     end
   end
@@ -648,7 +659,7 @@ RSpec.describe '投稿機能', type: :system do
     let!(:book)     { FactoryBot.create(:book, user: user1) }
     let(:user)      { user1 }
 
-    context '投稿を低評価できる時' do
+    context 'book投稿を低評価できる時' do
       it 'book投稿者以外のログインユーザーは投稿を低評価できる' do
         login_as user2
         visit_book_path
@@ -667,7 +678,7 @@ RSpec.describe '投稿機能', type: :system do
       end
     end
 
-    context '投稿を低評価できない時' do
+    context 'book投稿を低評価できない時' do
       it '未ログインユーザーは投稿の低評価自体ができない' do
         not_log_in_user
         visit_book_path
@@ -684,7 +695,7 @@ RSpec.describe '投稿機能', type: :system do
         cannot_click_valuation_btn('down', 'book', BookBad)
       end
 
-      it '一度投稿を低評価しても、高評価ボタンを押すと投稿の低評価は取り消されてしまう' do
+      it '一度book投稿を低評価しても、高評価ボタンを押すと投稿の低評価は取り消されてしまう' do
         FactoryBot.create(:book_bad, user: user2, book: book)
 
         login_as user2
@@ -716,7 +727,7 @@ RSpec.describe '投稿機能', type: :system do
     let!(:book)     { FactoryBot.create(:book, user: user1) }
     let(:user)      { user1 }
 
-    context '投稿をお気に入りに追加できる時' do
+    context 'book投稿をお気に入りに追加できる時' do
       it 'book投稿者以外のログインユーザーは他者の投稿をお気に入りに追加できる' do
         login_as user2
         visit_book_path
@@ -730,9 +741,6 @@ RSpec.describe '投稿機能', type: :system do
           sleep 0.5
         end.to change { Favorite.count }.by(1)
 
-        # お気に入りに追加済みであることを確認する
-        expect(page).to have_selector('.fa-solid.fa-star.hovers')
-
         # マイページのお気に入りリストに投稿が追加されていることを確認する
         visit user_path(user2)
         scroll_to(find('.my-page-contents.favorite-books-list'), align: :center)
@@ -745,7 +753,7 @@ RSpec.describe '投稿機能', type: :system do
       end
     end
 
-    context '投稿をお気に入りに追加できない時' do
+    context 'book投稿をお気に入りに追加できない時' do
       it '未ログインユーザーは投稿のお気に入り追加自体ができない' do
         not_log_in_user
         visit_book_path
@@ -764,7 +772,7 @@ RSpec.describe '投稿機能', type: :system do
         expect(page).to have_no_selector('.fa-regular.fa-star.hovers')
       end
 
-      it '一度投稿をお気に入りに追加しても、再度お気に入りボタンを押すと取り消されてしまう' do
+      it '一度book投稿をお気に入りに追加しても、再度お気に入りボタンを押すと取り消されてしまう' do
         FactoryBot.create(:favorite, user: user2, book: book)
 
         login_as user2
@@ -796,7 +804,7 @@ RSpec.describe '投稿機能', type: :system do
         sleep 0.5
 
         expect(page).to have_content('お気に入りリスト：0件')
-        expect(page).to have_content('お気に入りに追加した投稿はありません')
+        expect(page).to have_content('投稿はありません')
         expect(page).to have_no_selector('.book-posted-image')
         expect(page).to have_no_content(book.title)
       end

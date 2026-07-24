@@ -1,12 +1,14 @@
+@import "config";
+
+form.sign-up.-or-edit {
+  flex: 1; 
+}
+
 /* ボタンの共通デザイン */
 $btn-bg: #f0f0f0;      /* 背景色（薄いグレー） */
 $btn-border: #ccc;    /* 境界線 */
 $btn-radius: 4px;     /* 角丸 */
 $btn-padding: 5px 15px;
-
-.sign-up-page{
-  padding-bottom: 5px;
-}
 
 .form-text,
 .upload-image,
@@ -61,4 +63,22 @@ $btn-padding: 5px 15px;
   font-size: 14px;
   width: fit-content;    /* 文字幅に合わせる */
   transition: background-color 0.2s;
+}
+
+.input-birth-date, .select-pull-down {
+  height: 40px;
+  width: 35%;
+  min-width: 120px;
+}
+
+@include mobile{
+  .urge-log-in{
+    font-size: 14px;
+    text-align: center;
+    padding-bottom: 10px;
+  }
+
+  .log-in-here{
+    font-weight: bold;
+  }
 }

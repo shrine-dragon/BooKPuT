@@ -1,5 +1,10 @@
 @import "config";
 
+footer {
+  position: relative;
+  z-index: 100;
+}
+
 .footer-upper {
   padding: 20px 0;
   background-color: silver;
@@ -15,20 +20,18 @@
   background-color: dimgray;
 }
 
-.bookput-footer-logo {
-  height: 40px;
-  width: 180px;
-  margin: 15px 0;
-}
-
 .copyright {
   color: white;
   padding: 20px;
 }
 
-/* スマホ（768px以下）のレスポンシブスタイル集約 */
 @include mobile {
-  #underline-text {
+  .underline-text {
     font-size: 10px;
   }
+
+  .copyright{
+    font-size: 13px;
+    padding: 10px;
+  }  
 }

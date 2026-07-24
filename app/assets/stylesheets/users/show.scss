@@ -1,87 +1,109 @@
-.my-page{
-  width: 100%;
-}
+@import "config";
 
-.my-page-wrapper{
+.my-page-wrapper {
   width: 80%;
   margin: 0 auto;
 }
 
-.my-page-heading{
+.my-page-heading {
   font-size: 25px;
   font-weight: bold;
   margin: 30px 0;
 }
 
-.my-page-container{
+.my-page-container {
   width: 100%;
 }
 
-.my-page-contents{
+.my-page-contents {
+  width: 100%;
   padding: 10px 0 10px 10px;
   background-color: ghostwhite;
   margin-bottom: 20px;
-  .swiper-button-prev {
-    left: -80px !important;
-  }
-  .swiper-button-next {
-    right: -80px !important;
-  }
+  position: relative;
 }
 
-.contents-heading{
+.contents-heading {
   font-size: 22px;
   font-weight: bold;
   margin-bottom: 20px;
 }
 
-.registered-info{
+.registered-info {
   font-size: 16px;
   margin-bottom: 10px;
 }
 
-.current-user-info{
+.current-user-info {
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 20px;
 }
 
-.current-user-image{
+.current-user-image {
   height: 270px;
   width: 270px;
   object-fit: cover;
 }
 
-.edit-profile.btn-on-center, .edit-log-in-info.hovers{
+.edit-profile.btn-on-center, .edit-log-in-info.hovers {
   border: 1px solid black;
   padding: 10px 20px !important;
   border-radius: 24px !important;
 }
 
-.edit-profile.btn-on-center{
+.edit-profile.btn-on-center {
   width: 220px;
   margin: 20px auto 10px;
 }
 
-.edit-log-in-info.hovers{
+.edit-log-in-info.hovers {
   width: 250px;
   margin: 20px 0 10px;
 }
 
-.edit-profile.btn-text, .edit-log-in-info.btn-text{
+.edit-profile.btn-text, .edit-log-in-info.btn-text {
   color: royalblue;
 }
 
-/* マイページ用の調整 */
+/* 外枠コンテナを矢印の唯一の起点（基準）にする */
+.book-post-images-container {
+  position: relative !important;
+  width: 100%;
+}
+
+/* 可変する内部要素の起点資格を解除 */
+.book-post-images,
+.book-post-images .slick-list,
+.book-post-images .slick-track {
+  position: static !important;
+}
+
+/* 矢印の位置を中央に固定 */
+.my-page-contents {
+  .slick-prev,
+  .slick-next {
+    position: absolute !important;
+    top: 180px !important;
+    transform: translateY(-50%) !important;
+    z-index: 10;
+    cursor: pointer;
+  }
+
+  .slick-prev {
+    left: -55px !important;
+    right: auto !important;
+  }
+
+  .slick-next {
+    right: -30px !important;
+    left: auto !important;
+  }
+}
+
+/* マイページ用カードのスタイル調整 */
 .book-card.is-mini {
   width: 100%; 
-  
-  .frame {
-    border: 1px solid #ccc; 
-    border-image: none;
-    outline: none;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  }
 
   .image-area {
     height: 300px;
@@ -91,50 +113,60 @@
   .book-title {
     font-size: 14px;
   }
-
-  &.is-hovered {
-    transform: scale(1.05) !important;
-    
-    .frame {
-      border: 1px solid #999;
-    }
-  }
-
-  .slick-prev {
-    left: -50px !important;
-  }
-
-  .slick-next {
-    right: -50px !important;
-  }
 }
 
-.my-page-contents {
-  position: relative;
-  z-index: 1;
-  &:hover { z-index: 10; } 
-}
-
-.empty-message{
-  /* Flexboxを有効にする */
+.empty-message {
   display: flex;
-  /* 上下左右中央揃え */
   justify-content: center;
   align-items: center;
   height: 300px;
 }
 
-.empty-message.my-page p{
+.empty-message.my-page p {
   color: #888;
-  font-size: 1.1rem;
+  font-size: 16px;
   font-weight: bold;
   letter-spacing: 0.05em;
 }
 
-.account-cancellation{
-  margin: 20px 0 30px;
+.account-cancellation {
+  margin: -5px 0 15px;
+  position: relative;
+  z-index: 100;
 }
 
-.cancel-account-text{
+.cancel-account-text {
   color: red;
+}
+
+@include mobile {
+  .my-page-heading {
+    font-size: 20px;
+  }
+
+  .my-page-contents {
+    .slick-prev {
+      left: -35px !important;
+    }
+    .slick-next {
+      right: -10px !important;
+    }
+  }
+
+  .contents-heading {
+    text-align: center;
+    font-size: 18px;
+  }
+
+  .registered-info {
+    font-size: 16px;
+  }
+
+  .current-user-info {
+    font-size: 15px;
+  }
+
+  .empty-message.my-page p {
+    font-size: 15px;
+  }
 }

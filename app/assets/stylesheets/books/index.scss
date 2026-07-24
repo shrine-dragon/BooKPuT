@@ -9,16 +9,11 @@
   background-repeat: no-repeat;
 }
 
-.book-post-list-wrapper,
-.book-cards-container {
-  position: relative;
-}
-
 .book-post-list-wrapper {
   padding: 0 60px 30px;
 }
 
-.book-post-list-heading h2 {
+.book-post-list-heading {
   text-align: center;
   padding: 30px 0 15px;
   font-weight: bold;
@@ -33,33 +28,41 @@
 }
 
 .book-cards.is-sliding .book-card {
-  transform: scale(1) !important;
-  transition: none !important;
+  transform: scale(1);
+  transition: none;
 }
 
 .slick-list {
-  overflow: hidden !important;
-  padding-bottom: 180px !important;
-  margin-bottom: -180px !important; 
-  position: relative;
+  overflow: hidden;
   z-index: 1;
 }
 
-.slick-prev, .slick-next {
-  top: 35% !important;
-  transform: translateY(-50%);
-  z-index: 10;
-  filter: brightness(100%);
+.book-cards{
+  .slick-prev, .slick-next {
+    position: absolute;
+    top: 220px !important;
+    transform: translateY(-50%);
+    z-index: 10;
+    filter: brightness(100%);
+    cursor: pointer;
+  }
 }
 
 .slick-prev {
   left: -45px !important;
+  right: auto !important;
+}
+
+.slick-next {
+  right: -45px !important;
+  left: auto !important;
 }
 
 .slick-prev:before, .slick-next:before {
   color: orange !important;
   font-size: 35px !important;
   font-weight: bold;
+  opacity: 1;
 }
 
 .empty-message {
@@ -71,13 +74,9 @@
 
 .empty-message.top-page p {
   color: white;
-  font-size: 1.1rem;
+  font-size: 16px;
   font-weight: bold;
   letter-spacing: 0.05em;
-}
-
-.smp-only {
-  display: none; /* 通常時は非表示 */
 }
 
 .app-description {
@@ -93,7 +92,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
 }
 
 .app-description-wrapper {
@@ -136,6 +134,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
 }
 
@@ -144,9 +143,8 @@
   margin: 0 auto;
 }
 
-.app-feature-heading h2 {
+.app-feature-heading {
   text-align: center;
-  padding-top: 30px;
   font-weight: bold;
   font-size: 25px;
 }
@@ -169,7 +167,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  width: 100% !important;
+  width: 100%;
   box-sizing: border-box;
 }
 
@@ -189,7 +187,6 @@
   font-size: 30px;
   font-weight: bold;
   width: 100%;
-  max-width: 700px;
   text-align: center;
   margin: 0 auto;
 }
@@ -213,7 +210,7 @@
   padding-bottom: 20px;
 }
 
-.faq-heading h2 {
+.faq-heading {
   text-align: center;
   padding: 60px 0;
   font-weight: bold;
@@ -312,28 +309,59 @@
   font-weight: bold;
 }
 
-/* スマホ（768px以下）のレスポンシブスタイル集約 */
+@include tablet{
+  .app-description{
+    height: 500px;
+  }
+
+  .app-description-wrapper {
+    h2 {
+      font-size: 45px;
+    }
+    p {
+      font-size: 30px;
+    }
+    .app-download-text {
+      font-size: 15px;
+    }
+  }
+  
+  .app-feature{
+    height: auto;
+    min-height: 500px;
+    padding: 40px 0;
+  }
+
+  .app-feature-outer {
+    width: 90%;
+    max-width: 700px;
+  }
+
+  .feature-image {
+    max-width: 80%;
+  }
+}
+
 @include mobile {
-  .pc-only {
-    display: none !important;
-  }
-
-  .smp-only {
-    display: block !important;
-  }
-
   .book-post-list-wrapper {
     padding: 0 60px 15px;
   }
 
-  .book-post-list-heading h2 {
+  .book-post-list-heading {
     font-size: 20px;
+  }
+
+  .slick-prev, .slick-next {
+    position: absolute;
+    top: 150px !important;
   }
 
   .smp-post-btn-container {
     text-align: center;
     margin: 10px 0;
     width: 100%;
+    position: relative;
+    z-index: 10;
   }
 
   .smp-post-btn {
@@ -354,16 +382,16 @@
   }
 
   .app-description {
-    height: 350px;
+    height: 320px;
   }
 
   .app-description-wrapper {
     width: 95%;
     h2 {
-      font-size: 23px;
+      font-size: 22px;
     }
     p {
-      font-size: 20px;
+      font-size: 18px;
     }
     .app-download-text {
       font-size: 15px;
@@ -376,20 +404,31 @@
   }
 
   .app-feature {
-    height: 450px;
-    padding: 0;
+    height: auto;
+    min-height: 350px;
+    padding: 30px 0 !important;
   }
 
   .app-feature-outer {
-    width: 95% !important;
+    width: 90% !important;
   }
 
-  .app-feature-heading h2 {
+  .app-feature-heading {
     font-size: 20px;
+    padding: 0;
+  }
+
+  .feature-image{
+    box-shadow: none;
   }
 
   .app-feature-sentence {
     font-size: 15px;
+    text-align: left;
+  }
+
+  .pagination {
+    margin-top: 10px;
   }
 
   .faq {
@@ -399,20 +438,25 @@
 
   .faq-wrapper {
     width: 90%;
-    padding-bottom: 0px;
+    padding: 0;
   }
 
-  .faq-heading h2 {
+  .faq-heading {
     font-size: 20px;
-    padding: 30px 0;
+    padding: 20px 0 30px;
+  }
+
+  .question-and-answer{
+    padding-bottom: 5px;
+    margin-bottom: 20px;
   }
 
   .question-and-answer span {
-    font-size: 18px;
+    font-size: 15px;
   }
 
   .question, .answer {
-    font-size: 15px;
+    font-size: 12px;
     width: 90%;
   }
 }
