@@ -2,7 +2,8 @@
 
 // スライダー全体・状態管理（親要素）
 .book-cards {
-  margin: 10px 15px; 
+  padding: 10px 0;
+  margin: 10px 15px;
   outline: none;
   display: flex;
   flex-direction: column;

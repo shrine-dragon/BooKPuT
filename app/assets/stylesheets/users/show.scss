@@ -104,13 +104,6 @@
 /* マイページ用カードのスタイル調整 */
 .book-card.is-mini {
   width: 100%; 
-  
-  .frame {
-    border: 1px solid #ccc; 
-    border-image: none;
-    outline: none;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  }
 
   .image-area {
     height: 300px;
@@ -120,17 +113,7 @@
   .book-title {
     font-size: 14px;
   }
-
-  &.is-hovered {
-    transform: scale(1.05) !important;
-    
-    .frame {
-      border: 1px solid #999;
-    }
-  }
 }
-
-/* ========================================== */
 
 .empty-message {
   display: flex;
