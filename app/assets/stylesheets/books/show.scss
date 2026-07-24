@@ -30,7 +30,7 @@
   }
 
   .detail-left, .detail-right{
-    width: 300px;
+    width: 30%;
     flex-shrink: 0;
     justify-content: flex-start !important;
   }
@@ -68,7 +68,7 @@
   }
 
   .detail-center {
-    width: 400px;
+    width: 40%;
     display: flex;
     flex-direction: column;
 
@@ -162,6 +162,7 @@
   .reaction-icon-field{
     position: relative;
     z-index: 100;
+    margin-right: 20px;
   }
 
   .detail-right-btn-field{
@@ -367,6 +368,12 @@
 
 .view-more-comments-container{
   margin: 10px 0;
+}
+
+@include tablet{
+  .detail-wrapper.book-post-detail {
+    width: 95%;
+  }
 }
 
 @include mobile {
