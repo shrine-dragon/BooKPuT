@@ -28,10 +28,4 @@ class FavoritesController < ApplicationController
   def set_book
     @book = Book.find(params[:book_id])
   end
-
-  def redirect_to_root_path
-    return unless @book.user_id == current_user.id
-
-    redirect_to root_path
-  end
 end

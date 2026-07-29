@@ -11,7 +11,7 @@ class Book < ApplicationRecord
   attr_accessor :delete_image
 
   belongs_to :category
-  validates :category_id, presence: true, numericality: { other_than: 0, message: 'を選択してください' }
+  validates  :category_id, presence: true, numericality: { other_than: 0, message: 'を選択してください' }
 
   attribute :genre_ids, :json, default: []
   validates :genre_ids, presence: { message: 'を選択してください' }, unless: :skip_genre_validation?

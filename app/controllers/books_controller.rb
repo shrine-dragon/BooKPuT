@@ -29,9 +29,6 @@ class BooksController < ApplicationController
       @book.save
       redirect_to root_path, notice: '投稿しました'
     else
-      puts '--- Validation Errors ---'
-      puts @book.errors.full_messages
-      puts '-------------------------'
       render :new, status: :unprocessable_entity
     end
   end
@@ -40,6 +37,7 @@ class BooksController < ApplicationController
     @comment = Comment.new
     if user_signed_in?
       # 現在のユーザーが非表示にしたcomment_idのリストを取得
+      # pluck == find
       hidden_comment_ids = current_user.hidden_comments.pluck(:comment_id)
       # そのID以外のコメントを表示
       @comments = @book.comments.where.not(id: hidden_comment_ids).includes(:user).order(created_at: :desc)

@@ -1,10 +1,11 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  skip_before_action :authenticate_user!, only: [:cancel_completion]
   before_action :set_user, except: [:cancel_completion]
   # show以外は本人しかアクセスできないようにする
   before_action :ensure_correct_user,
                 only: %i[show edit_profile edit_email edit_password update destroy cancel cancel_completion]
+
+  skip_before_action :authenticate_user!, only: [:cancel_completion]
 
   def show
     @my_books = @user.books.order(created_at: :desc)
@@ -37,13 +38,12 @@ class UsersController < ApplicationController
                @user.update(update_params)
              else
                # プロフィール編集時は、パスワードがなくても通るように従来通りスキップ
-               @user.update_without_password(update_params)
-
                # update_without_password→パスワードのバリデーションをスキップするdevise独自のメソッド
+               @user.update_without_password(update_params)
              end
 
     # 保存処理
-if result
+    if result
       # パスワード変更の成功時
       if params[:edit_type] == 'password'
         bypass_sign_in(@user) 
@@ -59,9 +59,9 @@ if result
     else
       # 保存失敗時の戻り先分岐
       case params[:edit_type]
-      when 'email' then render :edit_email
-      when 'password' then render :edit_password
-      else render :edit_profile
+        when 'email'    then render :edit_email
+        when 'password' then render :edit_password
+        else render :edit_profile
       end
     end
   end
