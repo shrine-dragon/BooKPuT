@@ -1,9 +1,8 @@
 <li class="book-cards">
   <%= link_to book_path(book), class: "book-card-link" do %>
     <div class="book-card <%= local_assigns[:is_mini] ? 'is-mini' : '' %>">
-      <%# indexはgolden、showはwhite %>
       <div class="frame <%= frame_color %>">
-        <div class="card-content-wrapper">
+        <div class="card-wrapper">
           <div class="image-area" style="position: relative;">
             <% if local_assigns[:badge_type] == 'good' %>
               <div class="card-badge good">
@@ -37,7 +36,7 @@
             
             <div class="hover-details">
               <div class="category-hashtags-area">
-                <% unless [0, 11, 12].include?(book.category_id) %>
+                <% unless [0, 10, 11].include?(book.category_id) %>
                   <span class="category-tag" style="color: <%= book.category.color %>;">
                     # <%= book.category.name %>
                   </span>

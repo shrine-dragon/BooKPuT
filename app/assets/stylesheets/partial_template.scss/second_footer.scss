@@ -2,9 +2,9 @@
 
 .footer.second {
   position: fixed;
-  bottom: 0;         /* 画面の最下部に配置 */
-  left: 0;           /* 左端から開始 */
-  width: 100%;       /* ★重要：固定すると横幅が縮むため100%を指定 */
+  bottom: 0;   /* 画面の最下部に配置 */
+  left: 0;     /* 左端から開始 */
+  width: 100%; /* ★重要：固定すると横幅が縮むため100%を指定 */
   z-index: 1000;
   background-color: white; /* 背景色がないと下のコンテンツが透けて見える */
 }
@@ -15,10 +15,8 @@
   margin: 10px 0 10px 35%;
 }
 
-.log-in-btn.footer.underline-text{
+.log-in-btn.footer-second.underline-text{
   padding: 10px 3px;
-  font-weight: bold;
-  cursor: pointer;
 }
 
 @include tablet{

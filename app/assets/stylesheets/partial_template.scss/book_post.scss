@@ -113,6 +113,18 @@
   text-align: left !important;
 }
 
+.image-re-select-message, .error-message{
+  color: #ff0000;
+  font-size: 14px;
+  line-height: 1.5;
+  display: block;
+  margin-bottom: 10px;
+  text-align: left;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  width: 100%;
+  font-weight: bold;
+}
 
 #contents-container {
   width: 100%;

@@ -1,6 +1,5 @@
 @import "config";
 
-// スライダー全体・状態管理（親要素）
 .book-cards {
   padding: 10px 0;
   margin: 10px 15px;
@@ -17,10 +16,10 @@
   // スライド中のガード（JSのis-slidingクラスと連動）
   &.is-sliding {
     .book-card {
-      pointer-events: none !important;
-      transform: scale(1) !important; 
-      transition: none !important;    
-      opacity: 1 !important;          
+      pointer-events: none;
+      transform: scale(1);
+      transition: none;
+      opacity: 1;
     }
   }
 }
@@ -32,8 +31,7 @@
   position: relative;
   backface-visibility: hidden;
   will-change: transform;
-  box-sizing: border-box;
-  /* 👈 拡大（scale）はさせず、影や背景の変化だけを滑らかにする */
+  /* 影や背景の変化だけを滑らかにする */
   transition: box-shadow 0.3s ease, background-color 0.3s ease; 
 
   // 🔥 JSでホバー判定（is-hovered）がついた時の挙動
@@ -53,10 +51,10 @@
 
     // 隠れていた詳細情報（ハッシュタグやテキスト）を下部にすっと表示
     .hover-details {
-      display: block !important;
-      opacity: 1 !important;
-      visibility: visible !important;
-      height: auto !important;
+      display: block;
+      opacity: 1;
+      visibility: visible;
+      height: auto;
       margin-top: 15px;
       transform: translateY(0);
     }
@@ -70,15 +68,14 @@
   height: 100%;
   padding: 10px;
   background: #FFF;
-  box-sizing: border-box;
   border: 12px solid;
   border-image: linear-gradient(to right bottom, #e0d9b6, #b4983a) 1;
   outline: 4px outset #efe9cc;
   position: relative; /* 光のエフェクトの基準位置 */
-  overflow: hidden !important; /* 👈 光が額縁の外にはみ出さないように今回はhiddenにする */
+  overflow: hidden; /* 👈 光が額縁の外にはみ出さないように今回はhiddenにする */
   transition: background 0.3s ease, box-shadow 0.3s ease;
 
-  // ✨ 【光のライティング・エフェクト仕込み】
+  // 【光のライティング・エフェクト仕込み】
   &::before {
     content: '';
     position: absolute;
@@ -98,11 +95,11 @@
   }
 }
 
-.card-content-wrapper {
+.card-wrapper {
   display: flex;
   flex-direction: column;
   height: 100%;
-  overflow: visible !important;
+  overflow: visible;
 }
 
 .image-area {
@@ -123,7 +120,6 @@
   right: 8px;
   z-index: 10;
   font-size: 1.2rem;
-
   background: white;
   padding: 4px;
   border-radius: 50%;
@@ -138,8 +134,8 @@
   top: 15px;
   right: 15px;
   .user-image{
-    width: 60px !important;
-    height: 60px !important;
+    width: 60px;
+    height: 60px;
   }
   .user-image.no-exist{
     background: rgba(255, 255, 255, 0.8); 
@@ -156,10 +152,9 @@
   flex-grow: 1; 
   padding: 10px 0;
   background: #fff;
-  overflow: visible !important;
+  overflow: visible;
 }
 
-// テキスト情報・タグ関連
 .title-plate {
   max-width: 90%;
   padding: 6px 8px;
@@ -172,7 +167,6 @@
   display: block;
   font-size: 18px;
   font-weight: bold;
-  color: #333;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -183,7 +177,7 @@
   width: 100%;
   padding-top: 10px;
   border-top: 1px solid #eee;
-  position: relative !important;
+  position: relative;
   opacity: 0;
   visibility: hidden;
   transform: translateY(5px);
@@ -213,16 +207,15 @@
 .content-list {
   margin: 0;
   padding: 0;
-  list-style: none !important;
 
   li {
     max-width: 100%;
     font-size: 18px;
     font-weight: bold;
     line-height: 1.4;
-    white-space: nowrap;      
-    overflow: hidden;         
-    text-overflow: ellipsis;  
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -235,8 +228,8 @@
     top: 5px;
     right: 5px;
     .user-image{
-      width: 40px !important;
-      height: 40px !important;
+      width: 40px;
+      height: 40px;
     }
   }
 }

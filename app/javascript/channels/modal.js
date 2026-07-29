@@ -70,7 +70,6 @@ $(document).on(loadEvent, function() {
     }
   });
 
-
   // 【ログイン済みユーザーメニューモーダル】
   $('.user-menu').on('mouseover', function() {
     if (isMobileSize()) return;
@@ -86,6 +85,26 @@ $(document).on(loadEvent, function() {
       closeModal($modal);
     } else {
       openModal($modal, false);
+    }
+  });
+
+    // 【ログインモーダル】（画面中央表示 / ホバー＆クリック両対応）
+  $('.log-in-btn.footer-second').on('mouseover', function() {
+    console.log('モーダルが開いたよ');
+    if (isMobileSize()) return;
+    openModal($(".modal.log-in"), true); // 常に中央表示
+  });
+
+  $('.log-in-btn.footer-second').on('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('モーダルが開いたよ');
+
+    const $modal = $(".modal.log-in");
+    if ($modal.is(':visible')) {
+      closeModal($modal);
+    } else {
+      openModal($modal, true); // 常に中央表示
     }
   });
 
