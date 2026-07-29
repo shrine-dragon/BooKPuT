@@ -8,7 +8,7 @@
 
 .static-page-heading{
   text-align: center;
-  padding: 30px 0 20px;
+  padding: 30px 0;
   font-weight: bold;
   font-size: 25px;
 }
@@ -31,17 +31,17 @@
     flex-direction: column;
     gap: 5px;
     > li {
-      list-style-type: disc !important; /* 黒丸 */
+      list-style-type: disc; /* 黒丸 */
     }
   }
 
   ol {
     margin: 5px 0 0 16px;
-    padding-left: 5px !important;
+    padding-left: 5px;
     display: flex;
     flex-direction: column;
     li {
-      list-style-type: decimal !important; /* 数字 */
+      list-style-type: decimal; /* 数字 */
     }
   }
 
@@ -70,7 +70,6 @@
 
 /* 会社概要 */
 .company_detail {
-  /* 利用規約と同じ枠組みの中で中央寄せにする */
   .static-page-wrapper {
     padding-bottom: 60px;
   }
@@ -78,37 +77,36 @@
   /* 潰れてしまったテーブルのスタイルを再定義 */
   table {
     width: 80%;
-    margin: 20px auto 0;
+    margin: 0 auto;
     border-collapse: collapse;    /* 隣り合う枠線を重ねる */
-    border: 1px solid #ccc;       /* 表の一番外側の枠線 */
-    background-color: #fff;       /* テーブル内の背景色を白にして見やすく */
+    border: 1px solid #ccc;
+    background-color: #fff;
   }
 
-  /* リセットされた見出し(th)とデータセル(td)の枠線・余白を復活 */
+  /* 見出し(th)とデータセル(td) */
   th, td {
-    padding: 15px 20px;           /* 💡 ゼロにされた余白をしっかり確保（上下 15px、左右 20px） */
-    border: 1px solid #ccc;       /* 💡 セルごとの区切り線を引く */
+    padding: 15px 20px;
+    border: 1px solid #ccc;
     font-size: 16px;
     line-height: 1.6;
-    vertical-align: middle;       /* 縦方向の中央揃え */
+    vertical-align: middle; /* 縦方向の中央揃え */
   }
 
   /* 左側の列（項目名）のスタイル */
   th, td:first-child {
-    width: 25%;                   /* 左側の列の幅を25%に固定 */
-    background-color: #f9f9f9;    /* ほんのりグレーにして見出し感を出す */
+    width: 25%;                  /* 左側の列の幅を25%に固定 */
+    background-color: #f9f9f9; /* ほんのりグレーにして見出し感を出す */
     font-weight: bold;
     color: #333;
   }
 
   /* 右側の列（内容）のスタイル */
   td {
-    text-align: left;             /* 左寄せ */
+    text-align: left;
   }
 
-  /* 🔴 沿革のリスト（ul/li）もreset.cssで潰れているので微調整 */
   ul {
-    list-style-type: disc !important;
+    list-style-type: disc;
     padding-left: 20px;
     
     li {
@@ -133,7 +131,7 @@
 
   .static-page-heading {
     font-size: 20px;
-    padding: 20px 0;
+    padding: 30px 0 20px;
   }
 
   .first-sentence{
@@ -142,7 +140,6 @@
 
   .static-page-container{
     width: 90%;
-    margin: 0 auto;
   }
 
   .static-page-contents{

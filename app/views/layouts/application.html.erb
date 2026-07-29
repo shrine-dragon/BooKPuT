@@ -47,7 +47,9 @@
       $(document).on('turbolinks:load', function() {
         $('.slick-slider').slick({
           autoplay: true,
-          autoplaySpeed: 8000, // 10秒に設定
+          // スライドが切り替わるまでの間隔
+          autoplaySpeed: 8000,
+          // スライドが実際に移動するアニメーションの時間
           speed: 1000,
           dots: false,
           arrows: true,

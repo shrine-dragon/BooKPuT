@@ -18,7 +18,7 @@
       <ul class="header-menus">
         <% if user_signed_in? %>
           <li class="user-menu header-display hovers">
-            <span class="user-nickname" id="header-display-text"><%= current_user.nickname %></span>
+            <span class="user-nickname"><%= current_user.nickname %></span>
             <% if current_user.image.attached? %>
               <%= image_tag current_user.image, class: 'user-image' %>
             <% else%>
@@ -27,10 +27,10 @@
           </li>
         <% else %>
           <li class="log-in-menu header-display hovers">
-            <span class="log-in-menu-text" id="header-display-text">ログイン</span>
+            <span class="log-in-menu-text">ログイン</span>
           </li>
           <li class="sign-up-menu header-display hovers">
-            <span class="sign-up-menu-text" id="header-display-text">新規登録</span>
+            <span class="sign-up-menu-text">新規登録</span>
           </li>
         <% end %>
       </ul>

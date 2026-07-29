@@ -1,14 +1,9 @@
 @import "config";
 
-* {
-  box-sizing: border-box;
-}
-
 .header {
   background-color: #fffafa;
   position: fixed; /* 固定配置に一本化 */
   top: 0;
-  left: 0;
   width: 100%;
   z-index: 1000;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -57,13 +52,13 @@
 .search-form {
   display: flex;
   width: 100%;
+  height: 35px;
   max-width: 600px;
   min-width: 150px;
 }
 
 .search-bar {
   width: 100%;
-  height: 35px;
   flex: 1;
   padding: 5px 10px;
   border: 1px solid #ccc;
@@ -80,8 +75,6 @@
 
 .search-btn {
   width: 60px;
-  height: 35px;
-  cursor: pointer;
   background-color: #eee;
   color: #666;
   border: 1px solid #ccc;
@@ -90,7 +83,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-sizing: border-box;
 
   i {
     color: #666;
@@ -100,15 +92,12 @@
 
 .header-menus {
   display: flex;
-  list-style: none;
   padding: 0;
   margin: 0;
   align-items: center;
 }
 
 .header-display {
-  height: 100%;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -117,11 +106,6 @@
 
 .user-menu {
   padding: 13px 10px;
-}
-
-#header-display-text {
-  font-weight: bold;
-  color: #333;
 }
 
 .user-nickname {
@@ -165,9 +149,10 @@
   align-items: center;
   justify-content: center;
   display: none;
-  position: fixed; /* 一本化 */
+  position: fixed;
   top: 70px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  z-index: 1002;
 }
 
 .modal-wrapper {
@@ -193,8 +178,6 @@
   border-radius: 8px;
   background-color: white;
   text-decoration: none;
-  color: #333;
-  font-weight: bold;
   transition: opacity 0.2s;
 
   i {
@@ -224,26 +207,23 @@
   }
 }
 
-.fa-google { color: deepskyblue; }
-.fa-line { color: #06C755; }
+.fa-envelope  { color: #666666; }
+.fa-google    { color: deepskyblue; }
 .fa-x-twitter { color: #000000; }
-.fa-facebook { color: #1877F2; }
-.fa-envelope { color: #666666; }
+.fa-facebook  { color: #1877F2; }
+.fa-line      { color: #06C755; }
 
 .modal.sign-up {
   height: 220px;
   width: 420px;
   right: 2%;
-  z-index: 1002;
 }
 
 .modal.log-in-user {
-  height: auto;
   min-height: 160px;
   width: 200px;
   right: 2%;
   background-color: whitesmoke;
-  z-index: 1002;
 }
 
 .log-in-user-container {
@@ -265,11 +245,6 @@
 
 .my-page-btn-text, .log-out-btn-text {
   font-size: 16px;
-  font-weight: bold;
-}
-
-.fa-solid.fa-user, .fa-right-from-bracket {
-  cursor: pointer;
 }
 
 @include tablet {
@@ -317,6 +292,28 @@
     height: auto;
   }
 
+  .header-list {
+    position: static; /* PC版や以前の絶対配置（top: -70pxなど）を完全に解除 */
+    width: 100%;
+    height: auto;
+    background-color: transparent;
+    padding-top: 8px;
+    box-shadow: none;
+    display: block;
+  }
+
+  .search {
+    width: 90%;
+    margin: 0;
+  }
+
+  .search-bar {
+    height: 38px;
+  }
+  .search-btn {
+    height: 38px;
+  }
+
   .header-menus {
     margin-left: 0;
     height: auto;
@@ -336,7 +333,7 @@
     }
 
     .user-nickname {
-      display: none !important;
+      display: none;
     }
 
     .user-image {
@@ -365,21 +362,18 @@
   }
 
   .modal.sign-up {
-    position: fixed;
     top: 50px;
     right: 10px;
-    width: 280px !important;
+    width: 280px;
     height: auto;
     padding: 18px 10px;
     border-radius: 8px;
-    z-index: 1002;
     
     .modal-btn {
       font-size: 12px;
       padding: 8px;
     }
     .two-columns-layout {
-      grid-template-columns: 1fr 1fr; /* 2列を維持 */
       gap: 6px;
     }
   }
@@ -392,7 +386,6 @@
     min-height: auto;
     padding: 15px;
     border-radius: 8px;
-    z-index: 1002;
 
     .log-in-user-container {
       gap: 8px;
@@ -405,31 +398,5 @@
     .my-page-btn-text, .log-out-btn-text {
       font-size: 14px;
     }
-  }
-
-  .header-list {
-    position: static; /* PC版や以前の絶対配置（top: -70pxなど）を完全に解除 */
-    width: 100%;
-    height: auto;
-    background-color: transparent;
-    padding-top: 8px;
-    box-shadow: none;
-    display: block;
-  }
-
-  .search {
-    width: 90%;
-    margin: 0;
-  }
-  .search-form {
-    max-width: 100%;
-    width: 100%;
-  }
-  .search-bar {
-    width: 100%;
-    height: 38px;
-  }
-  .search-btn {
-    height: 38px;
   }
 }
