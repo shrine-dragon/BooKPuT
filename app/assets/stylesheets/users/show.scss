@@ -46,15 +46,15 @@
   object-fit: cover;
 }
 
-.edit-profile.btn-on-center, .edit-log-in-info.hovers {
+.edit-profile.hovers, .edit-log-in-info.hovers {
   border: 1px solid black;
-  padding: 10px 20px !important;
-  border-radius: 24px !important;
+  padding: 10px 20px;
+  border-radius: 24px;
 }
 
-.edit-profile.btn-on-center {
+.edit-profile.hovers {
   width: 220px;
-  margin: 20px auto 10px;
+  margin: 20px 0 10px;
 }
 
 .edit-log-in-info.hovers {
@@ -68,7 +68,7 @@
 
 /* 外枠コンテナを矢印の唯一の起点（基準）にする */
 .book-post-images-container {
-  position: relative !important;
+  position: relative;
   width: 100%;
 }
 
@@ -76,28 +76,28 @@
 .book-post-images,
 .book-post-images .slick-list,
 .book-post-images .slick-track {
-  position: static !important;
+  position: static;
 }
 
 /* 矢印の位置を中央に固定 */
 .my-page-contents {
   .slick-prev,
   .slick-next {
-    position: absolute !important;
-    top: 180px !important;
-    transform: translateY(-50%) !important;
+    position: absolute;
+    top: 180px;
+    transform: translateY(-50%);
     z-index: 10;
     cursor: pointer;
   }
 
   .slick-prev {
-    left: -55px !important;
-    right: auto !important;
+    left: -55px;
+    right: auto;
   }
 
   .slick-next {
-    right: -30px !important;
-    left: auto !important;
+    right: -30px;
+    left: auto;
   }
 }
 
@@ -146,10 +146,10 @@
 
   .my-page-contents {
     .slick-prev {
-      left: -35px !important;
+      left: -35px;
     }
     .slick-next {
-      right: -10px !important;
+      right: -10px;
     }
   }
 
