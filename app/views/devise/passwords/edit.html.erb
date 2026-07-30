@@ -1,15 +1,16 @@
 <%= render 'partial_template/second_header' %>
 
-<%= render layout: 'partial_template/edit_user_info', locals: { title: '新しいパスワードの設定' } do %>
+<%= render layout: 'partial_template/edit_log_in_info', locals: { title: '新しいパスワードの設定' } do %>
   <%# トークンエラー %>
   <%= render "partial_template/error_messages", model: resource, attribute: :reset_password_token %>
 
   <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: 'edit-password' }) do |f| %>
     <%= f.hidden_field :reset_password_token %>
 
-    <div class="edit-user-info-text">
+    <div class="edit-log-in-info-text">
       <p>新しいパスワードを入力し、<br>｢変更する｣ボタンを押してください。</p>
     </div>
+
     <div class="form-text new-password">
       <label>新しいパスワード(必須)</label>
     </div>

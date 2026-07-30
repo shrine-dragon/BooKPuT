@@ -811,7 +811,7 @@ RSpec.describe '投稿機能', type: :system do
     end
   end
 
-  describe "投稿検索", type: :system do
+  describe '投稿検索', type: :system do
     let!(:book) { FactoryBot.create(:book, user: user1) }
     let(:book2) { FactoryBot.create(:book, user: user1) }
     let(:book3) { FactoryBot.create(:book, user: user1) }
@@ -825,10 +825,10 @@ RSpec.describe '投稿機能', type: :system do
         find_search_form
         # 検索ワードを配列にする
         matched_keywords = [
-          book.title, 
-          book.category.name, 
-          book.genres.first.name, 
-          book.book_contents.first.content, 
+          book.title,
+          book.category.name,
+          book.genres.first.name,
+          book.book_contents.first.content,
           book.user.nickname
         ]
         # 検索ワードでそれぞれ検索し、同じbook投稿がヒットすることを確認する
@@ -860,10 +860,10 @@ RSpec.describe '投稿機能', type: :system do
         sleep 0.5
         # 検索結果が0件を表すテキストが表示されていることを確認する
         expect(page).to have_content(keyword && '「」' && 'に一致する投稿は見つかりませんでした。')
-        expect(page).to have_no_content("検索結果")
+        expect(page).to have_no_content('検索結果')
 
         expect(page).to have_no_content(book.title)
-        expect(page).to have_no_selector(".book-posted-image")
+        expect(page).to have_no_selector('.book-posted-image')
       end
     end
   end

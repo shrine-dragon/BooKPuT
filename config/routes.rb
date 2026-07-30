@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   get 'terms_of_service',   to: 'static_pages#terms_of_service'
   get 'privacy_policy',     to: 'static_pages#privacy_policy'
 
-  resources :contacts, only: [:new, :create] do
+  resources :contacts, only: %i[new create] do
     collection do
       get 'submit_completion'
     end
@@ -49,7 +49,7 @@ Rails.application.routes.draw do
     end
 
     collection do
-      get "search"
+      get 'search'
     end
 
     resources :book_goods, only: %i[create destroy]

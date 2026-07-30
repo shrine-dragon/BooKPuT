@@ -1,16 +1,20 @@
 <%= render 'partial_template/second_header' %>
 
-<%= render layout: 'partial_template/edit_user_info', locals: { title: 'パスワード再設定' } do %>
-  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: 'edit-password' }) do |f| %>
-    <div class="edit-user-info-text">
+<%= render layout: 'partial_template/edit_log_in_info', locals: { title: 'パスワード再設定' } do %>
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+    <div class="edit-log-in-info-text">
       <p>登録済みのメールアドレスを入力してください。</p>
       <p>パスワード再設定用のメールを送信します。</p>
     </div>
     <div class="form-text">
       <label>メールアドレス(必須)</label>
     </div>
-    <%= f.email_field :email, class:"input-text email", id:"email", placeholder:"例：bookput@gmail.com" %>
-    <%= render "partial_template/error_messages", model: resource, attribute: :email %>
+
+    <div class="input-registerd-email">
+      <%= f.email_field :email, class:"input-text email", id:"email", placeholder:"例：bookput@gmail.com" %>
+      <%= render "partial_template/error_messages", model: resource, attribute: :email %>
+    </div>
+
     <div class="form-btn-container">
       <%= f.submit "送信する", class: "orange-submit-btn hovers" %>
     </div>

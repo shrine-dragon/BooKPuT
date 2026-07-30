@@ -126,9 +126,9 @@ class User < ApplicationRecord
     domain = email.split('@').last.to_s.downcase
 
     # gmail.com の打ち間違いっぽいパターンを弾く
-    if domain.start_with?('gm') && domain != 'gmail.com'
-      errors.add(:email, 'のドメイン（@以降）が正しくありません（例: gmail.com）')
-    end
+    return unless domain.start_with?('gm') && domain != 'gmail.com'
+
+    errors.add(:email, 'のドメイン（@以降）が正しくありません（例: gmail.com）')
   end
 
   def birth_date_cannot_be_in_the_future

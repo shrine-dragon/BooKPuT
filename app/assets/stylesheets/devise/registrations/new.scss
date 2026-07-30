@@ -1,7 +1,9 @@
 @import "config";
 
-.class{
-  height: 100%;
+.sign-up-page{
+  .modal.log-in {
+    top: 50%;
+  }
 }
 
 .register-password{
@@ -10,7 +12,7 @@
   
   .toggle-password{
     right: 5%;
-    top: 50px;
+    top: 70%;
     z-index: 10;
   }
 }

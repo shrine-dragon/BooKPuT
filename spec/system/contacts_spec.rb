@@ -18,7 +18,7 @@ RSpec.describe 'お問い合わせ機能', type: :system do
         expect(page).to have_selector('.orange-submit-btn')
         scroll_to(find('.orange-submit-btn'), align: :center)
         sleep 0.5
-        
+
         expect do
           find('.orange-submit-btn').click
           sleep 0.5

@@ -35,19 +35,19 @@ module BookSupport
   def find_search_form
     # トップページに遷移し、検索フォームが存在していることを確認する
     visit root_path
-    expect(page).to have_selector(".search-form")
+    expect(page).to have_selector('.search-form')
   end
 
   def visit_search_books_path
     # 検索ボタンを押すと検索結果ページに遷移することを確認する
-    find(".search-btn").click
+    find('.search-btn').click
     has_current_path?(search_books_path, wait: 5)
   end
 
   def show_search_result
     # 「検索結果」の文字やbook投稿の画像・タイトル・カテゴリー名・ジャンル名・投稿者の画像がそれぞれ表示されていることを確認する
-    expect(page).to have_content("検索結果")
-    expect(page).to have_selector(".book-posted-image")
+    expect(page).to have_content('検索結果')
+    expect(page).to have_selector('.book-posted-image')
     expect(page).to have_content(book.title)
 
     target_card = find('.book-card')

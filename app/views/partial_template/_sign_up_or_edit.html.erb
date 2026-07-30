@@ -1,4 +1,4 @@
-<%= form_with model: model, url: url, class: 'sign-up -or-edit', local: true do |f| %>
+<%= form_with model: model, url: url, class: 'sign-up-or-edit', local: true do |f| %>
   <div class="form-wrapper">
     <h2 class="form-heading">
       <%= title %>
@@ -8,7 +8,7 @@
         <div class="form-text">
           <label>ニックネーム(必須)</label>
         </div>
-        <%= f.text_field :nickname, class:"input-text", id:"nickname", placeholder:"3〜16文字以内", minlength:"3", maxlength:"16" %>
+        <%= f.text_field :nickname, class: "input-text", id: "nickname", placeholder: "3〜16文字以内", minlength: "3", maxlength: "16" %>
         <%= render "partial_template/error_messages", model: @user, attribute: :nickname %>
       </div>
 
@@ -45,7 +45,7 @@
           <label>性別(必須)</label>
         </div>
         <div class="pull-down-wrapper">
-          <%= f.collection_select(:gender_id, Gender.all, :id, :name, {}, {class:"select-pull-down", id:"gender"}) %>
+          <%= f.collection_select(:gender_id, Gender.all, :id, :name, {}, {class: "select-pull-down", id: "gender"}) %>
         </div>
         <%= render "partial_template/error_messages", model: @user, attribute: :gender_id %>
       </div>
@@ -55,7 +55,7 @@
           <div class="form-text">
             <label>メールアドレス(必須)</label>
           </div>
-          <%= f.email_field :email, class:"input-text", id:"email", placeholder:"例：bookput@gmail.com" %>
+          <%= f.email_field :email, class: "input-text", id: "email", placeholder: "bookput@gmail.com" %>
           <%= render "partial_template/error_messages", model: @user, attribute: :email %>
         <% end %>
       </div>
@@ -70,7 +70,7 @@
           <div class="form-text">
             <label>パスワード(必須)</label>
           </div>
-          <%= f.password_field :password, class:"input-text", id:"password", placeholder:"半角英数字8〜20文字以内", minlength:"8", maxlength:"20" %>
+          <%= f.password_field :password, class: "input-text", id: "password", placeholder: "半角英数字8〜20文字以内", minlength: "8", maxlength: "20" %>
           <i class="fa-regular fa-eye-slash toggle-password"></i>
 
           <%= render "partial_template/error_messages", model: @user, attribute: :password %>
@@ -81,7 +81,7 @@
             <label>パスワード(確認用)</label>
           </div>
 
-          <%= f.password_field :password_confirmation, class:"input-text", id:"password_confirmation", placeholder:"同じパスワードを入力", minlength:"8", maxlength:"20" %>
+          <%= f.password_field :password_confirmation, class: "input-text", id: "password_confirmation", placeholder: "同じパスワードを入力", minlength: "8", maxlength:"20" %>
           <i class="fa-regular fa-eye-slash toggle-password"></i>
 
           <%= render "partial_template/error_messages", model: @user, attribute: :password_confirmation %>
@@ -91,8 +91,9 @@
       <div class="form-btn-container">
         <%= f.submit btn_text, class: "orange-submit-btn hovers" %>
       </div>
+      
       <div class="smp-only">
-        <p class="urge-log-in">ログインは<span><%= link_to 'こちら', root_path, class: "log-in-here" %></span></p>
+        <p class="urge-log-in">ログインは<span class="log-in-here underline-text hovers">こちら</span></p>
       </div>
     </div>
   </div>

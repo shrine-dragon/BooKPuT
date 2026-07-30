@@ -17,5 +17,5 @@ class ApplicationController < ActionController::Base
 
     # アカウント編集時（account_update）にも画像を許可する場合
     devise_parameter_sanitizer.permit(:account_update, keys: %i[nickname image])
-  end  
+  end
 end

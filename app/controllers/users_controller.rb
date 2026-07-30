@@ -46,11 +46,11 @@ class UsersController < ApplicationController
     if result
       # パスワード変更の成功時
       if params[:edit_type] == 'password'
-        bypass_sign_in(@user) 
+        bypass_sign_in(@user)
         redirect_to user_path(@user), notice: 'パスワードを変更しました'
       # メールアドレス変更の成功時
       elsif params[:edit_type] == 'email'
-        bypass_sign_in(@user) if respond_to?(:bypass_sign_in) 
+        bypass_sign_in(@user) if respond_to?(:bypass_sign_in)
         redirect_to user_path(@user), notice: 'メールアドレスを変更しました'
       # 通常のプロフィール変更の成功時
       else
@@ -59,9 +59,9 @@ class UsersController < ApplicationController
     else
       # 保存失敗時の戻り先分岐
       case params[:edit_type]
-        when 'email'    then render :edit_email
-        when 'password' then render :edit_password
-        else render :edit_profile
+      when 'email'    then render :edit_email
+      when 'password' then render :edit_password
+      else render :edit_profile
       end
     end
   end

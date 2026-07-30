@@ -57,9 +57,7 @@ class Book < ApplicationRecord
         end
       end
 
-      if matched_category_ids.present?
-        query = query.or(where(category_id: matched_category_ids))
-      end
+      query = query.or(where(category_id: matched_category_ids)) if matched_category_ids.present?
 
       query
     else
