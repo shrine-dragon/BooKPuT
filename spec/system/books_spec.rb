@@ -306,7 +306,7 @@ RSpec.describe '投稿機能', type: :system do
         visit_book_path
 
         # 編集ボタンを押し、投稿編集ページに遷移する
-        expect(page).to have_selector('#post-edit-btn', text: '編集', wait: 5)
+        expect(page).to have_selector('#edit-post-btn', text: '編集', wait: 5)
         click_on('編集')
         expect(page).to have_current_path(edit_book_path(book))
         expect(page).to have_content('投稿編集')
@@ -389,7 +389,7 @@ RSpec.describe '投稿機能', type: :system do
         visit_book_path
 
         # 投稿詳細ページに編集ボタンが存在しないことを確認する
-        expect(page).to have_no_selector('#post-edit-btn', wait: 5)
+        expect(page).to have_no_selector('#edit-post-btn', wait: 5)
 
         not_log_in_user_access_denied(edit_book_path(book), '投稿編集')
       end
@@ -401,7 +401,7 @@ RSpec.describe '投稿機能', type: :system do
         visit_book_path
 
         # 投稿詳細ページに編集ボタンが存在しないことを確認する
-        expect(page).to have_no_selector('#post-edit-btn', wait: 5)
+        expect(page).to have_no_selector('#edit-post-btn', wait: 5)
 
         # URLで編集ページへ移動しようとするとトップページに遷移することを確認する
         log_in_user_access_denied(edit_book_path(book), '投稿編集')

@@ -26,13 +26,13 @@
   .detail-left, .detail-center, .detail-right{
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: auto;
   }
 
   .detail-left, .detail-right{
     width: 30%;
     flex-shrink: 0;
-    justify-content: flex-start !important;
+    justify-content: flex-start;
   }
 
   .detail-left {
@@ -41,7 +41,7 @@
 
   .posted-by-field{
     display: flex;
-    height: 100px;
+    height: auto;
   }
 
   .user-my-page-link{
@@ -77,30 +77,24 @@
 
       .book-card-link {
         pointer-events: none; 
-        cursor: default;      
+        cursor: default;
       }
 
       .book-card {
-        transform: none !important; 
+        transform: none;
         box-shadow: none;
         pointer-events: none; // 詳細画面ではホバー反応を無効化
         cursor: none;
         
         .hover-details {
-          display: none !important; // 詳細画面では一覧のホバー中身は出さない
+          display: none; // 詳細画面では一覧のホバー中身は出さない
         }
       }
     }
   }
 
-  .detail-center-contents{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
   .frame.golden{
-    width: 100% !important; // 中央カラムの幅に合わせる
+    width: 100%;
     max-width: 450px;
     margin: 0 auto;
   }
@@ -119,14 +113,23 @@
   }
 
   .book-title {
-    display: inline-block;   /* 文字数分の幅しか持たないインラインブロックにする */
-    text-align: left;        /* 2行目以降はこの中で左揃えになる */
+    display: inline-block; /* 文字数分の幅しか持たないインラインブロックにする */
+    text-align: left;
     white-space: normal;    /* 改行を許可する */
     font-size: 20px;
     line-height: 1.4;       /* 改行した時の行間を確保 */
     font-weight: bold;
     color: #333;
     max-width: 100%;
+  }
+
+  .reaction-icon-field{
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    position: relative;
+    z-index: 100;
+    margin-right: 20px;
   }
 
   .hashtags-area{
@@ -145,46 +148,7 @@
     margin-right: 10px;
   }
 
-  .detail-right {
-    padding-left: 15px;
-  }
-
-  .detail-right-upper{
-    height: 100px;
-  }
-
-  .detail-right-btn-field, .reaction-icon-field{
-    display: flex;
-    justify-content: flex-end;
-    gap: 15px;
-  }
-
-  .reaction-icon-field{
-    position: relative;
-    z-index: 100;
-    margin-right: 20px;
-  }
-
-  .detail-right-btn-field{
-    margin: 0 15px 20px 0;
-  }
-
-  .detail-right-btn{
-    padding: 10px 15px;
-    background-color: whitesmoke;
-    border-radius: 8px;
-  }
-
-  .detail-right-btn-text{
-    font-size: 16px;
-  }
-
-  .fa-thumbs-up, .fa-thumbs-down, .fa-star{
-    font-size: 25px;
-  }
-
-  // 内容項目のレイアウト
-  @keyframes fadeInUp {
+    @keyframes fadeInUp {
     from {
       opacity: 0;
       transform: translateY(30px);
@@ -243,7 +207,6 @@
     &.horizontal-text {
       flex-direction: column;
       width: 100%;
-
       
       .content-item {
         width: 100%;
@@ -258,32 +221,43 @@
     font-weight: bold;
     font-size: 24px;
   }
-}
 
-.posted-comment-list-container{
-  width: 85%;
-  border: 1px solid gainsboro;
-  margin: 0 auto 20px;
-}
+  .detail-right {
+    padding-left: 15px;
+  }
 
-.posted-comment-number{
-  margin-bottom: 5px;
-  font-size: 20px;
-}
+  .detail-right-upper{
+    height: auto;
+  }
 
-.empty-message.none-comment{
-  height: 100px;
+  .detail-right-btn-field{
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+  }
+
+  .detail-right-btn-field{
+    margin: 0 15px 20px 0;
+  }
+
+  .detail-right-btn{
+    padding: 10px 15px;
+    background-color: whitesmoke;
+    border-radius: 8px;
+  }
+
+  .detail-right-btn-text{
+    font-size: 16px;
+  }
+
+  .fa-thumbs-up, .fa-thumbs-down, .fa-star{
+    font-size: 25px;
+  }
 }
 
 .post-comment-wrapper{
   margin: 0 auto 40px;
   width: 85%;
-}
-
-.posted-comment-center .post-comment-container {
-  border: none; /* 二重線を防ぐ */
-  padding: 0;
-  margin: 10px 0;
 }
 
 .post-comment-container{
@@ -300,7 +274,7 @@
 .user-image.post-comment{
   width: 50px;
   height: 50px;
-  margin-left: 30px;
+  margin: 0 10px 0 30px;
 }
 
 .user-nickname.post-comment{
@@ -308,8 +282,8 @@
   font-size: 18px;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  padding: 13px 10px;
-  margin-right: 30px;
+  padding: 13px 0px;
+  margin-right: 40px;
 }
 
 .post-comment-field{
@@ -365,6 +339,27 @@
   }
 }
 
+.posted-comment-list-container{
+  width: 85%;
+  border: 1px solid gainsboro;
+  margin: 0 auto 20px;
+}
+
+.posted-comment-number{
+  margin-bottom: 5px;
+  font-size: 20px;
+}
+
+.empty-message.none-comment{
+  height: 100px;
+}
+
+.posted-comment-center .post-comment-container {
+  border: none; /* 二重線を防ぐ */
+  padding: 0;
+  margin: 10px 0;
+}
+
 .view-more-comments-container{
   margin: 10px 0;
 }
@@ -414,7 +409,7 @@
       }
     }
 
-    .smp-action-area {
+    .smp-action-area.smp-only {
       display: flex !important;
       justify-content: space-between;
       align-items: center;
@@ -426,10 +421,10 @@
         align-items: center;
         gap: 10px;
       }
-      .detail-right-btn {
+      .detail-smp-btn {
         padding: 6px 12px;
       }
-      .detail-right-btn-text {
+      .detail-smp-btn-text {
         font-size: 14px;
       }
       .fa-thumbs-up, .fa-thumbs-down, .fa-star {
@@ -437,13 +432,12 @@
       }
     }
 
-    .hashtags-area {
-      margin-left: 5px;
-      margin-top: 10px;
-    }
-
     .book-title {
       font-size: 18px;
+    }
+
+    .hashtags-area {
+      margin: 10px 0 0 5px;
     }
 
     .category-tag {
@@ -472,7 +466,7 @@
     }
 
     .post-comment-user-field {
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       align-items: center;
       
       .user-image.post-comment {
@@ -487,7 +481,7 @@
     }
 
     .post-comment-field {
-      margin: 0 0 0 6px;
+      margin-left: 6px;
       width: 100%;
     }
 
@@ -501,7 +495,7 @@
     }
 
     .comment-caution-text {
-      font-size: 11px;
+      font-size: 12px;
       margin-top: 5px;
     }
 

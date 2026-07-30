@@ -12,7 +12,7 @@
       <!-- 左カラム（PCのみ） -->
       <div class="detail-left pc-only">
         <% if current_user == @book.user %>
-          <div class="posted-by-field is-my-page">
+          <div class="posted-by-field to-my-page">
             <%= link_to user_path(current_user), class: "user-my-page-link" do %>
               <% if current_user.image.attached? %>
                 <%= image_tag current_user.image, class: 'user-image posted-by hovers' %>
@@ -42,11 +42,11 @@
         </div>
       </div>
 
-      <!-- 中央カラム（PC・スマホ共通、スマホ時はここがメイン-->
+      <!-- 中央カラム(PC・スマホ共通)スマホ時はここがメイン-->
       <div class="detail-center">
         <!-- 【追加】スマホ用：投稿者情報 -->
         <% if current_user == @book.user %>
-          <div class="posted-by-field is-my-page smp-only">
+          <div class="posted-by-field to-my-page smp-only">
             <%= link_to user_path(current_user), class: "user-my-page-link" do %>
               <% if current_user.image.attached? %>
                 <%= image_tag current_user.image, class: 'user-image posted-by hovers' %>
@@ -57,7 +57,7 @@
             <% end %>
           </div>
         <% else %>
-          <div class="posted-by-field is-my-page smp-only">
+          <div class="posted-by-field to-my-page smp-only">
             <% if @book.user.image.attached? %>
               <%= image_tag @book.user.image, class: 'user-image posted-by' %>
             <% else %>
@@ -75,12 +75,12 @@
         <div class="smp-action-area smp-only">
           <% if user_signed_in? %>
             <% if current_user == @book.user %>
-              <ul class="smp-btn-field">
-                <li class="detail-right-btn hovers" id='post-edit-btn'>
-                  <%= link_to "編集", edit_book_path(@book), class: 'detail-right-btn-text' %>
+              <ul class="detail-smp-btn-field">
+                <li class="smp-btn-field hovers" id='post-edit-btn'>
+                  <%= link_to "編集", edit_book_path(@book), class: 'detail-smp-btn-text' %>
                 </li>
-                <li class="detail-right-btn hovers" id='destroy-post-btn' data-url="<%= book_path(@book) %>">
-                  <span class="detail-right-btn-text">削除</span>
+                <li class="detail-smp-btn hovers" id='destroy-post-btn' data-url="<%= book_path(@book) %>">
+                  <span class="detail-smp-btn-text">削除</span>
                 </li>
               </ul>
               <ul class="reaction-icon-field">
@@ -133,7 +133,7 @@
 
         <div class="hashtags-area">
           <div class="category-hashtags-area">
-            <% unless [0, 11, 12].include?(@book.category_id) %>
+            <% unless [0, 10, 11].include?(@book.category_id) %>
               <span class="category-tag" style="color: <%= @book.category.color %>;">
                 # <%= @book.category.name %>
               </span>

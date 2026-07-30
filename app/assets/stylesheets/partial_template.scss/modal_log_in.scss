@@ -17,14 +17,14 @@
   background-color: whitesmoke;
   border-radius: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
 
-  .close-modal {
-    display: block;
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    font-size: 20px;
-  }
+.close-modal {
+  display: block;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 20px;
 }
 
 .modal-wrapper.log-in{
