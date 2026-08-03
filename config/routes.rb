@@ -52,8 +52,8 @@ Rails.application.routes.draw do
       get 'search'
     end
 
-    resources :book_goods, only: %i[create destroy]
-    resources :book_bads,  only: %i[create destroy]
+    resources :book_goods, only: %i[create destroy], as: :goods
+    resources :book_bads,  only: %i[create destroy], as: :bads
 
     resources :favorites, only: %i[create destroy]
 
@@ -63,8 +63,9 @@ Rails.application.routes.draw do
         post 'report'
       end
 
-      resources :comment_goods, only:  %i[create destroy]
-      resources :comment_bads,  only:  %i[create destroy]
+      resources :comment_goods, only: [:create, :destroy], as: :goods
+  
+      resources :comment_bads,  only: %i[create destroy], as: :bads
     end
   end
 end

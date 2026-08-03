@@ -76,7 +76,7 @@
           <% if user_signed_in? %>
             <% if current_user == @book.user %>
               <ul class="detail-smp-btn-field">
-                <li class="smp-btn-field hovers" id='post-edit-btn'>
+                <li class="smp-btn-field hovers" id='edit-post-btn'>
                   <%= link_to "編集", edit_book_path(@book), class: 'detail-smp-btn-text' %>
                 </li>
                 <li class="detail-smp-btn hovers" id='destroy-post-btn' data-url="<%= book_path(@book) %>">
@@ -174,7 +174,7 @@
           <% if user_signed_in? %>
             <% if current_user == @book.user %>
               <ul class="detail-right-btn-field">
-                <li class="detail-right-btn hovers" id='post-edit-btn'>
+                <li class="detail-right-btn hovers" id='edit-post-btn'>
                   <%= link_to "編集", edit_book_path(@book), class: 'detail-right-btn-text' %>
                 </li>
                 <li class="detail-right-btn hovers" id='destroy-post-btn' data-url="<%= book_path(@book) %>">
@@ -268,7 +268,7 @@
         <% end %>
       <% end %>
 
-      <div class="posted-comment-list-container">
+      <div class="posted-comment-list-wrapper">
         <p class="posted-comment-number" style="display: none;"></p>
         
         <div class="posted-comment-list" id="js-comment-list">

@@ -1,10 +1,10 @@
 <% if BookBad.exists?(user_id: current_user.id, book_id: book.id) %>
   <% current_book_bad = book.book_bads.find_by(user_id: current_user.id) %>
-  <%= link_to book_book_bad_path(book, current_book_bad), method: :delete, remote: true, class: "bad-link" do %>
+  <%= link_to book_bad_path(book, current_book_bad), method: :delete, remote: true, class: "bad-link" do %>
     <i class="fa-solid fa-thumbs-down hovers posted-book" style="color: #ff9f00;"></i>
   <% end %>
 <% else %>
-  <%= link_to book_book_bads_path(book), method: :post, remote: true, class: "bad-link" do %>
+  <%= link_to book_bads_path(book), method: :post, remote: true, class: "bad-link" do %>
     <i class="fa-regular fa-thumbs-down hovers posted-book"></i>
   <% end %>
 <% end %>
