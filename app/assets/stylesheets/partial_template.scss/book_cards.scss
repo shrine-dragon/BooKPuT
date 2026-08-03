@@ -40,8 +40,8 @@
 
     // 額縁（フレーム）の演出：サイズを変えずに立体感を出す
     .frame {
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3) !important;
-      background: #fcfcfc !important; 
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+      background: #fcfcfc;
     }
 
     // キラリと光るエフェクトを起動

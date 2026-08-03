@@ -38,7 +38,8 @@
 }
 
 .book-cards{
-  .slick-prev, .slick-next {
+  .slick-prev,
+  .slick-next {
     position: absolute;
     top: 220px;
     transform: translateY(-50%);
@@ -53,11 +54,12 @@
   }
 
   .slick-next {
-    right: -45px;
+    right: -35px;
     left: auto;
   }
 
-  .slick-prev:before, .slick-next:before {
+  .slick-prev:before,
+  .slick-next:before {
     color: orange;
     font-size: 35px;
     font-weight: bold;

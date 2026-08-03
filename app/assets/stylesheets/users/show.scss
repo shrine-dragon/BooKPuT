@@ -81,23 +81,29 @@
 
 /* 矢印の位置を中央に固定 */
 .my-page-contents {
-  .slick-prev,
-  .slick-next {
-    position: absolute;
-    top: 180px;
-    transform: translateY(-50%);
-    z-index: 10;
-    cursor: pointer;
-  }
+  .book-post-images-container {
+    .slick-prev,
+    .slick-next {
+      top: 180px;
+    }
 
-  .slick-prev {
-    left: -55px;
-    right: auto;
-  }
+    .slick-prev {
+      left: -55px;
+      right: auto;
+    }
 
-  .slick-next {
-    right: -30px;
-    left: auto;
+    .slick-next {
+      right: -35px;
+      left: auto;
+    }
+
+    .slick-prev:before,
+    .slick-next:before {
+      color: orange;
+      font-size: 35px;
+      font-weight: bold;
+      opacity: 1;
+    }
   }
 }
 
