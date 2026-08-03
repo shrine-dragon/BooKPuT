@@ -17,8 +17,8 @@
         <label><%= check_box_tag :reason4 %>その他(以下のフォームに自由にご記入ください)</label>
       </li>
     </ul>
-    <div class="dummy-text-area">
-      <%= text_area_tag :dummy_feedback, nil, placeholder: "自由記述欄（最大500文字）", maxlength: 500, class: "feedback-form" %>
+    <div class="input-text-freely-area">
+      <%= text_area_tag :dummy_feedback, nil, placeholder: "自由記述欄（最大500文字）", maxlength: 500, class: "input-text-form" %>
     </div>
 
     <div class="continue-account btn-on-center">
@@ -33,7 +33,10 @@
     </div>
 
     <div id="final-confirm-area" style="display: none;">
-      <p class="warning-text">アカウントを本当に解約しますか？<br>一度解約すると復元できません。</p>
+      <div class="warning-text-area">
+        <p class="warning-text">アカウントを本当に解約しますか？</p>
+        <p class="warning-text">一度解約すると復元できません。</p>
+      </div>
       <div class="cancel-account btn-on-center">
         <%= link_to(user_path(@user), method: :delete, class: "cancel-account-btn finally-cancel-link") do %>
           <span class="cancel-account btn-text" id="cancel-account">本当に解約する</span>
