@@ -135,17 +135,6 @@ $(document).on(loadEvent, function() {
     openModal($logInModal, true);
   }
 
-  // 新規登録ページでログインモーダルを開閉する処理(clickイベント)
-  $('.log-in-btn.footer').on('click', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const $modal = $(".modal.log-in");
-    $modal.addClass('is-center');
-    
-    openModal($modal, true);
-  });
-
   // 背景・Escキー・閉じるボタン処理
   $(document).on('click', '.close-modal, #modal-overlay', function() {
     closeAllModals();

@@ -2,7 +2,7 @@
 function closeAllEditForms() {
   $('.edit-comment-form').each(function() {
     var $form = $(this);
-    var $container = $form.closest('.posted-comment-center');
+    var $container = $form.closest('.posted-comment-lower');
     
     // 隠されていた元のテキストを表示
     $container.find('.posted-comment-text').show();

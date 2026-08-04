@@ -37,9 +37,9 @@
         <p class="warning-text">アカウントを本当に解約しますか？</p>
         <p class="warning-text">一度解約すると復元できません。</p>
       </div>
-      <div class="cancel-account btn-on-center">
+      <div class="cancel-account-really btn-on-center">
         <%= link_to(user_path(@user), method: :delete, class: "cancel-account-btn finally-cancel-link") do %>
-          <span class="cancel-account btn-text" id="cancel-account">本当に解約する</span>
+          <span class="cancel-account-really btn-text" id="cancel-account-really">本当に解約する</span>
         <% end %>
       </div>
     </div>

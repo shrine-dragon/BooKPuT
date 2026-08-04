@@ -27,9 +27,8 @@ document.addEventListener('turbolinks:load', () => {
       $container.hide();
       return;
     }
-    // ------------------------------------------
 
-    // 1. 全件数が表示予定数以下なら、ボタンを隠して全部出す
+    // 全件数が表示予定数以下なら、ボタンを隠して全部出す
     if (total <= currentVisibleCount) {
       $items.show();
       // 表示件数がSTEP(10)以下のときはコンテナごと隠す

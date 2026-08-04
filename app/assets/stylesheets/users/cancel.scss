@@ -59,11 +59,14 @@
   margin-bottom: 15px;
 }
 
-.cancel-account.btn-on-center{
+.cancel-account.btn-on-center, 
+.cancel-account-really.btn-on-center{
   background-color: red;
 }
 
-.continue-account.btn-text, .cancel-account.btn-text{
+.continue-account.btn-text, 
+.cancel-account.btn-text, 
+.cancel-account-really.btn-text{
   font-size: 20px;
 }
 
