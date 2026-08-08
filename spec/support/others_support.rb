@@ -33,6 +33,15 @@ module OtherSupport
     expect(page).to have_no_content(no_exist_text)
   end
 
+  def not_log_in_user
+    # トップページに｢ログイン｣｢新規登録｣の文字があり、未ログインの状態であることを確認する
+    visit root_path
+    expect(page).to have_selector('.log-in-menu-text', text: 'ログイン')
+    expect(page).to have_selector('.sign-up-menu-text', text: '新規登録')
+    # トップページにユーザーのニックネームが表示されていないことを確認する
+    expect(page).to have_no_content(user.nickname)
+  end
+
   def not_log_in_user_access_denied(path, no_exist_text)
     # トップページへ移動する
     visit root_path

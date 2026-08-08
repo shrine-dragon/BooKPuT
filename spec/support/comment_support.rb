@@ -46,7 +46,7 @@ module CommentSupport
   def close_modal_final_action(selector_name, btn_text)
     expect(page).to have_selector(".js-#{selector_name}-trigger", text: btn_text)
 
-    selectors = ['.no-action.btn-text', '.fa-xmark', '#modal-overlay']
+    selectors = ['.no-action.btn-text', '.close-modal', '#modal-overlay']
 
     selectors.each do |_selector|
       find(".js-#{selector_name}-trigger", text: btn_text).click
