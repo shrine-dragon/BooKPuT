@@ -26,7 +26,7 @@ class User < ApplicationRecord
   has_many :comment_bads,      dependent: :destroy
 
   with_options presence: true do
-    validates :nickname, length: { minimum: 3, maximum: 16 }
+    validates :nickname, length: { maximum: 16 }
     validates :birth_date
   end
 
@@ -128,7 +128,7 @@ class User < ApplicationRecord
     # gmail.com の打ち間違いっぽいパターンを弾く
     return unless domain.start_with?('gm') && domain != 'gmail.com'
 
-    errors.add(:email, 'のドメイン（@以降）が正しくありません（例: gmail.com）')
+    errors.add(:email, 'のドメイン(@以降)が正しくありません（例: gmail.com）')
   end
 
   def birth_date_cannot_be_in_the_future
