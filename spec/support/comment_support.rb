@@ -21,7 +21,7 @@ module CommentSupport
     comment_index: :first
   )
     # コメントリストの中で最新のコメントを指定する
-    target_comment = all('.posted-comment-contents')[comment_index == :first ? 0 : -1]
+    target_comment = all('.posted-comment-wrapper')[comment_index == :first ? 0 : -1]
 
     # コメントの下にボタンが存在することを確認する
     within(target_comment) do
@@ -85,22 +85,22 @@ module CommentSupport
 
       if current_count <= 10
         # ｢もっと見る｣ボタンが非表示であることを確認する
-        expect(page).to have_selector('.posted-comment-contents', count: current_count)
+        expect(page).to have_selector('.posted-comment-wrapper', count: current_count)
         expect(page).to have_no_selector('.view-more-comments-text', text: 'コメントをもっと見る')
       elsif current_count > 10
         # 「もっと見る」ボタンが表示されていることを確認する
         expect(page).to have_selector('.view-more-comments-text', text: 'コメントをもっと見る', visible: true)
         # コメントの表示件数は10件に制限されていることを確認する
-        expect(page).to have_selector('.posted-comment-contents', count: 10)
+        expect(page).to have_selector('.posted-comment-wrapper', count: 10)
         if current_count >= 21
           [20, 21].each do |num|
             find('.view-more-comments-text').click
             # コメントの表示件数は20件、21件と増えていることを確認する
-            expect(page).to have_selector('.posted-comment-contents', count: num)
+            expect(page).to have_selector('.posted-comment-wrapper', count: num)
           end
           # コメントが21件表示されている状態で｢折りたたむ｣ボタンを押すと、コメントの表示件数が10件とデフォルトに戻っていることを確認する
           find('.hide-comments-text').click
-          expect(page).to have_selector('.posted-comment-contents', count: 10)
+          expect(page).to have_selector('.posted-comment-wrapper', count: 10)
         end
       end
     end

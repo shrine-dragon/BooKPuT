@@ -532,7 +532,7 @@ RSpec.describe 'コメント機能', type: :system do
         expect(page).to have_selector('.hide-comments-text', text: '折りたたむ')
         # ｢折りたたむ｣ボタンを押すと表示中のコメントが10件に戻り、再度｢もっと見る｣ボタンが表示されることを確認する
         find('.hide-comments-text').click
-        expect(page).to have_selector('.posted-comment-contents', count: 10)
+        expect(page).to have_selector('.posted-comment-wrapper', count: 10)
         expect(page).to have_selector('.view-more-comments-text', text: 'コメントをもっと見る', visible: true)
       end
 
