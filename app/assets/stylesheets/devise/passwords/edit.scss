@@ -1,17 +1,22 @@
-.form-text.new-password{
-  margin: 10px 0;
-}
+.edit-password-page{
+  .form-text.new-password{
+    margin: 10px 0;
+  }
 
-.input-text.new-password{
-  margin-bottom: 5px;
-}
+  .input-text.new-password{
+    margin-bottom: 5px;
+  }
 
-.edit-password{
-  position: relative;
-  margin-bottom: 15px;
+  .edit-password{
+    position: relative;
 
-  .toggle-password{
-    right: 5%;
-    top: 24px;
+    .toggle-password{
+      right: 5%;
+      top: 24px;
+    }
+  }
+
+  .form-btn-container{
+    margin: 15px 0;
   }
 }
