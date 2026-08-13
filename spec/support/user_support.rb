@@ -126,7 +126,7 @@ module UserSupport
   def input_info_and_sign_up(_provider, user)
     expect(page).to have_content('新規登録', wait: 10)
 
-    # 必須事項を入力または選択する
+    # 必須項目を入力または選択する
     # ニックネームとメールが空なら補完
     fill_in 'nickname', with: user.nickname if find('#nickname').value.blank?
     fill_in 'birth_date', with: user.birth_date.strftime('%Y-%m-%d')

@@ -7,18 +7,19 @@ RSpec.describe 'ユーザー新規登録', type: :system do
   let(:user) { FactoryBot.build(:user) }
 
   context 'メールアドレスでユーザー新規登録ができる時' do
-    it '必須事項を入力または選択すれば登録できる' do
+    it '必須項目を入力または選択すれば登録できる' do
       open_modal(:'sign-up', '新規登録')
       visit_sign_up_page
 
-      # 必須事項を入力または選択する
-      fill_in 'nickname',   with: user.nickname
-      fill_in 'birth_date', with: user.birth_date.to_s
-      select  '男性', from: 'gender'
-      fill_in 'email',      with: user.email
-      fill_in 'password',   with: user.password
+      # 必須項目を入力または選択する
+      fill_in 'nickname',              with: user.nickname
+      fill_in 'birth_date',            with: user.birth_date.to_s
+      select  '男性',                  from: 'gender'
+      fill_in 'email',                 with: user.email
+      fill_in 'password',              with: user.password
       fill_in 'password_confirmation', with: user.password_confirmation
 
+      # 任意項目の画像を添付する
       image_test('Zakky.png', 'user[image]')
 
       toggle_password(user.password, user.password_confirmation)
@@ -30,16 +31,16 @@ RSpec.describe 'ユーザー新規登録', type: :system do
   end
 
   context 'メールアドレスでユーザー新規登録ができない時' do
-    it '必須事項が空欄だったり、誤った情報だと登録できない' do
+    it '必須項目が空欄だったり、誤った情報だと登録できない' do
       open_modal(:'sign-up', '新規登録')
       visit_sign_up_page
 
       # 必須項目を空欄にする
-      fill_in 'nickname', with: ''
-      fill_in 'birth_date', with: ''
-      select  '--', from: 'gender'
-      fill_in 'email',      with: ''
-      fill_in 'password',   with: ''
+      fill_in 'nickname',              with: ''
+      fill_in 'birth_date',            with: ''
+      select  '--',                    from: 'gender'
+      fill_in 'email',                 with: ''
+      fill_in 'password',              with: ''
       fill_in 'password_confirmation', with: ''
 
       # 「登録する」ボタンを押してもユーザーモデルのカウントが変化しないことを確認する
@@ -126,7 +127,7 @@ RSpec.describe 'ログイン', type: :system do
     it '正しい情報を入力すればログインできる' do
       open_modal(:'log-in', 'ログイン')
 
-      # 必須事項を入力する
+      # 必須項目を入力する
       fill_in 'email',      with: user.email
       fill_in 'password',   with: user.password
 
@@ -139,7 +140,7 @@ RSpec.describe 'ログイン', type: :system do
   context 'メールアドレスでログインができない時' do
     it '必須項目が空欄だとログインできない' do
       open_modal('log-in', 'ログイン')
-      # 必須事項を空欄にする
+      # 必須項目を空欄にする
       fill_in 'email',      with: ''
       fill_in 'password',   with: ''
       click_btn_and_no_change
@@ -372,7 +373,7 @@ RSpec.describe 'マイページ', type: :system do
   end
 
   context 'プロフィールを編集できる時' do
-    it '必須事項を全て入力していれば編集できる' do
+    it '必須項目を全て入力していれば編集できる' do
       log_in_and_visit_my_page
       show_account_info
       click_btn_and_check_account_info
@@ -399,7 +400,7 @@ RSpec.describe 'マイページ', type: :system do
     it '新規登録時に未設定だった画像をプロフィール編集で追加できる' do
       log_in_and_visit_my_page
 
-      # 最初はデフォルト画像が表示されていることを確認（imgタグのsrc属性などで判定）
+      # 最初はデフォルト画像が表示されていることを確認
       expect(page).to have_selector('#no-image')
 
       # 編集ボタンを押すとプロフィール編集ページに遷移することを確認する

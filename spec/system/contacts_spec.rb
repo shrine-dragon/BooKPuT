@@ -33,7 +33,7 @@ RSpec.describe 'お問い合わせ機能', type: :system do
     end
 
     context 'お問い合わせ内容を送信できない時' do
-      it '必須事項を空欄にするとエラーメッセージが表示され、送信できない' do
+      it '必須項目を空欄にするとエラーメッセージが表示され、送信できない' do
         visit_new_contact_path
 
         # 必須項目を空欄のままにする

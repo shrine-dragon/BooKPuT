@@ -13,10 +13,12 @@ module OtherSupport
 
     # 削除ボタンが表示されていることを確認
     expect(page).to have_selector('.delete-image-btn', text: '削除')
+
     # 画像を一度削除し、画像と削除ボタンが消えていることを確認する
     if has_link?('削除')
       click_link '削除'
       expect(page).to have_no_selector('.upload-image-list img')
+
       # 一度削除した画像を再度アップロードできることを確認する
       attach_file(image_text, image_path)
     end
@@ -80,6 +82,33 @@ module OtherSupport
     expect(page).to have_selector('.modal.log-in')
   end
 
+  def close_modal_final_action(selector_name, btn_text, model_name)
+    expect(page).to have_selector(".js-#{selector_name}-trigger", text: btn_text)
+
+    # モーダルを非表示にするセレクタを配列で定義する
+    selectors = ['.no-action.btn-text', '.close-modal', '#modal-overlay']
+
+    selectors.each do |_selector|
+      # 指定のボタンを押してモーダルを表示させる
+      find(".js-#{selector_name}-trigger", text: btn_text).click
+      expect(page).to have_selector(".modal.final-action.#{selector_name}", visible: true, wait: 5)
+      expect do
+        if _selector == '#modal-overlay'
+          # 【ポイント】重なり合っている背景要素は、JavaScriptで強制的にクリックを発火させる
+          page.execute_script("document.querySelector('#modal-overlay').click();")
+        else
+          # 通常のボタン（キャンセルや×ボタン）は普通にクリック
+          find(_selector).click
+        end
+
+        # モーダルは非表示になり、指定のモデルのカウントは変化しないことを確認する
+        expect(page).to have_no_selector(".modal.final-action.#{selector_name}", wait: 5)
+      end.not_to(change { model_name.count })
+
+      sleep 0.1
+    end
+  end
+
   def cannot_click_valuation_btn(selector_name_one, selector_name_two, model)
     # ボタン自体は存在するが、カーソルを合わせてもポインターにならないことを確認する
     expect(page).to have_selector(".fa-regular.fa-thumbs-#{selector_name_one}.posted-#{selector_name_two}.disabled-icon")
@@ -89,6 +118,6 @@ module OtherSupport
     expect do
       find(".fa-regular.fa-thumbs-#{selector_name_one}.posted-#{selector_name_two}.disabled-icon").click
       sleep 0.5
-    end.to change { model.count }.by(0)
+    end.to change(model, :count).by(0)
   end
 end

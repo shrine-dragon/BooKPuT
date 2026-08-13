@@ -227,7 +227,7 @@ RSpec.describe 'コメント機能', type: :system do
         visit_book_path
         check_comment_info
 
-        close_modal_final_action('destroy-comment', '削除')
+        close_modal_final_action('destroy-comment', '削除', Comment)
       end
     end
   end
@@ -288,7 +288,7 @@ RSpec.describe 'コメント機能', type: :system do
           visit_book_path
           check_comment_info
 
-          close_modal_final_action('hide-comment', '非表示')
+          close_modal_final_action('hide-comment', '非表示', HiddenComment)
         end
       end
     end
@@ -348,7 +348,7 @@ RSpec.describe 'コメント機能', type: :system do
           visit_book_path
           check_comment_info
 
-          close_modal_final_action('report-comment', '通報')
+          close_modal_final_action('report-comment', '通報', ReportedComment)
         end
       end
     end
