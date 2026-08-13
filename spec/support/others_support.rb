@@ -58,7 +58,7 @@ module OtherSupport
     visit root_path
     expect(page).to have_selector('.log-in-menu-text', text: 'ログイン')
     expect(page).to have_selector('.sign-up-menu-text', text: '新規登録')
-    
+
     # トップページにユーザーのニックネームが表示されていないことを確認する
     expect(page).to have_no_content(user.nickname)
   end
@@ -79,7 +79,7 @@ module OtherSupport
     # トップページへ戻されていることを確認する
     expect(page).to have_current_path(root_path)
     expect(page).to have_no_content(no_exist_text)
-    
+
     # ｢ログインが必要です｣というエラーメッセージとログインモーダルが表示されていることを確認する
     expect(page).to have_content('ログインが必要です')
     expect(page).to have_selector('.modal.log-in')
