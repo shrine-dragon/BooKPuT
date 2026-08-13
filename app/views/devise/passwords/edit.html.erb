@@ -8,30 +8,30 @@
     <%= f.hidden_field :reset_password_token %>
 
     <div class="edit-log-in-info-text">
-      <p>新しいパスワードを入力し、<br>｢変更する｣ボタンを押してください。</p>
+      <p>新しいパスワードを入力し、｢変更する｣ボタンを押してください。</p>
     </div>
-
+  
     <div class="form-text new-password">
       <label>新しいパスワード(必須)</label>
     </div>
 
     <div class="edit-password">
-      <%= f.password_field :password, class:"input-text new-password", id:"password", placeholder:"半角英数字8〜20文字以内", minlength:"8", maxlength:"20" %>
+      <%= f.password_field :password, class:"input-text new-password", id: "password", placeholder: "半角英数字8〜20文字以内", minlength: "8", maxlength: "20" %>
       <i class="fa-regular fa-eye-slash toggle-password"></i>
     </div>
 
-    <%= render "partial_template/error_messages", model: resource, attribute: :password %>
+    <%= render "partial_template/error_messages", model: @user, attribute: :password %>
 
     <div class="form-text new-password">
       <label>新しいパスワード(確認用)</label>
     </div>
 
     <div class="edit-password">
-      <%= f.password_field :password_confirmation, class:"input-text new-password", id:"password_confirmation", placeholder:"同じパスワードを入力", minlength:"8", maxlength:"20" %>
+      <%= f.password_field :password_confirmation, class: "input-text new-password", id: "password_confirmation", placeholder: "同じパスワードを入力", minlength: "8", maxlength:"20" %>
       <i class="fa-regular fa-eye-slash toggle-password"></i>
     </div>
 
-    <%= render "partial_template/error_messages", model: resource, attribute: :password_confirmation %>
+    <%= render "partial_template/error_messages", model: @user, attribute: :password_confirmation %>
 
     <div class="form-btn-container">
       <%= f.submit "変更する", class: "orange-submit-btn hovers" %>
