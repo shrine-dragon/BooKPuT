@@ -89,12 +89,12 @@ RSpec.describe '投稿機能', type: :system do
           内容項目を少なくとも1つ入力してください
         ]
 
-        # 新規投稿ページで各入力項目にエラーメッセージが表示されていることを確認する
         expect(page).to have_current_path(books_path)
 
         # 本のジャンルのバリデーションエラーを表示させるために本の種類を選択する
         select book.category.name, from: 'category'
 
+        # 新規投稿ページで各入力項目にエラーメッセージが表示されていることを確認する
         error_messages.each do |message|
           expect(page).to have_content(message)
         end
@@ -324,7 +324,7 @@ RSpec.describe '投稿機能', type: :system do
           ).to eq(content.content)
         end
 
-        # 保存済みの画像がプレビューで表示されていることを確認する
+        # 投稿済みの画像がプレビューで表示されていることを確認する
         expect(page).to have_selector('.upload-image-list img')
 
         # プレビューのsrc属性にActiveStorageのファイル名が含まれているかを確認する
@@ -355,6 +355,7 @@ RSpec.describe '投稿機能', type: :system do
         # 既存の画像を削除し、新しい画像を添付する
         image_path = Rails.root.join('spec/fixtures/Momose_Akira_no_firstlove_failing_2.png')
         attach_file('book[image]', image_path)
+
         # 新しい画像のプレビューが表示されることを確認する
         expect(page).to have_selector('.upload-image-list img')
 
@@ -366,9 +367,11 @@ RSpec.describe '投稿機能', type: :system do
         # 詳細ページで内容が更新されていることを確認する
         expect(page).to have_content(new_title)
         expect(page).to have_content(new_category_name)
+
         new_genres.each do |genre_name|
           expect(page).to have_content(genre_name)
         end
+
         (0..6).each do |i|
           expect(page).to have_content("編集後の#{i + 1}つ目の内容項目です")
         end
@@ -457,6 +460,7 @@ RSpec.describe '投稿機能', type: :system do
 
       it 'ログインユーザーであっても他者の投稿を削除できない' do
         login_as user2
+        
         # user1が作成した投稿の詳細ページに遷移する
         visit_book_path
 

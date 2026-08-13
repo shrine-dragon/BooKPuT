@@ -18,10 +18,13 @@ RSpec.describe 'コメント機能', type: :system do
 
         # コメントフォームが存在していることを確認する
         expect(page).to have_selector('.comment-form-text')
+
         # コメントフォームにテキストを入力する
         fill_in 'text', with: comment.text
+
         # コメント送信ボタンが表示されていることを確認する
         expect(page).to have_selector('.submit-comment-btn', visible: true)
+
         # コメントを送信するとCommentモデルのカウントが1上がることを確認する
         expect do
           scroll_display('.submit-comment-btn')
@@ -57,6 +60,7 @@ RSpec.describe 'コメント機能', type: :system do
       it 'book投稿者本人は自身の投稿に対してコメントできない' do
         login_as user1
         visit_book_path
+
         # 投稿詳細ページにコメントフォームなどが存在していないことを確認する
         expect(page).to have_no_selector('.comment-form-text')
         expect(page).to have_no_selector('.user-image.post-comment')
@@ -69,8 +73,10 @@ RSpec.describe 'コメント機能', type: :system do
 
         # コメントフォームが存在していることを確認する
         expect(page).to have_selector('.comment-form-text')
+
         # コメントフォームを空欄のままにする
         fill_in 'text', with: ''
+
         # コメント送信ボタンが表示されていないことを確認する
         expect(page).to have_no_selector('.submit-comment-btn', visible: true)
       end
@@ -88,6 +94,7 @@ RSpec.describe 'コメント機能', type: :system do
 
         # 投稿詳細ページに｢編集｣ボタンが表示されていることを確認する
         expect(page).to have_selector('.js-edit-comment-trigger', text: '編集')
+
         # ｢編集｣ボタンを押す
         find('.js-edit-comment-trigger', text: '編集').click
 
@@ -122,6 +129,7 @@ RSpec.describe 'コメント機能', type: :system do
         not_log_in_user
         visit_book_path
         check_comment_info
+
         # コメントの下に｢編集｣ボタンが存在しないことを確認する
         expect(page).to have_no_selector('.js-edit-comment-trigger', text: '編集')
       end
@@ -131,6 +139,7 @@ RSpec.describe 'コメント機能', type: :system do
           login_as user
           visit_book_path
           check_comment_info
+
           # コメントの下に｢編集｣ボタンが存在しないことを確認する
           expect(page).to have_no_selector('.js-edit-comment-trigger', text: '編集')
         end
@@ -150,6 +159,7 @@ RSpec.describe 'コメント機能', type: :system do
 
           # コメントフォームを空にする
           fill_in 'comment[text]', with: ''
+
           # コメント更新ボタンが表示されていないことを確認する
           expect(page).to have_no_selector('.edit-comment-btn', visible: true)
         end
@@ -208,6 +218,7 @@ RSpec.describe 'コメント機能', type: :system do
         not_log_in_user
         visit_book_path
         check_comment_info
+
         # コメントの下に｢削除｣ボタンが存在しないことを確認する
         expect(page).to have_no_selector('.js-destroy-comment-trigger', text: '削除')
       end
@@ -217,6 +228,7 @@ RSpec.describe 'コメント機能', type: :system do
           login_as user
           visit_book_path
           check_comment_info
+
           # コメントの下に｢削除｣ボタンが存在しないことを確認する
           expect(page).to have_no_selector('.js-destroy-comment-trigger', text: '削除')
         end
@@ -267,6 +279,7 @@ RSpec.describe 'コメント機能', type: :system do
         not_log_in_user
         visit_book_path
         check_comment_info
+
         # コメントの下に｢非表示｣ボタンが存在しないことを確認する
         expect(page).to have_no_selector('.js-hide-comment-trigger', text: '非表示')
       end
@@ -275,6 +288,7 @@ RSpec.describe 'コメント機能', type: :system do
         login_as user2
         visit_book_path
         check_comment_info
+
         # コメント内にuser2のニックネームが表示されていることを確認する
         expect(page).to have_content(user2.nickname)
 
@@ -313,6 +327,7 @@ RSpec.describe 'コメント機能', type: :system do
           'コメントを通報しました',
           comment_index: :first
         )
+
         # 再度通報ボタンを押すと｢通報済みのコメントです｣と表示され、ReportedCommentモデルのカウントは変わらないことを確認する
         expect do
           find('.js-report-comment-trigger').click
@@ -327,6 +342,7 @@ RSpec.describe 'コメント機能', type: :system do
         not_log_in_user
         visit_book_path
         check_comment_info
+
         # コメントの下に｢通報｣ボタンが存在しないことを確認する
         expect(page).to have_no_selector('.js-report-comment-trigger', text: '通報')
       end
@@ -335,6 +351,7 @@ RSpec.describe 'コメント機能', type: :system do
         login_as user2
         visit_book_path
         check_comment_info
+
         # コメント内にuser2のニックネームが表示されていることを確認する
         expect(page).to have_content(user2.nickname)
 
@@ -393,6 +410,7 @@ RSpec.describe 'コメント機能', type: :system do
       it 'コメント投稿者本人は自身のコメントを高評価できない' do
         login_as user2
         visit_book_path
+
         # 投稿済のコメントの中にuser2（コメント投稿者本人）のニックネームが表示されていることを確認する
         expect(page).to have_content(user2.nickname)
 
@@ -469,6 +487,7 @@ RSpec.describe 'コメント機能', type: :system do
       it 'コメント投稿者本人は自身のコメントを低評価できない' do
         login_as user2
         visit_book_path
+
         # 投稿済のコメントの中にuser2（コメント投稿者本人）のニックネームが表示されていることを確認する
         expect(page).to have_content(user2.nickname)
 
@@ -533,6 +552,7 @@ RSpec.describe 'コメント機能', type: :system do
 
         # ｢折りたたむ｣ボタンが表示されていることを確認する
         expect(page).to have_selector('.hide-comments-text', text: '折りたたむ')
+        
         # ｢折りたたむ｣ボタンを押すと表示中のコメントが10件に戻り、再度｢もっと見る｣ボタンが表示されることを確認する
         find('.hide-comments-text').click
         expect(page).to have_selector('.posted-comment-wrapper', count: 10)

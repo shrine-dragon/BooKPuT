@@ -78,8 +78,8 @@ module UserSupport
 
   def close_modal(selector_name, header_text, selector_type, text_in_modal)
     visit root_path
-    
     target = find(selector_name, text: header_text  ,visible: :all)
+
     # マウスホバーしてモーダルを開く
     target.hover
     expect(page).to have_selector(".modal.#{selector_type}", visible: true)
@@ -116,11 +116,9 @@ module UserSupport
 
     # ヘッダーに登録したニックネームと画像が表示されていることを確認する
     expect(page).to have_selector('.user-nickname', text: user.nickname, visible: false)
-    if latest_user.image.attached?
-      expect(page).to have_selector('.user-image')
-    else
-      expect(page).to have_selector('.user-image.no-exist')
-    end
+    expect(page).to have_selector('.user-image')
+
+    expect(find('.user-image')[:src]).to include('Zakky')
   end
 
   def input_info_and_sign_up(_provider, user)
@@ -176,10 +174,11 @@ module UserSupport
 
     # 画面をスクロールさせる
     execute_script('arguments[0].scrollIntoView({block: "center"});', login_user_target)
-    # 0.5秒待機する
     sleep 0.5
+
     # menuの代わりにモーダルを表示状態(block)にするJSを実行
     execute_script('document.querySelector(".modal.log-in-user").style.display = "block";')
+
     # モーダルが表示されたことを確認する
     expect(page).to have_selector('.modal.log-in-user', visible: true)
   end
@@ -202,6 +201,7 @@ module UserSupport
     # マイページにアカウント情報が表示されていることを確認する
     expect(page).to have_selector('.user-nickname', text: user.nickname, visible: false)
     expect(page).to have_selector('.current-user-image')
+    expect(find('.current-user-image')[:src]).to include('Zakky')
     expect(page).to have_content(user.birth_date.strftime('%Y/%m/%d'))
     expect(page).to have_content(user.gender.name)
   end
@@ -230,6 +230,12 @@ module UserSupport
     expect(
       find('#gender').value
     ).to eq(user.gender_id.to_s)
+
+    # 保存済みの画像がプレビューで表示されていることを確認する
+    expect(page).to have_selector('.upload-image-list img')
+
+    # プレビューのsrc属性にActiveStorageのファイル名が含まれているかを確認する
+    expect(find('.upload-image-list img')[:src]).to include('Zakky')
   end
 
   def click_btn_and_visit_my_page_and_show_flash_message(btn_text, flash_message)

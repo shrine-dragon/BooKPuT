@@ -39,6 +39,7 @@ module OtherSupport
 
     execute_script('arguments[0].scrollIntoView({block: "center"});', element)
     sleep 0.5
+
     # 強制的にクリック
     execute_script('arguments[0].click();', element)
   end
@@ -46,6 +47,7 @@ module OtherSupport
   def log_in_user_access_denied(path, no_exist_text)
     # URLを入力して、@userが移動できないpathへ直接アクセスしようとする
     visit path
+
     # トップページへ戻されていることを確認する
     expect(page).to have_current_path(root_path)
     expect(page).to have_no_content(no_exist_text)
@@ -56,6 +58,7 @@ module OtherSupport
     visit root_path
     expect(page).to have_selector('.log-in-menu-text', text: 'ログイン')
     expect(page).to have_selector('.sign-up-menu-text', text: '新規登録')
+    
     # トップページにユーザーのニックネームが表示されていないことを確認する
     expect(page).to have_no_content(user.nickname)
   end

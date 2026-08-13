@@ -233,11 +233,13 @@ RSpec.describe 'パスワード変更', type: :system do
 
       # パスワード再設定ページに遷移していることを確認する
       expect(page).to have_current_path(new_user_password_path, wait: 5)
+
       # フィールドが出るまで最大5秒待つ
       expect(page).to have_field('email', wait: 5)
 
       # 登録済みのメールアドレスを入力する
       fill_in 'email', with: user.email
+
       # 入力されたメールアドレスが正しいか、送信前にチェックを入れる
       expect(page).to have_field('email', with: user.email, wait: 5)
       click_on('送信する')
@@ -388,37 +390,22 @@ RSpec.describe 'マイページ', type: :system do
       fill_in 'birth_date', with: new_birth_date
       select new_gender_name, from: 'gender'
 
+      # 既存の画像を削除し、新しい画像を添付する
+      image_path = Rails.root.join('spec/fixtures/Luffy.png')
+      attach_file('user[image]', image_path)
+
+      # 新しい画像のプレビューが表示されることを確認する
+      expect(page).to have_selector('.upload-image-list img')
+
       # 更新ボタンを押すとマイページに遷移し、フラッシュメッセージが表示されることを確認する
       click_btn_and_visit_my_page_and_show_flash_message('更新する', 'プロフィールを更新しました')
 
       # マイページには変更した内容が反映されていることを確認する
       expect(page).to have_content(new_nickname)
+      expect(page).to have_selector('.current-user-image')
+      expect(find('.current-user-image')[:src]).to include('Luffy')
       expect(page).to have_content(new_birth_date.strftime('%Y/%m/%d'))
       expect(page).to have_content(new_gender_name)
-    end
-
-    it '新規登録時に未設定だった画像をプロフィール編集で追加できる' do
-      log_in_and_visit_my_page
-
-      # 最初はデフォルト画像が表示されていることを確認
-      expect(page).to have_selector('#no-image')
-
-      # 編集ボタンを押すとプロフィール編集ページに遷移することを確認する
-      click_on('プロフィールを編集する')
-      expect(page).to have_current_path(edit_profile_user_path(user))
-
-      # 画像を添付する
-      image_path = Rails.root.join('spec/fixtures/Zakky.png')
-      attach_file('user[image]', image_path)
-
-      # プレビューが表示されることを確認する
-      expect(page).to have_selector('.upload-image-list img')
-
-      click_btn_and_visit_my_page_and_show_flash_message('更新する', 'プロフィールを更新しました')
-
-      # デフォルト画像が消え、新しくアップロードした画像が表示されていることを確認
-      expect(page).to have_no_selector('#no-image')
-      expect(page).to have_selector('.current-user-image')
     end
 
     it '設定済みのプロフィール画像を削除してデフォルトに戻すことができる' do
