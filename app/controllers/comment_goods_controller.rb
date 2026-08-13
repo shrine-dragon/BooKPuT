@@ -30,8 +30,7 @@ class CommentGoodsController < ApplicationController
   private
 
   def set_comment
-    comment_id = params[:comment_id] || params[:id]
-    @comment = Comment.find(comment_id)
+    @comment = Comment.find(params[:comment_id])
   end
 
   def set_book

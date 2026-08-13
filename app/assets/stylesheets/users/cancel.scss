@@ -3,10 +3,9 @@
 
 .select-reason-cancel-account{
   color: red;
-  padding: 10px;
+  padding: 10px 10px 25px;
   font-size: 22px;
   font-weight: bold;
-  margin-bottom: 15px;
 }
 
 .reasons-to-cancel-account{
@@ -29,10 +28,10 @@
   }
 }
 
-.dummy-text-area {
+.input-text-freely-area{
   align-items: center;
   margin-bottom: 30px;
-  .feedback-form {
+  .input-text-form{
     width: 400px;
     height: 120px;
     padding: 15px;
@@ -60,19 +59,25 @@
   margin-bottom: 15px;
 }
 
-.cancel-account.btn-on-center{
+.cancel-account.btn-on-center, 
+.cancel-account-really.btn-on-center{
   background-color: red;
 }
 
-.continue-account.btn-text, .cancel-account.btn-text{
+.continue-account.btn-text, 
+.cancel-account.btn-text, 
+.cancel-account-really.btn-text{
   font-size: 20px;
+}
+
+.warning-text-area{
+  margin-bottom: 15px;
 }
 
 .warning-text {
   color: #ff0000;
-  margin-bottom: 15px;
   font-weight: bold;
-  text-align: left;
+  text-align: center;
   font-size: 16px;
   line-height: 1.5;
 }
@@ -90,17 +95,17 @@
     font-size: 15px;
   }
 
-  .dummy-text-area{
+  .input-text-freely-area{
     margin-bottom: 15px;
-  }
 
-  .feedback-form{
-    width: 300px !important;
+    .input-text-form{
+      width: 300px;
+    }
   }
 
   .continue-account.btn-on-center, .cancel-account.btn-on-center{
-    width: 100% !important;
-    height: 40px !important;
+    width: 250px;
+    height: 40px;
   }
 
   .continue-account.btn-text, .cancel-account.btn-text{

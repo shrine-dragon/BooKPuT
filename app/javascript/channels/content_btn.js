@@ -42,13 +42,13 @@ document.addEventListener('turbolinks:load', () => {
     const allFields = container.querySelectorAll('.content-field');
     const visibleFields = getVisibleFields();
 
-    // 1. まず非表示になっているフィールド（以前消したフィールド）があれば、それを再表示する
+    // まず非表示になっているフィールド（以前消したフィールド）があれば、それを再表示する
     const hiddenField = Array.from(allFields).find(field => field.style.display === 'none');
 
     if (hiddenField) {
       hiddenField.style.display = 'flex'; // 元の表示形式に合わせる（flexやblockなど）
     } else if (allFields.length < maxFields) {
-      // 2. 非表示のものがなく、かつ最大数に達していなければ新規作成（クローン）
+      // 非表示のものがなく、かつ最大数に達していなければ新規作成（クローン）
       const lastField = allFields[allFields.length - 1];
       const newField = lastField.cloneNode(true);
       newField.style.display = 'flex'; 

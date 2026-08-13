@@ -6,44 +6,25 @@ module OtherSupport
   def image_test(file_name, image_text)
     # 任意項目である画像をアップロードできることを確認する
     image_path = Rails.root.join('spec/fixtures/' + file_name)
-
     attach_file(image_text, image_path)
+
     # プレビュー画像が表示されることを確認する
     expect(page).to have_selector('.upload-image-list img')
 
-    # 削除ボタンが表示されていることを確認（画像の検証ツールに見えるボタン）
+    # 削除ボタンが表示されていることを確認
     expect(page).to have_selector('.delete-image-btn', text: '削除')
+
     # 画像を一度削除し、画像と削除ボタンが消えていることを確認する
     if has_link?('削除')
       click_link '削除'
       expect(page).to have_no_selector('.upload-image-list img')
+
       # 一度削除した画像を再度アップロードできることを確認する
       attach_file(image_text, image_path)
     end
 
     # 正しくアップロードされているか、ファイル名で最終確認する
     expect(page).to have_selector('.preview-image', wait: 5)
-  end
-
-  def log_in_user_access_denied(path, no_exist_text)
-    # URLを入力して、@userが移動できないpathへ直接アクセスしようとする
-    visit path
-    # トップページへ戻されていることを確認する
-    expect(page).to have_current_path(root_path)
-    expect(page).to have_no_content(no_exist_text)
-  end
-
-  def not_log_in_user_access_denied(path, no_exist_text)
-    # トップページへ移動する
-    visit root_path
-    # URLを入力して、未ログインユーザーが移動できないpathへ直接アクセスしようとする
-    visit path
-    # トップページへ戻されていることを確認する
-    expect(page).to have_current_path(root_path)
-    expect(page).to have_no_content(no_exist_text)
-    # ｢ログインが必要です｣というエラーメッセージとログインモーダルが表示されていることを確認する
-    expect(page).to have_content('ログインが必要です')
-    expect(page).to have_selector('.modal.log-in')
   end
 
   def scroll_display(selector_or_text)
@@ -58,14 +39,77 @@ module OtherSupport
 
     execute_script('arguments[0].scrollIntoView({block: "center"});', element)
     sleep 0.5
+
     # 強制的にクリック
     execute_script('arguments[0].click();', element)
+  end
+
+  def log_in_user_access_denied(path, no_exist_text)
+    # URLを入力して、@userが移動できないpathへ直接アクセスしようとする
+    visit path
+
+    # トップページへ戻されていることを確認する
+    expect(page).to have_current_path(root_path)
+    expect(page).to have_no_content(no_exist_text)
+  end
+
+  def not_log_in_user
+    # トップページに｢ログイン｣｢新規登録｣の文字があり、未ログインの状態であることを確認する
+    visit root_path
+    expect(page).to have_selector('.log-in-menu-text', text: 'ログイン')
+    expect(page).to have_selector('.sign-up-menu-text', text: '新規登録')
+    
+    # トップページにユーザーのニックネームが表示されていないことを確認する
+    expect(page).to have_no_content(user.nickname)
   end
 
   def visit_my_page
     # ｢マイページ｣ボタンをクリックし、マイページに遷移していることを確認する
     click_on('マイページ')
     expect(page).to have_current_path(user_path(user), wait: 15)
+  end
+
+  def not_log_in_user_access_denied(path, no_exist_text)
+    # トップページへ移動する
+    visit root_path
+
+    # URLを入力して、未ログインユーザーが移動できないpathへ直接アクセスしようとする
+    visit path
+
+    # トップページへ戻されていることを確認する
+    expect(page).to have_current_path(root_path)
+    expect(page).to have_no_content(no_exist_text)
+    
+    # ｢ログインが必要です｣というエラーメッセージとログインモーダルが表示されていることを確認する
+    expect(page).to have_content('ログインが必要です')
+    expect(page).to have_selector('.modal.log-in')
+  end
+
+  def close_modal_final_action(selector_name, btn_text, model_name)
+    expect(page).to have_selector(".js-#{selector_name}-trigger", text: btn_text)
+
+    # モーダルを非表示にするセレクタを配列で定義する
+    selectors = ['.no-action.btn-text', '.close-modal', '#modal-overlay']
+
+    selectors.each do |_selector|
+      # 指定のボタンを押してモーダルを表示させる
+      find(".js-#{selector_name}-trigger", text: btn_text).click
+      expect(page).to have_selector(".modal.final-action.#{selector_name}", visible: true, wait: 5)
+      expect do
+        if _selector == '#modal-overlay'
+          # 【ポイント】重なり合っている背景要素は、JavaScriptで強制的にクリックを発火させる
+          page.execute_script("document.querySelector('#modal-overlay').click();")
+        else
+          # 通常のボタン（キャンセルや×ボタン）は普通にクリック
+          find(_selector).click
+        end
+
+        # モーダルは非表示になり、指定のモデルのカウントは変化しないことを確認する
+        expect(page).to have_no_selector(".modal.final-action.#{selector_name}", wait: 5)
+      end.not_to(change { model_name.count })
+
+      sleep 0.1
+    end
   end
 
   def cannot_click_valuation_btn(selector_name_one, selector_name_two, model)
@@ -77,6 +121,6 @@ module OtherSupport
     expect do
       find(".fa-regular.fa-thumbs-#{selector_name_one}.posted-#{selector_name_two}.disabled-icon").click
       sleep 0.5
-    end.to change { model.count }.by(0)
+    end.to change(model, :count).by(0)
   end
 end

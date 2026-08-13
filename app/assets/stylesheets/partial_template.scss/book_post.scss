@@ -5,9 +5,22 @@
   width: 70%;
   background-color: bisque;
   .input-text{
-    width: 100% !important; 
+    width: 100%;
     max-width: none;
   }
+}
+
+.error-message{
+  color: #ff0000;
+  font-size: 14px;
+  line-height: 1.5;
+  display: block;
+  margin-bottom: 10px;
+  text-align: left;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  width: 100%;
+  font-weight: bold;
 }
 
 .external-search-links {
@@ -35,7 +48,8 @@
 #search-results-modal {
   position: fixed;
   top: 0; left: 0;
-  width: 100%; height: 100%;
+  width: 100%;
+  height: 100%;
   background-color: rgba(0,0,0,0.5);
   display: flex;
   align-items: center;
@@ -57,7 +71,6 @@
   position: absolute;
   top: 15px; right: 20px;
   font-size: 30px;
-  cursor: pointer;
   color: #666;
 }
 
@@ -90,11 +103,12 @@
 .result-title {
   font-size: 10px;
   margin-top: 5px;
-  height: 2.4em; overflow: hidden;
+  height: 2.4em;
+  overflow: hidden;
 }
 
 .form-contents.book-category{
-  margin-bottom: 20px !important;
+  margin-bottom: 20px;
 }
 
 .genre-options-wrapper{
@@ -110,9 +124,8 @@
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  text-align: left !important;
+  text-align: left;
 }
-
 
 #contents-container {
   width: 100%;
@@ -124,22 +137,21 @@
   display: flex;
   align-items: center;
   gap: 10px;
-}
 
-.input-text {
-  flex: 1;/* 残りの幅を全部使う */
-  margin-bottom: 0;
-}
+  .input-main-part{
+    flex: 1;
+  }
 
-.input-main-part{
-  flex: 1;
+  .input-text {
+    flex: 1;/* 残りの幅を全部使う */
+    margin-bottom: 0;
+  }
 }
 
 .remove-content-btn {
   border: 0.5px solid #ccc;
   background-color: #f8f8f8;
   padding: 2px 8px;
-  cursor: pointer;
   border-radius: 4px;
   align-self: flex-start; 
   margin-top: 10px;

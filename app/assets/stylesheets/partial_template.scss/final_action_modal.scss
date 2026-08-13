@@ -12,10 +12,6 @@
   padding: 30px;
   width: 400px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-
-  .close-modal {
-    display: block;
-  }
 }
 
 .modal-wrapper.final-action{
@@ -23,7 +19,7 @@
 }
 
 .final-action.btn-on-center, .no-action.btn-on-center{
-  padding: 8px 0 !important;
+  padding: 8px 0;
 }
 
 .final-action.btn-on-center{

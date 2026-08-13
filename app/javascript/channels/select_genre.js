@@ -22,6 +22,7 @@ document.addEventListener('turbolinks:load', () => {
         const catId = String(option.dataset.categoryId);
         const cb = option.querySelector('input');
 
+        // 関係ないジャンルが隠れ、そのカテゴリー専用のジャンル ＋ 共通ジャンル(その他・回答しない)だけがパッと切り替わって表示される仕組み
         if (catId === String(selectedCategoryId) || catId === "999") {
           option.style.display = 'block';
         } else {

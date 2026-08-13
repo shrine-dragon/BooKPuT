@@ -10,192 +10,192 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2026_06_15_080755) do
-
-  create_table "active_storage_attachments", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "record_type", null: false
-    t.integer "record_id", null: false
-    t.integer "blob_id", null: false
-    t.datetime "created_at", null: false
-    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
-    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+ActiveRecord::Schema.define(version: 20_260_615_080_755) do
+  create_table 'active_storage_attachments', force: :cascade do |t|
+    t.string 'name', null: false
+    t.string 'record_type', null: false
+    t.integer 'record_id', null: false
+    t.integer 'blob_id', null: false
+    t.datetime 'created_at', null: false
+    t.index ['blob_id'], name: 'index_active_storage_attachments_on_blob_id'
+    t.index %w[record_type record_id name blob_id], name: 'index_active_storage_attachments_uniqueness',
+                                                    unique: true
   end
 
-  create_table "active_storage_blobs", force: :cascade do |t|
-    t.string "key", null: false
-    t.string "filename", null: false
-    t.string "content_type"
-    t.text "metadata"
-    t.bigint "byte_size", null: false
-    t.string "checksum", null: false
-    t.datetime "created_at", null: false
-    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  create_table 'active_storage_blobs', force: :cascade do |t|
+    t.string 'key', null: false
+    t.string 'filename', null: false
+    t.string 'content_type'
+    t.text 'metadata'
+    t.bigint 'byte_size', null: false
+    t.string 'checksum', null: false
+    t.datetime 'created_at', null: false
+    t.index ['key'], name: 'index_active_storage_blobs_on_key', unique: true
   end
 
-  create_table "book_bads", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "book_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["book_id"], name: "index_book_bads_on_book_id"
-    t.index ["user_id", "book_id"], name: "index_book_bads_on_user_id_and_book_id", unique: true
-    t.index ["user_id"], name: "index_book_bads_on_user_id"
+  create_table 'book_bads', force: :cascade do |t|
+    t.integer 'user_id', null: false
+    t.integer 'book_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['book_id'], name: 'index_book_bads_on_book_id'
+    t.index %w[user_id book_id], name: 'index_book_bads_on_user_id_and_book_id', unique: true
+    t.index ['user_id'], name: 'index_book_bads_on_user_id'
   end
 
-  create_table "book_contents", force: :cascade do |t|
-    t.text "content", null: false
-    t.integer "book_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["book_id"], name: "index_book_contents_on_book_id"
+  create_table 'book_contents', force: :cascade do |t|
+    t.text 'content', null: false
+    t.integer 'book_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['book_id'], name: 'index_book_contents_on_book_id'
   end
 
-  create_table "book_goods", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "book_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["book_id"], name: "index_book_goods_on_book_id"
-    t.index ["user_id", "book_id"], name: "index_book_goods_on_user_id_and_book_id", unique: true
-    t.index ["user_id"], name: "index_book_goods_on_user_id"
+  create_table 'book_goods', force: :cascade do |t|
+    t.integer 'user_id', null: false
+    t.integer 'book_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['book_id'], name: 'index_book_goods_on_book_id'
+    t.index %w[user_id book_id], name: 'index_book_goods_on_user_id_and_book_id', unique: true
+    t.index ['user_id'], name: 'index_book_goods_on_user_id'
   end
 
-  create_table "books", force: :cascade do |t|
-    t.string "title", null: false
-    t.integer "category_id", null: false
-    t.integer "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "genre_id"
-    t.json "genre_ids"
-    t.index ["user_id"], name: "index_books_on_user_id"
+  create_table 'books', force: :cascade do |t|
+    t.string 'title', null: false
+    t.integer 'category_id', null: false
+    t.integer 'user_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.integer 'genre_id'
+    t.json 'genre_ids'
+    t.index ['user_id'], name: 'index_books_on_user_id'
   end
 
-  create_table "comment_bads", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "comment_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["comment_id"], name: "index_comment_bads_on_comment_id"
-    t.index ["user_id", "comment_id"], name: "index_comment_bads_on_user_id_and_comment_id", unique: true
-    t.index ["user_id"], name: "index_comment_bads_on_user_id"
+  create_table 'comment_bads', force: :cascade do |t|
+    t.integer 'user_id', null: false
+    t.integer 'comment_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['comment_id'], name: 'index_comment_bads_on_comment_id'
+    t.index %w[user_id comment_id], name: 'index_comment_bads_on_user_id_and_comment_id', unique: true
+    t.index ['user_id'], name: 'index_comment_bads_on_user_id'
   end
 
-  create_table "comment_goods", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "comment_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["comment_id"], name: "index_comment_goods_on_comment_id"
-    t.index ["user_id", "comment_id"], name: "index_comment_goods_on_user_id_and_comment_id", unique: true
-    t.index ["user_id"], name: "index_comment_goods_on_user_id"
+  create_table 'comment_goods', force: :cascade do |t|
+    t.integer 'user_id', null: false
+    t.integer 'comment_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['comment_id'], name: 'index_comment_goods_on_comment_id'
+    t.index %w[user_id comment_id], name: 'index_comment_goods_on_user_id_and_comment_id', unique: true
+    t.index ['user_id'], name: 'index_comment_goods_on_user_id'
   end
 
-  create_table "comments", force: :cascade do |t|
-    t.text "text", null: false
-    t.integer "user_id"
-    t.integer "book_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["book_id"], name: "index_comments_on_book_id"
-    t.index ["user_id"], name: "index_comments_on_user_id"
+  create_table 'comments', force: :cascade do |t|
+    t.text 'text', null: false
+    t.integer 'user_id'
+    t.integer 'book_id'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['book_id'], name: 'index_comments_on_book_id'
+    t.index ['user_id'], name: 'index_comments_on_user_id'
   end
 
-  create_table "contacts", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "email", null: false
-    t.string "subject"
-    t.text "message", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+  create_table 'contacts', force: :cascade do |t|
+    t.string 'name', null: false
+    t.string 'email', null: false
+    t.string 'subject'
+    t.text 'message', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
-  create_table "favorites", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "book_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["book_id"], name: "index_favorites_on_book_id"
-    t.index ["user_id"], name: "index_favorites_on_user_id"
+  create_table 'favorites', force: :cascade do |t|
+    t.integer 'user_id', null: false
+    t.integer 'book_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['book_id'], name: 'index_favorites_on_book_id'
+    t.index ['user_id'], name: 'index_favorites_on_user_id'
   end
 
-  create_table "genres", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+  create_table 'genres', force: :cascade do |t|
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
-  create_table "hidden_comments", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "comment_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["comment_id"], name: "index_hidden_comments_on_comment_id"
-    t.index ["user_id"], name: "index_hidden_comments_on_user_id"
+  create_table 'hidden_comments', force: :cascade do |t|
+    t.integer 'user_id', null: false
+    t.integer 'comment_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['comment_id'], name: 'index_hidden_comments_on_comment_id'
+    t.index ['user_id'], name: 'index_hidden_comments_on_user_id'
   end
 
-  create_table "reported_books", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "book_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["book_id"], name: "index_reported_books_on_book_id"
-    t.index ["user_id"], name: "index_reported_books_on_user_id"
+  create_table 'reported_books', force: :cascade do |t|
+    t.integer 'user_id', null: false
+    t.integer 'book_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['book_id'], name: 'index_reported_books_on_book_id'
+    t.index ['user_id'], name: 'index_reported_books_on_user_id'
   end
 
-  create_table "reported_comments", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "comment_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["comment_id"], name: "index_reported_comments_on_comment_id"
-    t.index ["user_id"], name: "index_reported_comments_on_user_id"
+  create_table 'reported_comments', force: :cascade do |t|
+    t.integer 'user_id', null: false
+    t.integer 'comment_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['comment_id'], name: 'index_reported_comments_on_comment_id'
+    t.index ['user_id'], name: 'index_reported_comments_on_user_id'
   end
 
-  create_table "sns_credentials", force: :cascade do |t|
-    t.string "provider"
-    t.string "uid"
-    t.integer "user_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_sns_credentials_on_user_id"
+  create_table 'sns_credentials', force: :cascade do |t|
+    t.string 'provider'
+    t.string 'uid'
+    t.integer 'user_id'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['user_id'], name: 'index_sns_credentials_on_user_id'
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "nickname", null: false
-    t.date "birth_date", null: false
-    t.integer "gender_id", null: false
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  create_table 'users', force: :cascade do |t|
+    t.string 'nickname', null: false
+    t.date 'birth_date', null: false
+    t.integer 'gender_id', null: false
+    t.string 'email', default: '', null: false
+    t.string 'encrypted_password', default: '', null: false
+    t.string 'reset_password_token'
+    t.datetime 'reset_password_sent_at'
+    t.datetime 'remember_created_at'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['email'], name: 'index_users_on_email', unique: true
+    t.index ['reset_password_token'], name: 'index_users_on_reset_password_token', unique: true
   end
 
-  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "book_bads", "books"
-  add_foreign_key "book_bads", "users"
-  add_foreign_key "book_contents", "books"
-  add_foreign_key "book_goods", "books"
-  add_foreign_key "book_goods", "users"
-  add_foreign_key "books", "users"
-  add_foreign_key "comment_bads", "comments"
-  add_foreign_key "comment_bads", "users"
-  add_foreign_key "comment_goods", "comments"
-  add_foreign_key "comment_goods", "users"
-  add_foreign_key "comments", "books"
-  add_foreign_key "comments", "users"
-  add_foreign_key "favorites", "books"
-  add_foreign_key "favorites", "users"
-  add_foreign_key "hidden_comments", "comments"
-  add_foreign_key "hidden_comments", "users"
-  add_foreign_key "reported_books", "books"
-  add_foreign_key "reported_books", "users"
-  add_foreign_key "reported_comments", "comments"
-  add_foreign_key "reported_comments", "users"
-  add_foreign_key "sns_credentials", "users"
+  add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'
+  add_foreign_key 'book_bads', 'books'
+  add_foreign_key 'book_bads', 'users'
+  add_foreign_key 'book_contents', 'books'
+  add_foreign_key 'book_goods', 'books'
+  add_foreign_key 'book_goods', 'users'
+  add_foreign_key 'books', 'users'
+  add_foreign_key 'comment_bads', 'comments'
+  add_foreign_key 'comment_bads', 'users'
+  add_foreign_key 'comment_goods', 'comments'
+  add_foreign_key 'comment_goods', 'users'
+  add_foreign_key 'comments', 'books'
+  add_foreign_key 'comments', 'users'
+  add_foreign_key 'favorites', 'books'
+  add_foreign_key 'favorites', 'users'
+  add_foreign_key 'hidden_comments', 'comments'
+  add_foreign_key 'hidden_comments', 'users'
+  add_foreign_key 'reported_books', 'books'
+  add_foreign_key 'reported_books', 'users'
+  add_foreign_key 'reported_comments', 'comments'
+  add_foreign_key 'reported_comments', 'users'
+  add_foreign_key 'sns_credentials', 'users'
 end

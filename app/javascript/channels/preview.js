@@ -25,7 +25,6 @@ document.addEventListener('turbolinks:load', () => {
   });
 
   previewContainer.addEventListener('click', (e) => {
-    console.log('画像のプレビュー')
     if (e.target.classList.contains('delete-image-btn')) {
       previewContainer.innerHTML = "";
       fileInput.value = "";

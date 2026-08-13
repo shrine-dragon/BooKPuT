@@ -11,21 +11,20 @@ Rails.application.routes.draw do
     # SNS認証が失敗した場合の遷移先
     get '/users/auth/failure', to: 'users/omniauth_callbacks#failure'
     # パスワード再設定用URLが添付されたメールが送信された際の遷移先
-    get 'passwords/email_submitted', to: 'users/passwords#email_submitted', as: :email_submitted
-    # パスワードの変更が完了した際の遷移先
+    get 'passwords/email_submitted',   to: 'users/passwords#email_submitted',   as: :email_submitted
     get 'passwords/update_completion', to: 'users/passwords#update_completion', as: :update_completion
 
-    post 'users/sign_in', to: 'users/sessions#create', as: :user_session
+    post 'users/sign_in',    to: 'users/sessions#create',  as: :user_session
     delete 'users/sign_out', to: 'users/sessions#destroy', as: :destroy_user_session
   end
 
   root to: 'books#index'
 
-  get 'company_detail', to: 'static_pages#company_detail'
+  get 'company_detail',     to: 'static_pages#company_detail'
   get 'terms_of_service',   to: 'static_pages#terms_of_service'
   get 'privacy_policy',     to: 'static_pages#privacy_policy'
 
-  resources :contacts, only: [:new, :create] do
+  resources :contacts, only: %i[new create] do
     collection do
       get 'submit_completion'
     end
@@ -50,11 +49,11 @@ Rails.application.routes.draw do
     end
 
     collection do
-      get "search"
+      get 'search'
     end
 
-    resources :book_goods, only: %i[create destroy]
-    resources :book_bads,  only: %i[create destroy]
+    resources :book_goods, only: %i[create destroy], as: :goods
+    resources :book_bads,  only: %i[create destroy], as: :bads
 
     resources :favorites, only: %i[create destroy]
 
@@ -64,8 +63,9 @@ Rails.application.routes.draw do
         post 'report'
       end
 
-      resources :comment_goods, only:  %i[create destroy]
-      resources :comment_bads,  only:  %i[create destroy]
+      resources :comment_goods, only: [:create, :destroy], as: :goods
+  
+      resources :comment_bads,  only: %i[create destroy], as: :bads
     end
   end
 end

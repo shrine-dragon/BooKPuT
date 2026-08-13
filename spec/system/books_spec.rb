@@ -1,30 +1,31 @@
 require 'rails_helper'
 
 RSpec.describe '投稿機能', type: :system do
-  let(:user)         { FactoryBot.create(:user) }
-  let(:user1)        { FactoryBot.create(:user) }
-  let(:user2)        { FactoryBot.create(:user) }
-  let(:user3)        { FactoryBot.create(:user) }
+  let(:user)  { FactoryBot.create(:user) }
+  let(:user1) { FactoryBot.create(:user) }
+  let(:user2) { FactoryBot.create(:user) }
+  let(:user3) { FactoryBot.create(:user) }
 
   describe '新規投稿' do
     let(:book)         { FactoryBot.build(:book) }
     let(:book_content) { FactoryBot.build(:book_content) }
 
     context '新規投稿ができる時' do
-      it '正しい情報を入力すれば新規投稿ができ、トップページに移動する' do
+      it '必須項目を入力すれば新規投稿ができる' do
         visit_new_book_path
         fill_in_new_post_form
 
         # ｢投稿する｣ボタンを押すとBookモデルとBookContentモデルのカウントが1上がることを確認する
         expect do
-          scroll_display('.orange-submit-btn')
-        end.to change { Book.count }.by(1)
-                                    .and change { BookContent.count }.by(1)
+          click_on('投稿する')
+        end.to change(Book,        :count).by(1)
+          .and change(BookContent, :count).by(1)
 
         # トップページに遷移し、フラッシュメッセージが表示されていることを確認する
         expect(page).to have_current_path(root_path)
         expect(page).to have_content('投稿しました')
 
+        # 最新のbook投稿を定義する
         latest_book = Book.last
         target_card = find('.book-card')
         scroll_to(target_card, align: :center)
@@ -35,14 +36,17 @@ RSpec.describe '投稿機能', type: :system do
         # 隠れている要素が表示されることを確認する
         expect(page).to have_selector('.hover-details', wait: 5)
 
-        # book投稿の画像・タイトル・カテゴリー名・ジャンル名・投稿者の画像がそれぞれ表示されていることを確認する
-        expect(page).to have_selector('.book-posted-image', wait: 10)
+        # book投稿のタイトル・画像・カテゴリー名・ジャンル名・投稿者の画像がそれぞれ表示されていることを確認する
         expect(page).to have_content(latest_book.title)
+        expect(page).to have_selector('.book-posted-image', wait: 10)
         expect(page).to have_content(latest_book.category.name)
         book.genres.each do |genre|
           expect(page).to have_content(genre.name)
         end
         expect(page).to have_selector('.card-badge.book-poster')
+
+        # src属性にActiveStorageのファイル名が含まれているかを確認する
+        expect(find('.book-posted-image')[:src]).to include('Momose-Akira-no-firstLove-failing')
 
         first_content = latest_book.book_contents.first.content
 
@@ -57,20 +61,13 @@ RSpec.describe '投稿機能', type: :system do
           expect(target_card).to have_selector('.content-list li', count: latest_book.book_contents.count)
         end
 
-        # マイページのマイ投稿内に投稿内容が存在していることを確認する
-        visit user_path(user)
-        scroll_to(find('.my-page-contents.books-list'), align: :center)
-
-        sleep 0.5
-
-        expect(page).to have_content('マイ投稿：1件')
-        expect(page).to have_selector('.book-posted-image')
-        expect(page).to have_content(book.title)
+        # マイページに投稿内容が存在していることを確認する
+        check_book_list_in_my_page(user, 'books-list', 'マイ投稿')
       end
     end
 
     context '新規投稿ができない時' do
-      it '必須項目が空欄だったり誤った情報ではエラーメッセージが表示され、投稿できない' do
+      it '必須項目が空欄だったり誤った情報では投稿できない' do
         visit_new_book_path
 
         # 必須項目を空欄にする
@@ -80,46 +77,40 @@ RSpec.describe '投稿機能', type: :system do
 
         # ｢投稿する｣ボタンを押してもBookモデルとBookContentモデルのカウントが上がらないことを確認する
         expect do
-          scroll_display('.orange-submit-btn')
-        end.not_to change(Book, :count)
+          click_on('投稿する')
+        end.to change(Book,        :count).by(0)
+          .and change(BookContent, :count).by(0)
 
         # エラーメッセージのリストを定義する
         error_messages = %w[
           タイトルを入力してください
           本の種類を選択してください
+          本のジャンルを選択してください
           内容項目を少なくとも1つ入力してください
         ]
 
-        # 新規投稿ページで各入力項目にエラーメッセージが表示されていることを確認する
         expect(page).to have_current_path(books_path)
 
+        # 本のジャンルのバリデーションエラーを表示させるために本の種類を選択する
+        select book.category.name, from: 'category'
+
+        # 新規投稿ページで各入力項目にエラーメッセージが表示されていることを確認する
         error_messages.each do |message|
           expect(page).to have_content(message)
         end
-
-        # 本の種類を選択した状態で投稿ボタンを押す
-        select '漫画', from: 'category'
-        expect do
-          scroll_display('.orange-submit-btn')
-        end
-
-        # 新規投稿ページで本のジャンルにエラーメッセージが表示されていることを確認する
-        expect(page).to have_current_path(books_path)
-        expect(page).to have_content('本のジャンルを選択してください')
       end
 
       it '未ログインユーザーは新規投稿できない' do
         not_log_in_user
 
         # ｢投稿する｣ボタンを押してもログインモーダルが表示され、新規投稿ページに遷移できないことを確認する
-        scroll_display('.right-bottom-btn')
+        click_on('投稿する')
 
         expect(page).to have_content('ログインが必要です', wait: 10)
         expect(page).to have_selector('.modal.log-in', visible: true)
 
         # URLでは｢http://localhost:3000/books/new｣となっている
         expect(page).to have_current_path(new_book_path)
-
         not_log_in_user_access_denied(new_book_path, '新規投稿')
       end
     end
@@ -145,6 +136,7 @@ RSpec.describe '投稿機能', type: :system do
 
         # チェックされている数が3つであることを確認する
         expect(page).to have_selector('input[type="checkbox"]:checked', count: 3)
+
         # チェックが入っていない残りのジャンルがすべて「無効化(disabled)」されているかを確認する
         uncheck_boxes = all('input.genre-checkbox:not(:checked)')
         uncheck_boxes.each do |cb|
@@ -153,11 +145,12 @@ RSpec.describe '投稿機能', type: :system do
 
         # 投稿ボタンを押し、ジャンルが3つ保存されていることを確認する
         expect do
-          click_on '投稿する'
+          click_on('投稿する')
           expect(page).to have_content('投稿しました')
-        end.to change { Book.count }.by(1)
-                                    .and change { BookContent.count }.by(1)
+        end.to change(Book, :count).by(1)
+          .and change(BookContent, :count).by(1)
 
+        # 最新のbook投稿を定義する
         last_book = Book.last
         expect(last_book.genre_ids.length).to eq 3
       end
@@ -207,7 +200,6 @@ RSpec.describe '投稿機能', type: :system do
 
       it '内容項目の追加と削除が正常に動作し、内容項目は上最大7つまで入力・保存できる' do
         visit_new_book_path
-
         fill_in_new_post_form
 
         # 内容項目が最初は1つであることを確認する
@@ -240,18 +232,18 @@ RSpec.describe '投稿機能', type: :system do
         expect do
           click_on '投稿する'
           expect(page).to have_content('投稿しました')
-        end.to change { BookContent.count }.by(7)
+        end.to change(BookContent, :count).by(7)
       end
     end
   end
 
   describe '投稿詳細' do
-    let!(:book)        { FactoryBot.create(:book, user: user1) }
-    let(:book_content) { book.book_contents.first }
+    let!(:book)         { FactoryBot.create(:book, user: user1) }
+    let!(:book_content) { book.book_contents.first }
 
     context '投稿詳細を閲覧できる時' do
       it '全ユーザーは投稿詳細ページで投稿内容をチェックできる' do
-        [user1, user2, user3, nil].each do |one_user|
+        [user, user1, user2, user3, nil].each do |one_user|
           if one_user
             login_as one_user
           elsif respond_to?(:logout)
@@ -264,8 +256,8 @@ RSpec.describe '投稿機能', type: :system do
           # 投稿詳細ページに投稿したユーザーの情報と投稿内容の各項目が表示されていることを確認する
           expect(page).to have_selector('.user-image.posted-by')
           expect(page).to have_content(user1.nickname)
-
           expect(page).to have_content(book.title)
+
           # src属性にActiveStorageのファイル名が含まれているかを確認する
           expect(find('.book-posted-image')[:src]).to include('Momose-Akira-no-firstLove-failing')
 
@@ -286,6 +278,7 @@ RSpec.describe '投稿機能', type: :system do
       it '投稿が1つもないと投稿詳細を閲覧できない' do
         # DBを一旦空にする
         Book.destroy_all
+
         # トップページで投稿が1つも存在しないことを確認する
         visit root_path
         expect(page).to have_content('投稿はありません')
@@ -300,18 +293,16 @@ RSpec.describe '投稿機能', type: :system do
 
     context '投稿を編集できる時' do
       it 'ログインユーザーは自身の投稿を編集できる' do
-        # user1でログインする
         login_as user1
-
         visit_book_path
 
         # 編集ボタンを押し、投稿編集ページに遷移する
-        expect(page).to have_selector('#post-edit-btn', text: '編集', wait: 5)
+        expect(page).to have_selector('#edit-post-btn', text: '編集', wait: 5)
         click_on('編集')
         expect(page).to have_current_path(edit_book_path(book))
         expect(page).to have_content('投稿編集')
 
-        # すでに保存済みのアカウント情報がフォームに入っていることを確認する
+        # すでに保存済みの投稿情報がフォームに入っていることを確認する
         expect(
           find('#title').value
         ).to eq(book.title)
@@ -333,8 +324,11 @@ RSpec.describe '投稿機能', type: :system do
           ).to eq(content.content)
         end
 
-        # 保存済みの画像がプレビューで表示されていることを確認する
+        # 投稿済みの画像がプレビューで表示されていることを確認する
         expect(page).to have_selector('.upload-image-list img')
+
+        # プレビューのsrc属性にActiveStorageのファイル名が含まれているかを確認する
+        expect(find('.upload-image-list img')[:src]).to include('Momose-Akira-no-firstLove-failing')
 
         # 編集内容を定義する
         new_title = 'anotherTitle'
@@ -361,6 +355,7 @@ RSpec.describe '投稿機能', type: :system do
         # 既存の画像を削除し、新しい画像を添付する
         image_path = Rails.root.join('spec/fixtures/Momose_Akira_no_firstlove_failing_2.png')
         attach_file('book[image]', image_path)
+
         # 新しい画像のプレビューが表示されることを確認する
         expect(page).to have_selector('.upload-image-list img')
 
@@ -372,36 +367,39 @@ RSpec.describe '投稿機能', type: :system do
         # 詳細ページで内容が更新されていることを確認する
         expect(page).to have_content(new_title)
         expect(page).to have_content(new_category_name)
+
         new_genres.each do |genre_name|
           expect(page).to have_content(genre_name)
         end
+
         (0..6).each do |i|
           expect(page).to have_content("編集後の#{i + 1}つ目の内容項目です")
         end
 
-        expect(page).to have_selector('.book-posted-image')
+        expect(find('.book-posted-image')[:src]).to include('Momose_Akira_no_firstlove_failing_2')
       end
     end
 
     context '投稿を編集できない時' do
       it '未ログインユーザーは自身の投稿を編集できない' do
         not_log_in_user
-        visit_book_path
 
-        # 投稿詳細ページに編集ボタンが存在しないことを確認する
-        expect(page).to have_no_selector('#post-edit-btn', wait: 5)
-
-        not_log_in_user_access_denied(edit_book_path(book), '投稿編集')
-      end
-
-      it 'ログインユーザーであっても他人の投稿を編集できない' do
-        # user2でログインする
-        login_as user2
         # user1が作成した投稿の詳細ページに遷移する
         visit_book_path
 
         # 投稿詳細ページに編集ボタンが存在しないことを確認する
-        expect(page).to have_no_selector('#post-edit-btn', wait: 5)
+        expect(page).to have_no_selector('#edit-post-btn', text: '編集', wait: 5)
+
+        # URLで編集ページへ移動しようとするとトップページに遷移することを確認する
+        not_log_in_user_access_denied(edit_book_path(book), '投稿編集')
+      end
+
+      it 'ログインユーザーであっても他人の投稿を編集できない' do
+        login_as user2
+        visit_book_path
+
+        # 投稿詳細ページに編集ボタンが存在しないことを確認する
+        expect(page).to have_no_selector('#edit-post-btn', wait: 5)
 
         # URLで編集ページへ移動しようとするとトップページに遷移することを確認する
         log_in_user_access_denied(edit_book_path(book), '投稿編集')
@@ -416,6 +414,8 @@ RSpec.describe '投稿機能', type: :system do
     context '投稿を削除できる時' do
       it 'ログインユーザーは自身の投稿を削除できる' do
         login_as user1
+
+        # user1が作成した投稿の詳細ページに遷移する
         visit_book_path
 
         # 最初の削除ボタンを押し、投稿削除用のモーダルを開く
@@ -428,8 +428,8 @@ RSpec.describe '投稿機能', type: :system do
         expect do
           find('.final-action.btn-text').click
           expect(page).to have_content('投稿を削除しました')
-        end.to change { Book.count }.by(-1)
-                                    .and change { BookContent.count }.by(-7)
+        end.to change(Book, :count).by(-1)
+          .and change(BookContent, :count).by(-7)
 
         # トップページに遷移し、投稿が削除されていることを確認する
         expect(page).to have_current_path(root_path)
@@ -451,22 +451,21 @@ RSpec.describe '投稿機能', type: :system do
 
     context '投稿を削除できない時' do
       it '未ログインユーザーは自身の投稿を削除できない' do
-        # ログインせずにトップページに遷移する
         not_log_in_user
         visit_book_path
 
         # 投稿詳細ページに削除ボタンが存在しないことを確認する
-        expect(page).to have_no_selector('#destroy-post-btn', wait: 5)
+        expect(page).to have_no_selector('#destroy-post-btn', text: '削除', wait: 5)
       end
 
       it 'ログインユーザーであっても他者の投稿を削除できない' do
-        # user2でログインする
         login_as user2
+        
         # user1が作成した投稿の詳細ページに遷移する
         visit_book_path
 
         # 投稿詳細ページに削除ボタンが存在しないことを確認する
-        expect(page).to have_no_selector('#destroy-post-btn', wait: 5)
+        expect(page).to have_no_selector('#destroy-post-btn', text: '削除', wait: 5)
       end
 
       it '自身の投稿であっても｢削除しない｣ボタンや閉じるボタン、投稿削除用モーダル以外の要素を押すと削除できない' do
@@ -476,7 +475,8 @@ RSpec.describe '投稿機能', type: :system do
         # 最初の削除ボタンを押し、投稿削除用のモーダルを開く
         expect(page).to have_selector('#destroy-post-btn', text: '削除', wait: 5)
 
-        selectors = ['.no-action.btn-text', '.fa-xmark', '#modal-overlay']
+        # モーダルを非表示にするセレクタを配列で定義する
+        selectors = ['.no-action.btn-text', '.close-modal', '#modal-overlay']
 
         selectors.each do |_selector|
           find('#destroy-post-btn').click
@@ -501,20 +501,20 @@ RSpec.describe '投稿機能', type: :system do
     context '投稿を通報できる時' do
       it 'book投稿者以外のログインユーザーは、他者の投稿を通報できる' do
         login_as user2
+        # user1が作成した投稿の詳細ページに遷移する
         visit_book_path
 
         # 最初の通報ボタンを押し、投稿通報用のモーダルを開く
         expect(page).to have_selector('#report-post-btn', text: '通報', wait: 5)
-
         find('#report-post-btn').click
         expect(page).to have_selector('.modal.final-action.report-post', visible: true, wait: 5)
         expect(page).to have_content('この投稿を不適切な内容として通報しますか？')
 
         # ｢通報する｣ボタンを押すと、ReportedBookモデルのカウントが1上がることを確認する
         expect do
-          find('.modal.final-action.report-post .final-action.btn-text').click
+          find('.final-action.btn-text').click
           expect(page).to have_content('投稿を通報しました')
-        end.to change { ReportedBook.count }.by(1)
+        end.to change(ReportedBook, :count).by(1)
 
         # 💡 JSによるHTML属性（data-reported="true"）の書き換えが完了するまで一瞬だけ待つ、またはアサーションで同期を取る
         expect(page).to have_selector('#report-post-btn[data-reported="true"]', wait: 5)
@@ -525,7 +525,7 @@ RSpec.describe '投稿機能', type: :system do
           sleep 0.5
           expect(page).to have_content('通報済みの投稿です')
           expect(page).to have_no_selector('.modal.final-action.report-post', visible: true, wait: 5)
-        end.to change { ReportedBook.count }.by(0)
+        end.to change(ReportedBook, :count).by(0)
       end
     end
 
@@ -535,18 +535,18 @@ RSpec.describe '投稿機能', type: :system do
         visit_book_path
 
         # 投稿詳細ページに｢通報｣ボタンが存在しないことを確認する
-        expect(page).to have_no_selector('#report-post-btn', text: '通報')
+        expect(page).to have_no_selector('#report-post-btn', text: '通報', wait: 5)
       end
 
       it 'book投稿者本人は自身の投稿を通報できない' do
         login_as user1
         visit_book_path
 
-        # 投稿詳細ページにuser1のニックネームが表示されていることを確認する
+        # 投稿詳細ページに自身のニックネームが表示されていることを確認する
         expect(page).to have_content(user1.nickname)
 
         # 投稿詳細ページに｢通報｣ボタンが存在しないことを確認する
-        expect(page).to have_no_selector('#report-post-btn', text: '通報')
+        expect(page).to have_no_selector('#report-post-btn', text: '通報', wait: 5)
       end
 
       it 'book投稿者以外のログインユーザーでも｢通報する｣ボタン以外の要素を押すとモーダルは閉じてしまい、投稿を通報できない｣' do
@@ -555,49 +555,43 @@ RSpec.describe '投稿機能', type: :system do
           visit_book_path
           expect(page).to have_content(one_user.nickname)
 
-          close_modal_final_action('report-post', '通報')
+          close_modal_final_action('report-post', '通報', ReportedBook)
         end
       end
     end
   end
 
   describe '投稿高評価' do
-    let!(:book)     { FactoryBot.create(:book, user: user1) }
-    let(:user)      { user1 }
+    let!(:book) { FactoryBot.create(:book, user: user1) }
+    let(:user)  { user1 }
 
     context 'book投稿を高評価できる時' do
-      it 'book投稿者以外のログインユーザーは投稿を高評価できる' do
+      it 'ログインユーザーは他者の投稿を高評価できる' do
         login_as user2
+
+        # user1が作成した投稿の詳細ページに遷移する
         visit_book_path
 
         # 投稿詳細ページに高評価ボタンが存在していることを確認する
-        expect(page).to have_selector('.fa-regular.fa-thumbs-up.hovers.posted-book', visible: true)
+        expect(page).to have_selector('.fa-regular.fa-thumbs-up.posted-book', visible: true)
 
-        # 高評価ボタンを押すと、BookGoodモデルのカウントが1上がることを確認する
+        # 高評価ボタンを押すとBookGoodモデルのカウントが1上がることを確認する
         expect do
-          find('.fa-regular.fa-thumbs-up.hovers.posted-book').click
+          find('.fa-regular.fa-thumbs-up.posted-book').click
           sleep 0.5
-        end.to change { BookGood.count }.by(1)
+        end.to change(BookGood, :count).by(1)
 
         # 高評価済みであることと、高評価数が｢1｣と表示されていることを確認する
-        expect(page).to have_selector('.fa-solid.fa-thumbs-up.hovers.posted-book')
+        expect(page).to have_selector('.fa-solid.fa-thumbs-up.posted-book')
         expect(page).to have_selector('.book-good-count', text: '1', wait: 5)
 
         # マイページの高評価リストに高評価した投稿が追加されていることを確認する
-        visit user_path(user2)
-
-        scroll_to(find('.my-page-contents.good-books-list'), align: :center)
-
-        sleep 0.5
-
-        expect(page).to have_content('高評価リスト：1件')
-        expect(page).to have_selector('.book-posted-image')
-        expect(page).to have_content(book.title)
+        check_book_list_in_my_page(user2, 'good-books-list', '高評価リスト')
       end
     end
 
     context 'book投稿を高評価できない時' do
-      it '未ログインユーザーはbook投稿の高評価自体ができない' do
+      it '未ログインユーザーは投稿の高評価ができない' do
         not_log_in_user
         visit_book_path
 
@@ -626,60 +620,55 @@ RSpec.describe '投稿機能', type: :system do
         expect(page).to have_content(user1.nickname)
 
         # 高評価済みであることと、高評価数が｢1｣と表示されていることを確認する
-        expect(page).to have_selector('.fa-solid.fa-thumbs-up.hovers.posted-book')
+        expect(page).to have_selector('.fa-solid.fa-thumbs-up.posted-book')
         expect(page).to have_selector('.book-good-count', text: '1', wait: 5)
 
-        expect(page).to have_selector('.fa-regular.fa-thumbs-down.hovers.posted-book', visible: true)
+        # 低評価がまだされていないことを確認する
+        expect(page).to have_selector('.fa-regular.fa-thumbs-down.posted-book', visible: true)
 
         # 低評価ボタンを押すと、BookGoodモデルのカウントが1下がることを確認する
         expect do
-          find('.fa-regular.fa-thumbs-down.hovers.posted-book').click
+          find('.fa-regular.fa-thumbs-down.posted-book').click
           sleep 0.5
-        end.to change { BookGood.count }.by(-1)
+        end.to change(BookGood, :count).by(-1)
 
         # 高評価が取り消され、高評価数が非表示になっていることを確認する
-        expect(page).to have_no_selector('.fa-solid.fa-thumbs-up.hovers.posted-book')
+        expect(page).to have_no_selector('.fa-solid.fa-thumbs-up.posted-book')
         expect(page).to have_no_selector('.book-good-count')
 
         # マイページの高評価リストに投稿が削除されていることを確認する
-        visit user_path(user2)
-        scroll_to(find('.my-page-contents.good-books-list'), align: :center)
-
-        sleep 0.5
-
-        expect(page).to have_content('高評価リスト：0件')
-        expect(page).to have_content('投稿はありません')
-        expect(page).to have_no_selector('.book-posted-image')
-        expect(page).to have_no_content(book.title)
+        check_no_book_list_in_my_page('good-books-list', '高評価リスト')
       end
     end
   end
 
   describe '投稿低評価' do
-    let!(:book)     { FactoryBot.create(:book, user: user1) }
-    let(:user)      { user1 }
+    let!(:book) { FactoryBot.create(:book, user: user1) }
+    let(:user)  { user1 }
 
     context 'book投稿を低評価できる時' do
-      it 'book投稿者以外のログインユーザーは投稿を低評価できる' do
+      it 'ログインユーザーは他者の投稿を低評価できる' do
         login_as user2
+
+        # user1が作成した投稿の詳細ページに遷移する
         visit_book_path
 
         # 投稿詳細ページに低評価ボタンが存在していることを確認する
-        expect(page).to have_selector('.fa-regular.fa-thumbs-down.hovers.posted-book', visible: true)
+        expect(page).to have_selector('.fa-regular.fa-thumbs-down.posted-book', visible: true)
 
         # 低評価ボタンを押すと、BookBadモデルのカウントが1上がることを確認する
         expect do
-          find('.fa-regular.fa-thumbs-down.hovers.posted-book').click
+          find('.fa-regular.fa-thumbs-down.posted-book').click
           sleep 0.5
-        end.to change { BookBad.count }.by(1)
+        end.to change(BookBad, :count).by(1)
 
         # 低評価済みであることを確認する
-        expect(page).to have_selector('.fa-solid.fa-thumbs-down.hovers.posted-book')
+        expect(page).to have_selector('.fa-solid.fa-thumbs-down.posted-book')
       end
     end
 
     context 'book投稿を低評価できない時' do
-      it '未ログインユーザーは投稿の低評価自体ができない' do
+      it '未ログインユーザーは投稿の低評価ができない' do
         not_log_in_user
         visit_book_path
 
@@ -692,6 +681,7 @@ RSpec.describe '投稿機能', type: :system do
 
         # 投稿詳細ページにuser1（book投稿者本人）のニックネームが表示されていることを確認する
         expect(page).to have_content(user1.nickname)
+
         cannot_click_valuation_btn('down', 'book', BookBad)
       end
 
@@ -706,16 +696,15 @@ RSpec.describe '投稿機能', type: :system do
         # 投稿詳細ページにuser1（book投稿者本人）のニックネームが表示されていることを確認する
         expect(page).to have_content(user1.nickname)
 
-        # 低評価済みであることとを確認する
-        expect(page).to have_selector('.fa-solid.fa-thumbs-down.hovers.posted-book')
-
+        # 低評価済みであることと、高評価がまだされていないことを確認する
+        expect(page).to have_selector('.fa-solid.fa-thumbs-down.posted-book')
         expect(page).to have_selector('.fa-regular.fa-thumbs-up.hovers.posted-book', visible: true)
 
-        # 高評価ボタンを押すと、BookBadモデルのカウントが1下がることを確認する
+        # 高評価ボタンを押すとBookBadモデルのカウントが1下がることを確認する
         expect do
-          find('.fa-regular.fa-thumbs-up.hovers.posted-book').click
+          find('.fa-regular.fa-thumbs-up.posted-book').click
           sleep 0.5
-        end.to change { BookBad.count }.by(-1)
+        end.to change(BookBad, :count).by(-1)
 
         # 低評価が取り消されていることを確認する
         expect(page).to have_no_selector('.fa-solid.fa-thumbs-down.hovers.posted-book')
@@ -724,42 +713,37 @@ RSpec.describe '投稿機能', type: :system do
   end
 
   describe '投稿お気に入り追加' do
-    let!(:book)     { FactoryBot.create(:book, user: user1) }
-    let(:user)      { user1 }
+    let!(:book) { FactoryBot.create(:book, user: user1) }
+    let(:user)  { user1 }
 
     context 'book投稿をお気に入りに追加できる時' do
       it 'book投稿者以外のログインユーザーは他者の投稿をお気に入りに追加できる' do
         login_as user2
+
+        # user1が作成した投稿の詳細ページに遷移する
         visit_book_path
 
         # 投稿詳細ページにお気に入りボタンが存在していることを確認する
-        expect(page).to have_selector('.fa-regular.fa-star.hovers', visible: true)
+        expect(page).to have_selector('.fa-regular.fa-star', visible: true)
 
-        # お気に入りボタンを押すと、Favoriteモデルのカウントが1上がることを確認する
+        # お気に入りボタンを押すとFavoriteモデルのカウントが1上がることを確認する
         expect do
-          find('.fa-regular.fa-star.hovers').click
+          find('.fa-regular.fa-star').click
           sleep 0.5
-        end.to change { Favorite.count }.by(1)
+        end.to change(Favorite, :count).by(1)
 
         # マイページのお気に入りリストに投稿が追加されていることを確認する
-        visit user_path(user2)
-        scroll_to(find('.my-page-contents.favorite-books-list'), align: :center)
-
-        sleep 0.5
-
-        expect(page).to have_content('お気に入りリスト：1件')
-        expect(page).to have_selector('.book-posted-image')
-        expect(page).to have_content(book.title)
+        check_book_list_in_my_page(user2, 'favorite-books-list', 'お気に入りリスト')
       end
     end
 
     context 'book投稿をお気に入りに追加できない時' do
-      it '未ログインユーザーは投稿のお気に入り追加自体ができない' do
+      it '未ログインユーザーは投稿のお気に入り追加ができない' do
         not_log_in_user
         visit_book_path
 
         # 投稿詳細ページにお気に入りボタン自体が存在していないことを確認する
-        expect(page).to have_no_selector('.fa-regular.fa-star.hovers')
+        expect(page).to have_no_selector('.fa-regular.fa-star')
       end
 
       it 'book投稿者本人は自身の投稿をお気に入りに追加できない' do
@@ -769,6 +753,7 @@ RSpec.describe '投稿機能', type: :system do
         # 投稿詳細ページにuser1（book投稿者本人）のニックネームが表示されていることを確認する
         expect(page).to have_content(user1.nickname)
 
+        # 投稿詳細ページにお気に入りボタン自体が存在していないことを確認する
         expect(page).to have_no_selector('.fa-regular.fa-star.hovers')
       end
 
@@ -784,34 +769,26 @@ RSpec.describe '投稿機能', type: :system do
         expect(page).to have_content(user1.nickname)
 
         # お気に入りに追加済みであることを確認する
-        expect(page).to have_selector('.fa-solid.fa-star.hovers')
+        expect(page).to have_selector('.fa-solid.fa-star')
 
         # 再度お気に入りボタンを押すと、Favoriteモデルのカウントが1下がることを確認する
         expect do
-          find('.fa-solid.fa-star.hovers').click
+          find('.fa-solid.fa-star').click
           sleep 0.5
-        end.to change { Favorite.count }.by(-1)
+        end.to change(Favorite, :count).by(-1)
 
         # お気に入り追加が取り消されていることを確認する
-        expect(page).to have_no_selector('fa-solid.fa-star.hovers')
+        expect(page).to have_no_selector('fa-solid.fa-star')
         sleep 0.5
-        expect(page).to have_selector('.fa-regular.fa-star.hovers', visible: true)
+        expect(page).to have_selector('.fa-regular.fa-star', visible: true)
 
         # マイページのお気に入りリストに投稿が削除されていることを確認する
-        visit user_path(user2)
-        scroll_to(find('.my-page-contents.favorite-books-list'), align: :center)
-
-        sleep 0.5
-
-        expect(page).to have_content('お気に入りリスト：0件')
-        expect(page).to have_content('投稿はありません')
-        expect(page).to have_no_selector('.book-posted-image')
-        expect(page).to have_no_content(book.title)
+        check_no_book_list_in_my_page('favorite-books-list', 'お気に入りリスト')
       end
     end
   end
 
-  describe "投稿検索", type: :system do
+  describe '投稿検索', type: :system do
     let!(:book) { FactoryBot.create(:book, user: user1) }
     let(:book2) { FactoryBot.create(:book, user: user1) }
     let(:book3) { FactoryBot.create(:book, user: user1) }
@@ -822,48 +799,54 @@ RSpec.describe '投稿機能', type: :system do
 
     context '投稿検索ができる時' do
       it 'キーワードをbook投稿のタイトル・カテゴリー名・ジャンル名・内容項目、そしてユーザー名のいずれかで検索した場合' do
-        find_search_form
+        # トップページに検索フォームが存在していることを確認する
+        expect(page).to have_selector('.search-form')
+
         # 検索ワードを配列にする
         matched_keywords = [
-          book.title, 
-          book.category.name, 
-          book.genres.first.name, 
-          book.book_contents.first.content, 
+          book.title,
+          book.category.name,
+          book.genres.first.name,
+          book.book_contents.first.content,
           book.user.nickname
         ]
+
         # 検索ワードでそれぞれ検索し、同じbook投稿がヒットすることを確認する
         matched_keywords.each do |matched_keyword|
           fill_in 'keyword', with: matched_keyword
           visit_search_books_path
-
           show_search_result
         end
       end
 
       it 'キーワードを空にして検索した場合' do
-        find_search_form
+        expect(page).to have_selector('.search-form')
+
         # キーワードを空にして検索する
         keyword = ''
         fill_in 'keyword', with: keyword
         visit_search_books_path
+
         # 検索結果に全ての投稿がヒットすることを確認する
         show_search_result
       end
 
       it 'キーワードをbook投稿のタイトル・カテゴリー名・ジャンル名、そしてユーザー名のいずれとも一致しないものにして検索した場合' do
-        find_search_form
+        expect(page).to have_selector('.search-form')
+
         # キーワードを適当な文字にして検索する
         keyword = 'あab1い234cうえ56defお78かgきhiく9けこ0j'
         fill_in 'keyword', with: keyword
         visit_search_books_path
 
         sleep 0.5
+
         # 検索結果が0件を表すテキストが表示されていることを確認する
         expect(page).to have_content(keyword && '「」' && 'に一致する投稿は見つかりませんでした。')
-        expect(page).to have_no_content("検索結果")
+        expect(page).to have_no_content('検索結果')
 
         expect(page).to have_no_content(book.title)
-        expect(page).to have_no_selector(".book-posted-image")
+        expect(page).to have_no_selector('.book-posted-image')
       end
     end
   end

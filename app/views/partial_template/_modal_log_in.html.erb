@@ -3,7 +3,7 @@
 
   <div class="modal-wrapper log-in">
     <%= form_with scope: :user, url: user_session_path, local: true do |f| %>
-      <div class="modal-btn-container log-in">
+      <div class="modal-container log-in">
         <div class="log-in-form">
           <label class="log-in-form-text">メールアドレス</label>
           <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input-mail-address", id: 'email' %>
@@ -15,7 +15,7 @@
           </div>
 
           <%= f.submit "ログイン", class: "log-in-submit-btn hovers" %>
-          <p><%= link_to 'パスワードをお忘れですか？', new_user_password_path, class: "forget-password", id: "underline-text" %></p>
+          <p><%= link_to 'パスワードをお忘れですか？', new_user_password_path, class: "forget-password underline-text" %></p>
         </div>
       </div>
       <div class="two-columns-layout">
@@ -32,7 +32,7 @@
           <i class="fa-brands fa-line"></i>LINE<span class="sns-log-in-text pc-only">で続ける</span>
         <% end %>
       </div>
-      <p class="urge-sign-up log-in-modal-footer">新規登録は<span><%= link_to 'こちら', new_user_registration_path, class: "sign-up-here hovers" %></span></p>
+      <p class="urge-sign-up log-in-modal-footer">新規登録は<span><%= link_to 'こちら', new_user_registration_path, class: "sign-up-here underline-text hovers" %></span></p>
     <% end %>
   </div>
 </div>

@@ -5,32 +5,26 @@ RSpec.describe User, type: :model do
     @user = FactoryBot.build(:user)
   end
 
-  describe 'メールアドレスによる新規登録' do
-    context 'ユーザー情報を保存できて新規登録できる時' do
-      it '必須項目が全て正しく入力されていれば保存できる' do
+  describe '新規登録機能' do
+    context '新規登録できる時' do
+      it '必須項目が全て正しく入力・選択されていれば登録できる' do
         expect(@user).to be_valid
       end
 
-      it '画像が選択されていなくても登録できる' do
+      it '画像が未選択でも登録できる' do
         @user.image = nil
         expect(@user).to be_valid
       end
     end
 
-    context 'ユーザー情報を保存できず、新規登録できない時' do
+    context '新規登録できない時' do
       it 'ニックネームが未入力だと登録できない' do
         @user.nickname = ''
         @user.valid?
         expect(@user.errors.full_messages).to include('ニックネームを入力してください')
       end
 
-      it 'ニックネームが3文字未満だと登録できない' do
-        @user.nickname = 'a' * 2
-        @user.valid?
-        expect(@user.errors.full_messages).to include('ニックネームを3文字以上で入力してください')
-      end
-
-      it 'ニックネームが16文字を超えると登録できない' do
+      it 'ニックネームが16文字を超える(17文字以上)と登録できない' do
         @user.nickname = 'a' * 17
         @user.valid?
         expect(@user.errors.full_messages).to include('ニックネームを16文字以内で入力してください')
@@ -70,7 +64,7 @@ RSpec.describe User, type: :model do
         @user.email = 'aaaaaa.@gmeil.coma'
         @user.valid?
         expect(@user.errors.full_messages).to include('メールアドレスは不正な形式です')
-        expect(@user.errors.full_messages).to include('メールアドレスのドメイン（@以降）が正しくありません（例: gmail.com）')
+        expect(@user.errors.full_messages).to include('メールアドレスのドメイン(@以降)が正しくありません（例: gmail.com）')
       end
 
       it '同じメールアドレスは登録できない' do
@@ -86,14 +80,14 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include('パスワードを入力してください')
       end
 
-      it 'パスワードが8文字未満だと登録できない' do
+      it 'パスワードが8文字未満(7文字以下)だと登録できない' do
         @user.password = 'abCD123'
         @user.password_confirmation = @user.password
         @user.valid?
         expect(@user.errors.full_messages).to include('パスワードを8文字以上で入力してください')
       end
 
-      it 'パスワードが20文字を超えると登録できない' do
+      it 'パスワードが20文字を超える(21文字以上)と登録できない' do
         @user.password = 'abcdeFGHIJ12345678910'
         @user.password_confirmation = @user.password
         @user.valid?
@@ -108,28 +102,28 @@ RSpec.describe User, type: :model do
       end
 
       it 'パスワードが半角であっても、英大文字のみでは登録できない' do
-        @user.password = 'ABCDEFGHIJKL'
+        @user.password = 'ABCDEFGHIJ'
         @user.password_confirmation = @user.password
         @user.valid?
         expect(@user.errors.full_messages).to include('パスワードは英字の大文字・小文字・数字をすべて含めて入力してください')
       end
 
       it 'パスワードが半角であっても、英子文字のみでは登録できない' do
-        @user.password = 'abcdefghijkl'
+        @user.password = 'abcdefghij'
         @user.password_confirmation = @user.password
         @user.valid?
         expect(@user.errors.full_messages).to include('パスワードは英字の大文字・小文字・数字をすべて含めて入力してください')
       end
 
       it 'パスワードが半角であっても、数字のみでは登録できない' do
-        @user.password = '123456789101'
+        @user.password = '12345678910'
         @user.password_confirmation = @user.password
         @user.valid?
         expect(@user.errors.full_messages).to include('パスワードは英字の大文字・小文字・数字をすべて含めて入力してください')
       end
 
       it 'パスワードが半角であっても、英大文字と英子文字のみでは登録できない' do
-        @user.password = 'ABCDEfghijkl'
+        @user.password = 'ABCDEfghij'
         @user.password_confirmation = @user.password
         @user.valid?
         expect(@user.errors.full_messages).to include('パスワードは英字の大文字・小文字・数字をすべて含めて入力してください')
@@ -150,10 +144,10 @@ RSpec.describe User, type: :model do
       end
 
       it 'パスワードとパスワード(確認用)が一致していないと登録できない' do
-        @user.password = 'abcDEF123456'
-        @user.password_confirmation = 'abcDEF1234567'
+        @user.password = 'abcDE12345'
+        @user.password_confirmation = 'abcDEF123456'
         @user.valid?
-        expect(@user.errors.full_messages).to include('パスワード（確認用）とパスワードが一致しません')
+        expect(@user.errors.full_messages).to include('パスワード(確認用)とパスワードが一致しません')
       end
     end
   end

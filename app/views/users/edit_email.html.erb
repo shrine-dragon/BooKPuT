@@ -3,20 +3,20 @@
 </div>
 
 <div class="edit-email-page">
-  <%= render layout: 'partial_template/edit_user_info', locals: { title: 'メールアドレス変更' } do %>
-    <%= form_with model: @user, url: user_path(@user), method: :patch, local: true, class: 'edit-email' do |f| %>
-
+  <%= render layout: 'partial_template/edit_log_in_info', locals: { title: 'メールアドレス変更' } do %>
+    <%= form_with model: @user, url: user_path(@user), method: :patch, local: true do |f| %>
       <%= hidden_field_tag :edit_type, 'email' %>
 
-      <div class="edit-user-info-text">
+      <div class="edit-log-in-info-text">
         <p>新しいメールアドレスを入力し、<br>｢変更する｣ボタンを押してください。</p>
       </div>
 
-      <div class="form-contents">
-        <div class="form-text">
-          <label>新しいメールアドレス(必須)</label>
-        </div>
-        <%= f.email_field :email, value: "", class:"input-text", id:"email", placeholder:"例：bookput@gmail.com" %>
+      <div class="form-text">
+        <label>新しいメールアドレス(必須)</label>
+      </div>
+
+      <div class="edit-email">
+        <%= f.email_field :email, value: "", class: "input-text", id: "email", placeholder: "例：bookput@gmail.com" %>
         <%= render "partial_template/error_messages", model: @user, attribute: :email %>
       </div>
 

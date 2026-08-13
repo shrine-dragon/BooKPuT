@@ -11,13 +11,12 @@ class User < ApplicationRecord
 
   has_many :books,             dependent: :destroy
   has_many :reported_books,    dependent: :destroy
+
   has_many :book_goods,        dependent: :destroy
   has_many :good_books,        through:   :book_goods, source: :book
   has_many :book_bads,         dependent: :destroy
-
   has_many :favorites,         dependent: :destroy
-  has_many :favorite_books,    through: :favorites,
-                               source: :book
+  has_many :favorite_books,    through: :favorites, source: :book
 
   has_many :comments,          dependent: :destroy
   has_many :hidden_comments,   dependent: :destroy
@@ -26,8 +25,20 @@ class User < ApplicationRecord
   has_many :good_comments,     through:   :comment_goods, source: :comment
   has_many :comment_bads,      dependent: :destroy
 
-  validates :password, presence: true, on: :create, unless: :sns_auth_process?
+  with_options presence: true do
+    validates :nickname, length: { maximum: 16 }
+    validates :birth_date
+  end
 
+  validate :birth_date_cannot_be_in_the_future
+
+  validates :gender_id, presence: true, numericality: { other_than: 0, message: 'を選択してください' }
+
+  validates :email, presence: true, uniqueness: true,
+                    format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.(com|net|org|jp|co\.jp|ne\.jp)\z/i, message: 'は不正な形式です' }
+  validate  :email_domain_typo_check
+
+  validates :password, presence: true, on: :create, unless: :sns_auth_process?
   validates :password, length: { minimum: 8, maximum: 20 },
                        format: {
                          with: /\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]+\z/,
@@ -43,19 +54,6 @@ class User < ApplicationRecord
             presence: true,
             if: -> { password.present? }, # パスワードがある時だけ必須にする
             unless: :sns_auth_process?
-
-  validates :email, presence: true, uniqueness: true,
-                    format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.(com|net|org|jp|co\.jp|ne\.jp)\z/i, message: 'は不正な形式です' }
-  validate  :email_domain_typo_check
-
-  validates :gender_id, presence: true, numericality: { other_than: 0, message: 'を選択してください' }
-
-  validate :birth_date_cannot_be_in_the_future
-
-  with_options presence: true do
-    validates :nickname, length: { minimum: 3, maximum: 16 }
-    validates :birth_date
-  end
 
   # SNS認証
   def self.from_omniauth(auth)
@@ -107,8 +105,8 @@ class User < ApplicationRecord
 
   # ヘルパーメソッドを追加（もし必要なら）
   def session_sns_auth_exists?
-    # ここはモデルなので session を直接触れませんが、
-    # sns_auth_process をコントローラーから確実に渡すようにします
+    # ここはモデルなので session を直接触れられないが、
+    # sns_auth_process をコントローラーから確実に渡すようにする
     sns_auth_process == true
   end
 
@@ -128,9 +126,9 @@ class User < ApplicationRecord
     domain = email.split('@').last.to_s.downcase
 
     # gmail.com の打ち間違いっぽいパターンを弾く
-    if domain.start_with?('gm') && domain != 'gmail.com'
-      errors.add(:email, 'のドメイン（@以降）が正しくありません（例: gmail.com）')
-    end
+    return unless domain.start_with?('gm') && domain != 'gmail.com'
+
+    errors.add(:email, 'のドメイン(@以降)が正しくありません（例: gmail.com）')
   end
 
   def birth_date_cannot_be_in_the_future

@@ -8,11 +8,11 @@
 }
 
 .email-not-submitted{
-  margin-top: 10px;
+  margin: 10px 0;
 }
 
 .email-not-submitted-case{
-  margin: 10px 0 20px;
+  margin-bottom: 20px;
   list-style: disc;
   list-style-position: inside;
   padding-left: 0.5em;
@@ -22,7 +22,7 @@
 }
 
 @include mobile{
-  .edit-user-info-text{
+  .edit-log-in-info-text{
     .edit-password-caution{
       font-size: 18px;
     }

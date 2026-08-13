@@ -1,19 +1,5 @@
 @import "config";
 
-.error-message, .image-re-select-message{
-  color: #ff0000;
-  font-size: 14px;
-  line-height: 1.5;
-  display: block;
-  margin-bottom: 10px;
-  text-align: left;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  width: 100%;
-  text-align: left !important;
-  font-weight: bold;
-}
-
 .error-wrapper {
   width: 100%;
   max-width: 100%;
@@ -23,7 +9,6 @@
 .error-list {
   padding: 0;
   margin: 0;
-  list-style: none;
   text-align: left;
 }
 
@@ -41,13 +26,12 @@
 
 .edit-email {
   .error-item {
-    width: 300px !important;
+    width: 300px;
   }
 }
 
 @include mobile {
   .error-item{
-    width: 100%;
     font-size: 12px;
   }
 }

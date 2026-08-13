@@ -11,7 +11,7 @@ class Book < ApplicationRecord
   attr_accessor :delete_image
 
   belongs_to :category
-  validates :category_id, presence: true, numericality: { other_than: 0, message: 'を選択してください' }
+  validates  :category_id, presence: true, numericality: { other_than: 0, message: 'を選択してください' }
 
   attribute :genre_ids, :json, default: []
   validates :genre_ids, presence: { message: 'を選択してください' }, unless: :skip_genre_validation?
@@ -57,9 +57,7 @@ class Book < ApplicationRecord
         end
       end
 
-      if matched_category_ids.present?
-        query = query.or(where(category_id: matched_category_ids))
-      end
+      query = query.or(where(category_id: matched_category_ids)) if matched_category_ids.present?
 
       query
     else

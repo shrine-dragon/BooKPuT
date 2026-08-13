@@ -5,7 +5,6 @@ document.addEventListener('turbolinks:load', () => {
   if (!triggerBtn || !confirmArea) return;
 
   triggerBtn.addEventListener('click', () => {
-    // 確認エリアを表示
     confirmArea.style.display = 'block';
 
     // 最初のボタンを非表示にする（二重クリック防止とUI整理のため）

@@ -70,18 +70,18 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   # あなたのアプリのURL（開発環境用）
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-# 🔴 Action Mailerの設定
+  # 🔴 Action Mailerの設定
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:              'smtp.gmail.com',
-    port:                 587,
-    domain:               'gmail.com',
-    user_name:            'the.shrine.dragon@gmail.com', # 💡 ご自身のGmailアドレス
-    password:             'acoh zayb hasx ajsd',          # 💡 後述する「アプリパスワード」
-    authentication:       'plain',
+    address: 'smtp.gmail.com',
+    port: 587,
+    domain: 'gmail.com',
+    user_name: 'the.shrine.dragon@gmail.com', # 💡 ご自身のGmailアドレス
+    password: 'acoh zayb hasx ajsd', # 💡 後述する「アプリパスワード」
+    authentication: 'plain',
     enable_starttls_auto: true,
 
-    openssl_verify_mode:  'none'
+    openssl_verify_mode: 'none'
   }
 end

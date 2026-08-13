@@ -1,6 +1,6 @@
 @import "config";
 
-.posted-comment-contents{
+.posted-comment-wrapper{
   border: 1px solid gainsboro;
   display: flex;
   flex-direction: column;
@@ -31,7 +31,6 @@
 }
 
 .posted-comment-text{
-  font-weight: normal;
   font-size: 17px;
   margin: 10px 0;
 }
@@ -39,17 +38,17 @@
 .posted-comment-btn-field{
   display: flex;
   gap: 10px;
-}
 
-.posted-comment-btn-text{
-  font-weight: bold;
-  font-size: 16px;
-  color: darkgray;
-}
+  .posted-comment-btn-text{
+    font-weight: bold;
+    font-size: 16px;
+    color: darkgray;
+  }
 
-.fa-thumbs-up.posted-comment, .fa-thumbs-down.posted-comment{
-  font-size: 20px !important;
-  color: darkgray;
+  .fa-thumbs-up.posted-comment, .fa-thumbs-down.posted-comment{
+    font-size: 20px;
+    color: darkgray;
+  }
 }
 
 @include mobile{
@@ -81,11 +80,13 @@
     }
   }
 
-  .posted-comment-btn-text{
-    font-size: 14px;
-  }
+  .posted-comment-btn-field{
+    .posted-comment-btn-text{
+      font-size: 14px;
+    }
 
-  .fa-thumbs-up.posted-comment, .fa-thumbs-down.posted-comment{
-    font-size: 16px !important;
+    .fa-thumbs-up.posted-comment, .fa-thumbs-down.posted-comment{
+      font-size: 16px;
+    }
   }
 }

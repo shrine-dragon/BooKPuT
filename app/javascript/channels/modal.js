@@ -52,7 +52,7 @@ $(document).on(loadEvent, function() {
     }
   });
 
-  // 【ログインモーダル】（画面中央表示 / ホバー＆クリック両対応）
+  // 【ログインモーダル】（トップページ中央表示 / ホバー＆クリック両対応）
   $('.log-in-menu').on('mouseover', function() {
     if (isMobileSize()) return;
     openModal($(".modal.log-in"), true); // 常に中央表示
@@ -69,7 +69,6 @@ $(document).on(loadEvent, function() {
       openModal($modal, true); // 常に中央表示
     }
   });
-
 
   // 【ログイン済みユーザーメニューモーダル】
   $('.user-menu').on('mouseover', function() {
@@ -89,6 +88,37 @@ $(document).on(loadEvent, function() {
     }
   });
 
+  // 【ログインモーダル】（新規登録ページ中央表示 / ホバー＆クリック両対応）
+  $('.log-in-btn.footer-second').on('mouseover', function() {
+    if (isMobileSize()) return;
+    openModal($(".modal.log-in"), true); // 常に中央表示
+  });
+
+  $('.log-in-btn.footer-second').on('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const $modal = $(".modal.log-in");
+    if ($modal.is(':visible')) {
+      closeModal($modal);
+    } else {
+      openModal($modal, true); // 常に中央表示
+    }
+  });
+
+  // 【ログインモーダル】（新規登録ページ中央表示 / クリック対応）
+  $('.log-in-here').on('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const $modal = $(".modal.log-in");
+    if ($modal.is(':visible')) {
+      closeModal($modal);
+    } else {
+      openModal($modal, true); // 常に中央表示
+    }
+  });  
+
   // 未ログイン時のアクセス制御（「投稿する」等）
   const $authTrigger = $('[data-auth-trigger="true"]');
   const currentPath = window.location.pathname;
@@ -104,17 +134,6 @@ $(document).on(loadEvent, function() {
 
     openModal($logInModal, true);
   }
-
-  // 新規登録ページでログインモーダルを開閉する処理(clickイベント)
-  $('.log-in-btn.footer').on('click', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const $modal = $(".modal.log-in");
-    $modal.addClass('is-center');
-    
-    openModal($modal, true);
-  });
 
   // 背景・Escキー・閉じるボタン処理
   $(document).on('click', '.close-modal, #modal-overlay', function() {

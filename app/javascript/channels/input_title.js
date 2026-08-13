@@ -52,10 +52,11 @@ document.addEventListener('turbolinks:load', () => {
           const info = item.volumeInfo;
           
           /* 🔴 高画質化の処理を追加 */
-          // 1. https に置換
-          // 2. zoom=5 などの低画質指定を zoom=3 に強制上書き
-          // 3. 本のめくれエフェクト（&edge=curl）を除去
+          // https に置換
+          // zoom=5 などの低画質指定を zoom=3 に強制上書き
+          // 本のめくれエフェクト（&edge=curl）を除去
           const thumbnail = info.imageLinks.thumbnail
+            // httpはデータをそのまま送るため、盗み見られる危険がある一方、httpsはデータを暗号化して守るため、安全。
             .replace('http:', 'https:')
             .replace(/zoom=\d/, 'zoom=3')
             .replace('&edge=curl', '');
@@ -71,7 +72,6 @@ document.addEventListener('turbolinks:load', () => {
             const remoteField = document.getElementById('remote-image-url');
             const previewCont = document.getElementById('preview-image-container');
             
-            /* 🔴 ここでセットされる thumbnail はすでに高画質化されています */
             if (remoteField) remoteField.value = thumbnail;
             if (previewCont) {
               previewCont.innerHTML = `
@@ -126,7 +126,6 @@ document.addEventListener('turbolinks:load', () => {
   });
 
   previewContainer.addEventListener('click', (e) => {
-    console.log('画像のプレビュー')
     if (e.target.classList.contains('delete-image-btn')) {
       previewContainer.innerHTML = "";
       fileInput.value = "";

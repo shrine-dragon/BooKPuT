@@ -29,7 +29,7 @@
         <p class="current-user-info">
           <%= @user.gender.name %>
         </p>
-        <div class="edit-profile btn-on-center hovers">
+        <div class="edit-profile hovers">
           <%= link_to(edit_profile_user_path(current_user), class: "edit-profile-btn") do %>
             <span class="edit-profile btn-text">プロフィールを編集する</span>
           <% end %>
@@ -83,7 +83,7 @@
           <div class="book-post-images-container">
             <ul class="book-post-images slick-slider">
               <% @my_good_books.each do |good_book| %>
-                <%= render 'partial_template/book_cards', book: good_book, path_id: good_book.id, frame_color: 'white', is_mini: true, badge_type: 'good' %>
+                <%= render 'partial_template/book_cards', book: good_book, path_id: good_book.id, frame_color: 'golden', is_mini: true, badge_type: 'good' %>
               <% end %>
             </ul>
           </div>
