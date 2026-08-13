@@ -125,11 +125,14 @@ module UserSupport
     expect(page).to have_content('新規登録', wait: 10)
 
     # 必須項目を入力または選択する
-    # ニックネームとメールが空なら補完
+    # ニックネーム・メールアドレスが空なら補完
     fill_in 'nickname', with: user.nickname if find('#nickname').value.blank?
     fill_in 'birth_date', with: user.birth_date.strftime('%Y-%m-%d')
     select user.gender.name, from: 'gender'
     fill_in 'email', with: random_email if find('#email').value.blank?
+
+    # 任意項目の画像を添付する
+    image_test('Zakky.png', 'user[image]')
 
     execute_script('document.getElementById("sns_auth_process").value = "true";') if has_selector?('#sns_auth_process', visible: false)
   end

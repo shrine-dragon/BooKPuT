@@ -1,7 +1,8 @@
 class Contact < ApplicationRecord
   validates :name,  presence: true
-  validates :email, presence: true, uniqueness: true,
-                    format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.(com|net|org|jp|co\.jp|ne\.jp)\z/i, message: 'は不正な形式です' }
+  validates :email, presence: true,
+                    format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i,
+                    message: 'は不正な形式です' }
   validate  :email_domain_typo_check
   validates :message, presence: true, length: { maximum: 1000 }
 
