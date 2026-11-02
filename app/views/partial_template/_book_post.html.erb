@@ -78,7 +78,7 @@
                   multiple: true, 
                   id: "genre_#{genre.id}",
                   class: "genre-checkbox hovers",
-                  checked: f.object.genre_ids.include?(genre.id.to_s)
+                  checked: f.object.genre_ids.map(& :to_i).include?(genre.id)
                   },
                   genre.id, nil %>
                 <span class="genre-name"><%= genre.name %></span>
@@ -99,7 +99,7 @@
             <%= f.fields_for :book_contents, model.book_contents do |content_form| %>
               <div class="content-field">
                 <div class="input-main-part">
-                  <%= content_form.text_field :content, id: "book_content_#{content_form.index}", class:"input-text", placeholder:"50文字以内" %>
+                  <%= content_form.text_field :content, id: "book_content_#{content_form.index}", class: "input-text", placeholder: "50文字以内" %>
                 </div>
                 <span class="remove-content-btn hovers" >−</span>
               </div>

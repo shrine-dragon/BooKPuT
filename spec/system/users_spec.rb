@@ -235,13 +235,13 @@ RSpec.describe 'パスワード変更', type: :system do
       expect(page).to have_current_path(new_user_password_path, wait: 5)
 
       # フィールドが出るまで最大5秒待つ
-      expect(page).to have_field('email', wait: 5)
+      expect(page).to have_field('user[email]', wait: 5)
 
-      # 登録済みのメールアドレスを入力する
-      fill_in 'email', with: user.email
-
-      # 入力されたメールアドレスが正しいか、送信前にチェックを入れる
-      expect(page).to have_field('email', with: user.email, wait: 5)
+      # パスワード再設定ページのフォーム内にあるメールアドレス入力欄を特定して入力する
+      within('form') do
+        fill_in 'email', with: user.email
+        expect(page).to have_field('email', with: user.email, wait: 5)
+      end
       click_on('送信する')
 
       # メール送信完了ページに遷移していることを確認する
