@@ -28,7 +28,7 @@ module UserSupport
   def visit_sign_up_page
     # 新規登録用モーダルに｢メールアドレスでアカウント作成｣のボタンがあることを確認する
     expect(page).to have_content('メールアドレスでアカウント作成')
-    
+
     # ボタンをクリックする
     click_link 'メールアドレスでアカウント作成'
 
@@ -78,7 +78,7 @@ module UserSupport
 
   def close_modal(selector_name, header_text, selector_type, text_in_modal)
     visit root_path
-    target = find(selector_name, text: header_text  ,visible: :all)
+    target = find(selector_name, text: header_text, visible: :all)
 
     # マウスホバーしてモーダルを開く
     target.hover
@@ -105,7 +105,7 @@ module UserSupport
     expect(page).to have_current_path(root_path, wait: 15)
 
     # DBに保存されたばかりの最新ユーザーを取得する
-    latest_user = User.last
+    User.last
 
     # トップページにフラッシュメッセージが表示されていることを確認する
     expect(page).to have_selector('.flash-message', text: flash_message)
@@ -134,7 +134,8 @@ module UserSupport
     # 任意項目の画像を添付する
     image_test('Zakky.png', 'user[image]')
 
-    execute_script('document.getElementById("sns_auth_process").value = "true";') if has_selector?('#sns_auth_process', visible: false)
+    execute_script('document.getElementById("sns_auth_process").value = "true";') if has_selector?('#sns_auth_process',
+                                                                                                   visible: false)
   end
 
   def redirect_to_top_page_and_show_flash_message(flash_message)
@@ -253,7 +254,7 @@ module UserSupport
   def click_btn_and_check_email
     # マイページにメールアドレス変更ボタンが存在していることを確認する
     expect(page).to have_selector('.edit-log-in-info.btn-text', text: 'メールアドレスを変更する')
-    
+
     # 変更ボタンを押すとメールアドレス変更ページに遷移することを確認する
     click_on('メールアドレスを変更する')
     expect(page).to have_current_path(edit_email_user_path(user))

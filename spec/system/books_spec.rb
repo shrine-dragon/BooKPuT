@@ -21,6 +21,7 @@ RSpec.describe '投稿機能', type: :system do
         #  click_on('投稿する')
         #end.to change(Book,        :count).by(1)
         #  .and change(BookContent, :count).by(1)
+
         # ｢投稿する｣ボタンを押す
         click_on('投稿する')
 
@@ -81,8 +82,8 @@ RSpec.describe '投稿機能', type: :system do
         # ｢投稿する｣ボタンを押してもBookモデルとBookContentモデルのカウントが上がらないことを確認する
         expect do
           click_on('投稿する')
-        end.to change(Book,        :count).by(0)
-          .and change(BookContent, :count).by(0)
+        end.to change(Book, :count).by(0)
+                                   .and change(BookContent, :count).by(0)
 
         # エラーメッセージのリストを定義する
         error_messages = %w[
@@ -151,7 +152,7 @@ RSpec.describe '投稿機能', type: :system do
           click_on('投稿する')
           expect(page).to have_content('投稿しました')
         end.to change(Book, :count).by(1)
-          .and change(BookContent, :count).by(1)
+                                   .and change(BookContent, :count).by(1)
 
         # 最新のbook投稿を定義する
         last_book = Book.last
@@ -432,7 +433,7 @@ RSpec.describe '投稿機能', type: :system do
           find('.final-action.btn-text').click
           expect(page).to have_content('投稿を削除しました')
         end.to change(Book, :count).by(-1)
-          .and change(BookContent, :count).by(-7)
+                                   .and change(BookContent, :count).by(-7)
 
         # トップページに遷移し、投稿が削除されていることを確認する
         expect(page).to have_current_path(root_path)
@@ -463,7 +464,7 @@ RSpec.describe '投稿機能', type: :system do
 
       it 'ログインユーザーであっても他者の投稿を削除できない' do
         login_as user2
-        
+
         # user1が作成した投稿の詳細ページに遷移する
         visit_book_path
 

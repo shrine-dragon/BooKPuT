@@ -14,7 +14,7 @@ RSpec.describe 'ユーザー新規登録', type: :system do
       # 必須項目を入力または選択する
       fill_in 'nickname',              with: user.nickname
       fill_in 'birth_date',            with: user.birth_date.to_s
-      select  '男性',                  from: 'gender'
+      select  '男性', from: 'gender'
       fill_in 'email',                 with: user.email
       fill_in 'password',              with: user.password
       fill_in 'password_confirmation', with: user.password_confirmation
@@ -556,7 +556,7 @@ RSpec.describe 'マイページ', type: :system do
       # マイページに遷移せず、エラーメッセージが表示されていることを確認する
       expect(page).to have_current_path(user_path(user), wait: 10)
       expect(page).to have_selector('.error-item', text: 'パスワードを入力してください')
-      
+
       # 編集画面の項目がまだ存在することを確認する
       expect(page).to have_content('新しいパスワード(必須)')
     end

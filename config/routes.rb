@@ -63,8 +63,8 @@ Rails.application.routes.draw do
         post 'report'
       end
 
-      resources :comment_goods, only: [:create, :destroy], as: :goods
-  
+      resources :comment_goods, only: %i[create destroy], as: :goods
+
       resources :comment_bads,  only: %i[create destroy], as: :bads
     end
   end
