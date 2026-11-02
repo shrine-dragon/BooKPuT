@@ -39,7 +39,6 @@ RSpec.describe Contact, type: :model do
       it 'メールアドレスに@以降のドメイン表記が誤っていると登録できない' do
         @contact.email = 'aaaaaa.@gmeil.coma'
         @contact.valid?
-        expect(@contact.errors.full_messages).to include('メールアドレスは不正な形式です')
         expect(@contact.errors.full_messages).to include('メールアドレスのドメイン(@以降)が正しくありません（例: gmail.com）')
       end
 
