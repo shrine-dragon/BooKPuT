@@ -1,0 +1,12 @@
+// モーダルを非表示
+$("#modal-overlay").fadeOut(200);
+$(".modal.final-action.hide-comment").fadeOut(200);
+
+// 対象のコメントを削除（MutationObserverが検知して件数を調整してくれる）
+$('#comment-<%= @comment.id %>').remove();
+
+// フラッシュメッセージを表示
+$('#flash-container').html('<div class="flash-message notice">コメントを非表示にしました</div>');
+if (typeof window.fadeOutFlash === 'function') {
+  window.fadeOutFlash();
+}

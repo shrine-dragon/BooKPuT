@@ -1,0 +1,86 @@
+@import "config";
+
+.search-result {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-result-wrapper {
+  display: flex;
+  flex-direction: column;
+
+  .book-post-list {
+    display: flex;
+    flex-direction: column;
+
+    background-image: 
+      linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+      asset-url("bookshelves-search-result.png");
+    background-size: cover;
+    background-position: center; /* 中央に合わせると綺麗 */
+    background-repeat: no-repeat;
+  }
+
+  .book-post-list-heading.search-result{
+    color: white;
+  }
+}
+
+.no-post-result {
+  width: 90%;
+  margin: 0 auto;
+  flex: 1; /* 縦いっぱいにエリアを広げる */
+  padding: 30px 0; /* フッターとの間に適度な余白を作る */
+}
+
+.no-post-text{
+  margin: 30px 0;
+  font-size: 25px;
+  span{
+    font-weight: bold;
+  }
+}
+
+.hint-text{
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.hint-actions{
+  line-height: 2.0;
+  padding-left: 20px; /* 💡 デフォルトの広い左余白を削り、黒丸が「検索のヒント」の文字の真下に揃うよう微調整 */
+}
+
+.hint-action{
+  list-style: disc;
+  font-size: 18px;
+}
+
+.no-post-result-image{
+  margin-top: 20px;
+  height: 250px;
+  width: 400px;
+}
+
+@include mobile{
+  .no-post-text{
+    font-size: 20px;
+  }
+
+  .hint-text{
+    font-size: 18px;
+  }
+
+  .hint-action{
+    font-size: 15px;
+  }
+
+  .no-post-result-image {
+    width: 100%;
+    max-width: 300px;
+    height: 200px;
+    display: block;
+    margin: 20px auto 0;
+  }
+}

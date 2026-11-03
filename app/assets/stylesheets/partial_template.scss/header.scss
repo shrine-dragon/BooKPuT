@@ -1,0 +1,401 @@
+@import "config";
+
+.header {
+  background-color: #fffafa;
+  position: fixed; /* 固定配置に一本化 */
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.header-wrapper {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  height: 70px;
+}
+
+.header-logo {
+  display: flex;
+  padding-top: 5px;
+  margin-left: 10px;
+}
+
+.bookput-header-logo {
+  height: 50px;
+  width: 250px;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+/* PC版ではスマホ用の要素を完全に隠す */
+.search-toggle-checkbox,
+.smp-search-trigger-btn {
+  display: none;
+}
+
+.header-list {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.search-form {
+  display: flex;
+  width: 100%;
+  height: 35px;
+  max-width: 600px;
+  min-width: 150px;
+}
+
+.search-bar {
+  width: 100%;
+  flex: 1;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+  outline: none;
+
+  &:focus {
+    border-color: orange;
+    box-shadow: 0 0 5px rgba(255, 165, 0, 0.3);
+  }
+}
+
+.search-btn {
+  width: 60px;
+  background-color: #eee;
+  color: #666;
+  border: 1px solid #ccc;
+  border-left: none;
+  border-radius: 0 4px 4px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  i {
+    color: #666;
+    font-size: 16px;
+  }
+}
+
+.header-menus {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+}
+
+.header-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.user-menu {
+  padding: 13px 10px;
+}
+
+.user-nickname {
+  margin-right: 10px;
+  white-space: nowrap;
+  display: block;
+  text-align: right;
+}
+
+.user-image {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.log-in-menu {
+  padding: 23px 10px;
+  margin-right: 30px;
+}
+
+.sign-up-menu {
+  padding: 23px 10px;
+  margin-right: 20px;
+}
+
+#modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.modal {
+  background-color: whitesmoke;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  display: none;
+  position: fixed;
+  top: 70px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  z-index: 1001;
+}
+
+.modal-wrapper {
+  width: 80%;
+}
+
+.modal-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 360px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: white;
+  text-decoration: none;
+  transition: opacity 0.2s;
+
+  i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+  }
+}
+
+.two-columns-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+  max-width: 360px;
+
+  .modal-btn {
+    padding: 10px 5px;
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  i {
+    margin-right: 5px;
+    font-size: 1rem;
+  }
+}
+
+.fa-envelope  { color: #666666; }
+.fa-google    { color: deepskyblue; }
+.fa-x-twitter { color: #000000; }
+.fa-facebook  { color: #1877F2; }
+.fa-line      { color: #06C755; }
+
+.modal.sign-up {
+  height: 220px;
+  width: 420px;
+  right: 2%;
+}
+
+.modal.log-in-user {
+  min-height: 160px;
+  width: 200px;
+  right: 2%;
+  background-color: whitesmoke;
+}
+
+.log-in-user-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.my-page-btn, .log-out-btn {
+  border-radius: 6px;
+  padding: 12px 25px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1.5px solid #ddd;
+  transition: all 0.3s;
+}
+
+.my-page-btn-text, .log-out-btn-text {
+  font-size: 16px;
+}
+
+@include tablet {
+  .bookput-header-logo {
+    width: 180px;
+  }
+
+  .search{
+    margin: 0 30px;
+  }
+
+  .log-in-menu {
+    margin-right: 10px;
+  }
+
+  .sign-up-menu {
+    margin-right: 0;
+  }
+}
+
+@include mobile {
+  .header-fixed-disable {
+    .header {
+      position: static;
+      margin-top: 0;
+      padding-top: 0;
+    }
+  }
+  
+  .header-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    padding: 10px 15px;
+  }
+
+  .header-logo {
+    margin-left: 0;
+  }
+  
+  .bookput-header-logo {
+    width: 130px;
+    height: auto;
+  }
+
+  .header-list {
+    position: static; /* PC版や以前の絶対配置（top: -70pxなど）を完全に解除 */
+    width: 100%;
+    height: auto;
+    background-color: transparent;
+    padding-top: 8px;
+    box-shadow: none;
+    display: block;
+  }
+
+  .search {
+    width: 90%;
+    margin: 0;
+  }
+
+  .search-bar {
+    height: 38px;
+  }
+  .search-btn {
+    height: 38px;
+  }
+
+  .header-menus {
+    margin-left: 0;
+    height: auto;
+
+    .user-menu, .log-in-menu, .sign-up-menu {
+      height: auto;
+    }
+
+    .user-menu{
+      position: absolute;
+      top: 10px;
+      right: 12px;
+    }
+
+    .user-menu{
+      padding: 3px 0;
+    }
+
+    .user-nickname {
+      display: none;
+    }
+
+    .user-image {
+      width: 45px;
+      height: 45px;
+    }
+
+    .log-in-menu, .sign-up-menu {
+      position: absolute;
+      top: 18px;
+      right: 20px;
+      padding: 5px 0;
+    }
+
+    .log-in-menu {
+      position: absolute;
+      right: 80px;
+    }
+    .sign-up-menu {
+      margin-right: 0;
+    }
+  }
+
+  .modal-wrapper {
+    width: 90%;
+  }
+
+  .modal.sign-up {
+    top: 50px;
+    right: 10px;
+    width: 280px;
+    height: auto;
+    padding: 18px 10px;
+    border-radius: 8px;
+    
+    .modal-btn {
+      font-size: 12px;
+      padding: 8px;
+    }
+    .two-columns-layout {
+      gap: 6px;
+    }
+  }
+
+  .modal.log-in-user {
+    position: fixed;
+    top: 60px;
+    right: 10px;
+    width: 180px;
+    min-height: auto;
+    padding: 15px;
+    border-radius: 8px;
+
+    .log-in-user-container {
+      gap: 8px;
+    }
+    .my-page-btn, .log-out-btn {
+      padding: 8px 15px;
+      width: 100%;
+      justify-content: center;
+    }
+    .my-page-btn-text, .log-out-btn-text {
+      font-size: 14px;
+    }
+  }
+}

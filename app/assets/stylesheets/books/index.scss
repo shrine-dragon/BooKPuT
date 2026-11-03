@@ -1,0 +1,419 @@
+@import "config";
+
+.book-post-list {
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    asset-url("bookshelves.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.book-post-list-wrapper {
+  padding: 0 60px 30px;
+}
+
+.book-post-list-heading {
+  text-align: center;
+  padding: 30px 0 15px;
+  font-weight: bold;
+  font-size: 25px;
+  color: orange;
+}
+
+.book-cards-container {
+  width: 90%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.book-cards.is-sliding .book-card {
+  transform: scale(1);
+  transition: none;
+}
+
+.slick-list {
+  overflow: hidden;
+  z-index: 1;
+}
+
+.book-cards{
+  .slick-prev,
+  .slick-next {
+    position: absolute;
+    top: 220px;
+    transform: translateY(-50%);
+    z-index: 10;
+    filter: brightness(100%);
+    cursor: pointer;
+  }
+
+  .slick-prev {
+    left: -45px;
+    right: auto;
+  }
+
+  .slick-next {
+    right: -35px;
+    left: auto;
+  }
+
+  .slick-prev:before,
+  .slick-next:before {
+    color: orange;
+    font-size: 35px;
+    font-weight: bold;
+    opacity: 1;
+  }
+}
+
+.empty-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+}
+
+.empty-message.top-page p {
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}
+
+.app-description {
+  height: 550px;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+    asset-url("app-description.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app-description-wrapper {
+  max-width: 1280px;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+
+  h2 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 60px;
+    margin-bottom: 25px;
+  }
+  p {
+    text-align: left;
+    font-size: 40px;
+    margin-bottom: 10px;
+    line-height: 1.8;
+  }
+  .app-download-text {
+    text-align: left;
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+}
+
+.store-btns {
+  display: flex;
+  gap: 15px;
+}
+
+.store-btn {
+  height: 60px;
+  width: 180px;
+}
+
+.app-feature {
+  background-color: linen;
+  padding: 50px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.app-feature-outer {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.app-feature-heading {
+  text-align: center;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.app-feature-wrapper.swiper {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.app-feature-container.swiper-wrapper {
+  display: flex;
+  width: 100%;
+  height: auto;
+}
+
+.app-feature-contents {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+.feature-image {
+  display: block;
+  width: 100%;
+  max-width: 650px;
+  height: auto;
+  margin: 30px auto;
+  flex-shrink: 0;
+  border: 5px solid #FFF;
+  box-shadow: 0 0 5px #999;
+}
+
+.app-feature-sentence {
+  font-size: 30px;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.pagination {
+  text-align: center;
+  margin-top: 20px;
+  
+  .swiper-pagination-bullet-active {
+    background: #F93;
+  }
+}
+
+.faq {
+  width: 100%;
+}
+
+.faq-wrapper {
+  width: 65%;
+  margin: 0 auto;
+  padding-bottom: 20px;
+}
+
+.faq-heading {
+  text-align: center;
+  padding: 60px 0;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.question-and-answer {
+  padding-bottom: 10px;
+  margin-bottom: 40px;
+  justify-content: center;
+  border-bottom: 1px solid #ccc;
+  position: relative;
+  cursor: pointer;
+  text-align: left;
+  
+  span {
+    position: absolute;
+    top: 0;
+    right: 5px;
+    color: #ccc;
+    font-size: 30px;
+  }
+}
+
+.question, .answer {
+  font-size: 18px;
+}
+
+.answer {
+  padding-top: 10px;
+  display: none;
+}
+
+.right-bottom-btn {
+  width: 190px;
+  text-align: center;
+  right: 30px;
+  position: fixed;
+  z-index: 1001;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.right-bottom-btn.post {
+  background-color: #F93;
+  padding: 15px;
+  bottom: 30px;
+}
+
+.right-bottom-btn-text {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+@include tablet{
+  .app-description{
+    height: 500px;
+  }
+
+  .app-description-wrapper {
+    h2 {
+      font-size: 45px;
+    }
+    p {
+      font-size: 30px;
+    }
+    .app-download-text {
+      font-size: 15px;
+    }
+  }
+  
+  .app-feature{
+    height: auto;
+    min-height: 500px;
+    padding: 40px 0;
+  }
+
+  .app-feature-outer {
+    width: 90%;
+    max-width: 700px;
+  }
+
+  .feature-image {
+    max-width: 80%;
+  }
+}
+
+@include mobile {
+  .book-post-list-wrapper {
+    padding: 0 60px 15px;
+  }
+
+  .book-post-list-heading {
+    font-size: 20px;
+  }
+
+  .book-cards{
+    .slick-prev, .slick-next {
+      position: absolute;
+      top: 150px;
+    }
+  }
+
+  .post-btn-container {
+    text-align: center;
+    margin: 10px 0;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+  }
+
+  .post-btn {
+    display: inline-block;
+    background-color: orange;
+    padding: 12px 0;
+    width: 80%;
+    max-width: 300px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  }
+
+  .post-btn-text {
+    font-size: 16px;
+  }
+
+  .app-description {
+    height: 380px;
+  }
+
+  .app-description-wrapper {
+    width: 95%;
+    h2 {
+      font-size: 22px;
+    }
+    p {
+      font-size: 18px;
+    }
+    .app-download-text {
+      font-size: 15px;
+    }
+  }
+
+  .store-btn {
+    height: 50px;
+    width: 140px;
+  }
+
+  .app-feature {
+    height: auto;
+    min-height: 350px;
+    padding: 30px 0;
+  }
+
+  .app-feature-outer {
+    width: 90%;
+  }
+
+  .app-feature-heading {
+    font-size: 20px;
+    padding: 0;
+  }
+
+  .feature-image{
+    box-shadow: none;
+  }
+
+  .app-feature-sentence {
+    font-size: 15px;
+    text-align: left;
+  }
+
+  .pagination {
+    margin-top: 10px;
+  }
+
+  .faq {
+    padding: 10px;
+  }
+
+  .faq-wrapper {
+    width: 90%;
+    padding: 0;
+  }
+
+  .faq-heading {
+    font-size: 20px;
+    padding: 20px 0 30px;
+  }
+
+  .question-and-answer{
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+  }
+
+  .question-and-answer span {
+    font-size: 15px;
+  }
+
+  .question, .answer {
+    font-size: 12px;
+    width: 90%;
+  }
+}

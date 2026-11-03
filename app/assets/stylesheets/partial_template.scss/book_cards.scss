@@ -1,0 +1,235 @@
+@import "config";
+
+.book-cards {
+  padding: 10px 0;
+  margin: 10px 15px;
+  outline: none;
+  display: flex;
+  flex-direction: column;
+
+  &.slick-slider {
+    display: block;
+    padding: 0;
+    margin: 0;
+  }
+
+  // スライド中のガード（JSのis-slidingクラスと連動）
+  &.is-sliding {
+    .book-card {
+      pointer-events: none;
+      transform: scale(1);
+      transition: none;
+      opacity: 1;
+    }
+  }
+}
+
+// カード本体 & ホバーアニメーション（統合・修正版）
+.book-card {
+  display: block;
+  height: 100%;
+  position: relative;
+  backface-visibility: hidden;
+  will-change: transform;
+  /* 影や背景の変化だけを滑らかにする */
+  transition: box-shadow 0.3s ease, background-color 0.3s ease; 
+
+  // 🔥 JSでホバー判定（is-hovered）がついた時の挙動
+  &.is-hovered {
+    z-index: 10; /* 前後関係を手前に */
+
+    // 額縁（フレーム）の演出：サイズを変えずに立体感を出す
+    .frame {
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+      background: #fcfcfc;
+    }
+
+    // キラリと光るエフェクトを起動
+    .frame::before {
+      left: 150%;
+    }
+
+    // 隠れていた詳細情報（ハッシュタグやテキスト）を下部にすっと表示
+    .hover-details {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+      height: auto;
+      margin-top: 15px;
+      transform: translateY(0);
+    }
+  }
+}
+
+// カードの内部コンポーネント（額縁・画像・情報）
+.frame {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 10px;
+  background: #FFF;
+  border: 12px solid;
+  border-image: linear-gradient(to right bottom, #e0d9b6, #b4983a) 1;
+  outline: 4px outset #efe9cc;
+  position: relative; /* 光のエフェクトの基準位置 */
+  overflow: hidden; /* 👈 光が額縁の外にはみ出さないように今回はhiddenにする */
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+
+  // 【光のライティング・エフェクト仕込み】
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%; /* スタートは左側の見えない場所 */
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.5) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: skewX(-25deg); /* 斜めにする */
+    transition: left 0.6s ease; /* 光が通り過ぎるスピード */
+    pointer-events: none;
+  }
+}
+
+.card-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: visible;
+}
+
+.image-area {
+  height: 350px;
+  overflow: hidden;
+  flex-shrink: 0; 
+
+  .book-posted-image, 
+  .book-posted-image.no-exist {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.card-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+  font-size: 1.2rem;
+  background: white;
+  padding: 4px;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-badge.book-poster{
+  top: 15px;
+  right: 15px;
+  .user-image{
+    width: 60px;
+    height: 60px;
+  }
+  .user-image.no-exist{
+    background: rgba(255, 255, 255, 0.8); 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    color: #666; 
+  }
+}
+
+.info-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1; 
+  padding: 10px 0;
+  background: #fff;
+  overflow: visible;
+}
+
+.title-plate {
+  max-width: 90%;
+  padding: 6px 8px;
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.book-title {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hover-details {
+  display: none; 
+  width: 100%;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+  position: relative;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(5px);
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.3s;
+}
+
+.category-tag {
+  display: block;
+  margin-bottom: 4px;
+  color: #f93;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.genre-hashtags-area {
+  margin: 4px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.genre-tag {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.content-list {
+  margin: 0;
+  padding: 0;
+
+  li {
+    max-width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@include mobile {
+  .image-area {
+    height: 200px;
+  }
+
+  .card-badge.book-poster{
+    top: 5px;
+    right: 5px;
+    .user-image{
+      width: 40px;
+      height: 40px;
+    }
+  }
+}

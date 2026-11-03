@@ -1,0 +1,42 @@
+@import "config";
+
+.sign-up-page{
+  .modal.log-in {
+    top: 50%;
+  }
+}
+
+.register-password{
+  position: relative;
+  width: 100%;
+  
+  .toggle-password{
+    right: 5%;
+    top: 70%;
+    z-index: 10;
+  }
+}
+
+@include tablet{
+  .sign-up-page{
+    .modal.log-in {
+      top: 50.5%;
+    }
+  }
+
+  .register-password{
+    .toggle-password{
+      right: 4%;
+      top: 47px;
+    }
+  }
+}
+
+@include mobile {
+  .register-password{
+    .toggle-password{
+      right: 4%;
+      top: 40px;
+    }
+  }
+}

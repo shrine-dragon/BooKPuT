@@ -1,0 +1,82 @@
+<div class="header">
+  <div class="header-wrapper">
+    <div class="header-logo">
+      <%= link_to root_path do %>
+        <%= image_tag("BooKPuT-logo.png", class: "bookput-header-logo") %>
+      <% end %>
+    </div>
+
+    <div class="header-list">
+      <div class="search">
+        <%= form_with(url: search_books_path, local: true, method: :get, class: "search-form") do |form| %>
+          <%= form.text_field :keyword, placeholder: "キーワードを入力してください", maxlength: "50", class: "search-bar" %>
+          <%= form.button type: :submit, class: "search-btn hovers" do %>
+            <i class="fas fa-search"></i>
+          <% end %>
+        <% end %>
+      </div>
+      <ul class="header-menus">
+        <% if user_signed_in? %>
+          <li class="user-menu header-display hovers">
+            <span class="user-nickname"><%= current_user.nickname %></span>
+            <% if current_user.image.attached? %>
+              <%= image_tag current_user.image, class: 'user-image' %>
+            <% else%>
+              <%= image_tag "no-image.png", class: 'user-image no-exist' %>
+            <% end %>
+          </li>
+        <% else %>
+          <li class="log-in-menu header-display hovers">
+            <span class="log-in-menu-text">ログイン</span>
+          </li>
+          <li class="sign-up-menu header-display hovers">
+            <span class="sign-up-menu-text">新規登録</span>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="modal-overlay"></div>
+
+<%= render 'partial_template/modal_log_in' %>
+
+<div class="modal sign-up">
+  <div class="modal-wrapper sign-up">
+    <div class="modal-container sign-up">
+      <%= link_to(new_user_registration_path, class: "modal-btn hovers") do %>
+        <i class="fa-regular fa-envelope"></i>メールアドレスでアカウント作成
+      <% end %>
+      <div class="two-columns-layout">
+        <%= link_to(user_google_oauth2_omniauth_authorize_path, class: "modal-btn hovers", method: :post) do %>
+          <i class="fa-brands fa-google"></i>Google
+        <% end %>
+        <%= link_to(user_twitter_omniauth_authorize_path, class: "modal-btn hovers", method: :post) do %>
+          <i class="fa-brands fa-x-twitter"></i>X(Twitter)
+        <% end %>
+        <%= link_to(user_facebook_omniauth_authorize_path, class: "modal-btn hovers", method: :post) do %>
+          <i class="fa-brands fa-facebook"></i>Facebook
+        <% end %>
+        <%= link_to(user_line_omniauth_authorize_path, class: "modal-btn hovers", method: :post,data: { turbo: false }) do %>
+          <i class="fa-brands fa-line"></i>LINE
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal log-in-user">
+  <div class="modal-wrapper log-in-user">
+    <ul class="log-in-user-container">
+      <li class="my-page-btn hovers">
+        <i class="fa-solid fa-user"></i>
+        <%= link_to "マイページ", current_user, class: "my-page-btn-text" %>
+      </li>
+      <li class="log-out-btn hovers">
+        <i class="fa-right-from-bracket"></i>
+        <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "log-out-btn-text" %>
+      </li>
+    </ul>
+  </div>
+</div>

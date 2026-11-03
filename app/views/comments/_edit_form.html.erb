@@ -1,0 +1,14 @@
+<%= form_with model: [book, comment], local: false, class: "edit-comment-form" do |f| %>
+  <div class="post-comment-container">
+    <div class="post-comment-field">
+      <div class="comment-form">
+        <%= f.text_field :text, class: "comment-form-text edit-input", maxlength: "100" %>
+      </div>
+      <div class="comment-btn">
+        <%= f.button type: "submit", class: "submit-comment-btn hovers edit-comment-btn" do %>
+          <i class="fa-solid fa-paper-plane"></i>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

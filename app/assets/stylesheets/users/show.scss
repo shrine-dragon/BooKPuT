@@ -1,0 +1,182 @@
+@import "config";
+
+.my-page-wrapper {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.my-page-heading {
+  font-size: 25px;
+  font-weight: bold;
+  margin: 30px 0;
+}
+
+.my-page-container {
+  width: 100%;
+}
+
+.my-page-contents {
+  width: 100%;
+  padding: 10px 0 10px 10px;
+  background-color: ghostwhite;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.contents-heading {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.registered-info {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.current-user-info {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.current-user-image {
+  height: 270px;
+  width: 270px;
+  object-fit: cover;
+}
+
+.edit-profile.hovers, .edit-log-in-info.hovers {
+  border: 1px solid black;
+  padding: 10px 20px;
+  border-radius: 24px;
+}
+
+.edit-profile.hovers {
+  width: 220px;
+  margin: 20px 0 10px;
+}
+
+.edit-log-in-info.hovers {
+  width: 250px;
+  margin: 20px 0 10px;
+}
+
+.edit-profile.btn-text, .edit-log-in-info.btn-text {
+  color: royalblue;
+}
+
+/* 外枠コンテナを矢印の唯一の起点（基準）にする */
+.book-post-images-container {
+  position: relative;
+  width: 100%;
+}
+
+/* 可変する内部要素の起点資格を解除 */
+.book-post-images,
+.book-post-images .slick-list,
+.book-post-images .slick-track {
+  position: static;
+}
+
+/* 矢印の位置を中央に固定 */
+.my-page-contents {
+  .book-post-images-container {
+    .slick-prev,
+    .slick-next {
+      top: 180px;
+    }
+
+    .slick-prev {
+      left: -55px;
+      right: auto;
+    }
+
+    .slick-next {
+      right: -35px;
+      left: auto;
+    }
+
+    .slick-prev:before,
+    .slick-next:before {
+      color: orange;
+      font-size: 35px;
+      font-weight: bold;
+      opacity: 1;
+    }
+  }
+}
+
+/* マイページ用カードのスタイル調整 */
+.book-card.is-mini {
+  width: 100%; 
+
+  .image-area {
+    height: 300px;
+    position: relative;
+  }
+
+  .book-title {
+    font-size: 14px;
+  }
+}
+
+.empty-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+}
+
+.empty-message.my-page p {
+  color: #888;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}
+
+.account-cancellation {
+  margin: -5px 0 15px;
+  position: relative;
+  z-index: 100;
+}
+
+.cancel-account-text {
+  color: red;
+}
+
+@include mobile {
+  .my-page-heading {
+    font-size: 20px;
+  }
+
+  .my-page-contents {
+    .slick-prev {
+      left: -35px;
+    }
+    .slick-next {
+      right: -10px;
+    }
+  }
+
+  .contents-heading {
+    text-align: center;
+    font-size: 18px;
+  }
+
+  .registered-info {
+    font-size: 16px;
+  }
+
+  .current-user-info {
+    font-size: 15px;
+  }
+
+  .empty-message.my-page p {
+    font-size: 15px;
+  }
+
+  .cancel-account-text{
+    font-size: 12px;
+  }
+}

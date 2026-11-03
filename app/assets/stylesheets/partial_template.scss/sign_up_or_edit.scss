@@ -1,0 +1,84 @@
+@import "config";
+
+form.sign-up.-or-edit {
+  flex: 1; 
+}
+
+/* ボタンの共通デザイン */
+$btn-bg: #f0f0f0;      /* 背景色（薄いグレー） */
+$btn-border: #ccc;    /* 境界線 */
+$btn-radius: 4px;     /* 角丸 */
+$btn-padding: 5px 15px;
+
+.form-text,
+.upload-image,
+.birth-date-wrapper,
+.pull-down-wrapper
+{
+  width: 100%;
+  text-align: left;
+}
+
+.upload-image {
+  &::file-selector-button {
+    background-color: $btn-bg;
+    border: 1px solid $btn-border;
+    border-radius: $btn-radius;
+    padding: $btn-padding;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+    margin-right: 10px; /* 右側の「選択されていません」との余白 */
+  }
+}
+
+.upload-image-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* 左寄せ */
+}
+
+.upload-image-list img {
+  width: 200px;
+  height: auto;
+  display: block;
+  margin-top: 10px;
+}
+
+.preview-img {
+  width: 150px;
+  height: auto;
+  margin-top: 10px;
+  border-radius: 4px;
+}
+
+.delete-image-btn {
+  display: block; /* 画像の真下に配置 */
+  margin-top: 8px;
+  background-color: $btn-bg;
+  border: 1px solid $btn-border;
+  border-radius: $btn-radius;
+  padding: $btn-padding;
+  cursor: pointer;
+  font-size: 14px;
+  width: fit-content;    /* 文字幅に合わせる */
+  transition: background-color 0.2s;
+}
+
+.input-birth-date, .select-pull-down {
+  height: 40px;
+  width: 35%;
+  min-width: 120px;
+}
+
+@include mobile{
+  .urge-log-in{
+    font-size: 14px;
+    text-align: center;
+    padding-bottom: 20px;
+  }
+
+  .log-in-here{
+    font-weight: bold;
+  }
+}

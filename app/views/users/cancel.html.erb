@@ -1,0 +1,51 @@
+<%= render 'partial_template/header' %>
+
+<div class="cancel-account-page">
+  <%= render layout: 'partial_template/cancel_account', locals: { title: 'アカウント解約' } do %>
+    <h3 class="select-reason-cancel-account">※解約理由を以下から選択してください(複数可)。</h3>
+    <ul class="reasons-to-cancel-account">
+      <li>
+        <label><%= check_box_tag :reason1 %>間違えて登録した</label>
+      </li>
+      <li>
+        <label><%= check_box_tag :reason2 %>そもそも本を読まない</label>
+      </li>
+      <li>
+        <label><%= check_box_tag :reason3 %>利用したがつまらなかった</label>
+      </li>
+      <li>
+        <label><%= check_box_tag :reason4 %>その他(以下のフォームに自由にご記入ください)</label>
+      </li>
+    </ul>
+    <div class="input-text-freely-area">
+      <%= text_area_tag :dummy_feedback, nil, placeholder: "自由記述欄（最大500文字）", maxlength: 500, class: "input-text-form" %>
+    </div>
+
+    <div class="continue-account btn-on-center">
+      <%= link_to(root_path, class: "continue-account-btn") do %>
+        <span class="continue-account btn-text">利用を継続する</span>
+      <% end %>
+    </div>
+    <div class="cancel-account btn-on-center">
+      <div class="cancel-account-btn trigger-confirm" id="first-cancel-btn">
+        <span class="cancel-account btn-text">解約する</span>
+      </div>
+    </div>
+
+    <div id="final-confirm-area" style="display: none;">
+      <div class="warning-text-area">
+        <p class="warning-text">アカウントを本当に解約しますか？</p>
+        <p class="warning-text">一度解約すると復元できません。</p>
+      </div>
+      <div class="cancel-account-really btn-on-center">
+        <%= link_to(user_path(@user), method: :delete, class: "cancel-account-btn finally-cancel-link") do %>
+          <span class="cancel-account-really btn-text" id="cancel-account-really">本当に解約する</span>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%= render 'partial_template/return_btn' %>
+
+<%= render 'partial_template/footer' %>

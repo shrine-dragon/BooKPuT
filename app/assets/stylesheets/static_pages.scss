@@ -1,0 +1,185 @@
+@import "config";
+
+.static-page-wrapper{
+  width: 70%;
+  margin: 0 auto;
+  background-color: aliceblue;
+}
+
+.static-page-heading{
+  text-align: center;
+  padding: 30px 0;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.static-page-container{
+  padding-bottom: 2px;
+  margin: 0 auto;
+  width: 80%;
+}
+
+.static-page-contents{
+  margin: 30px 0 50px;
+  p{
+    margin: 15px 0;
+  }
+
+  ul{
+    padding-left: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    > li {
+      list-style-type: disc; /* 黒丸 */
+    }
+  }
+
+  ol {
+    margin: 5px 0 0 16px;
+    padding-left: 5px;
+    display: flex;
+    flex-direction: column;
+    li {
+      list-style-type: decimal; /* 数字 */
+    }
+  }
+
+  li{
+    list-style-position: outside;
+    margin-bottom: 8px;
+    line-height: 1.6;
+  }
+
+  span{
+    margin-left: 1.0rem;
+  }
+}
+
+.static-page-chapter{
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid gray;
+}
+
+.that-is-all{
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+/* 会社概要 */
+.company_detail {
+  .static-page-wrapper {
+    padding-bottom: 60px;
+  }
+
+  /* 潰れてしまったテーブルのスタイルを再定義 */
+  table {
+    width: 80%;
+    margin: 0 auto;
+    border-collapse: collapse;    /* 隣り合う枠線を重ねる */
+    border: 1px solid #ccc;
+    background-color: #fff;
+  }
+
+  /* 見出し(th)とデータセル(td) */
+  th, td {
+    padding: 15px 20px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    line-height: 1.6;
+    vertical-align: middle; /* 縦方向の中央揃え */
+  }
+
+  /* 左側の列（項目名）のスタイル */
+  th, td:first-child {
+    width: 25%;                  /* 左側の列の幅を25%に固定 */
+    background-color: #f9f9f9; /* ほんのりグレーにして見出し感を出す */
+    font-weight: bold;
+    color: #333;
+  }
+
+  /* 右側の列（内容）のスタイル */
+  td {
+    text-align: left;
+  }
+
+  ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    
+    li {
+      margin-bottom: 5px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+@include tablet{
+  .static-page-wrapper{
+    width: 90%;
+  }
+}
+
+@include mobile {
+  .static-page-wrapper{
+    width: 90%;
+  }
+
+  .static-page-heading {
+    font-size: 20px;
+    padding: 30px 0 20px;
+  }
+
+  .first-sentence{
+    font-size: 15px;
+  }
+
+  .static-page-container{
+    width: 90%;
+  }
+
+  .static-page-contents{
+    margin: 30px 0;
+    p{
+      font-size: 15px;
+    }
+    li{
+    margin-bottom: 4px;
+    line-height: 1.2;
+    }
+  }
+
+  .static-page-chapter{
+    font-size: 18px;
+  }
+
+  .company_detail {
+    .static-page-wrapper {
+      padding-bottom: 5px;
+    }
+
+    table{
+      width: 95%;
+      margin: 0 auto 20px;
+    }
+
+    tr, td{
+      padding: 12px 12px;
+      font-size: 15px;
+    }
+
+    th, td:first-child {
+      width: 40%;
+    }
+
+    ul{
+      li{
+        line-height: 1.2;
+      }
+    }
+  }
+}

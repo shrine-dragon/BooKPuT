@@ -1,0 +1,107 @@
+@import "config";
+
+.modal.log-in {
+  position: fixed;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  min-height: 450px;
+  padding: 25px 20px;
+  
+  display: none;
+  flex-direction: column;
+  background-color: whitesmoke;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.close-modal {
+  display: block;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 20px;
+}
+
+.modal-wrapper.log-in{
+  margin-top: 30px;
+}
+
+.log-in-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 360px;
+  margin-bottom: 15px;
+  label {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+    width: 100%;
+  }
+}
+
+.log-in-form-text {
+  margin-bottom: 5px;
+}
+
+.input-mail-address, .input-password {
+  width: 100%;
+  height: 45px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 5px 0 15px;
+}
+
+.log-in-password {
+  position: relative;
+
+  .toggle-password {
+    right: 5%;
+    top: 57%;
+  }
+}
+
+.log-in-submit-btn {
+  width: 100%;
+  height: 45px;
+  border: none;
+  font-size: 16px;
+  background-color: orange;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+
+.forget-password {
+  color: cornflowerblue;
+}
+
+.urge-sign-up.log-in-modal-footer{
+  margin-top: 15px;
+  font-size: 16px;
+}
+
+@include mobile {
+  .modal.log-in {
+    width: 85%;
+    min-width: 290px;
+    padding: 35px 20px 20px;
+    .modal-wrapper.log-in{
+      margin-top: 20px;
+    }
+
+    .modal-btn {
+      font-size: 12px;
+      padding: 8px;
+    }
+    .two-columns-layout {
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+  }
+}

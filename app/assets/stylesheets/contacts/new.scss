@@ -1,0 +1,13 @@
+.form-container.contact{
+  width: 80%;
+}
+
+.input-textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  /* 💡 ユーザーが斜めに引き伸ばしてデザインを崩すのを防ぎ、上下のみリサイズ可能にする */
+  resize: vertical;
+}

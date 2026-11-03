@@ -1,0 +1,2 @@
+$('#good-<%= @comment.id %>').html("<%= j(render 'partial_template/comment_good_btn', comment: @comment) %>");
+$('#bad-<%= @comment.id %>').html("<%= j(render 'partial_template/comment_bad_btn', comment: @comment) %>");

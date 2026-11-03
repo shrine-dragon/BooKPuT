@@ -1,0 +1,124 @@
+<%= render 'partial_template/header' %>
+
+<div class="my-page">
+  <div class="my-page-wrapper">
+    <h2 class="my-page-heading">
+      マイページ
+    </h2>
+    <div class="my-page-container">
+      <div class="my-page-contents">
+        <h3 class="contents-heading">
+          プロフィール
+        </h3>
+        <p class="registered-info">ニックネーム</p>
+        <p class="current-user-info">
+          <%= @user.nickname %>
+        </p>
+        <p class="current-user-info">
+          <% if @user.image.attached? %>
+            <%= image_tag @user.image, class: "current-user-image" %>
+          <% else %>
+            <%= image_tag "no-image.png", class: "current-user-image", id:"no-image" %>
+          <% end %>
+        </p>
+        <p class="registered-info">生年月日</p>
+        <p class="current-user-info">
+          <%= @user.birth_date.strftime('%Y/%m/%d') %>
+        </p>
+        <p class="registered-info">性別</p>
+        <p class="current-user-info">
+          <%= @user.gender.name %>
+        </p>
+        <div class="edit-profile hovers">
+          <%= link_to(edit_profile_user_path(current_user), class: "edit-profile-btn") do %>
+            <span class="edit-profile btn-text">プロフィールを編集する</span>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="my-page-contents">
+        <h3 class="contents-heading">
+          ログイン情報
+        </h3>
+        <p class="registered-info">メールアドレス</p>
+        <p class="current-user-info">
+          <%= @user.masked_email %>
+        </p>
+        <div class="edit-log-in-info hovers">
+          <%= link_to(edit_email_user_path(current_user), class: "edit-email-btn") do %>
+            <span class="edit-log-in-info btn-text">メールアドレスを変更する</span>
+          <% end %>
+        </div>
+        <p class="registered-info">パスワード</p>
+        <p class="current-user-info">********</p>
+        <div class="edit-log-in-info hovers">
+          <%= link_to(edit_password_user_path(current_user), class: "edit-password-btn") do %>
+            <span class="edit-log-in-info btn-text">パスワードを変更する</span>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="my-page-contents books-list">
+        <h3 class="contents-heading">
+          マイ投稿：<%= @my_books.length %>件
+        </h3>
+        <% if @my_books.any? %>
+          <div class="book-post-images-container">
+            <ul class="book-post-images slick-slider">
+              <% @my_books.each do |my_book| %>
+                <%= render 'partial_template/book_cards', book: my_book, path_id: my_book.id, frame_color: 'white', is_mini: true, badge_type: 'book-poster' %>
+              <% end %>
+            </ul>
+          </div>
+        <% else %>
+          <div class="empty-message my-page"><p>投稿はありません</p></div>
+        <% end %>
+      </div>
+
+      <div class="my-page-contents good-books-list">
+        <h3 class="contents-heading">
+          高評価リスト：<%= @my_good_books.length %>件
+        </h3>
+        <% if @my_good_books.any? %>
+          <div class="book-post-images-container">
+            <ul class="book-post-images slick-slider">
+              <% @my_good_books.each do |good_book| %>
+                <%= render 'partial_template/book_cards', book: good_book, path_id: good_book.id, frame_color: 'golden', is_mini: true, badge_type: 'good' %>
+              <% end %>
+            </ul>
+          </div>
+        <% else %>
+          <div class="empty-message my-page">
+            <p>投稿はありません</p>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="my-page-contents favorite-books-list">
+        <h3 class="contents-heading">
+          お気に入りリスト：<%= @my_favorite_books.length %>件
+        </h3>
+        <% if @my_favorite_books.any? %>
+          <div class="book-post-images-container">
+            <ul class="book-post-images slick-slider">
+              <% @my_favorite_books.each do |favorite_book| %>
+                <%= render 'partial_template/book_cards', book: favorite_book, path_id: favorite_book.id, frame_color: 'white', is_mini: true, badge_type: 'favorite' %>
+              <% end %>
+            </ul>
+          </div>
+        <% else %>
+          <div class="empty-message my-page">
+            <p>投稿はありません</p>
+          </div>
+        <% end %>
+      </div>
+      <div class="account-cancellation">
+        <p class="underline-text"><%= link_to "アカウントを解約する", cancel_user_path(@user), class: "cancel-account-text" %></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render 'partial_template/return_btn' %>
+
+<%= render 'partial_template/footer' %>

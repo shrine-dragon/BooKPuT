@@ -1,0 +1,71 @@
+<li class="book-cards">
+  <%= link_to book_path(book), class: "book-card-link" do %>
+    <div class="book-card <%= local_assigns[:is_mini] ? 'is-mini' : '' %>">
+      <div class="frame <%= frame_color %>">
+        <div class="card-wrapper">
+          <div class="image-area" style="position: relative;">
+            <% if local_assigns[:badge_type] == 'good' %>
+              <div class="card-badge good">
+                <i class="fa-solid fa-thumbs-up" style="color: orange;"></i>
+              </div>
+            <% elsif local_assigns[:badge_type] == 'favorite' %>
+              <div class="card-badge favorite">
+                <i class="fa-solid fa-star" style="color: gold; filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.2));"></i>
+              </div>
+            <% elsif local_assigns[:badge_type] == 'book-poster' %>
+              <div class="card-badge book-poster">
+                <% if book.user.image.attached? %>
+                  <%= image_tag book.user.image, class: 'user-image', style: "filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.2));" %>
+                <% else%>
+                  <%= image_tag "no-image.png", class: 'user-image no-exist' %>
+                <% end %>
+              </div>
+            <% end %>
+            
+            <% if book.image.attached? %>
+              <%= image_tag book.image, class: "book-posted-image" %>
+            <% else %>
+              <%= image_tag "no-image.png", class: "book-posted-image no-exist" %>
+            <% end %>
+          </div>
+          
+          <div class="info-area">
+            <div class="title-plate">
+              <span class="book-title"><%= book.title %></span>
+            </div>
+            
+            <div class="hover-details">
+              <div class="category-hashtags-area">
+                <% unless [0, 10, 11].include?(book.category_id) %>
+                  <span class="category-tag" style="color: <%= book.category.color %>;">
+                    # <%= book.category.name %>
+                  </span>
+                <% end %>
+              </div>
+              <div class="genre-hashtags-area">
+                <% if book.genres.present? %>
+                  <% book.genres.each do |genre| %>
+                    <% unless [900, 901].include?(genre.id) %>
+                      <span class="genre-tag"># <%= genre.name %></span>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </div>
+              <div class="content-area">
+                <ul class="content-list">
+                  <% book.book_contents.take(2).each do |bc| %>
+                    <li><%= bc.content %></li>
+                  <% end %>
+                  <%# 3つ目がある場合の「…」表示も共通化 %>
+                  <% if book.book_contents.count > 2 %>
+                    <li>…</li>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</li>

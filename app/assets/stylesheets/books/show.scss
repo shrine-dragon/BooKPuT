@@ -1,0 +1,525 @@
+@import "config";
+
+.detail-wrapper.book-post-detail{
+  /* form-wrapperの本来のwidthは55% */
+  width: 80%;
+  background-color: bisque;
+  margin: 0 auto;
+
+  .smp-only {
+    display: none !important;
+  }
+
+  .post-detail-heading{
+    text-align: center;
+    padding: 30px 0;
+    font-weight: bold;
+    font-size: 25px;
+  }
+
+  .detail-container{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .detail-left, .detail-center, .detail-right{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
+
+  .detail-left, .detail-right{
+    width: 30%;
+    flex-shrink: 0;
+    justify-content: flex-start;
+  }
+
+  .detail-left {
+    padding-right: 15px;
+  }
+
+  .posted-by-field{
+    display: flex;
+    height: auto;
+  }
+
+  .user-my-page-link{
+    display: flex;
+  }
+
+  .posted-by{
+    margin-left: 10px;
+  }
+
+  .user-image.posted-by{
+    width: 60px;
+    height: 60px;
+  }
+
+  .user-nickname.posted-by{
+    font-weight: bold;
+    font-size: 22px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    text-align: left;
+    align-items: center;
+    padding: 13px 10px;
+  }
+
+  .detail-center {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+
+    .book-card-static {
+      width: 100%;
+
+      .book-card-link {
+        pointer-events: none; 
+        cursor: default;
+      }
+
+      .book-card {
+        transform: none;
+        box-shadow: none;
+        pointer-events: none; // 詳細画面ではホバー反応を無効化
+        cursor: none;
+        
+        .hover-details {
+          display: none; // 詳細画面では一覧のホバー中身は出さない
+        }
+      }
+    }
+  }
+
+  .frame.golden{
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+  }
+
+  .title-plate {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    text-align: center;
+    word-wrap: break-word;   /* 長い英単語などがあっても強制改行 */
+    overflow-wrap: break-word;
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 6px 8px;
+    box-shadow: inset 1px 1px 2px rgba(0,0,0,0.1);
+  }
+
+  .book-title {
+    display: inline-block; /* 文字数分の幅しか持たないインラインブロックにする */
+    text-align: left;
+    white-space: normal;    /* 改行を許可する */
+    font-size: 20px;
+    line-height: 1.4;       /* 改行した時の行間を確保 */
+    font-weight: bold;
+    color: #333;
+    max-width: 100%;
+  }
+
+  .reaction-icon-field{
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    position: relative;
+    z-index: 100;
+    margin-right: 20px;
+  }
+
+  .hashtags-area{
+    margin-left: 15px;
+  }
+
+  .category-hashtags-area, .genre-hashtags-area{
+    margin-top: 10px;
+  }
+
+  .category-tag{
+    font-size: 18px;
+  }
+
+  .genre-tag{
+    margin-right: 10px;
+  }
+
+    @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .fade-in-up {
+    opacity: 0; // 最初は隠す
+    animation: fadeInUp 1.2s ease-out forwards;
+    &.delay-1 { animation-delay: 0.3s; }
+    &.delay-2 { animation-delay: 0.6s; }
+  }
+
+  .content-item-field {
+    padding: 20px;
+    display: flex;
+    gap: 10px;
+    .content-item{
+      font-size: 20px;
+      font-weight: bold;
+      line-height: 1.6;
+      height: auto;
+      max-height: 450px;
+    }
+
+    &.vertical-text {
+      writing-mode: vertical-lr;
+      display: flex;
+      gap: 30px;
+      align-items: flex-start;
+      height: auto;
+      &.left-side {
+        align-items: flex-end;
+        .content-item {
+          writing-mode: vertical-lr;
+          border-right: 1px solid #333;
+          padding: 10px 15px 10px 5px;
+          min-height: 500px;
+        }
+      }
+      &.right-side {
+        align-items: flex-start;
+        .content-item {
+          writing-mode: vertical-lr;
+          border-left: 1px solid #333;
+          padding: 10px 5px 10px 15px;
+          min-height: 500px;
+        }
+      }
+    }
+
+    &.horizontal-text {
+      flex-direction: column;
+      width: 100%;
+      
+      .content-item {
+        width: 100%;
+        writing-mode: horizontal-tb;
+        border-top: 1px solid #333;
+        padding: 15px 0;
+      }
+    }
+  }
+
+  .content-item {
+    font-weight: bold;
+    font-size: 24px;
+  }
+
+  .detail-right {
+    padding-left: 15px;
+  }
+
+  .detail-right-upper{
+    height: auto;
+  }
+
+  .detail-right-btn-field{
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+  }
+
+  .detail-right-btn-field{
+    margin: 0 15px 20px 0;
+  }
+
+  .detail-right-btn{
+    padding: 10px 15px;
+    background-color: whitesmoke;
+    border-radius: 8px;
+  }
+
+  .detail-right-btn-text{
+    font-size: 16px;
+  }
+
+  .fa-thumbs-up, .fa-thumbs-down, .fa-star{
+    font-size: 25px;
+  }
+}
+
+.post-comment-wrapper{
+  margin: 0 auto 40px;
+  width: 85%;
+}
+
+.post-comment-container{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.post-comment-user-field{
+  display: flex;
+}
+
+.user-image.post-comment{
+  width: 50px;
+  height: 50px;
+  margin: 0 10px 0 30px;
+}
+
+.user-nickname.post-comment{
+  font-weight: bold;
+  font-size: 18px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  padding: 13px 0px;
+  margin-right: 40px;
+}
+
+.post-comment-field{
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  margin-top: 15px;
+}
+
+.comment-form{
+  flex-direction: column;
+}
+
+.comment-form-text{
+  width: 100%;
+  height: 30px;
+  padding: 8px 12px;
+  line-height: 1.5;
+  vertical-align: middle;
+}
+
+.comment-caution-text{
+  font-weight: bold;
+}
+
+.comment-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+  margin-left: 5px;
+  flex-shrink: 0;
+}
+
+.comment-btn.is-show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.submit-comment-btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  .fa-solid.fa-paper-plane {
+    font-size: 15px;
+    line-height: 1;
+    display: block;
+  }
+}
+
+.posted-comment-list-wrapper{
+  width: 85%;
+  border: 1px solid gainsboro;
+  margin: 0 auto 20px;
+}
+
+.posted-comment-number{
+  margin-bottom: 5px;
+  font-size: 20px;
+}
+
+.empty-message.none-comment{
+  height: 100px;
+}
+
+.posted-comment-center .post-comment-container {
+  border: none; /* 二重線を防ぐ */
+  padding: 0;
+  margin: 10px 0;
+}
+
+.view-more-comments-container{
+  margin: 10px 0;
+}
+
+@include tablet{
+  .detail-wrapper.book-post-detail {
+    width: 95%;
+  }
+}
+
+@include mobile {
+  .detail-wrapper.book-post-detail {
+    width: 90%;
+    margin: 0 auto 20px;
+
+    .post-detail-heading {
+      font-size: 20px;
+      padding: 20px 0 10px;
+    }
+
+    // 3カラムから1カラム（縦並び）へ
+    .detail-container {
+      flex-direction: column;
+      align-items: center;
+      width: 90%;
+      margin: 0 auto;
+    }
+
+    .detail-center {
+      width: 100%;
+      max-width: 450px;
+    }
+
+    .posted-by-field.smp-only {
+      display: flex !important;
+      align-items: center;
+      height: auto;
+      margin-bottom: 5px;
+      
+      .user-image.posted-by {
+        width: 45px;
+        height: 45px;
+      }
+      .user-nickname.posted-by {
+        font-size: 16px;
+        padding: 10px 0;
+      }
+    }
+
+    .smp-action-area.smp-only {
+      display: flex !important;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 15px;
+      padding: 0 5px;
+
+      .smp-btn-field, .reaction-icon-field {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .detail-smp-btn {
+        padding: 6px 12px;
+      }
+      .detail-smp-btn-text {
+        font-size: 14px;
+      }
+      .fa-thumbs-up, .fa-thumbs-down, .fa-star {
+        font-size: 22px;
+      }
+    }
+
+    .book-title {
+      font-size: 18px;
+    }
+
+    .hashtags-area {
+      margin: 10px 0 0 5px;
+    }
+
+    .category-tag {
+      font-size: 15px;
+    }
+
+    .content-item-field.horizontal-text.fade-in-up.smp-only {
+      display: flex !important;
+      padding: 10px 5px 15px;
+      
+      .content-item {
+        font-size: 16px;
+        padding: 12px 0;
+        line-height: 1.5;
+      }
+    }
+  }
+
+  .post-comment-wrapper {
+    width: 95%;
+    margin-bottom: 25px;
+
+    .post-comment-container {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .post-comment-user-field {
+      margin-bottom: 8px;
+      align-items: center;
+      
+      .user-image.post-comment {
+        margin-left: 5px;
+        width: 35px;
+        height: 35px;
+      }
+      .user-nickname.post-comment {
+        font-size: 14px;
+        padding: 0 10px;
+      }
+    }
+
+    .post-comment-field {
+      margin-left: 6px;
+      width: 100%;
+    }
+
+    .comment-form {
+      width: 100%;
+    }
+
+    .comment-form-text {
+      width: 100%;
+      font-size: 14px;
+    }
+
+    .comment-caution-text {
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    .comment-btn{
+      margin-left: 3px;
+    }
+
+    .submit-comment-btn{
+      .fa-solid.fa-paper-plane{
+        font-size: 15px;
+      }
+    }
+  }
+
+  .posted-comment-list-wrapper {
+    width: 90%;
+  }
+
+  .posted-comment-number{
+    font-size: 16px;
+    margin: 5px 0 0 5px;
+  }
+
+  .view-more-comments-text, .hide-comments-text{
+    font-size: 14px;
+  }
+}

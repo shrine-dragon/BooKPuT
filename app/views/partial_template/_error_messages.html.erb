@@ -1,0 +1,17 @@
+<% if model.errors.any? %>
+  <div class="error-wrapper">
+    <ul class="error-list">
+      <% if defined?(attribute) && attribute.present? %>
+        <% model.errors.full_messages_for(attribute).each do |message| %>
+          <li class="error-item"><%= message %></li>
+        <% end %>
+      <% elsif defined?(filter) && filter.present? %>
+        <% model.errors.full_messages.each do |message| %>
+          <% if message.include?(filter) %>
+            <li class="error-item"><%= message %></li>
+          <% end %>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

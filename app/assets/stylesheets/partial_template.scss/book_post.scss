@@ -1,0 +1,184 @@
+@import "config";
+
+.form-wrapper.book-post{
+  /* form-wrapperの本来のwidthは55% */
+  width: 70%;
+  background-color: bisque;
+  .input-text{
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.error-message{
+  color: #ff0000;
+  font-size: 14px;
+  line-height: 1.5;
+  display: block;
+  margin-bottom: 10px;
+  text-align: left;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  width: 100%;
+  font-weight: bold;
+}
+
+.external-search-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 15px;
+  /* 親の align-items: center を上書きして左に寄せる */
+  align-self: flex-start;
+  width: 100%;
+}
+
+.external-search-btn {
+  width: 160px;
+  font-size: 0.8rem;
+  padding: 7px 0px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #333;
+  background-color: ghostwhite;
+}
+
+#search-results-modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 900px;
+  max-height: 80vh;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px; right: 20px;
+  font-size: 30px;
+  color: #666;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 15px;
+  overflow-y: auto;
+  max-height: 60vh;
+  margin-top: 20px;
+}
+
+.result-card {
+  text-align: center;
+  cursor: pointer;
+  padding: 5px;
+  transition: transform 0.2s;
+}
+
+.result-card:hover{
+  transform: scale(1.05);
+}
+
+.result-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+}
+
+.result-title {
+  font-size: 10px;
+  margin-top: 5px;
+  height: 2.4em;
+  overflow: hidden;
+}
+
+.form-contents.book-category{
+  margin-bottom: 20px;
+}
+
+.genre-options-wrapper{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: flex-start;
+  margin: 15px 0 25px;
+}
+
+.genre-option{
+  display: none;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: left;
+}
+
+#contents-container {
+  width: 100%;
+}
+
+.content-field {
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .input-main-part{
+    flex: 1;
+  }
+
+  .input-text {
+    flex: 1;/* 残りの幅を全部使う */
+    margin-bottom: 0;
+  }
+}
+
+.remove-content-btn {
+  border: 0.5px solid #ccc;
+  background-color: #f8f8f8;
+  padding: 2px 8px;
+  border-radius: 4px;
+  align-self: flex-start; 
+  margin-top: 10px;
+}
+
+.plus-btn{
+  margin-top: 5px;
+}
+
+@include mobile{
+  .form-wrapper.book-post{
+    width: 90%;
+  }
+
+  .genre-name{
+    font-size: 14px;
+  }
+
+  .content-field {
+    gap: 4px;
+  }
+
+  .plus-btn{
+    font-size: 14px;
+  }
+
+  .remove-content-btn{
+    padding: 2px;
+  }
+}

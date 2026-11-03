@@ -1,0 +1,277 @@
+module UserSupport
+  extend ActiveSupport::Concern
+
+  def open_modal(selector_type, header_menu_text)
+    visit root_path
+
+    # ★ 追加：初期状態の不整合を防ぐため、対象のモーダルを強制的に非表示にする    
+    execute_script(%Q{
+      var modal = document.querySelector(".modal.#{selector_type}");
+      if (modal) { modal.style.display = "none"; }
+    })
+    # 初期状態ではモーダルが非表示であることを確認する
+    expect(page).to have_no_selector(".modal.#{selector_type}", visible: true)
+
+    # ページ内に｢新規登録｣または「ログイン」の文字があることを確認する
+    target = find(".#{selector_type}-menu-text", text: header_menu_text, visible: :all)
+
+    # 画面をスクロールさせる
+    execute_script('arguments[0].scrollIntoView({block: "center"});', target)
+    sleep 0.5
+
+    # マウスホバーしてモーダルを開く
+    target.hover
+    expect(page).to have_selector(".modal.#{selector_type}", visible: true)
+
+    # モーダルの外側をクリックしてモーダルを一度閉じる
+    page.send_keys(:escape)
+
+    # クリックして再度モーダルを開く
+    target.click
+    expect(page).to have_selector(".modal.#{selector_type}", visible: true)
+  end
+
+  def visit_sign_up_page
+    # 新規登録用モーダルに｢メールアドレスでアカウント作成｣のボタンがあることを確認する
+    expect(page).to have_content('メールアドレスでアカウント作成')
+
+    # ボタンをクリックする
+    click_link 'メールアドレスでアカウント作成'
+
+    # 新規登録ページに遷移したことを確認する
+    expect(page).to have_current_path(new_user_registration_path)
+    expect(page).to have_content '新規登録'
+  end
+
+  def toggle_password(password_text, password_confirmation_text)
+    # パスワードの入力欄が最初は非表示（type="password"）であることを確認する
+    expect(page).to have_selector('#password[type="password"]')
+
+    # 確認用パスワードがある場合のみ確認する
+    has_confirmation = page.has_selector?('#password_confirmation')
+    expect(page).to have_selector('#password_confirmation[type="password"]') if has_confirmation
+
+    # 全てのパスワード可視化アイコンをクリックする
+    all('.toggle-password').each(&:click)
+
+    # パスワードと確認用パスワード(あれば)が表示状態になっていることを確認する
+    icon_count = has_confirmation ? 2 : 1
+    expect(page).to have_selector('.fa-eye.toggle-password', count: icon_count)
+    expect(page).to have_selector('#password[type="text"]')
+    expect(page.find('#password').value).to eq password_text
+
+    if has_confirmation
+      expect(page).to have_selector('#password_confirmation[type="text"]')
+      expect(page.find('#password_confirmation').value).to eq password_confirmation_text
+    end
+
+    # 再度アイコンを押すとパスワードと確認用パスワード(あれば)が非表示になることを確認する
+    all('.fa-eye.toggle-password').each(&:click)
+    expect(page).to have_selector('#password[type="password"]')
+
+    return unless has_confirmation
+
+    expect(page).to have_selector('#password_confirmation[type="password"]')
+  end
+
+  def submit_and_expect_success(selector, count_change, flash_message)
+    expect do
+      scroll_display(selector)
+    end.to change { User.count }.by(count_change)
+
+    verify_top_page_after_login(flash_message)
+  end
+
+  def close_modal(selector_name, header_text, selector_type, text_in_modal)
+    visit root_path
+    target = find(selector_name, text: header_text, visible: :all)
+
+    # マウスホバーしてモーダルを開く
+    target.hover
+    expect(page).to have_selector(".modal.#{selector_type}", visible: true)
+
+    # モーダルの外側をクリックしてモーダルを閉じる
+    page.send_keys(:escape)
+
+    # モーダルが非表示になることを確認する
+    expect(page).to have_no_selector(".modal.#{selector_type}", wait: 5)
+
+    # クリックして再度モーダルを開く
+    target.click
+    expect(page).to have_selector(".modal.#{selector_type}", visible: true)
+
+    # モーダルの外側をクリックしてモーダルを閉じる
+    page.send_keys(:escape)
+
+    # モーダルが非表示になり、モーダル内のテキストが表示されないことを確認する
+    expect(page).to have_no_content(text_in_modal)
+  end
+
+  def verify_top_page_after_login(flash_message)
+    expect(page).to have_current_path(root_path, wait: 15)
+
+    # DBに保存されたばかりの最新ユーザーを取得する
+    User.last
+
+    # トップページにフラッシュメッセージが表示されていることを確認する
+    expect(page).to have_selector('.flash-message', text: flash_message)
+
+    # トップページに｢新規登録｣｢ログイン｣ボタンが表示されていないことを確認する
+    expect(page).to have_no_selector('.sign-up-menu-text', text: '新規登録')
+    expect(page).to have_no_selector('.log-in-menu-text', text: 'ログイン')
+
+    # ヘッダーに登録したニックネームと画像が表示されていることを確認する
+    expect(page).to have_selector('.user-nickname', text: user.nickname, visible: false)
+    expect(page).to have_selector('.user-image')
+
+    expect(find('.user-image')[:src]).to include('Zakky')
+  end
+
+  def input_info_and_sign_up(_provider, user)
+    expect(page).to have_content('新規登録', wait: 10)
+
+    # 必須項目を入力または選択する
+    # ニックネーム・メールアドレスが空なら補完
+    fill_in 'nickname', with: user.nickname if find('#nickname').value.blank?
+    fill_in 'birth_date', with: user.birth_date.strftime('%Y-%m-%d')
+    select user.gender.name, from: 'gender'
+    fill_in 'email', with: random_email if find('#email').value.blank?
+
+    # 任意項目の画像を添付する
+    image_test('Zakky.png', 'user[image]')
+
+    execute_script('document.getElementById("sns_auth_process").value = "true";') if has_selector?('#sns_auth_process',
+                                                                                                   visible: false)
+  end
+
+  def redirect_to_top_page_and_show_flash_message(flash_message)
+    # トップページに遷移し、フラッシュメッセージが表示されることを確認する
+    expect(page).to have_current_path(root_path, wait: 10)
+    expect(page).to have_selector('.flash-message', text: flash_message)
+  end
+
+  def click_btn_and_no_change
+    # 「ログイン」ボタンを押す
+    scroll_display('.log-in-submit-btn')
+
+    # ページが遷移していない（＝ログイン後のトップページにいない）ことと、トップページにユーザーのニックネームが表示されていないことを確認する
+    expect(page).to have_current_path(root_path)
+    expect(page).to have_no_content(user.nickname)
+  end
+
+  def create_log_in_mock_data(provider)
+    # モックデータを作成
+    OmniAuth.config.mock_auth[provider.to_sym] = OmniAuth::AuthHash.new({
+                                                                          provider: provider.to_s,
+                                                                          uid: '123456',
+                                                                          info: {
+                                                                            name: user.nickname,
+                                                                            email: user.email
+                                                                          }
+                                                                        })
+  end
+
+  def log_in_and_show_modal
+    # 最初からログイン状態にし、トップページに遷移する
+    login_as(user)
+    visit root_path
+
+    # 初期状態ではモーダルが表示されていないことを確認する
+    expect(page).to have_no_selector('.modal.log-in-user', visible: true)
+
+    # ページ内にログインユーザーのニックネームが表示されていることを確認する
+    login_user_target = find('.user-nickname', text: user.nickname, visible: :all)
+
+    # 画面をスクロールさせる
+    execute_script('arguments[0].scrollIntoView({block: "center"});', login_user_target)
+    sleep 0.5
+
+    # menuの代わりにモーダルを表示状態(block)にするJSを実行
+    execute_script('document.querySelector(".modal.log-in-user").style.display = "block";')
+
+    # モーダルが表示されたことを確認する
+    expect(page).to have_selector('.modal.log-in-user', visible: true)
+  end
+
+  def get_token_and_visit_edit_password_page
+    # メール送信によってDBに保存された「生のトークン」を直接取得する
+    raw_token, hashed_token = Devise.token_generator.generate(User, :reset_password_token)
+    user.update(reset_password_token: hashed_token, reset_password_sent_at: Time.now.utc)
+
+    # トークンを使って編集ページへ直接行く
+    visit edit_user_password_path(reset_password_token: raw_token)
+  end
+
+  def log_in_and_visit_my_page
+    log_in_and_show_modal
+    visit_my_page
+  end
+
+  def show_account_info
+    # マイページにアカウント情報が表示されていることを確認する
+    expect(page).to have_selector('.user-nickname', text: user.nickname, visible: false)
+    expect(page).to have_selector('.current-user-image')
+    expect(find('.current-user-image')[:src]).to include('Zakky')
+    expect(page).to have_content(user.birth_date.strftime('%Y/%m/%d'))
+    expect(page).to have_content(user.gender.name)
+  end
+
+  def show_log_in_info
+    # マイページにログイン情報が表示されていることを確認する
+    expect(page).to have_content(user.masked_email)
+    expect(page).to have_content('********')
+  end
+
+  def click_btn_and_check_account_info
+    # マイページにプロフィール編集ボタンが存在していることを確認する
+    expect(page).to have_selector('.edit-profile.btn-text', text: 'プロフィールを編集する')
+
+    # 編集ボタンを押すとプロフィール編集ページに遷移することを確認する
+    click_on('プロフィールを編集する')
+    expect(page).to have_current_path(edit_profile_user_path(user))
+
+    # すでに登録済みのアカウント情報がフォームに入っていることを確認する
+    expect(
+      find('#nickname').value
+    ).to eq(user.nickname)
+    expect(
+      find('#birth_date').value
+    ).to eq(user.birth_date.to_s)
+    expect(
+      find('#gender').value
+    ).to eq(user.gender_id.to_s)
+
+    # 保存済みの画像がプレビューで表示されていることを確認する
+    expect(page).to have_selector('.upload-image-list img')
+
+    # プレビューのsrc属性にActiveStorageのファイル名が含まれているかを確認する
+    expect(find('.upload-image-list img')[:src]).to include('Zakky')
+  end
+
+  def click_btn_and_visit_my_page_and_show_flash_message(btn_text, flash_message)
+    # ボタンを押す
+    click_on(btn_text)
+
+    # マイページに遷移し、フラッシュメッセージが表示されていることを確認する
+    expect(page).to have_current_path(user_path(user), wait: 10)
+    expect(page).to have_selector('.flash-message', text: flash_message)
+  end
+
+  def click_btn_and_check_email
+    # マイページにメールアドレス変更ボタンが存在していることを確認する
+    expect(page).to have_selector('.edit-log-in-info.btn-text', text: 'メールアドレスを変更する')
+
+    # 変更ボタンを押すとメールアドレス変更ページに遷移することを確認する
+    click_on('メールアドレスを変更する')
+    expect(page).to have_current_path(edit_email_user_path(user))
+  end
+
+  def click_btn_and_visit_edit_password_page
+    # マイページにパスワード変更ボタンが存在していることを確認する
+    expect(page).to have_selector('.edit-log-in-info.btn-text', text: 'パスワードを変更する')
+
+    # 変更ボタンを押すとパスワード変更ページに遷移することを確認する
+    click_on('パスワードを変更する')
+    expect(page).to have_current_path(edit_password_user_path(user))
+  end
+end

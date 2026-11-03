@@ -1,0 +1,37 @@
+@import "config";
+
+footer {
+  position: relative;
+  z-index: 100;
+}
+
+.footer-upper {
+  padding: 20px 0;
+  background-color: silver;
+}
+
+.footer-upper-list {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.footer-lower {
+  text-align: center;
+  background-color: dimgray;
+}
+
+.copyright {
+  color: white;
+  padding: 20px;
+}
+
+@include mobile {
+  .underline-disable-text {
+    font-size: 10px;
+  }
+
+  .copyright{
+    font-size: 13px;
+    padding: 10px;
+  }  
+}

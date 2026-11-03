@@ -1,0 +1,135 @@
+<%= render 'partial_template/header' %>
+
+<main>
+  <div class='book-post-list'>
+    <div class="book-post-list-wrapper">
+      <h2 class="book-post-list-heading">
+        投稿一覧
+      </h2>
+      <% if @books.any? %>
+        <div class="book-cards-container">
+          <ul class="book-cards slick-slider">
+            <% @books.shuffle.each do |book| %>
+              <%= render 'partial_template/book_cards', book: book, path_id: book.user_id, frame_color: 'golden', badge_type: 'book-poster' %>
+            <% end %>
+          </ul>
+        </div>
+      <% else %>
+        <div class="empty-message top-page">
+          <p>投稿はありません</p>
+        </div>
+      <% end %>
+
+      <div class="post-btn-container smp-only">
+        <%= link_to(new_book_path, class: "post-btn hovers") do %>
+          <span class="post-btn-text">投稿する</span>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+
+  <div class='app-description'>
+    <div class="app-description-wrapper">
+      <h2>本を読むと共に、発信する時代へ</h2>
+      <p>読書とSNSを融合させた近代的なアプリ</p>
+      <p>50文字以内で本の内容をアウトプット可</p>
+      <p>老若男女、どなたでも楽しめます。</p>
+      <p class="app-download-text">アプリ版のダウンロードはこちら</p>
+      <div class="store-btns">
+        <%= link_to root_path do %>
+          <%= image_tag("google-play-badge.png", class: "store-btn hovers", alt: "Google Playで手に入れよう") %>
+        <% end %>
+        <%= link_to root_path do %>
+          <%= image_tag("apple-store-badge.png", class: "store-btn hovers", alt: "App Storeからダウンロード") %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class='app-feature'>
+    <div class="app-feature-outer">
+      <h2 class="app-feature-heading">
+        アプリの特徴
+      </h2>
+      <div class="app-feature-wrapper swiper">
+        <div class="app-feature-container swiper-wrapper">
+          <div class="app-feature-contents swiper-slide">
+            <%= image_tag("app_feature_1.png", class: "feature-image") %>
+            <h2 class="app-feature-sentence">
+              読んだ本の内容や感想を50文字以内で投稿可
+            </h2>
+          </div>
+
+          <div class="app-feature-contents swiper-slide">
+            <%= image_tag("app_feature_2.png", class: "feature-image") %>
+            <h2 class="app-feature-sentence">
+              新規登録はわずか3ステップで完了
+            </h2>
+          </div>
+
+          <div class="app-feature-contents swiper-slide">
+            <%= image_tag("app_feature_3.png", class: "feature-image") %>
+            <h2 class="app-feature-sentence">
+              投稿に高評価やコメントもつけられます
+            </h2>
+          </div>
+        </div>
+        <div class="pagination"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq">
+    <div class='faq-wrapper'>
+      <h2 class="faq-heading">
+        よくある質問
+      </h2>
+      <ul class="faq-list">
+        <li class="question-and-answer">
+          <h3 class="question">
+            Q 費用はかかりますか？
+          </h3>
+          <span>+</span>
+          <div class="answer">
+            A 一切かかりません。無料でご利用いただけます。
+          </div>
+        </li>
+        <li class="question-and-answer">
+          <h3 class="question">
+            Q 新規登録をしなくても利用できますか？
+          </h3>
+          <span>+</span>
+          <div class="answer">
+            <p>A 未登録でもご利用可能なサービスは以下の通りです。</p>
+            <br>
+            <p>・投稿閲覧</p>
+            <p>・投稿検索</p>
+            <br>
+            <p>以下のサービスを利用したい場合は、新規登録とログインが必要です。</p>
+            <br>
+            <p>・新規投稿</p>
+            <p>・コメント投稿</p>
+            <p>・高評価</p>
+            <p>・お気に入り追加</p>
+          </div>
+        </li>
+        <li class="question-and-answer">
+          <h3 class="question">
+            Q レビューのように長文で感想を書ける自信がありません。
+          </h3>
+          <span>+</span>
+          <div class="answer">
+            A 無理に長文を書く必要はございません。数十文字〜50文字書けば投稿可能です。
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</main>
+
+<%= link_to(new_book_path, class: "right-bottom-btn post hovers pc-only") do %>
+  <span class="right-bottom-btn-text post">投稿する</span>
+<% end %>
+
+<%= render 'partial_template/footer' %>

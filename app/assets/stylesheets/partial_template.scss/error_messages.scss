@@ -1,0 +1,37 @@
+@import "config";
+
+.error-wrapper {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+}
+
+.error-list {
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+.error-item {
+  width: 100%;
+  color: red;
+  font-size: 14px;
+  text-align: left;
+  font-weight: bold;
+}
+
+.error-message.is-full-with{
+  margin-bottom: 15px;
+}
+
+.edit-email {
+  .error-item {
+    width: 300px;
+  }
+}
+
+@include mobile {
+  .error-item{
+    font-size: 12px;
+  }
+}
